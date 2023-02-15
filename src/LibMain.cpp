@@ -14,12 +14,12 @@ template <typename T> void Ignore(T const &) noexcept
 const std::string XMLProductDescription =
     // Replace with your information
     "<Library>"
-    "  <Product"
-    "    Name=\"Hello GP - CPP\""
-    "    Version=\"1.0\""
-    "    BuildDate=\"06/10/2022\">"
+    "  <Product>"
+    "    Name=\"Global Rackspace\""
+    "    Version=\"0.1\""
+    "    BuildDate=\"12/02/2023\">"
     "  </Product> "
-    "  <Description>Briefly describe your product</Description>"
+    "  <Description>Global Rackspace for GigPerformer</Description>"
     "  <ImagePath>/Path/To/ImageFile/foo.jpg</ImagePath>"
     "</Library>";
 
@@ -144,7 +144,16 @@ void LibMain::OnGlobalPlayStateChanged(bool playing)
     // switchToSetlistView();
     // switchToWiringView();
 
-    int color = RGBAToColor(1, 0, 0, 0.5);
+    int color;
+
+    if (playing)
+    {
+        color = RGBAToColor(0.0, 1.0, 0.0, 0.5);
+    }
+    else
+    {
+        color = RGBAToColor(1.0, 0.0, 0.0, 0.5);
+    }
     setWidgetFillColor("MyShape", color);
 
     double red, green, blue, alpha;
@@ -181,6 +190,30 @@ void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValu
     // }
 }
 
+bool LibMain::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
+{
+    bool processed = false;
+
+    if (deviceName == "PrimaryKeyboardMidiInBlock")
+    {
+        processed = _primaryKeyboardMidiInBlock->OnMidiIn(data, length);
+    }
+    else if (deviceName == "SecondaryKeyboardMidiInBlock")
+    {
+        // TODO
+    }
+    else if (deviceName == "Fcb1010MidiInBlock")
+    {
+        // TODO
+    }
+    else
+    {
+        // TODO: Error
+    }
+
+    return processed;
+}
+
 void LibMain::OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vector<std::string> &outputs)
 {
     for (std::size_t i = 0; i < inputs.size(); i++)
@@ -215,12 +248,15 @@ void LibMain::Initialization()
 {
     // Do any initialization that you need
 
+    _primaryKeyboardMidiInBlock = std::make_unique<PrimaryKeyboardMidiInBlock>();
+
     // .... your code here
 
     // Finally, register all the methods that you are going to actually use,
     // i.e, the ones you declared above as override
     registerCallback("OnSongChanged");
     registerCallback("OnStatusChanged");
+    registerCallback("OnMidiIn");
     registerCallback("OnMidiDeviceListChanged");
     registerCallback("OnWidgetValueChanged");
     registerCallback("OnWidgetStateChanged");
@@ -283,8 +319,11 @@ ExternalAPI_GPScriptFunctionDefinition functionList[] = {
     {"DupString", "a : String", "Returns String", "Return with the string twice", DupString},
 };
 
+#pragma warning(push)
+#pragma warning(disable : 26812)
 int LibMain::RequestGPScriptFunctionSignatureList(GPScript_AllowedLocations location,
                                                   ExternalAPI_GPScriptFunctionDefinition **list)
+#pragma warning(pop)
 {
     Ignore(location);
 
@@ -298,11 +337,10 @@ namespace gigperformer
 {
 namespace sdk
 {
-
 GigPerformerAPI *CreateGPExtension(LibraryHandle handle)
 {
+
     return new LibMain(handle);
 }
-
 } // namespace sdk
 } // namespace gigperformer

@@ -19,11 +19,13 @@
             "inherits": [
                 "common"
             ],
-            "cacheVariables": {
-                "CMAKE_C_FLAGS": "-Wall -Wextra -pedantic",
-                "CMAKE_CXX_FLAGS": "-Wall -Wextra -pedantic",
-                "GIG_PERFORMER_EXTENSIONS_DIRECTORY": "/Users/Shared/Gig Performer/Extensions"
-            },
+          "cacheVariables": {
+            //"CMAKE_C_FLAGS": "-Wall -Wextra -pedantic",
+            "CMAKE_C_FLAGS": "-Wall -pedantic",
+            //"CMAKE_CXX_FLAGS": "-Wall -Wextra -pedantic",
+            "CMAKE_CXX_FLAGS": "-Wall -pedantic",
+            "GIG_PERFORMER_EXTENSIONS_DIRECTORY": "/Users/Shared/Gig Performer/Extensions"
+          },
             "environment": {
                 "MACOSX_DEPLOYMENT_TARGET": "10.09"
             }
@@ -47,8 +49,8 @@
                 "common"
             ],
             "cacheVariables": {
-                "CMAKE_C_FLAGS": "/EHsc /MTd /W2 /c",
-                "CMAKE_CXX_FLAGS": "/EHsc /MTd /W2 /c",
+                "CMAKE_C_FLAGS": "/EHsc /MDd /W2 /c",
+                "CMAKE_CXX_FLAGS": "/EHsc /MDd /W2 /c",
                 "GIG_PERFORMER_EXTENSIONS_DIRECTORY": "$env{SystemDrive}\\Users\\Public\\Documents\\Gig Performer\\Extensions"
             }
         }

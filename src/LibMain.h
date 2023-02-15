@@ -1,9 +1,21 @@
 #pragma once
 
+#include <cassert>
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <stdexcept>
+
+#include <utility> //declarations of unique_ptr
+// using std::unique_ptr;
+
 #include "gigperformer/sdk/GPMidiMessages.h"
 #include "gigperformer/sdk/GPUtils.h"
 #include "gigperformer/sdk/GigPerformerAPI.h"
 #include "gigperformer/sdk/types.h"
+
+#include "MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
 
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
@@ -18,6 +30,8 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     std::string GetMenuName(int index) override;
     void InvokeMenu(int itemIndex) override;
 
+    std::unique_ptr<PrimaryKeyboardMidiInBlock> _primaryKeyboardMidiInBlock;
+
   public:
     // These must be here but no need to do anything unless you want extra behavior
     explicit LibMain(LibraryHandle handle) : GigPerformerAPI(handle)
@@ -28,7 +42,10 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     {
     }
 
+#pragma warning(push)
+#pragma warning(disable : 26812)
     void OnStatusChanged(GPStatusType status) override
+#pragma warning(pop)
     {
         consoleLog("Gig status changed to " + std::to_string(status));
     }
@@ -61,6 +78,8 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     // call RegisterCallback for each of these methods
 
     void OnWidgetValueChanged(const std::string &widgetName, double newValue) override;
+
+    bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
     // A midi device was added or removed
     void OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vector<std::string> &outputs) override;
