@@ -49,6 +49,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/PrimaryKeyboardButtonsPane.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widget.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widget.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widgets.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widgets.cpp"
  )
 target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
 target_include_directories(${PROJECT_NAME}

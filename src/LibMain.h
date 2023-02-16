@@ -15,8 +15,6 @@
 #include "gigperformer/sdk/GigPerformerAPI.h"
 #include "gigperformer/sdk/types.h"
 
-#include "MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
-
 // MVC
 #include "Controller/Controller.h"
 #include "Model/Model.h"
@@ -36,16 +34,20 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     std::string GetMenuName(int index) override;
     void InvokeMenu(int itemIndex) override;
 
-    PrimaryKeyboardMidiInBlock* _primaryKeyboardMidiInBlock;
 
   public:
     // These must be here but no need to do anything unless you want extra behavior
-    explicit LibMain(LibraryHandle handle) : GigPerformerAPI(handle)
+    explicit LibMain(LibraryHandle handle)
+		 : GigPerformerAPI(handle),
+		  _controller(nullptr), _model(nullptr), _view(nullptr)
     {
     }
 
     ~LibMain() override
     {
+        delete _controller;
+        delete _model;
+        delete _view;
     }
 
 #pragma warning(push)

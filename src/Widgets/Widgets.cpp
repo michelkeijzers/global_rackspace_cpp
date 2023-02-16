@@ -1,19 +1,14 @@
 
-#ifdef _CONSOLE
-   #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerFunctions.h"
-#else
-   #include "gigperformer/sdk/GigPerformerFunctions.h"
-#endif
-
 #include <vector>
 #include "../Utilities/Debug.h"
 #include "Widgets.h"
 #include "Widget.h"
 
-Widgets::Widgets()
+Widgets::Widgets(gigperformer::sdk::GigPerformerAPI *gig_performer_api)
 {
     std::vector<std::string> widgetNames;
-    getWidgetList(widgetNames, true); // Use global rackspace
+    
+	 gig_performer_api->getWidgetList(widgetNames, true); // Use global rackspace
 
 	 for (std::string widgetName : widgetNames) 
 		 {
