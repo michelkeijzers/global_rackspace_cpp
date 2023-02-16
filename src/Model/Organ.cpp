@@ -1,11 +1,8 @@
 #include "Organ.h"
 
-Organ::Organ() 
-	: _isPresent(false),
-	_rotatorSpeed(EOrganRotatorSpeed::Off)
+Organ::Organ() : _isPresent(false), _isRotatorSpeedFast(false)
 {
 }
-
 
 bool Organ::IsPresent()
 {
@@ -17,27 +14,22 @@ void Organ::SetIsPresent(bool isPresent)
     _isPresent = isPresent;
 }
 
-
-EOrganRotatorSpeed Organ::GetRotatorSpeed()
+bool Organ::IsRotatorSpeedFast()
 {
-    return _rotatorSpeed;
+    return _isRotatorSpeedFast;
 }
 
-void Organ::SetRotatorSpeed(EOrganRotatorSpeed rotatorSpeed)
+void Organ::SetRotatorSpeedFast(bool rotatorSpeedFast)
 {
-    _rotatorSpeed = rotatorSpeed;
+    if (rotatorSpeedFast != _isRotatorSpeedFast)
+    {
+        _isRotatorSpeedFast = rotatorSpeedFast;
+    }
 }
 
-EOrganRotatorSpeed Organ::SwapRotatorSpeed()
+bool Organ::SwapRotatorSpeed()
 {
-    if (_rotatorSpeed == EOrganRotatorSpeed::Fast)
-    {
-        SetRotatorSpeed(EOrganRotatorSpeed::Slow);
-    }
-    else if (_rotatorSpeed == EOrganRotatorSpeed::Slow)
-    {
-        SetRotatorSpeed(EOrganRotatorSpeed::Fast);
-    }
+    SetRotatorSpeedFast(!_isRotatorSpeedFast);
 
-    return _rotatorSpeed;
+    return _isRotatorSpeedFast;
 }

@@ -17,6 +17,12 @@
 
 #include "MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
 
+// MVC
+#include "Controller/Controller.h"
+#include "Model/Model.h"
+#include "View/View.h"
+#include <memory>
+
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
   protected:
@@ -30,7 +36,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     std::string GetMenuName(int index) override;
     void InvokeMenu(int itemIndex) override;
 
-    std::unique_ptr<PrimaryKeyboardMidiInBlock> _primaryKeyboardMidiInBlock;
+    PrimaryKeyboardMidiInBlock* _primaryKeyboardMidiInBlock;
 
   public:
     // These must be here but no need to do anything unless you want extra behavior
@@ -97,4 +103,9 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 
     // This MUST be defined in your class
     std::string GetProductDescription() override;
+
+    // MVC
+    Model* _model;
+    View* _view;
+    Controller* _controller;
 };

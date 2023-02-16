@@ -192,26 +192,7 @@ void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValu
 
 bool LibMain::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {
-    bool processed = false;
-
-    if (deviceName == "PrimaryKeyboardMidiInBlock")
-    {
-        processed = _primaryKeyboardMidiInBlock->OnMidiIn(data, length);
-    }
-    else if (deviceName == "SecondaryKeyboardMidiInBlock")
-    {
-        // TODO
-    }
-    else if (deviceName == "Fcb1010MidiInBlock")
-    {
-        // TODO
-    }
-    else
-    {
-        // TODO: Error
-    }
-
-    return processed;
+    return _controller->OnMidiIn(deviceName, data, length);
 }
 
 void LibMain::OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vector<std::string> &outputs)
@@ -248,8 +229,6 @@ void LibMain::Initialization()
 {
     // Do any initialization that you need
 
-    _primaryKeyboardMidiInBlock = std::make_unique<PrimaryKeyboardMidiInBlock>();
-
     // .... your code here
 
     // Finally, register all the methods that you are going to actually use,
@@ -272,6 +251,17 @@ void LibMain::Initialization()
     listenForWidget("def", true);
 
     consoleLog("path to library " + getPathToMe());
+
+
+	 // MVC
+    _model = new Model();
+    _view = new View();
+    _controller = new Controller(_model, _view);
+    
+    _controller->FillControllers();
+    _controller->FillMidiInBlocks();
+
+	 
 }
 
 std::string LibMain::GetProductDescription()

@@ -2,10 +2,12 @@
 
 #include "MidiInBlock.h"
 
+class Controller;
+
 class PrimaryKeyboardMidiInBlock : public MidiInBlock
 {
   public:
-    PrimaryKeyboardMidiInBlock();
+    PrimaryKeyboardMidiInBlock(Controller* controller);
 
     /* override */ bool OnMidiIn(const uint8_t *data, int length);
 

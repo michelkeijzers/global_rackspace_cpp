@@ -4,7 +4,7 @@
 
 /* static */ bool MidiMessage::IsChannel1(const uint8_t *data, int length)
 {
-    return ((length >= 1) && ((data[0] & 0x0F) == 0x01));
+    return ((length >= 1) && ((data[0] & 0x0F) == 0x00));
 }
 
 
