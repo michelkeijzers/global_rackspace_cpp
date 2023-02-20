@@ -1,3 +1,4 @@
+#include <memory>
 #include "Pane.h"
 #include "../../Utilities/Debug.h"
 
@@ -5,13 +6,13 @@ Pane::Pane()
 {
 }
 
-void Pane::AddWidget(std::string widgetName)
+void Pane::AddWidgetName(std::string widgetName)
 {
-    _widgets.push_back(new Widget(widgetName));
+    _widgetNames.push_back(widgetName);
 }
 
-Widget* Pane::GetWidgetByIndex(uint8_t index)
+std::string Pane::GetWidgetNameByIndex(uint8_t index)
 {
-    Debug::Assert(index < _widgets.size(), __FUNCTION__, ": Widget index out of range");
-    return _widgets[index];
+    Debug::Assert(index < _widgetNames.size(), __FUNCTION__, ": Widget index out of range");
+    return _widgetNames[index];
 }

@@ -1,41 +1,41 @@
+#include <memory>
 #include "Controller.h"
 #include "../Plugins/OrganPlugin.h"
 #include "../MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
 #include "../Controller/OrganController.h"
 
-Controller::Controller(Model* model, View* view)
+Controller::Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view)
     : _model(model), _view(view), _organController(nullptr), _primaryKeyboardMidiInBlock(nullptr)
 {
 }
 
 
-Controller::~Controller()
-{
-    delete _organController;
-    delete _primaryKeyboardMidiInBlock;
-}
-
-
 void Controller::FillControllers()
 {
-    OrganPlugin* organPlugin = new OrganPlugin("OrganPlugin"); // Delete somewhere, change to class var
-    _organController = new OrganController(this, organPlugin);
+    std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>("OrganPlugin");
+    _organController = std::make_shared<OrganController>(this, organPlugin);
 }
 
 
 void Controller::FillMidiInBlocks()
 {
-    _primaryKeyboardMidiInBlock = new PrimaryKeyboardMidiInBlock(this);
+    _primaryKeyboardMidiInBlock = std::make_shared<PrimaryKeyboardMidiInBlock>(this);
 }
 
 
-Model* Controller::GetModel()
+std::shared_ptr<Model> Controller::GetModel()
 {
     return _model;
 }
 
 
-OrganController* Controller::GetOrganController()
+std::shared_ptr<View> Controller::GetView()
+{
+    return _view;
+}
+
+
+std::shared_ptr<OrganController> Controller::GetOrganController()
 {
     return _organController;
 }
@@ -55,7 +55,7 @@ bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, in
     }
     else if (deviceName == "Fcb1010MidiInBlock")
     {
-        // TODO
+        // TODO 
     }
     else
     {

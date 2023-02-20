@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "MidiInBlock.h"
 
 class Controller;

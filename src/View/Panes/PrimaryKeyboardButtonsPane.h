@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "Pane.h"
 #include "../../Widgets/Widget.h"
 
@@ -24,5 +25,5 @@ class PrimaryKeyboardButtonsPane : public Pane
 
 	 PrimaryKeyboardButtonsPane();
 
-    Widget* GetButtonWidget(EButton button);
+    std::string GetButtonWidget(EButton button);
 };

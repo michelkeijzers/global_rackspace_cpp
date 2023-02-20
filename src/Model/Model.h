@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "Organ.h"
 
 class Model
@@ -7,7 +8,7 @@ class Model
   public:
     Model();
 
-	 Organ *GetOrgan();
+	 Organ* GetOrgan();
 
   private:
 	 Organ _organ;

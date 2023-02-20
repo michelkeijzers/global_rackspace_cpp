@@ -1,5 +1,6 @@
 #include "LibMain.h"
 
+#include <memory>
 #include <cstdint>
 
 using GPUtils = gigperformer::sdk::GPUtils;
@@ -254,8 +255,8 @@ void LibMain::Initialization()
 
 
 	 // MVC
-    _model = new Model();
-    _view = new View(this);
+    _model = std::make_shared<Model>();
+    _view = std::make_shared<View>(this);
     _controller = new Controller(_model, _view);
     
     _controller->FillControllers();

@@ -1,15 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\Controller",
-    "\\src\\MidiInBlocks",
-    "\\src\\Model",
-    "\\src\\Plugins",
-    "\\src\\Utilities",
-    "\\src\\View",
-    "\\src\\View\\Panes",
-    "\\src\\Widgets"
+    ""
   ],
   "SelectedNode": "\\tester.cpp",
   "PreviewInSolutionExplorer": false

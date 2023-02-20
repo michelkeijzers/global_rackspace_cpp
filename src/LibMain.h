@@ -46,8 +46,6 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     ~LibMain() override
     {
         delete _controller;
-        delete _model;
-        delete _view;
     }
 
 #pragma warning(push)
@@ -107,7 +105,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     std::string GetProductDescription() override;
 
     // MVC
-    Model* _model;
-    View* _view;
+    std::shared_ptr<Model> _model;
+    std::shared_ptr<View> _view;
     Controller* _controller;
 };
