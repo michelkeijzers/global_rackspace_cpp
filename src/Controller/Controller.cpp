@@ -1,18 +1,23 @@
 #include <memory>
+
 #include "Controller.h"
+#include "../Utilities/Debug.h"
 #include "../Plugins/OrganPlugin.h"
 #include "../MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
 #include "../Controller/OrganController.h"
 
-Controller::Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view)
-    : _model(model), _view(view), _organController(nullptr), _primaryKeyboardMidiInBlock(nullptr)
+
+Controller::Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view,
+                       gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
+    : _model(model), _view(view), _organController(nullptr), _gigPerformerApi(gigPerformerApi),
+	   _primaryKeyboardMidiInBlock(nullptr)
 {
 }
 
 
 void Controller::FillControllers()
 {
-    std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>("OrganPlugin");
+    std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>(this);
     _organController = std::make_shared<OrganController>(this, organPlugin);
 }
 
@@ -32,6 +37,12 @@ std::shared_ptr<Model> Controller::GetModel()
 std::shared_ptr<View> Controller::GetView()
 {
     return _view;
+}
+
+
+gigperformer::sdk::GigPerformerAPI *Controller::GetGigPerformerAPI()
+{
+    return _gigPerformerApi;
 }
 
 

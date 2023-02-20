@@ -43,11 +43,6 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     {
     }
 
-    ~LibMain() override
-    {
-        delete _controller;
-    }
-
 #pragma warning(push)
 #pragma warning(disable : 26812)
     void OnStatusChanged(GPStatusType status) override
@@ -107,5 +102,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     // MVC
     std::shared_ptr<Model> _model;
     std::shared_ptr<View> _view;
-    Controller* _controller;
+    std::shared_ptr<Controller> _controller;
+
+	 std::shared_ptr<WidgetsListener> _widgetsListener;
 };

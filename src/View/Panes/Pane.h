@@ -3,7 +3,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "../../Widgets/Widget.h"
 
 class Pane
 {

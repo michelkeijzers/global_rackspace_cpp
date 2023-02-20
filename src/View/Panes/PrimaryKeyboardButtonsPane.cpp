@@ -1,8 +1,8 @@
 #include "PrimaryKeyboardButtonsPane.h"
 
-#include "../../Widgets/Widget.h"
 
 /* static */ const std::string PrimaryKeyboardButtonsPane::WIDGET_BUTTON_NAME = "BUTTON_";
+
 
 PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane()
 {
@@ -11,6 +11,7 @@ PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane()
         AddWidgetName(WIDGET_BUTTON_NAME + std::to_string(buttonIndex + 1));
     }
 }
+
 
 std::string PrimaryKeyboardButtonsPane::GetButtonWidget(PrimaryKeyboardButtonsPane::EButton button)
 {

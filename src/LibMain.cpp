@@ -1,9 +1,12 @@
 #include "LibMain.h"
 
-#include <memory>
 #include <cstdint>
+#include <memory>
+#include "Utilities/Debug.h"
+#include "Widgets/WidgetsListener.h"
 
 using GPUtils = gigperformer::sdk::GPUtils;
+
 
 /// Ignore a given value
 /// \details this is a dummy function to suppress compiler warnings about unused parameters
@@ -164,31 +167,21 @@ void LibMain::OnGlobalPlayStateChanged(bool playing)
 
 void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
-    Ignore(widgetName);
-    Ignore(newValue);
+    _widgetsListener->OnWidgetValueChanged(widgetName, newValue);
+    //Ignore(widgetName);
+    //Ignore(newValue);
 
     // int noteNumber = (int)GPUtils::Scale(newValue, 0.0, 1.0, 36, 96);
     // GPMidiMessage n = GPMidiMessage::makeNoteOnMessage(noteNumber, 64, 0);
     // const std::string device = "MIDI Monitor (Untitled)";
     // sendMidiMessageToMidiOutDevice(device, n);
 
-    std::string caption = getWidgetCaption("abc");
-    consoleLog("caption: " + caption);
-    std::string value = getWidgetTextValue("abc");
-    consoleLog("value: " + value);
-
-    // consoleLog(newValue > 0.5 ? "Yes" : "No");
-    // if (newValue > 0.5)
-    // {
-    //     if (widgetName == "abc")
-    //     {
-    //         next();
-    //     }
-    //     else
-    //     {
-    //         previous();
-    //     }
-    // }
+    //std::string caption = getWidgetCaption("Button9");
+    //consoleLog("caption: " + caption);
+    //std::string value = getWidgetTextValue("Button9");
+    //consoleLog("value: " + value);
+  
+    //consoleLog(newValue > 0.5 ? "Yes" : "No");
 }
 
 bool LibMain::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
@@ -248,21 +241,22 @@ void LibMain::Initialization()
     registerCallback("OnTempoChanged");
     registerCallback("OnSetlistChanged");
     registerCallback("OnRackspaceActivated");
-    listenForWidget("abc", true);
-    listenForWidget("def", true);
+    listenForWidget("Button9", true);
 
+	 consoleLog("Version 0.01");
     consoleLog("path to library " + getPathToMe());
 
+    Debug::SetGigPerformerApi(this);
+    Debug::LogHeaders(true);
 
-	 // MVC
+    // MVC
     _model = std::make_shared<Model>();
     _view = std::make_shared<View>(this);
-    _controller = new Controller(_model, _view);
-    
+    _controller = std::make_shared<Controller>(_model, _view, this);
+    _widgetsListener = std::make_shared<WidgetsListener>(_controller, this);
+
     _controller->FillControllers();
     _controller->FillMidiInBlocks();
-
-	 
 }
 
 std::string LibMain::GetProductDescription()

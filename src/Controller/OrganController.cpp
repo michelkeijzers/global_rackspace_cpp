@@ -1,5 +1,7 @@
 #include <iostream>
 #include <memory>
+
+#include "../Utilities/Debug.h"
 #include "OrganController.h"
 #include "../Model/Model.h"
 #include "../Model/Organ.h"
@@ -21,6 +23,9 @@ void OrganController::SetIsPresent(bool isPresent)
 
 void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
 {
+    Debug::LogMethodEntry(__FUNCTION__, 
+		 "newRotatorSpeedFast = " + std::to_string(newRotatorSpeedFast) + ", forced = " + std::to_string(forced));
+
     Organ *organ = _controller->GetModel()->GetOrgan();
     bool currentRotatorSpeedFast = organ->IsRotatorSpeedFast();
 
@@ -32,15 +37,19 @@ void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
 		  _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedFast", newRotatorSpeedFast);
         _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedSlow", !newRotatorSpeedFast);
     }
+
+	 Debug::LogMethodExit(__FUNCTION__);
 }
 
 
 void OrganController::SwapRotatorSpeed()
 {
-    std::cout << "SwapRotatorSpeed\n";
+    Debug::LogMethodEntry(__FUNCTION__);
 
     bool newRotatorSpeedFast = !_controller->GetModel()->GetOrgan()->IsRotatorSpeedFast();
     SetRotatorSpeed(newRotatorSpeedFast, false); // Never forced
+
+	 Debug::LogMethodExit(__FUNCTION__);
 }
 
 

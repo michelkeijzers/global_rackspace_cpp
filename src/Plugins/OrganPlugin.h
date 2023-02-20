@@ -1,12 +1,18 @@
 #pragma once
 
+
 #include "Plugin.h"
+
+
+class Controller;
+
 
 class OrganPlugin : public Plugin
 {
   public:
-    OrganPlugin();
-    OrganPlugin(std::string name);
+    OrganPlugin(Controller* controller);
 
 	 void SetRotatorSpeedFast(bool fast);
+
+	 Controller *_controller;
 };

@@ -2,25 +2,23 @@
 
 #include <memory>
 #include <string>
-#include <vector>
+
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
-class Widgets
+class Controller;
+
+class WidgetsListener
 {
   public:
-    Widgets(gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
+    WidgetsListener(std::shared_ptr<Controller> controller, gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
 
-    void SetValue(std::string widgetName, double value);
-    void ShowWidget(std::string widgetName, bool show);
+    void OnWidgetValueChanged(const std::string &widgetName, double newValue);
 
   private:
-    void AssertIfWidgetDoesNotExist(std::string widgetName);
-
-    std::vector<std::string> _widgetNames;
-
+    std::shared_ptr<Controller> _controller;
     gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
 };

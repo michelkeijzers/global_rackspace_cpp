@@ -2,7 +2,6 @@
 
 #include <string>
 #include "Pane.h"
-#include "../../Widgets/Widget.h"
 
 class PrimaryKeyboardButtonsPane : public Pane
 {
