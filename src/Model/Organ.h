@@ -17,7 +17,7 @@ class Organ
 
     bool IsRotatorSpeedFast();
     void SetRotatorSpeedFast(bool rotatorSpeedFast);
-    bool SwapRotatorSpeed();
+    void SwapRotatorSpeed();
 
   private:
     bool _isPresent;

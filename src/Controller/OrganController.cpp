@@ -12,23 +12,35 @@ OrganController::OrganController(Controller* controller, std::shared_ptr<OrganPl
 {
 }
 
-void OrganController::UpdateIsPresent(bool isPresent)
+
+void OrganController::SetIsPresent(bool isPresent)
 {
     //_isPresent = isPresent;
 }
 
-void OrganController::UpdateRotatorSpeed(bool fast, bool forced /* = false */)
+
+void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
 {
-    bool currentRotatorSpeedFast = _controller->GetModel()->GetOrgan()->IsRotatorSpeedFast();
-    _organPlugin->SetRotatorSpeedFast(fast);
-    if (forced || currentRotatorSpeedFast != fast)
-    _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedFast", fast);
-    _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedSlow", !fast);
+    Organ *organ = _controller->GetModel()->GetOrgan();
+    bool currentRotatorSpeedFast = organ->IsRotatorSpeedFast();
+
+    // Update widgets
+    if (forced || currentRotatorSpeedFast != newRotatorSpeedFast)
+    {
+        organ->SetRotatorSpeedFast(newRotatorSpeedFast);
+        _organPlugin->SetRotatorSpeedFast(newRotatorSpeedFast);
+		  _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedFast", newRotatorSpeedFast);
+        _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedSlow", !newRotatorSpeedFast);
+    }
 }
 
-bool OrganController::SwapRotatorSpeed()
+
+void OrganController::SwapRotatorSpeed()
 {
-    bool fast = _controller->GetModel()->GetOrgan()->SwapRotatorSpeed();
-    UpdateRotatorSpeed(fast);
-    return fast;
+    std::cout << "SwapRotatorSpeed\n";
+
+    bool newRotatorSpeedFast = !_controller->GetModel()->GetOrgan()->IsRotatorSpeedFast();
+    SetRotatorSpeed(newRotatorSpeedFast, false); // Never forced
 }
+
+

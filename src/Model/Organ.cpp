@@ -27,9 +27,7 @@ void Organ::SetRotatorSpeedFast(bool rotatorSpeedFast)
     }
 }
 
-bool Organ::SwapRotatorSpeed()
+void Organ::SwapRotatorSpeed()
 {
     SetRotatorSpeedFast(!_isRotatorSpeedFast);
-
-    return _isRotatorSpeedFast;
 }
