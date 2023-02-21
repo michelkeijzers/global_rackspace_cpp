@@ -3,6 +3,8 @@
 #include <string>
 #include "Pane.h"
 
+class View;
+
 class PrimaryKeyboardButtonsPane : public Pane
 {
   public:
@@ -22,7 +24,9 @@ class PrimaryKeyboardButtonsPane : public Pane
 		  LAST_BUTTON
     };
 
-	 PrimaryKeyboardButtonsPane();
+	 PrimaryKeyboardButtonsPane(View* view);
+
+	 void Init() override;
 
     std::string GetButtonWidget(EButton button);
 };

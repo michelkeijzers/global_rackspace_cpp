@@ -15,6 +15,13 @@ OrganController::OrganController(Controller* controller, std::shared_ptr<OrganPl
 }
 
 
+void OrganController::Init()
+{
+    SetIsPresent(true);
+    SetRotatorSpeed(false, true);
+}
+
+
 void OrganController::SetIsPresent(bool isPresent)
 {
     //_isPresent = isPresent;
@@ -33,9 +40,11 @@ void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
     if (forced || currentRotatorSpeedFast != newRotatorSpeedFast)
     {
         organ->SetRotatorSpeedFast(newRotatorSpeedFast);
+        double red = newRotatorSpeedFast ? 1.0 : 0.0;
+        double green = newRotatorSpeedFast ? 0.0 : 1.0;
         _organPlugin->SetRotatorSpeedFast(newRotatorSpeedFast);
-		  _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedFast", newRotatorSpeedFast);
-        _controller->GetView()->ShowWidget("TextLabelOrganRotatorSpeedSlow", !newRotatorSpeedFast);
+        _controller->GetView()->SetWidgetLabelText("TextLabelOrganRotatorSpeed", newRotatorSpeedFast ? "FAST" : "SLOW");
+        _controller->GetView()->SetWidgetFillColor("TextLabelOrganRotatorSpeed", red, green, 0.0, 1.0);
     }
 
 	 Debug::LogMethodExit(__FUNCTION__);

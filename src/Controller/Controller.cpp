@@ -28,6 +28,13 @@ void Controller::FillMidiInBlocks()
 }
 
 
+void Controller::Init()
+{
+    // TODO: make sub controller list???
+    _organController->Init();
+}
+
+
 std::shared_ptr<Model> Controller::GetModel()
 {
     return _model;

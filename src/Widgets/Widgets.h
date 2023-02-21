@@ -16,6 +16,9 @@ class Widgets
 
     void SetValue(std::string widgetName, double value);
     void ShowWidget(std::string widgetName, bool show);
+    void SetWidgetLabelText(std::string widgetName, std::string labelText);
+    void SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha);
+
 
   private:
     void AssertIfWidgetDoesNotExist(std::string widgetName);

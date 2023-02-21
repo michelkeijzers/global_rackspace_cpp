@@ -208,10 +208,7 @@ void LibMain::OnWidgetCaptionChanged(const std::string &widgetName, const std::s
 
 void LibMain::OnSongChanged(int oldIndex, int newIndex)
 {
-    Ignore(oldIndex);
-    consoleLog("Song changed from C++ example");
-    std::string name = getSongName(newIndex);
-    consoleLog("New song is called " + name);
+    _controller->Init();
 }
 
 void LibMain::OnWidgetStateChanged(const std::string &widgetName, int newState)
@@ -257,6 +254,7 @@ void LibMain::Initialization()
 
     _controller->FillControllers();
     _controller->FillMidiInBlocks();
+    _controller->Init();
 }
 
 std::string LibMain::GetProductDescription()

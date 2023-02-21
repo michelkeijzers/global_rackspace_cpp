@@ -2,7 +2,7 @@
 #include "Pane.h"
 #include "../../Utilities/Debug.h"
 
-Pane::Pane()
+Pane::Pane(View* view) : _view(view)
 {
 }
 

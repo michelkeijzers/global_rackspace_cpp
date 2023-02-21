@@ -4,15 +4,21 @@
 #include <string>
 #include <vector>
 
+class View;
+
 class Pane
 {
   public:
-    Pane();
+    Pane(View *view);
 
-	 void AddWidgetName(std::string widgetName);
+    virtual void Init() = 0;
 
-	 std::string GetWidgetNameByIndex(uint8_t index);
+    void AddWidgetName(std::string widgetName);
 
-	private:
+    std::string GetWidgetNameByIndex(uint8_t index);
+
+  private:
     std::vector<std::string> _widgetNames;
+
+    View *_view;
 };

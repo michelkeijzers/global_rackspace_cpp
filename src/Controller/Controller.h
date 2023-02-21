@@ -9,31 +9,30 @@
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
-
 class OrganController;
 class PrimaryKeyboardMidiInBlock;
 class Model;
 class View;
 class WidgetsListener;
 
-
-class Controller 
+class Controller
 {
   public:
     Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view,
                gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
-    
+
     std::shared_ptr<Model> GetModel();
     std::shared_ptr<View> GetView();
 
     std::shared_ptr<OrganController> GetOrganController();
 
-	 gigperformer::sdk::GigPerformerAPI *GetGigPerformerAPI();
+    gigperformer::sdk::GigPerformerAPI *GetGigPerformerAPI();
 
     bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
-	 void FillControllers();
+    void FillControllers();
     void FillMidiInBlocks();
+    void Init();
 
   private:
     std::shared_ptr<Model> _model;
@@ -41,9 +40,9 @@ class Controller
 
     std::shared_ptr<OrganController> _organController;
 
-	 std::shared_ptr<PrimaryKeyboardMidiInBlock> _primaryKeyboardMidiInBlock;
+    std::shared_ptr<PrimaryKeyboardMidiInBlock> _primaryKeyboardMidiInBlock;
 
-	 std::shared_ptr<WidgetsListener> _widgetsListener;
+    std::shared_ptr<WidgetsListener> _widgetsListener;
 
-	 gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
+    gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
 };

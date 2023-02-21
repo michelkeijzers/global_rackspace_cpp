@@ -41,6 +41,28 @@ void Widgets::ShowWidget(std::string widgetName, bool show)
 }
 
 
+void Widgets::SetWidgetLabelText(std::string widgetName, std::string labelText)
+{
+    Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", labelText = " + labelText);
+    AssertIfWidgetDoesNotExist(widgetName);
+
+	 _gigPerformerApi->setWidgetCaption(widgetName, labelText);
+	 Debug::LogMethodExit(__FUNCTION__);
+}
+
+
+void Widgets::SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha)
+{
+    Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", red = " + std::to_string(red) + 
+		 ", green = " + std::to_string(green) + ", blue = " + std::to_string(blue) + ", alpha = " + std::to_string(alpha));
+    AssertIfWidgetDoesNotExist(widgetName);
+
+	 _gigPerformerApi->setWidgetFillColor(widgetName, _gigPerformerApi->RGBAToColor(red, green, blue, alpha));
+
+	 Debug::LogMethodExit(__FUNCTION__);
+}
+
+
 void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
 {
     if (!_gigPerformerApi->widgetExists(widgetName))

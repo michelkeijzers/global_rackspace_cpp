@@ -11,6 +11,8 @@ class OrganController
   public:
     OrganController(Controller* controller, std::shared_ptr<OrganPlugin> organPlugin);
 
+	 void Init();
+
     void SetIsPresent(bool isPresent);
 
 	 void SetRotatorSpeed(bool newRotatorSpeedFast, bool forced = false);
