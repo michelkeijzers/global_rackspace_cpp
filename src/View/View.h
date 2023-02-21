@@ -14,7 +14,7 @@ class View
     View(gigperformer::sdk::GigPerformerAPI *gig_performer_api);
 
     void FillWidgets();
-    void Init();
+    void Init();  //TODO: Change to relayout
 
 	 void ShowWidget(std::string widgetName, bool show);
     void SetWidgetValue(std::string widgetName, double value);

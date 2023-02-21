@@ -38,8 +38,8 @@ class Debug
 
     /// \brief Prints a method entry logging
     /// \param methodName: name of the method
-    /// \param parameters: optional return or other values (as string) to be printed
-    static void LogMethodExit(std::string methodName, std::string returnValues = "");
+    /// \param returnInfo: optional return or other values (as string) to be printed
+    static void LogMethodExit(std::string methodName, std::string returnInfo = "");
 
   private:
     Debug();

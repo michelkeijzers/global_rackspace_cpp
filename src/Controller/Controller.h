@@ -40,7 +40,8 @@ class Controller
 
     std::shared_ptr<OrganController> _organController;
 
-    std::shared_ptr<PrimaryKeyboardMidiInBlock> _primaryKeyboardMidiInBlock;
+    std::shared_ptr<PrimaryKeyboardMidiInBlock>
+        _primaryKeyboardMidiInBlock; // Make sub controller list, enum for type ?
 
     std::shared_ptr<WidgetsListener> _widgetsListener;
 

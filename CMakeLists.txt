@@ -21,6 +21,8 @@ target_sources(
   ${PROJECT_NAME} PRIVATE  
    "${CMAKE_CURRENT_LIST_DIR}/src/LibMain.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/LibMain.h" 
+	"${CMAKE_CURRENT_LIST_DIR}/src/Framework/MvcFramework.h" 
+	"${CMAKE_CURRENT_LIST_DIR}/src/Framework/MvcFramework.cpp" 
 	"${CMAKE_CURRENT_LIST_DIR}/src/Midi/MidiMessage.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Midi/MidiMessage.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlock.h" 
@@ -37,6 +39,8 @@ target_sources(
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/OrganPlugin.cpp"  
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/Debug.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/Debug.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/BoolUtilities.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/BoolUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/Controller.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/Controller.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/OrganController.h"
@@ -53,7 +57,7 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widgets.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.cpp"
-)
+ "src/Framework/MvcFramework.h")
 target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -68,7 +72,7 @@ set_target_properties(
 # Added by myself.
 # Enable testing, see https://gitlab.kitware.com/cmake/community/-/wikis/doc/ctest/Testing-With-CTest
 # enable_testing()
-add_executable(tester tester.cpp)
+add_executable(tester tester.cpp "src/Framework/MvcFramework.h")
 #add_test(Tester tester)
 target_link_libraries(tester PRIVATE ${PROJECT_NAME})
 

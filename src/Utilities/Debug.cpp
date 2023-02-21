@@ -12,6 +12,10 @@
 /* static */ void Debug::Error(std::string functionName, std::string errorText)
 {
     std::cout << "ERROR: " << functionName << ": " << errorText;
+#ifdef _CONSOLE
+    std::cout << std::endl;
+#endif
+
     // exit(1);
 }
 
@@ -20,6 +24,9 @@
     if (!condition)
     {
         std::cout << "ASSERT ERROR: " << functionName << ": " << errorText;
+#ifdef _CONSOLE
+        std::cout << std::endl;
+#endif
         // exit(1);
     }
 }
@@ -43,25 +50,31 @@
         text += parameters;
     }
 
-    text += ")\n";
+    text += ")";
+#ifdef _CONSOLE
+    text += "\n";
+#endif
+
     _gigPerformerApi->scriptLog(text, true);
 
     _logMethodIndentation++;
 }
 
-/* static */ void Debug::LogMethodExit(std::string methodName, std::string parameters)
+/* static */ void Debug::LogMethodExit(std::string methodName, std::string returnInfo)
 {
     _logMethodIndentation--;
     Debug::Assert(_logMethodIndentation >= 0, __FUNCTION__, "Debug _logMethodIntendation is negative");
 
-    std::string text = std::string(_logMethodIndentation, ' ') + "<" + methodName + "(";
+    std::string text = std::string(_logMethodIndentation, ' ') + "<" + methodName + "()";
 
-    if (parameters != "")
+    if (returnInfo != "")
     {
-        text += ": " + parameters;
+        text += ": " + returnInfo;
     }
 
+#ifdef _CONSOLE
     text += "\n";
+#endif
 
     _gigPerformerApi->scriptLog(text, true);
 }

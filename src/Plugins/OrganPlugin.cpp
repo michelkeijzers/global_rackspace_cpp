@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "OrganPlugin.h"
+#include "../Utilities/Debug.h"
+#include "../Utilities/BoolUtilities.h"
 #include "../Controller/Controller.h"
 
 
@@ -11,9 +13,9 @@ OrganPlugin::OrganPlugin(Controller *controller) : Plugin(""), _controller(contr
 
 void OrganPlugin::SetRotatorSpeedFast(bool fast)
 {
-    std::cout << "OrganPlugin::SetRotatorSpeedFast: " << fast << "\n";
+    Debug::LogMethodEntry(__FUNCTION__, "fast: " + std::to_string(fast));
 	
-	 _controller->GetGigPerformerAPI()->setPluginParameter("OrganPlugin", 8, fast ? 1.0 : 0.0, true);
-    
-	 //SetPluginParameter(plugin, parameternumber, fast ? 127 : 0);
+	 _controller->GetGigPerformerAPI()->setPluginParameter("OrganPlugin", 8, BoolUtilities::ToDouble(fast), true);
+	 
+	 Debug::LogMethodExit(__FUNCTION__);
 }

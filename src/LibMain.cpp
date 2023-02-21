@@ -167,7 +167,7 @@ void LibMain::OnGlobalPlayStateChanged(bool playing)
 
 void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
-    _widgetsListener->OnWidgetValueChanged(widgetName, newValue);
+    _mvcFramework.GetWidgetsListener()->OnWidgetValueChanged(widgetName, newValue);
     //Ignore(widgetName);
     //Ignore(newValue);
 
@@ -186,7 +186,7 @@ void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValu
 
 bool LibMain::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {
-    return _controller->OnMidiIn(deviceName, data, length);
+    return _mvcFramework.GetController()->OnMidiIn(deviceName, data, length);
 }
 
 void LibMain::OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vector<std::string> &outputs)
@@ -208,7 +208,7 @@ void LibMain::OnWidgetCaptionChanged(const std::string &widgetName, const std::s
 
 void LibMain::OnSongChanged(int oldIndex, int newIndex)
 {
-    _controller->Init();
+    _mvcFramework.GetController()->Init();
 }
 
 void LibMain::OnWidgetStateChanged(const std::string &widgetName, int newState)
@@ -246,15 +246,7 @@ void LibMain::Initialization()
     Debug::SetGigPerformerApi(this);
     Debug::LogHeaders(true);
 
-    // MVC TODO: move to special class (MvcStarter?)
-    _model = std::make_shared<Model>();
-    _view = std::make_shared<View>(this);
-    _controller = std::make_shared<Controller>(_model, _view, this);
-    _widgetsListener = std::make_shared<WidgetsListener>(_controller, this);
-
-    _controller->FillControllers();
-    _controller->FillMidiInBlocks();
-    _controller->Init();
+	_mvcFramework.Init(this);
 }
 
 std::string LibMain::GetProductDescription()
@@ -263,6 +255,11 @@ std::string LibMain::GetProductDescription()
     // 'XMLProductDescription' at the top of this file with an XML description of
     // your product
     return XMLProductDescription;
+}
+
+MvcFramework *LibMain::GetMvcFramework()
+{
+    return &_mvcFramework;
 }
 
 extern "C" void addtwo(GPRuntimeEngine *vm)
@@ -327,3 +324,4 @@ GigPerformerAPI *CreateGPExtension(LibraryHandle handle)
 }
 } // namespace sdk
 } // namespace gigperformer
+

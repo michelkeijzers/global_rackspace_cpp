@@ -15,11 +15,7 @@
 #include "gigperformer/sdk/GigPerformerAPI.h"
 #include "gigperformer/sdk/types.h"
 
-// MVC
-#include "Controller/Controller.h"
-#include "Model/Model.h"
-#include "View/View.h"
-#include <memory>
+#include "Framework/MvcFramework.h"
 
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
@@ -34,12 +30,15 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
     std::string GetMenuName(int index) override;
     void InvokeMenu(int itemIndex) override;
 
+	private:
+     MvcFramework _mvcFramework;
+
+	  MvcFramework *GetMvcFramework();
 
   public:
     // These must be here but no need to do anything unless you want extra behavior
     explicit LibMain(LibraryHandle handle)
-		 : GigPerformerAPI(handle),
-		  _controller(nullptr), _model(nullptr), _view(nullptr)
+		 : GigPerformerAPI(handle)
     {
     }
 
@@ -98,11 +97,4 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 
     // This MUST be defined in your class
     std::string GetProductDescription() override;
-
-    // MVC
-    std::shared_ptr<Model> _model;
-    std::shared_ptr<View> _view;
-    std::shared_ptr<Controller> _controller;
-
-	 std::shared_ptr<WidgetsListener> _widgetsListener;
 };

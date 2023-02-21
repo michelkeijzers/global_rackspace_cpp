@@ -30,7 +30,7 @@ void Controller::FillMidiInBlocks()
 
 void Controller::Init()
 {
-    // TODO: make sub controller list???
+    // TODO: make sub controller list???, iterate through it
     _organController->Init();
 }
 
