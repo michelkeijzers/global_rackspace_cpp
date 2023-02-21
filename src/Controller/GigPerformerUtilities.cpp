@@ -1,4 +1,4 @@
-#include "GigPerformerUtilities.h"
+#include "BoolUtilities.h"
 
 /* static */ double GigPerformerUtilities::BoolToParam(bool value)
 {

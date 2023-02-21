@@ -246,7 +246,7 @@ void LibMain::Initialization()
     Debug::SetGigPerformerApi(this);
     Debug::LogHeaders(true);
 
-    // MVC
+    // MVC TODO: move to special class (MvcStarter?)
     _model = std::make_shared<Model>();
     _view = std::make_shared<View>(this);
     _controller = std::make_shared<Controller>(_model, _view, this);

@@ -63,7 +63,7 @@ bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, in
 {
     bool processed = false;
 
-    if (deviceName == "PrimaryKeyboardMidiInBlock")
+    if (deviceName == "PrimaryKeyboardMidiInBlock") // TODO: Move to constant
     {
         processed = _primaryKeyboardMidiInBlock->OnMidiIn(data, length);
     }
@@ -77,7 +77,7 @@ bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, in
     }
     else
     {
-        // TODO: Error
+        Debug::Error(__FUNCTION__, "Illegal device name: " + deviceName);
     }
 
     return processed;
