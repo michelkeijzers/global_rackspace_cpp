@@ -1,15 +1,15 @@
 #include "Plugin.h"
 
-Plugin::Plugin()
+Plugin::Plugin(std::string name, Controller *controller) : _name(name), _controller(controller)
 {
-}
-
-Plugin::Plugin(std::string name)
-{
-    _name = name;
 }
 
 std::string Plugin::GetName()
 {
     return _name;
+}
+
+Controller *Plugin::GetController()
+{
+    return _controller;
 }

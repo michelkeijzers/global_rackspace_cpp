@@ -1,12 +1,13 @@
 #include <iostream>
 #include <memory>
 
+#include "OrganController.h"
+#include "Controller.h"
 #include "../Model/Model.h"
 #include "../Model/Organ.h"
 #include "../Utilities/Debug.h"
 #include "../View/View.h"
-#include "Controller.h"
-#include "OrganController.h"
+#include "../Plugins/OrganPlugin.h"
 
 OrganController::OrganController(Controller *controller, std::shared_ptr<OrganPlugin> organPlugin)
     : _controller(controller), _organPlugin(organPlugin)
@@ -40,8 +41,8 @@ void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
         double green = newRotatorSpeedFast ? 0.0 : 1.0;
         _organPlugin->SetRotatorSpeedFast(newRotatorSpeedFast);
         Widgets *widgets = _controller->GetView()->GetWidgets();
-        widgets->SetWidgetLabelText("TextLabelOrganRotatorSpeed", newRotatorSpeedFast ? "FAST" : "SLOW");
-        widgets->SetWidgetFillColor("TextLabelOrganRotatorSpeed", red, green, 0.0, 1.0);
+        widgets->SetWidgetLabelText(Widgets::EWidgetId::OrganRotatorSpeedTextLabel, newRotatorSpeedFast ? "FAST" : "SLOW");
+        widgets->SetWidgetFillColor(Widgets::EWidgetId::OrganRotatorSpeedTextLabel, red, green, 0.0, 1.0);
     }
 
     Debug::LogMethodExit(__FUNCTION__);

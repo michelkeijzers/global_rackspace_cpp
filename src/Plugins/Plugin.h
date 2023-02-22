@@ -2,14 +2,20 @@
 
 #include <string>
 
+class Controller;
+
 class Plugin
 {
   public:
-    Plugin();
-    Plugin(std::string name);
+    Plugin(std::string name, Controller *controller);
 
     std::string GetName();
 
+  protected:
+    Controller *GetController();
+
   private:
     std::string _name;
+
+    Controller *_controller;
 };

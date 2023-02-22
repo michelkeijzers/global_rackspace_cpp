@@ -14,6 +14,7 @@ class Widgets
   public:
     enum class EWidgetId
     {
+        OrganRotatorSpeedTextLabel,
         PrimaryKeyboardButton1,
         PrimaryKeyboardButton2,
         PrimaryKeyboardButton3,
@@ -31,16 +32,16 @@ class Widgets
         PrimaryKeyboardSlider6,
         PrimaryKeyboardSlider7,
         PrimaryKeyboardSlider8,
-        PrimaryKeyboardSlider9,
+        PrimaryKeyboardSlider9, 
 		  LastWidget
     };
 
     Widgets(gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
 
-    void SetValue(std::string widgetName, double value);
-    void ShowWidget(std::string widgetName, bool show);
-    void SetWidgetLabelText(std::string widgetName, std::string labelText);
-    void SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha);
+    void SetWidgetValue(EWidgetId widgetId, double value);
+    void ShowWidget(EWidgetId widgetId, bool show);
+    void SetWidgetLabelText(EWidgetId widgetId, std::string labelText);
+    void SetWidgetFillColor(EWidgetId widgetId, double red, double green, double blue, double alpha);
 
     static std::string GetWidgetName(EWidgetId widgetId);
     static EWidgetId GetWidgetId(std::string widgetName);

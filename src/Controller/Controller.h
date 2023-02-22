@@ -9,6 +9,7 @@
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
+class MixerController;
 class OrganController;
 class PrimaryKeyboardMidiInBlock;
 class Model;
@@ -24,6 +25,7 @@ class Controller
     std::shared_ptr<Model> GetModel();
     std::shared_ptr<View> GetView();
 
+    std::shared_ptr<MixerController> GetMixerController();
     std::shared_ptr<OrganController> GetOrganController();
 
     gigperformer::sdk::GigPerformerAPI *GetGigPerformerAPI();
@@ -38,6 +40,7 @@ class Controller
     std::shared_ptr<Model> _model;
     std::shared_ptr<View> _view;
 
+	 std::shared_ptr<MixerController> _mixerController;
     std::shared_ptr<OrganController> _organController;
 
     std::shared_ptr<PrimaryKeyboardMidiInBlock>

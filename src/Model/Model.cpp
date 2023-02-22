@@ -1,14 +1,17 @@
-#include <memory>
 #include "Model.h"
-
+#include <memory>
 
 Model::Model()
 {
 }
 
+Mixer *Model::GetMixer()
+{
 
+    return &_mixer;
+}
 
-Organ* Model::GetOrgan()
+Organ *Model::GetOrgan()
 {
     return &_organ;
 }

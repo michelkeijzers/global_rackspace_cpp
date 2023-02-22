@@ -10,6 +10,4 @@ class OrganPlugin : public Plugin
     OrganPlugin(Controller *controller);
 
     void SetRotatorSpeedFast(bool fast);
-
-    Controller *_controller;
 };

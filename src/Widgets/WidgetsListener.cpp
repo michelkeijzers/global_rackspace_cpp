@@ -1,5 +1,6 @@
 #include "WidgetsListener.h"
 #include "../Controller/Controller.h"
+#include "../Controller/MixerController.h"
 #include "../Controller/OrganController.h"
 #include "../Utilities/Debug.h"
 #include "../View/View.h"
@@ -48,7 +49,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         break;
 
 	case Widgets::EWidgetId::PrimaryKeyboardSlider1:
-		//_controller->Get
+        _controller->GetMixerController()->SetChannelVolume(0, newValue);
         break;
 
     default:

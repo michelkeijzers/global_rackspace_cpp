@@ -2,9 +2,9 @@
 
 #include <memory>
 #include "../Model/Organ.h"
-#include "../Plugins/OrganPlugin.h"
 
 class Controller;
+class OrganPlugin;
 
 class OrganController
 {
@@ -19,6 +19,6 @@ class OrganController
     void SwapRotatorSpeed();
 
   private:
-    Controller* _controller;
+    Controller* _controller; //TODO:  Make base class (Subcontroller? move this to subcontroller, same for Init virtual)
     std::shared_ptr<OrganPlugin> _organPlugin;
 };

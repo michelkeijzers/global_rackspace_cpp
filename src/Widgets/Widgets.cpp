@@ -16,40 +16,44 @@ Widgets::Widgets(gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
     }
 }
 
-void Widgets::SetValue(std::string widgetName, double value)
+void Widgets::SetWidgetValue(EWidgetId widgetId, double value)
 {
-    Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", show = " + std::to_string(value));
-    AssertIfWidgetDoesNotExist(widgetName);
-    // _gig_performer_api->setWidgetValue(widgetName, value);
+    std::string widgetName = GetWidgetName(widgetId);
+    Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", value = " + std::to_string(value));
+    _gigPerformerApi->setWidgetValue(widgetName, value);
+
+	 #ifdef _CONSOLE
+	 // Gig Performer automatically calls a callback when a widget value is set that is listened to.
+
+	 #endif
 
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void Widgets::ShowWidget(std::string widgetName, bool show)
+void Widgets::ShowWidget(EWidgetId widgetId, bool show)
 {
+    std::string widgetName = GetWidgetName(widgetId);
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", show = " + std::to_string(show));
-    AssertIfWidgetDoesNotExist(widgetName);
 
-    //_gigPerformerApi->SetWidgetHideOnPresentation(widgetName, !show);
     _gigPerformerApi->setWidgetCaption(widgetName, std::to_string(show));
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void Widgets::SetWidgetLabelText(std::string widgetName, std::string labelText)
+void Widgets::SetWidgetLabelText(EWidgetId widgetId, std::string labelText)
 {
+    std::string widgetName = GetWidgetName(widgetId);
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", labelText = " + labelText);
-    AssertIfWidgetDoesNotExist(widgetName);
 
     _gigPerformerApi->setWidgetCaption(widgetName, labelText);
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void Widgets::SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha)
+void Widgets::SetWidgetFillColor(EWidgetId widgetId, double red, double green, double blue, double alpha)
 {
+    std::string widgetName = GetWidgetName(widgetId);
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", red = " + std::to_string(red) +
                                             ", green = " + std::to_string(green) + ", blue = " + std::to_string(blue) +
                                             ", alpha = " + std::to_string(alpha));
-    AssertIfWidgetDoesNotExist(widgetName);
 
     _gigPerformerApi->setWidgetFillColor(widgetName, _gigPerformerApi->RGBAToColor(red, green, blue, alpha));
 
@@ -70,6 +74,10 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
 
     switch (widgetId)
     {
+    case EWidgetId::OrganRotatorSpeedTextLabel:
+        widgetName = "OrganRotatorSpeedTextLabel";
+        break;
+
     case EWidgetId::PrimaryKeyboardButton1:
         widgetName = "Button1";
         break;
@@ -152,16 +160,17 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
 /* static */ Widgets::EWidgetId Widgets::GetWidgetId(std::string widgetName)
 {
     EWidgetId widgetId = EWidgetId::LastWidget;
-    Debug::Assert(widgetName.length() == 7, __FUNCTION__, "Illegal widget length");
-    Debug::Assert(widgetName[1] == 'u', __FUNCTION__, "Illegal widget name");
-    Debug::Assert(widgetName[2] == 't', __FUNCTION__, "Illegal widget name");
-    Debug::Assert(widgetName[3] == 't', __FUNCTION__, "Illegal widget name");
-    Debug::Assert(widgetName[4] == 'o', __FUNCTION__, "Illegal widget name");
-    Debug::Assert(widgetName[5] == 'n', __FUNCTION__, "Illegal widget name");
 
     switch (widgetName[0])
     {
     case 'B':
+        Debug::Assert(widgetName.length() == 7, __FUNCTION__, "Illegal widget length of " + widgetName);
+        Debug::Assert(widgetName[1] == 'u', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[2] == 't', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[3] == 't', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[4] == 'o', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[5] == 'n', __FUNCTION__, "Illegal widget name " + widgetName);
+
         switch (widgetName[6])
         {
         case '1':
@@ -201,17 +210,47 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
             break;
 
         default:
-            Debug::Error(__FUNCTION__, "Illegal slider number");
+            Debug::Error(__FUNCTION__, "Illegal slider number of " + widgetName);
         }
         break;
 
+    case 'O':
+        Debug::Assert(widgetName.length() == 26, __FUNCTION__, "Illegal widget length of " + widgetName);
+        Debug::Assert(widgetName[1] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[2] == 'g', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[3] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[4] == 'n', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[5] == 'R', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[6] == 'o', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[7] == 't', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[8] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[9] == 't', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[10] == 'o', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[11] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[12] == 'S', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[13] == 'p', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[14] == 'e', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[15] == 'e', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[16] == 'd', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[17] == 'T', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[18] == 'e', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[19] == 'x', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[20] == 't', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[21] == 'L', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[22] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[23] == 'b', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[24] == 'e', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[25] == 'l', __FUNCTION__, "Illegal widget name " + widgetName);
+        widgetId = EWidgetId::OrganRotatorSpeedTextLabel;
+        break;
+
     case 'S':
-        Debug::Assert(widgetName.length() == 7, __FUNCTION__, "Illegal widget length");
-        Debug::Assert(widgetName[1] == 'l', __FUNCTION__, "Illegal widget name");
-        Debug::Assert(widgetName[2] == 'i', __FUNCTION__, "Illegal widget name");
-        Debug::Assert(widgetName[3] == 'd', __FUNCTION__, "Illegal widget name");
-        Debug::Assert(widgetName[4] == 'e', __FUNCTION__, "Illegal widget name");
-        Debug::Assert(widgetName[5] == 'r', __FUNCTION__, "Illegal widget name");
+        Debug::Assert(widgetName.length() == 7, __FUNCTION__, "Illegal widget length of " + widgetName);
+        Debug::Assert(widgetName[1] == 'l', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[2] == 'i', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[3] == 'd', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[4] == 'e', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[5] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
         switch (widgetName[6])
         {
         case '1':
@@ -251,13 +290,13 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
             break;
 
         default:
-            Debug::Error(__FUNCTION__, "Illegal slider number");
+            Debug::Error(__FUNCTION__, "Illegal slider number of " + widgetName);
         }
         break;
 
     default:
-        Debug::Error(__FUNCTION__, "Illegal widget name");
+        Debug::Error(__FUNCTION__, "Illegal widget name " + widgetName);
     }
 
-	 return widgetId;
+    return widgetId;
 }
