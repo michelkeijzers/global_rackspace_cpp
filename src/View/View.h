@@ -16,11 +16,8 @@ class View
     void FillWidgets();
     void Init();  //TODO: Change to relayout
 
-	 void ShowWidget(std::string widgetName, bool show);
-    void SetWidgetValue(std::string widgetName, double value);
-    void SetWidgetLabelText(std::string widgetName, std::string labelText);
-    void SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha);
-
+	 Widgets* GetWidgets();
+	
   private:
     std::vector<std::shared_ptr<Pane>> _panes;
 

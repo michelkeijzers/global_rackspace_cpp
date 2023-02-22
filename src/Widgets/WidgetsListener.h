@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include "Widgets.h"
 
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
@@ -18,7 +19,11 @@ class WidgetsListener
 
     void OnWidgetValueChanged(const std::string &widgetName, double newValue);
 
+	 void SetListeners();
+
   private:
     std::shared_ptr<Controller> _controller;
     gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
+
+	 bool IsPrimaryKeyboardButtonPressed(Widgets::EWidgetId buttonId);
 };

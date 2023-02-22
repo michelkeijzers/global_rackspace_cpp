@@ -22,22 +22,7 @@ void View::Init()
     }
 }
 
-void View::SetWidgetValue(std::string widgetName, double value)
+Widgets* View::GetWidgets()
 {
-    _widgets.SetValue(widgetName, value);
-}
-
-void View::ShowWidget(std::string widgetName, bool show)
-{
-    _widgets.ShowWidget(widgetName, show);
-}
-
-void View::SetWidgetLabelText(std::string widgetName, std::string labelText)
-{
-    _widgets.SetWidgetLabelText(widgetName, labelText);
-}
-
-void View::SetWidgetFillColor(std::string widgetName, double red, double green, double blue, double alpha)
-{
-    _widgets.SetWidgetFillColor(widgetName, red, green, blue, alpha);
+    return &_widgets;
 }

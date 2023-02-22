@@ -39,8 +39,9 @@ void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
         double red = newRotatorSpeedFast ? 1.0 : 0.0;
         double green = newRotatorSpeedFast ? 0.0 : 1.0;
         _organPlugin->SetRotatorSpeedFast(newRotatorSpeedFast);
-        _controller->GetView()->SetWidgetLabelText("TextLabelOrganRotatorSpeed", newRotatorSpeedFast ? "FAST" : "SLOW");
-        _controller->GetView()->SetWidgetFillColor("TextLabelOrganRotatorSpeed", red, green, 0.0, 1.0);
+        Widgets *widgets = _controller->GetView()->GetWidgets();
+        widgets->SetWidgetLabelText("TextLabelOrganRotatorSpeed", newRotatorSpeedFast ? "FAST" : "SLOW");
+        widgets->SetWidgetFillColor("TextLabelOrganRotatorSpeed", red, green, 0.0, 1.0);
     }
 
     Debug::LogMethodExit(__FUNCTION__);

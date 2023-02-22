@@ -20,16 +20,6 @@
 class LibMain : public gigperformer::sdk::GigPerformerAPI
 {
   protected:
-    int GetPanelCount() override;
-    std::string GetPanelName(int index) override;
-    std::string GetPanelXML(int index) override;
-
-    // These are for creating menu items in Gig Performer that can be used to
-    // trigger external functions provided by the extension developer
-    int GetMenuCount() override;
-    std::string GetMenuName(int index) override;
-    void InvokeMenu(int itemIndex) override;
-
 	private:
      MvcFramework _mvcFramework;
 
@@ -92,9 +82,5 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 
     void Initialization() override;
 
-    int RequestGPScriptFunctionSignatureList(GPScript_AllowedLocations location,
-                                             ExternalAPI_GPScriptFunctionDefinition **list) override;
-
-    // This MUST be defined in your class
     std::string GetProductDescription() override;
 };
