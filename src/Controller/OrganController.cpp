@@ -20,9 +20,25 @@ void OrganController::Init()
     SetRotatorSpeed(false, true);
 }
 
-void OrganController::SetIsPresent(bool isPresent)
+void OrganController::SetIsPresent(bool isPresent, bool forced /* = false */)
 {
-    //_isPresent = isPresent;
+    //if ((forced) || (_isPresent != isPresent))
+        {
+            //_isPresent = isPresent;
+        }
+}
+
+void OrganController::SetDrawbarValue(int drawbarIndex, double newValue, bool forced /* = false */)
+{
+    Organ *organ = _controller->GetModel()->GetOrgan(); // TODO: make class variable (like in audio mixer)
+
+    if (forced || (fabs(newValue - organ->GetDrawbarValue(drawbarIndex)) > 0.01))
+    {
+        organ->SetDrawbarValue(drawbarIndex, newValue);
+        _organPlugin->SetDrawbarValue(drawbarIndex, newValue);
+    //_controller->GetView()->GetWidgets()->SetWidgetValue(Widgets::EWidgetId::Slider1, volume); TODO: drawbar index to ID)
+        
+    }
 }
 
 void OrganController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)

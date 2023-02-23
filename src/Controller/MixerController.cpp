@@ -23,13 +23,13 @@ void MixerController::SetChannelVolume(int channelIndex, double volume, bool for
 {
     Mixer *mixer = _controller->GetModel()->GetMixer();
 
-    if (forced || fabs(volume - mixer->GetChannelVolume(channelIndex) > 0.01))
+    if (forced || (fabs(volume - mixer->GetChannelVolume(channelIndex)) > 0.01))  // TODO: make const (also used in other controllers
     {
         mixer->SetChannelVolume(channelIndex, volume);
         GetPluginForChannel(channelIndex)->SetChannelVolume(channelIndex % CHANNELS_IN_MIXER, volume);
         if (GetPaneSelection() == EPaneSelection::Channels1To8)
         {
-            _controller->GetView()->GetWidgets()->SetWidgetValue(Widgets::EWidgetId::PrimaryKeyboardSlider1, volume);
+            _controller->GetView()->GetWidgets()->SetWidgetValue(Widgets::EWidgetId::Slider1, volume);
         }
     }
 }

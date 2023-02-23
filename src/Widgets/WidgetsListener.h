@@ -25,5 +25,5 @@ class WidgetsListener
     std::shared_ptr<Controller> _controller;
     gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
 
-	 bool IsPrimaryKeyboardButtonPressed(Widgets::EWidgetId buttonId);
+	 void ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue);
 };

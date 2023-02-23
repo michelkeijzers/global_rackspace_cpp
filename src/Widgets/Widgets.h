@@ -14,6 +14,15 @@ class Widgets
   public:
     enum class EWidgetId
     {
+        Drawbar1,
+        Drawbar2,
+        Drawbar3,
+        Drawbar4,
+        Drawbar5,
+        Drawbar6,
+        Drawbar7,
+        Drawbar8,
+        Drawbar9,
         OrganRotatorSpeedTextLabel,
         PrimaryKeyboardButton1,
         PrimaryKeyboardButton2,
@@ -24,16 +33,16 @@ class Widgets
         PrimaryKeyboardButton7,
         PrimaryKeyboardButton8,
         PrimaryKeyboardButton9,
-		  PrimaryKeyboardSlider1,
-        PrimaryKeyboardSlider2,
-        PrimaryKeyboardSlider3,
-        PrimaryKeyboardSlider4,
-        PrimaryKeyboardSlider5,
-        PrimaryKeyboardSlider6,
-        PrimaryKeyboardSlider7,
-        PrimaryKeyboardSlider8,
-        PrimaryKeyboardSlider9, 
-		  LastWidget
+        Slider1,
+        Slider2,
+        Slider3,
+        Slider4,
+        Slider5,
+        Slider6,
+        Slider7,
+        Slider8,
+        Slider9,
+        LastWidget
     };
 
     Widgets(gigperformer::sdk::GigPerformerAPI *gigPerformerApi);

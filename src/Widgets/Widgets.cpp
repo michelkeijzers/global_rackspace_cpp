@@ -22,10 +22,10 @@ void Widgets::SetWidgetValue(EWidgetId widgetId, double value)
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", value = " + std::to_string(value));
     _gigPerformerApi->setWidgetValue(widgetName, value);
 
-	 #ifdef _CONSOLE
-	 // Gig Performer automatically calls a callback when a widget value is set that is listened to.
-
-	 #endif
+#ifdef _CONSOLE
+// Gig Performer automatically calls a callback when a widget value is set that is listened to.
+// TODO: Check if when a listener is set, the callback should be called.
+#endif
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -74,6 +74,42 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
 
     switch (widgetId)
     {
+    case EWidgetId::Drawbar1:
+        widgetName = "Drawbar1";
+        break;
+
+    case EWidgetId::Drawbar2:
+        widgetName = "Drawbar2";
+        break;
+
+    case EWidgetId::Drawbar3:
+        widgetName = "Drawbar3";
+        break;
+
+    case EWidgetId::Drawbar4:
+        widgetName = "Drawbar4";
+        break;
+
+    case EWidgetId::Drawbar5:
+        widgetName = "Drawbar5";
+        break;
+
+    case EWidgetId::Drawbar6:
+        widgetName = "Drawbar6";
+        break;
+
+    case EWidgetId::Drawbar7:
+        widgetName = "Drawbar7";
+        break;
+
+    case EWidgetId::Drawbar8:
+        widgetName = "Drawbar8";
+        break;
+
+    case EWidgetId::Drawbar9:
+        widgetName = "Drawbar9";
+        break;
+
     case EWidgetId::OrganRotatorSpeedTextLabel:
         widgetName = "OrganRotatorSpeedTextLabel";
         break;
@@ -114,39 +150,39 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
         widgetName = "Button9";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider1:
+    case EWidgetId::Slider1:
         widgetName = "Slider1";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider2:
+    case EWidgetId::Slider2:
         widgetName = "Slider2";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider3:
+    case EWidgetId::Slider3:
         widgetName = "Slider3";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider4:
+    case EWidgetId::Slider4:
         widgetName = "Slider4";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider5:
+    case EWidgetId::Slider5:
         widgetName = "Slider5";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider6:
+    case EWidgetId::Slider6:
         widgetName = "Slider6";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider7:
+    case EWidgetId::Slider7:
         widgetName = "Slider7";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider8:
+    case EWidgetId::Slider8:
         widgetName = "Slider8";
         break;
 
-    case EWidgetId::PrimaryKeyboardSlider9:
+    case EWidgetId::Slider9:
         widgetName = "Slider9";
         break;
 
@@ -214,6 +250,58 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
         }
         break;
 
+	 case 'D':
+        Debug::Assert(widgetName.length() == 8, __FUNCTION__, "Illegal widget length of " + widgetName);
+        Debug::Assert(widgetName[1] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[2] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[3] == 'w', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[4] == 'b', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[5] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
+        Debug::Assert(widgetName[6] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
+       
+		  
+        switch (widgetName[7])
+        {
+        case '1':
+            widgetId = EWidgetId::Drawbar1;
+            break;
+
+        case '2':
+            widgetId = EWidgetId::Drawbar2;
+            break;
+
+        case '3':
+            widgetId = EWidgetId::Drawbar3;
+            break;
+
+        case '4':
+            widgetId = EWidgetId::Drawbar4;
+            break;
+
+        case '5':
+            widgetId = EWidgetId::Drawbar5;
+            break;
+
+        case '6':
+            widgetId = EWidgetId::Drawbar6;
+            break;
+
+        case '7':
+            widgetId = EWidgetId::Drawbar7;
+            break;
+
+        case '8':
+            widgetId = EWidgetId::Drawbar8;
+            break;
+
+        case '9':
+            widgetId = EWidgetId::Drawbar9;
+            break;
+
+        default:
+            Debug::Error(__FUNCTION__, "Illegal slider number of " + widgetName);
+        }
+        break;
     case 'O':
         Debug::Assert(widgetName.length() == 26, __FUNCTION__, "Illegal widget length of " + widgetName);
         Debug::Assert(widgetName[1] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
@@ -254,39 +342,39 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
         switch (widgetName[6])
         {
         case '1':
-            widgetId = EWidgetId::PrimaryKeyboardSlider1;
+            widgetId = EWidgetId::Slider1;
             break;
 
         case '2':
-            widgetId = EWidgetId::PrimaryKeyboardSlider2;
+            widgetId = EWidgetId::Slider2;
             break;
 
         case '3':
-            widgetId = EWidgetId::PrimaryKeyboardSlider3;
+            widgetId = EWidgetId::Slider3;
             break;
 
         case '4':
-            widgetId = EWidgetId::PrimaryKeyboardSlider4;
+            widgetId = EWidgetId::Slider4;
             break;
 
         case '5':
-            widgetId = EWidgetId::PrimaryKeyboardSlider5;
+            widgetId = EWidgetId::Slider5;
             break;
 
         case '6':
-            widgetId = EWidgetId::PrimaryKeyboardSlider6;
+            widgetId = EWidgetId::Slider6;
             break;
 
         case '7':
-            widgetId = EWidgetId::PrimaryKeyboardSlider7;
+            widgetId = EWidgetId::Slider7;
             break;
 
         case '8':
-            widgetId = EWidgetId::PrimaryKeyboardSlider8;
+            widgetId = EWidgetId::Slider8;
             break;
 
         case '9':
-            widgetId = EWidgetId::PrimaryKeyboardSlider9;
+            widgetId = EWidgetId::Slider9;
             break;
 
         default:
