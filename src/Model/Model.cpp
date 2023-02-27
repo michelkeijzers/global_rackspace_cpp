@@ -5,13 +5,18 @@ Model::Model()
 {
 }
 
-Mixer *Model::GetMixer()
+void Model::Init()
 {
-
-    return &_mixer;
+    _organSubModel.Init();
+    _mixerSubModel.Init();
 }
 
-Organ *Model::GetOrgan()
+MixerSubModel *Model::GetMixerSubModel()
 {
-    return &_organ;
+    return &_mixerSubModel;
+}
+
+organSubModel *Model::GetorganSubModel()
+{
+    return &_organSubModel;
 }

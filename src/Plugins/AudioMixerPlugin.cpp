@@ -3,6 +3,13 @@
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
 #include <iostream>
+#include "../Framework/MvcFramework.h"
+
+#ifdef _CONSOLE
+    #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
+#else
+    #include <gigperformer/sdk/GigPerformerAPI.h>
+#endif
 
 const int NR_OF_PARAMETERS_PER_CHANNEL = 7;
 const int VOLUME_PARAMETER = 0;
@@ -17,7 +24,7 @@ void AudioMixerPlugin::SetChannelVolume(int channelIndex, double volume)
     Debug::LogMethodEntry(__FUNCTION__,
                           "channelIndex: " + std::to_string(channelIndex) + ", volume = " + std::to_string(volume));
 
-    GetController()->GetGigPerformerAPI()->setPluginParameter(GetName(), GetVolumeOfChannelParameter(channelIndex),
+    MvcFramework::GetGigPerformerApi()->setPluginParameter(GetName(), GetVolumeOfChannelParameter(channelIndex),
                                                               volume, true);
 
     Debug::LogMethodExit(__FUNCTION__);

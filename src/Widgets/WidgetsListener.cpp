@@ -1,7 +1,7 @@
 #include "WidgetsListener.h"
 #include "../Controller/Controller.h"
-#include "../Controller/MixerController.h"
-#include "../Controller/OrganController.h"
+#include "../Controller/MixerSubController.h"
+#include "../Controller/OrganSubController.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
 #include "../View/View.h"
@@ -11,10 +11,9 @@
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
+#include "../Framework/MvcFramework.h"
 
-WidgetsListener::WidgetsListener(std::shared_ptr<Controller> controller,
-                                 gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
-    : _controller(controller), _gigPerformerApi(gigPerformerApi)
+WidgetsListener::WidgetsListener(std::shared_ptr<Controller> controller) : _controller(controller)
 {
 }
 
@@ -30,7 +29,7 @@ void WidgetsListener::SetListeners()
           Widgets::EWidgetId::Slider4, Widgets::EWidgetId::Slider5, Widgets::EWidgetId::Slider6,
           Widgets::EWidgetId::Slider7, Widgets::EWidgetId::Slider8, Widgets::EWidgetId::Slider9}) // Sliders
     {
-        _gigPerformerApi->listenForWidget(Widgets::GetWidgetName(widget), true);
+        MvcFramework::GetGigPerformerApi()->listenForWidget(Widgets::GetWidgetName(widget), true);
     }
 }
 
@@ -42,45 +41,45 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     switch (widgetId)
     {
     case Widgets::EWidgetId::Drawbar1:
-        _controller->GetOrganController()->SetDrawbarValue(0, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(0, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar2:
-        _controller->GetOrganController()->SetDrawbarValue(1, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(1, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar3:
-        _controller->GetOrganController()->SetDrawbarValue(2, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(2, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar4:
-        _controller->GetOrganController()->SetDrawbarValue(3, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(3, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar5:
-        _controller->GetOrganController()->SetDrawbarValue(4, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(4, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar6:
-        _controller->GetOrganController()->SetDrawbarValue(5, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(5, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar7:
-        _controller->GetOrganController()->SetDrawbarValue(6, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(6, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar8:
-        _controller->GetOrganController()->SetDrawbarValue(7, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(7, newValue);
         break;
 
     case Widgets::EWidgetId::Drawbar9:
-        _controller->GetOrganController()->SetDrawbarValue(8, newValue);
+        _controller->GetOrganSubController()->SetDrawbarValue(8, newValue);
         break;
 
     case Widgets::EWidgetId::PrimaryKeyboardButton9:
         if (newValue >= 0.5)
         {
-            _controller->GetOrganController()->SwapRotatorSpeed();
+            _controller->GetOrganSubController()->SwapRotatorSpeed();
         }
         break;
 
@@ -130,24 +129,24 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
 void WidgetsListener::ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue)
 {
-    std::shared_ptr<MixerController> mixerController = _controller->GetMixerController();
-    switch (mixerController->GetPaneSelection())
-    {
-    case MixerController::EPaneSelection::Channels1To8:
-        mixerController->SetChannelVolume(sliderIndex, newValue);
-        break;
+    std::shared_ptr<MixerSubController> mixerSubController = _controller->GetMixerSubController();
+    //switch (mixerSubController->GetPaneSelection())
+    //{
+    //case MixerSubController::EPaneSelection::Channels1To8:
+    //   mixerSubController->SetChannelVolume(sliderIndex, newValue);
+    //   break;
 
-    case MixerController::EPaneSelection::Channels9To16:
-        mixerController->SetChannelVolume(8 + sliderIndex, newValue);
-        break;
+    //case MixerSubController::EPaneSelection::Channels9To16:
+    //    mixerSubController->SetChannelVolume(8 + sliderIndex, newValue);
+    //    break;
 
-    case MixerController::EPaneSelection::Channels17To23:
-        mixerController->SetChannelVolume(16 + sliderIndex, newValue);
-        break;
+    //case MixerSubController::EPaneSelection::Channels17To23:
+    //    mixerSubController->SetChannelVolume(16 + sliderIndex, newValue);
+    //    break;
 
-    case MixerController::EPaneSelection::Drawbars:
-        // Not possible, invisible
-        Debug::Error(__FUNCTION__, "Widget should be invisible: " + Widgets::GetWidgetName(widgetId));
-        break;
-    }
+    //case MixerSubController::EPaneSelection::Drawbars:
+    //    // Not possible, invisible
+    //    Debug::Error(__FUNCTION__, "Widget should be invisible: " + Widgets::GetWidgetName(widgetId));
+    //    break;
+    //}
 }

@@ -1,15 +1,16 @@
 #pragma once
 
 #include <memory>
-#include "../Model/Organ.h"
+#include "../Model/organSubModel.h"
+#include "SubController.h"
 
 class Controller;
 class OrganPlugin;
 
-class OrganController
+class OrganSubController : SubController
 {
   public:
-    OrganController(Controller* controller, std::shared_ptr<OrganPlugin> organPlugin);
+    OrganSubController(Controller* controller);
 
 	 void Init();
 
@@ -21,6 +22,5 @@ class OrganController
     void SwapRotatorSpeed();
 
   private:
-    Controller* _controller; //TODO:  Make base class (Subcontroller? move this to subcontroller, same for Init virtual)
-    std::shared_ptr<OrganPlugin> _organPlugin;
+    //std::shared_ptr<OrganPlugin> _organPlugin;
 };

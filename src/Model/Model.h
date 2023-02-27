@@ -1,18 +1,19 @@
 #pragma once
 
 #include <memory>
-#include "Mixer.h"
-#include "Organ.h"
+#include "MixerSubModel.h"
+#include "organSubModel.h"
 
 class Model
 {
   public:
     Model();
+    void Init();
 
-	 Mixer *GetMixer();
-	 Organ* GetOrgan();
+	 MixerSubModel *GetMixerSubModel();
+    organSubModel *GetorganSubModel();
 
   private:
-     Mixer _mixer;
-	 Organ _organ;
+    MixerSubModel _mixerSubModel;
+	 organSubModel _organSubModel;
 };

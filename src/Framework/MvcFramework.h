@@ -23,6 +23,8 @@ class MvcFramework
 
 	 void Init(gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
 
+	 static gigperformer::sdk::GigPerformerAPI *GetGigPerformerApi();
+
 	 //std::shared_ptr<Model> GetModel();
     //std::shared_ptr<View> GetView();
     std::shared_ptr<Controller> GetController();
@@ -34,4 +36,6 @@ class MvcFramework
     std::shared_ptr<Controller> _controller;
 
     std::shared_ptr<WidgetsListener> _widgetsListener;
+
+	 static gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
 };

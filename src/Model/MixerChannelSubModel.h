@@ -1,9 +1,11 @@
 #pragma once
 
-class MixerChannel
+#include "MixerChannelSubModel.h"
+
+class MixerChannelSubModel
 {
   public:
-    MixerChannel();
+    MixerChannelSubModel();
 
     double GetVolume();
     void SetVolume(double volume);

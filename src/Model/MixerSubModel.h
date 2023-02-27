@@ -2,19 +2,20 @@
 
 #include <memory>
 #include <vector>
+#include "MixerChannelSubModel.h"
+#include "SubModel.h"
 
-class MixerChannel;
-
-class Mixer
+class MixerSubModel : SubModel
 {
   public:
     static const int NR_OF_MIXER_CHANNELS = 24;
 
-    Mixer();
+    MixerSubModel();
+    void Init() override;
 
 	 double GetChannelVolume(int channelIndex);
     void SetChannelVolume(int channelIndex, double volume);
 
   private:
-    std::vector<std::shared_ptr<MixerChannel>> _mixerChannels;
+    std::vector<std::shared_ptr<MixerChannelSubModel>> _mixerChannelSubModels;
 };

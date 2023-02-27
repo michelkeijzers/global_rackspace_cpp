@@ -3,14 +3,8 @@
 #include <memory>
 #include <string>
 
-#ifdef _CONSOLE
-    #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
-#else
-    #include <gigperformer/sdk/GigPerformerAPI.h>
-#endif
-
-class MixerController;
-class OrganController;
+class MixerSubController;
+class OrganSubController;
 class PrimaryKeyboardMidiInBlock;
 class Model;
 class View;
@@ -19,16 +13,13 @@ class WidgetsListener;
 class Controller
 {
   public:
-    Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view,
-               gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
+    Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view);
 
     std::shared_ptr<Model> GetModel();
     std::shared_ptr<View> GetView();
 
-    std::shared_ptr<MixerController> GetMixerController();
-    std::shared_ptr<OrganController> GetOrganController();
-
-    gigperformer::sdk::GigPerformerAPI *GetGigPerformerAPI();
+    std::shared_ptr<MixerSubController> GetMixerSubController();
+    std::shared_ptr<OrganSubController> GetOrganSubController();
 
     bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
@@ -40,13 +31,11 @@ class Controller
     std::shared_ptr<Model> _model;
     std::shared_ptr<View> _view;
 
-	 std::shared_ptr<MixerController> _mixerController;
-    std::shared_ptr<OrganController> _organController;
+	 std::shared_ptr<MixerSubController> _mixerSubController;
+    std::shared_ptr<OrganSubController> _organSubController;
 
     std::shared_ptr<PrimaryKeyboardMidiInBlock>
         _primaryKeyboardMidiInBlock; // Make sub controller list, enum for type ?
 
     std::shared_ptr<WidgetsListener> _widgetsListener;
-
-    gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
 };

@@ -1,6 +1,10 @@
 #pragma once
 
 #include <vector>
+#include "SubModel.h"
+#include "../Utilities/Observable.h"
+
+class OrganSubModel;
 
 enum class EOrganRotatorSpeed
 {
@@ -9,12 +13,14 @@ enum class EOrganRotatorSpeed
     Off
 };
 
-class Organ
+class organSubModel : SubModel, Observable<OrganSubModel>
 {
   public:
     static const int NR_OF_DRAWBARS = 9;
 
-    Organ();
+    organSubModel();
+	 	 
+	 void Init() override;
 
 	 bool IsPresent();
     void SetIsPresent(bool isPresent);

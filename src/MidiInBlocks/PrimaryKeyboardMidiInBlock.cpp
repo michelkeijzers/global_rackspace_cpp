@@ -3,9 +3,9 @@
 #include "../Midi/MidiMessage.h"
 #include "../Utilities/Debug.h"
 #include "../Model/Model.h"
-#include "../Model/Organ.h"
+#include "../Model/organSubModel.h"
 #include "../Controller/Controller.h"
-#include "../Controller/OrganController.h"
+#include "../Controller/OrganSubController.h"
 
 PrimaryKeyboardMidiInBlock::PrimaryKeyboardMidiInBlock(Controller* controller)
 	: MidiInBlock(controller)
@@ -42,7 +42,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
     case 90:              // TODO button 9
         if (value == 127) // Pressed
         {
-            GetController()->GetOrganController()->SwapRotatorSpeed();
+            GetController()->GetOrganSubController()->SwapRotatorSpeed();
         }
         break;
     }
