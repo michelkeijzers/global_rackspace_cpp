@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Widgets/Widgets.h"
 #include <memory>
 #include <vector>
+#include "../Widgets/Widgets.h"
+#include "../Widgets/WidgetIds.h"
 
-class gigperformer::sdk::GigPerformerAPI;
 class Model;
 class Pane;
 class Plugin;
@@ -12,17 +12,17 @@ class Plugin;
 class View
 {
   public:
-    View(std::shared_ptr<Model> model, gigperformer::sdk::GigPerformerAPI *gig_performer_api);
+    View(std::shared_ptr<Model> model);
 
     void FillWidgets();
     void Init(); // TODO: Change to relayout
 
-    Widgets *GetWidgets();
+	 WidgetIds& GetWidgetIds();
 
   private:
     std::vector<std::shared_ptr<Pane>> _panes; //TODO: make separate Panes class
 
 	 std::vector<std::shared_ptr<Plugin>> _plugins; //TODO: Make separate Plugins class
 
-    Widgets _widgets;
+	 WidgetIds _widgetIds;
 };

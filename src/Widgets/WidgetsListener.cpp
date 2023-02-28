@@ -6,6 +6,7 @@
 #include "../Utilities/Debug.h"
 #include "../View/View.h"
 #include "Widgets.h"
+#include "WidgetIds.h"
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
 #else
@@ -13,109 +14,94 @@
 #endif
 #include "../Framework/MvcFramework.h"
 
-WidgetsListener::WidgetsListener(std::shared_ptr<Controller> controller) : _controller(controller)
+WidgetsListener::WidgetsListener(std::shared_ptr<Controller> controller, WidgetIds& widgetIds)
+    : _controller(controller), _widgetIds(widgetIds)
 {
-}
-
-void WidgetsListener::SetListeners()
-{
-    for (auto widget :
-         {Widgets::EWidgetId::PrimaryKeyboardButton1, Widgets::EWidgetId::PrimaryKeyboardButton2,
-          Widgets::EWidgetId::PrimaryKeyboardButton3, Widgets::EWidgetId::PrimaryKeyboardButton4,
-          Widgets::EWidgetId::PrimaryKeyboardButton5, Widgets::EWidgetId::PrimaryKeyboardButton6,
-          Widgets::EWidgetId::PrimaryKeyboardButton7, Widgets::EWidgetId::PrimaryKeyboardButton8,
-          Widgets::EWidgetId::PrimaryKeyboardButton9, // Buttons
-          Widgets::EWidgetId::Slider1, Widgets::EWidgetId::Slider2, Widgets::EWidgetId::Slider3,
-          Widgets::EWidgetId::Slider4, Widgets::EWidgetId::Slider5, Widgets::EWidgetId::Slider6,
-          Widgets::EWidgetId::Slider7, Widgets::EWidgetId::Slider8, Widgets::EWidgetId::Slider9}) // Sliders
-    {
-        MvcFramework::GetGigPerformerApi()->listenForWidget(Widgets::GetWidgetName(widget), true);
-    }
 }
 
 void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
 
-    Widgets::EWidgetId widgetId = Widgets::GetWidgetId(widgetName);
+	 WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
     switch (widgetId)
-    {
-    case Widgets::EWidgetId::Drawbar1:
+     {
+    case WidgetIds::EWidgetId::OrganDrawbar1:
         _controller->GetOrganSubController()->SetDrawbarValue(0, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar2:
+    case WidgetIds::EWidgetId::OrganDrawbar2:
         _controller->GetOrganSubController()->SetDrawbarValue(1, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar3:
+    case WidgetIds::EWidgetId::OrganDrawbar3:
         _controller->GetOrganSubController()->SetDrawbarValue(2, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar4:
+    case WidgetIds::EWidgetId::OrganDrawbar4:
         _controller->GetOrganSubController()->SetDrawbarValue(3, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar5:
+    case WidgetIds::EWidgetId::OrganDrawbar5:
         _controller->GetOrganSubController()->SetDrawbarValue(4, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar6:
+    case WidgetIds::EWidgetId::OrganDrawbar6:
         _controller->GetOrganSubController()->SetDrawbarValue(5, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar7:
+    case WidgetIds::EWidgetId::OrganDrawbar7:
         _controller->GetOrganSubController()->SetDrawbarValue(6, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar8:
+    case WidgetIds::EWidgetId::OrganDrawbar8:
         _controller->GetOrganSubController()->SetDrawbarValue(7, newValue);
         break;
 
-    case Widgets::EWidgetId::Drawbar9:
+    case WidgetIds::EWidgetId::OrganDrawbar9:
         _controller->GetOrganSubController()->SetDrawbarValue(8, newValue);
         break;
 
-    case Widgets::EWidgetId::PrimaryKeyboardButton9:
+    case WidgetIds::EWidgetId::PrimaryKeyboardButton9:
         if (newValue >= 0.5)
         {
             _controller->GetOrganSubController()->SwapRotatorSpeed();
         }
         break;
 
-    case Widgets::EWidgetId::Slider1:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider1:
         ProcessSlider(widgetId, 0, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider2:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider2:
         ProcessSlider(widgetId, 1, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider3:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider3:
         ProcessSlider(widgetId, 2, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider4:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider4:
         ProcessSlider(widgetId, 3, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider5:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider5:
         ProcessSlider(widgetId, 4, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider6:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider6:
         ProcessSlider(widgetId, 5, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider7:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider7:
         ProcessSlider(widgetId, 6, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider8:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider8:
         ProcessSlider(widgetId, 7, newValue);
         break;
 
-    case Widgets::EWidgetId::Slider9:
+    case WidgetIds::EWidgetId::PrimaryKeyboardSlider9:
         // TODO: Main volume
         break;
 
@@ -127,7 +113,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void WidgetsListener::ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue)
+void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderIndex, double newValue)
 {
     std::shared_ptr<MixerSubController> mixerSubController = _controller->GetMixerSubController();
     // switch (mixerSubController->GetPaneSelection())

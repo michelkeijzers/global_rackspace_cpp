@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../../Utilities/IObserver.h"
+#include "../../Widgets/Widgets.h"
 
 class View;
 
@@ -14,12 +15,8 @@ class Pane : public IObserver
 
     virtual void Init() = 0;
 
-    void AddWidgetName(std::string widgetName);
-
-    std::string GetWidgetNameByIndex(uint8_t index);
-
   private:
-    std::vector<std::string> _widgetNames;
+    Widgets _widgets;
 
     View *_view;
 };

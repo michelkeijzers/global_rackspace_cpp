@@ -121,8 +121,6 @@ void LibMain::Initialization()
     registerCallback("OnSetlistChanged");
     registerCallback("OnRackspaceActivated");
 
-    _mvcFramework.GetWidgetsListener()->SetListeners();
-
     consoleLog("Version 0.01");
     consoleLog("path to library " + getPathToMe());
 }

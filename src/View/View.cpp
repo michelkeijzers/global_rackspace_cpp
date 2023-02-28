@@ -6,9 +6,7 @@
 #include "../Plugins/OrganPlugin.h"
 #include "../Model/Model.h"
 
-
-View::View(std::shared_ptr<Model> model, gigperformer::sdk::GigPerformerAPI *gig_performer_api)
-    : _widgets(gig_performer_api)
+View::View(std::shared_ptr<Model> model)
 {
     _panes.push_back(std::make_shared<OrganPane>(this, model->GetOrganSubModel()));
     _panes.push_back(std::make_shared<PrimaryKeyboardButtonsPane>(this, model->GetOrganSubModel()));
@@ -28,7 +26,7 @@ void View::Init()
     }
 }
 
-Widgets *View::GetWidgets()
+WidgetIds &View::GetWidgetIds()
 {
-    return &_widgets;
+    return _widgetIds;
 }
