@@ -1,8 +1,9 @@
 #pragma once
 
 #include <memory>
-#include "MixerSubModel.h"
-#include "organSubModel.h"
+
+class MixerSubModel;
+class OrganSubModel;
 
 class Model
 {
@@ -10,10 +11,10 @@ class Model
     Model();
     void Init();
 
-	 MixerSubModel *GetMixerSubModel();
-    organSubModel *GetorganSubModel();
+	 std::shared_ptr<MixerSubModel> GetMixerSubModel();
+    std::shared_ptr<OrganSubModel> GetOrganSubModel();
 
   private:
-    MixerSubModel _mixerSubModel;
-	 organSubModel _organSubModel;
+    std::shared_ptr<MixerSubModel> _mixerSubModel;
+	 std::shared_ptr<OrganSubModel> _organSubModel;
 };

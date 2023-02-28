@@ -14,8 +14,8 @@
 const int NR_OF_PARAMETERS_PER_CHANNEL = 7;
 const int VOLUME_PARAMETER = 0;
 
-AudioMixerPlugin::AudioMixerPlugin(Controller *controller, bool lowerChannels) 
-	: Plugin(lowerChannels ? "AudioMixerChannels1To16" : "AudioMixerChannels17To23", controller)
+AudioMixerPlugin::AudioMixerPlugin(View *view, bool lowerChannels) 
+	: Plugin(lowerChannels ? "AudioMixerChannels1To16" : "AudioMixerChannels17To23", view)
 {
 }
 

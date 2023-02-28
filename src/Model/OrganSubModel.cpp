@@ -1,7 +1,7 @@
-#include "organSubModel.h"
+#include "OrganSubModel.h"
 #include "../Utilities/Debug.h"
 
-organSubModel::organSubModel() : SubModel(), _isPresent(false), _isRotatorSpeedFast(false)
+OrganSubModel::OrganSubModel() : SubModel(), _isPresent(false), _isRotatorSpeedFast(false)
 {
     for (int n = 0; n < NR_OF_DRAWBARS; n++)
     {
@@ -9,21 +9,21 @@ organSubModel::organSubModel() : SubModel(), _isPresent(false), _isRotatorSpeedF
     }
 }
 
-void organSubModel::Init() /* override */
+void OrganSubModel::Init() /* override */
 {
 }
 
-bool organSubModel::IsPresent()
+bool OrganSubModel::IsPresent()
 {
     return _isPresent;
 }
 
-void organSubModel::SetIsPresent(bool isPresent)
+void OrganSubModel::SetIsPresent(bool isPresent)
 {
     _isPresent = isPresent;
 }
 
-double organSubModel::GetDrawbarValue(int drawbarIndex)
+double OrganSubModel::GetDrawbarValue(int drawbarIndex)
 {
     Debug::Assert((drawbarIndex >= 0) && (drawbarIndex < NR_OF_DRAWBARS), __FUNCTION__,
                   "Drawbar index out of range: " + std::to_string(drawbarIndex));
@@ -31,7 +31,7 @@ double organSubModel::GetDrawbarValue(int drawbarIndex)
     return _drawbarValues[drawbarIndex];
 }
 
-void organSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
+void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
 {
     Debug::Assert((drawbarIndex >= 0) && (drawbarIndex < NR_OF_DRAWBARS), __FUNCTION__,
                   "Drawbar index out of range: " + std::to_string(drawbarIndex));
@@ -39,16 +39,16 @@ void organSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
 	 if (fabs(newValue - _drawbarValues[drawbarIndex]) > 0.01) // TODO: Constant for 0.01
     {
         _drawbarValues[drawbarIndex] = newValue;
-
+        Notify("Drawbar1");
     }
 }
 
-bool organSubModel::IsRotatorSpeedFast()
+bool OrganSubModel::IsRotatorSpeedFast()
 {
     return _isRotatorSpeedFast;
 }
 
-void organSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
+void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
 {
     if (rotatorSpeedFast != _isRotatorSpeedFast)
     {
@@ -56,7 +56,7 @@ void organSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
     }
 }
 
-void organSubModel::SwapRotatorSpeed()
+void OrganSubModel::SwapRotatorSpeed()
 {
     SetRotatorSpeedFast(!_isRotatorSpeedFast);
 }

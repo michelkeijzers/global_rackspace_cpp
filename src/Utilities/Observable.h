@@ -5,26 +5,32 @@
 #include <vector>
 #include "IObserver.h"
 
-template <typename T> struct Observable
+//template <typename T> struct Observable
+class Observable
 {
-    void notify(T &source, const std::string &fieldName)
+  public:
+    //void notify(T &source, const std::string &fieldName)
+    void Notify(const std::string &changedProperty)
     {
         for (auto observer : mObservers)
         {
-            observer->fieldChanged(source, fieldName);
+            observer->Update(changedProperty);
         }
     }
 
-    void subscribe(IObserver<T> &observer)
+     //void subscribe(IObserver<T> &observer)
+    void Subscribe(IObserver &observer)
     {
         mObservers.push_back(&observer);
     }
 
-    void unsubscribe(IObserver<T> &observer)
+    //void unsubscribe(IObserver<T> &observer)
+    void Unsubscribe(IObserver &observer)
     {
         mObservers.erase(remove(mObservers.begin(), mObservers.end(), &observer), mObservers.end());
-    }
+    }   
 
   private:
-    std::vector<IObserver<T> *> mObservers;
+    //std::vector<IObserver<T> *> mObservers;
+    std::vector<IObserver *> mObservers;
 };

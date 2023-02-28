@@ -4,6 +4,8 @@
 
 /* static */ gigperformer::sdk::GigPerformerAPI *MvcFramework::_gigPerformerApi;
 
+class OrganSubModel;
+
 MvcFramework::MvcFramework() : _model(nullptr), _view(nullptr), _controller(nullptr), _widgetsListener(nullptr)
 {
 }
@@ -11,7 +13,9 @@ MvcFramework::MvcFramework() : _model(nullptr), _view(nullptr), _controller(null
 void MvcFramework::Init(gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
 {
     _model = std::make_shared<Model>();
-    _view = std::make_shared<View>(gigPerformerApi);
+    _model->Init();
+
+    _view = std::make_shared<View>(_model, gigPerformerApi);
     _controller = std::make_shared<Controller>(_model, _view);
     _widgetsListener = std::make_shared<WidgetsListener>(_controller);
 

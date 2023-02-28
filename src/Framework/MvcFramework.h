@@ -13,6 +13,7 @@
 class Model;
 class View;
 class Controller;
+class OrganSubModel;
 class WidgetsListener;
 class gigPerformerApi;
 

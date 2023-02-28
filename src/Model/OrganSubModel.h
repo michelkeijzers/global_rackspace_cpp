@@ -4,8 +4,6 @@
 #include "SubModel.h"
 #include "../Utilities/Observable.h"
 
-class OrganSubModel;
-
 enum class EOrganRotatorSpeed
 {
     Fast,
@@ -13,12 +11,12 @@ enum class EOrganRotatorSpeed
     Off
 };
 
-class organSubModel : SubModel, Observable<OrganSubModel>
+class OrganSubModel : public SubModel, public Observable
 {
   public:
     static const int NR_OF_DRAWBARS = 9;
 
-    organSubModel();
+    OrganSubModel();
 	 	 
 	 void Init() override;
 

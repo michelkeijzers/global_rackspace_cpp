@@ -4,7 +4,10 @@
 
 #include <string>
 
-template < typename T> struct IObserver
+//template < typename T> struct IObserver
+class IObserver
 {
-    virtual void Update(T &source, const std::string &messageFromSubject) = 0;
+  public:
+    //virtual void Update(T &source, const std::string &messageFromSubject) = 0;
+    virtual void Update(const std::string &changedProperty) = 0;
 };

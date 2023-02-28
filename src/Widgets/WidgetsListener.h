@@ -1,8 +1,8 @@
 #pragma once
 
+#include "Widgets.h"
 #include <memory>
 #include <string>
-#include "Widgets.h"
 
 class Controller;
 
@@ -13,10 +13,10 @@ class WidgetsListener
 
     void OnWidgetValueChanged(const std::string &widgetName, double newValue);
 
-	 void SetListeners();
+    void SetListeners();
 
   private:
     std::shared_ptr<Controller> _controller;
 
-	 void ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue);
+    void ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue);
 };

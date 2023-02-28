@@ -1,4 +1,6 @@
 #include "Model.h"
+#include "MixerSubModel.h"
+#include "OrganSubModel.h"
 #include <memory>
 
 Model::Model()
@@ -7,16 +9,19 @@ Model::Model()
 
 void Model::Init()
 {
-    _organSubModel.Init();
-    _mixerSubModel.Init();
+    _organSubModel = std::make_shared<OrganSubModel>();
+    _mixerSubModel = std::make_shared<MixerSubModel>();
+
+    _organSubModel->Init();
+    _mixerSubModel->Init();
 }
 
-MixerSubModel *Model::GetMixerSubModel()
+std::shared_ptr<MixerSubModel> Model::GetMixerSubModel()
 {
-    return &_mixerSubModel;
+    return _mixerSubModel;
 }
 
-organSubModel *Model::GetorganSubModel()
+std::shared_ptr<OrganSubModel> Model::GetOrganSubModel()
 {
-    return &_organSubModel;
+    return _organSubModel;
 }

@@ -2,12 +2,12 @@
 
 #include "Plugin.h"
 
-class Controller;
+class View;
 
 class AudioMixerPlugin : public Plugin
 {
   public:
-    AudioMixerPlugin(Controller *controller, bool lowerChannels);
+    AudioMixerPlugin(View *view, bool lowerChannels);
 
 	 void SetChannelVolume(int channelIndex, double volume);
 

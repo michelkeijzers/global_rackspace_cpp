@@ -15,12 +15,13 @@ Controller::Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view)
 
 void Controller::FillControllers()
 {
-	//TODO: Create plugins in specific controller classes, not here.
-    //std::shared_ptr<AudioMixerPlugin> audioMixerChannels1To16Plugin = std::make_shared<AudioMixerPlugin>(this, true);
-    //std::shared_ptr<AudioMixerPlugin> audioMixerChannels17To23Plugin = std::make_shared<AudioMixerPlugin>(this, false);
+    // TODO: Create plugins in specific controller classes, not here.
+    // std::shared_ptr<AudioMixerPlugin> audioMixerChannels1To16Plugin = std::make_shared<AudioMixerPlugin>(this, true);
+    // std::shared_ptr<AudioMixerPlugin> audioMixerChannels17To23Plugin = std::make_shared<AudioMixerPlugin>(this,
+    // false);
     _mixerSubController = std::make_shared<MixerSubController>(this);
 
-    std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>(this);
+    //std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>(this, );
     _organSubController = std::make_shared<OrganSubController>(this);
 }
 

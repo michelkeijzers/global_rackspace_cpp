@@ -3,10 +3,11 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "../../Utilities/IObserver.h"
 
 class View;
 
-class Pane
+class Pane : public IObserver
 {
   public:
     Pane(View *view);

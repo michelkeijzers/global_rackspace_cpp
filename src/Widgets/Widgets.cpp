@@ -250,7 +250,7 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
         }
         break;
 
-	 case 'D':
+    case 'D':
         Debug::Assert(widgetName.length() == 8, __FUNCTION__, "Illegal widget length of " + widgetName);
         Debug::Assert(widgetName[1] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
         Debug::Assert(widgetName[2] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
@@ -258,8 +258,7 @@ void Widgets::AssertIfWidgetDoesNotExist(std::string widgetName)
         Debug::Assert(widgetName[4] == 'b', __FUNCTION__, "Illegal widget name " + widgetName);
         Debug::Assert(widgetName[5] == 'a', __FUNCTION__, "Illegal widget name " + widgetName);
         Debug::Assert(widgetName[6] == 'r', __FUNCTION__, "Illegal widget name " + widgetName);
-       
-		  
+
         switch (widgetName[7])
         {
         case '1':

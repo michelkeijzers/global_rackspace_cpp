@@ -130,21 +130,21 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 void WidgetsListener::ProcessSlider(Widgets::EWidgetId widgetId, int sliderIndex, double newValue)
 {
     std::shared_ptr<MixerSubController> mixerSubController = _controller->GetMixerSubController();
-    //switch (mixerSubController->GetPaneSelection())
+    // switch (mixerSubController->GetPaneSelection())
     //{
-    //case MixerSubController::EPaneSelection::Channels1To8:
+    // case MixerSubController::EPaneSelection::Channels1To8:
     //   mixerSubController->SetChannelVolume(sliderIndex, newValue);
     //   break;
 
-    //case MixerSubController::EPaneSelection::Channels9To16:
+    // case MixerSubController::EPaneSelection::Channels9To16:
     //    mixerSubController->SetChannelVolume(8 + sliderIndex, newValue);
     //    break;
 
-    //case MixerSubController::EPaneSelection::Channels17To23:
+    // case MixerSubController::EPaneSelection::Channels17To23:
     //    mixerSubController->SetChannelVolume(16 + sliderIndex, newValue);
     //    break;
 
-    //case MixerSubController::EPaneSelection::Drawbars:
+    // case MixerSubController::EPaneSelection::Drawbars:
     //    // Not possible, invisible
     //    Debug::Error(__FUNCTION__, "Widget should be invisible: " + Widgets::GetWidgetName(widgetId));
     //    break;

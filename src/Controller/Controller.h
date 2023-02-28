@@ -31,7 +31,7 @@ class Controller
     std::shared_ptr<Model> _model;
     std::shared_ptr<View> _view;
 
-	 std::shared_ptr<MixerSubController> _mixerSubController;
+    std::shared_ptr<MixerSubController> _mixerSubController;
     std::shared_ptr<OrganSubController> _organSubController;
 
     std::shared_ptr<PrimaryKeyboardMidiInBlock>

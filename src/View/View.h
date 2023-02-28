@@ -1,25 +1,28 @@
 #pragma once
 
+#include "../Widgets/Widgets.h"
 #include <memory>
 #include <vector>
-#include "../Widgets/Widgets.h"
 
 class gigperformer::sdk::GigPerformerAPI;
-
+class Model;
 class Pane;
+class Plugin;
 
 class View
 {
   public:
-    View(gigperformer::sdk::GigPerformerAPI *gig_performer_api);
+    View(std::shared_ptr<Model> model, gigperformer::sdk::GigPerformerAPI *gig_performer_api);
 
     void FillWidgets();
-    void Init();  //TODO: Change to relayout
+    void Init(); // TODO: Change to relayout
 
-	 Widgets* GetWidgets();
-	
+    Widgets *GetWidgets();
+
   private:
-    std::vector<std::shared_ptr<Pane>> _panes;
+    std::vector<std::shared_ptr<Pane>> _panes; //TODO: make separate Panes class
+
+	 std::vector<std::shared_ptr<Plugin>> _plugins; //TODO: Make separate Plugins class
 
     Widgets _widgets;
 };

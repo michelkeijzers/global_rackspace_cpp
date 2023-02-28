@@ -3,7 +3,7 @@
 #include "MixerSubController.h"
 #include "OrganSubController.h"
 
-SubControllers::SubControllers(Controller* controller)
+SubControllers::SubControllers(Controller *controller)
 {
     _mixerSubController = std::make_shared<MixerSubController>(controller);
     _organSubController = std::make_shared<OrganSubController>(controller);

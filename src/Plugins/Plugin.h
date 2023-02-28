@@ -1,21 +1,22 @@
 #pragma once
 
 #include <string>
+#include "../Utilities/IObserver.h"
 
-class Controller;
+class View;
 
-class Plugin
+class Plugin : public IObserver
 {
   public:
-    Plugin(std::string name, Controller *controller);
+    Plugin(std::string name, View *view);
 
     std::string GetName();
 
   protected:
-    Controller *GetController();
+    View *GetView();
 
   private:
     std::string _name;
 
-    Controller *_controller;
+    View *_view;
 };

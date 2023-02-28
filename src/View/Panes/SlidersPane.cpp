@@ -1,5 +1,5 @@
-#include "../View.h"
 #include "SlidersPane.h"
+#include "../View.h"
 
 SlidersPane::SlidersPane(View *view) : Pane(view)
 {
