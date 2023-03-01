@@ -2,7 +2,7 @@
 #include "../Framework/MvcFramework.h"
 #include "../Utilities/Debug.h"
 
-ValueWidget::ValueWidget(std::shared_ptr<WidgetIds> ids, WidgetIds::EWidgetId id, bool isListenedTo)
+ValueWidget::ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
     : TextWidget(ids, id, isListenedTo), _value(0.0)
 {
 }

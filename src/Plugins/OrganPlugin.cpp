@@ -15,9 +15,9 @@ OrganPlugin::OrganPlugin(View *view, std::shared_ptr<OrganSubModel> organSubMode
     organSubModel->Subscribe(*this);
 }
 
-void OrganPlugin::Update(const std::string &changedProperty) /* override */
+void OrganPlugin::Update(View::EChangedProperty changedProperty) /* override */
 {
-    if (changedProperty == "Drawbar1")
+    if (changedProperty == View::EChangedProperty::Drawbar1)
     {
         MvcFramework::GetGigPerformerApi()->setPluginParameter("Organ", 10, 0.3, true); // TODO: Use abstraction ???
         Debug::Log("SetPluginParameter: Organ 10 0.3 true");

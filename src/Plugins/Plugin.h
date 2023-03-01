@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../Utilities/IObserver.h"
+#include "../View/IObserver.h"
 
 class View;
 

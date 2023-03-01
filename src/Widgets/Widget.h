@@ -4,10 +4,11 @@
 #include <memory>
 #include <string>
 
+class WidgetIds;
 class Widget
 {
   public:
-    Widget(std::shared_ptr<WidgetIds> widgetIds, WidgetIds::EWidgetId id, bool isListenedTo);
+    Widget(WidgetIds& widgetIds, WidgetIds::EWidgetId id, bool isListenedTo);
 	 	 
     WidgetIds::EWidgetId GetId();
     std::string GetName();
@@ -16,5 +17,5 @@ class Widget
   private:
     WidgetIds::EWidgetId _id;
     bool _isListenedTo;
-    std::shared_ptr<WidgetIds> _widgetIds;
+    WidgetIds& _widgetIds;
 };

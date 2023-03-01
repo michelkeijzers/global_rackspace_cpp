@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "Pane.h"
+#include "../View.h"
 
 class OrganSubModel;
 class View;
@@ -14,5 +15,5 @@ class OrganPane : public Pane
 
 	 void Init() override;
 
-	 	 void Update(const std::string &changedProperty) override;
+	 	 void Update(View::EChangedProperty changedProperty) override;
 };

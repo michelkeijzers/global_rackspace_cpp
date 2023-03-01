@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "../../Utilities/IObserver.h"
+#include "../IObserver.h"
 #include "../../Widgets/Widgets.h"
 
 class View;
@@ -14,6 +14,10 @@ class Pane : public IObserver
     Pane(View *view);
 
     virtual void Init() = 0;
+
+	protected:
+    Widgets* GetWidgets();
+      View *GetView();
 
   private:
     Widgets _widgets;

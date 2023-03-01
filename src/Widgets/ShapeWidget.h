@@ -6,7 +6,7 @@
 class ShapeWidget : public Widget
 {
   public:
-    ShapeWidget(std::shared_ptr<WidgetIds> widgetIds, WidgetIds::EWidgetId widgetId, bool isListenedTo);
+    ShapeWidget(WidgetIds& widgetIds, WidgetIds::EWidgetId widgetId, bool isListenedTo);
 
     void SetBounds(int left, int top, int width, int height);
     int GetLeft();

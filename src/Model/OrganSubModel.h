@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "SubModel.h"
-#include "../Utilities/Observable.h"
+#include "../View/Observable.h"
 
 enum class EOrganRotatorSpeed
 {

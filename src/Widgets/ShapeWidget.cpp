@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-ShapeWidget::ShapeWidget(std::shared_ptr<WidgetIds> ids, WidgetIds::EWidgetId id, bool isListenedTo)
+ShapeWidget::ShapeWidget(WidgetIds& ids, WidgetIds::EWidgetId id, bool isListenedTo)
     : Widget(ids, id, isListenedTo), _left(0), _top(0), _width(100), _height(100), _red(0.0), _green(0.0), _blue(0.0),
       _alpha(0.0)
 {

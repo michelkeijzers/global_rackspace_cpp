@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include "Pane.h"
+#include "../View.h"
 
 class View;
 class OrganSubModel;
@@ -16,5 +17,5 @@ class PrimaryKeyboardButtonsPane : public Pane
 
     void Init() override;
 
-	 void Update(const std::string &changedProperty) override;
+	 void Update(View::EChangedProperty changedProperty) override;
 };

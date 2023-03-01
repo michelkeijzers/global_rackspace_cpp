@@ -8,7 +8,7 @@
 class Observable
 {
   public:
-    void Notify(const std::string &changedProperty)
+    void Notify(View::EChangedProperty changedProperty)
     {
         for (auto observer : mObservers)
         {

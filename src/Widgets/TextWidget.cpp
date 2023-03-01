@@ -2,7 +2,7 @@
 #include "../Utilities/Debug.h"
 #include "../Framework/MvcFramework.h"
 
-TextWidget::TextWidget(std::shared_ptr<WidgetIds> ids, WidgetIds::EWidgetId id, bool isListenedTo)
+TextWidget::TextWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
     : ShapeWidget(ids, id, isListenedTo), _text("")
 {
 }

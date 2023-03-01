@@ -8,7 +8,7 @@
 class ValueWidget : public TextWidget
 {
   public:
-    ValueWidget(std::shared_ptr<WidgetIds> ids, WidgetIds::EWidgetId id, bool isListenedTo);
+    ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
 
     void SetValue(double value);
     double GetValue();

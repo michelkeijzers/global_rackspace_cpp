@@ -1,9 +1,9 @@
 #pragma once
 
+#include "../Widgets/WidgetIds.h"
+#include "../Widgets/Widgets.h"
 #include <memory>
 #include <vector>
-#include "../Widgets/Widgets.h"
-#include "../Widgets/WidgetIds.h"
 
 class Model;
 class Pane;
@@ -17,12 +17,29 @@ class View
     void FillWidgets();
     void Init(); // TODO: Change to relayout
 
-	 WidgetIds& GetWidgetIds();
+    WidgetIds &GetWidgetIds();
+
+    std::shared_ptr<Model> GetModel();
 
   private:
-    std::vector<std::shared_ptr<Pane>> _panes; //TODO: make separate Panes class
+    std::vector<std::shared_ptr<Pane>> _panes; // TODO: make separate Panes class
 
-	 std::vector<std::shared_ptr<Plugin>> _plugins; //TODO: Make separate Plugins class
+    std::vector<std::shared_ptr<Plugin>> _plugins; // TODO: Make separate Plugins class
 
-	 WidgetIds _widgetIds;
+    WidgetIds _widgetIds;
+    std::shared_ptr<Model> _model;
+
+  public:
+    enum class EChangedProperty
+    {
+        Drawbar1,
+        Drawbar2,
+        Drawbar3,
+        Drawbar4,
+        Drawbar5,
+        Drawbar6,
+        Drawbar7,
+        Drawbar8,
+        Drawbar9
+    };
 };

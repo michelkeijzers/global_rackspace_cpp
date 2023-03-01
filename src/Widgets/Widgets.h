@@ -1,7 +1,8 @@
 #pragma once
 
 #include <memory>
-#include <vector>
+#include <map>
+#include "WidgetIds.h"
 
 class Widget;
 
@@ -10,8 +11,9 @@ class Widgets
   public:
     Widgets();
 
-	 void AddWidget(std::shared_ptr<Widget> widget);
- 
+	 void AddWidget(WidgetIds::EWidgetId id, std::shared_ptr<Widget> widget);
+	 Widget &GetWidgetById(WidgetIds::EWidgetId id);
+
   private:
-    std::vector<std::shared_ptr<Widget>> _widgets;
+    std::map<WidgetIds::EWidgetId, std::shared_ptr<Widget>> _widgets;
 };

@@ -15,7 +15,7 @@ void PrimaryKeyboardButtonsPane::Init() /* override */
     // No init actions needed for now
 }
 
-void PrimaryKeyboardButtonsPane::Update(const std::string &changedProperty) /* override */
+void PrimaryKeyboardButtonsPane::Update(View::EChangedProperty changedProperty) /* override */
 {
 	//TODO
     //if (changedProperty == "Drawbar1") // TODO: Use widget, use widget ID?

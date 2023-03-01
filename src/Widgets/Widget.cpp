@@ -2,7 +2,7 @@
 #include "../Framework/MvcFramework.h"
 #include "WidgetIds.h"
 
-Widget::Widget(std::shared_ptr<WidgetIds> widgetIds, WidgetIds::EWidgetId id, bool isListenedTo)
+Widget::Widget(WidgetIds& widgetIds, WidgetIds::EWidgetId id, bool isListenedTo)
     : _widgetIds(widgetIds), _id(id), _isListenedTo(isListenedTo)
 {
     if (isListenedTo)
@@ -18,7 +18,7 @@ WidgetIds::EWidgetId Widget::GetId()
 
 std::string Widget::GetName()
 {
-    return _widgetIds->GetName(_id);
+    return _widgetIds.GetName(_id);
 }
 
 bool Widget::IsListenedTo()

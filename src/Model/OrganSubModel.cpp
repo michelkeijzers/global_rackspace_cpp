@@ -1,5 +1,6 @@
 #include "OrganSubModel.h"
 #include "../Utilities/Debug.h"
+#include "../View/View.h"
 
 OrganSubModel::OrganSubModel() : SubModel(), _isPresent(false), _isRotatorSpeedFast(false)
 {
@@ -39,7 +40,7 @@ void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
 	 if (fabs(newValue - _drawbarValues[drawbarIndex]) > 0.01) // TODO: Constant for 0.01
     {
         _drawbarValues[drawbarIndex] = newValue;
-        Notify("Drawbar1");
+        Notify(View::EChangedProperty::Drawbar1);
     }
 }
 
