@@ -3,6 +3,7 @@
 #include "../Model/OrganSubModel.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
+#include "../View/ChangedProperties.h"
 #include <iostream>
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
@@ -10,17 +11,24 @@
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
-OrganPlugin::OrganPlugin(View *view, std::shared_ptr<OrganSubModel> organSubModel) : Plugin("Organ", view)
+static const std::string PLUGIN_NAME = "Organ"; // Native Instrument, Vintage Organ
+static const int PLUGIN_PARAMETER_REVERB_AMOUNT = 4;
+static const int PLUGIN_PARAMETER_ROTATOR_SPEED = 8;
+static const int PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET = 20;
+
+OrganPlugin::OrganPlugin(View *view, std::shared_ptr<OrganSubModel> organSubModel) : Plugin(PLUGIN_NAME, view)
 {
     organSubModel->Subscribe(*this);
 }
 
-void OrganPlugin::Update(View::EChangedProperty changedProperty) /* override */
+void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (changedProperty == View::EChangedProperty::Drawbar1)
+    if (changedProperty == ChangedProperties::EChangedProperty::Drawbar1)
     {
-        MvcFramework::GetGigPerformerApi()->setPluginParameter("Organ", 10, 0.3, true); // TODO: Use abstraction ???
-        Debug::Log("SetPluginParameter: Organ 10 0.3 true");
+        double drawbarValue = GetView()->GetModel()->GetOrganSubModel()->GetDrawbarValue(0);
+        MvcFramework::GetGigPerformerApi()->setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET,
+                                                               drawbarValue, true);
+        Debug::Log("$ Plugin: " + PLUGIN_NAME + ", drawbar 1 = " + std::to_string(drawbarValue));
     }
 }
 

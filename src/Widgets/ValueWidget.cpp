@@ -9,12 +9,8 @@ ValueWidget::ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListene
 
 void ValueWidget::SetValue(double value)
 {
-    Debug::LogMethodEntry(__FUNCTION__, "value = " + std::to_string(value) + ")");
-
     _value = value;
     MvcFramework::GetGigPerformerApi()->setWidgetValue(GetName(), value);
-
-    Debug::LogMethodExit(__FUNCTION__);
 }
 
  double ValueWidget::GetValue()

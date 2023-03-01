@@ -37,9 +37,6 @@ void OrganSubController::SetDrawbarValue(int drawbarIndex, double newValue, bool
     if (forced || (fabs(newValue - organSubModel->GetDrawbarValue(drawbarIndex)) > 0.01))
     {
         organSubModel->SetDrawbarValue(drawbarIndex, newValue);
-      //  _organPlugin->SetDrawbarValue(drawbarIndex, newValue);
-    //_controller->GetView()->GetWidgets()->SetWidgetValue(Widgets::EWidgetId::Slider1, volume); TODO: drawbar index to ID)
-        
     }
 }
 

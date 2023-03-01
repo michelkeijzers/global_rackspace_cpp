@@ -61,6 +61,7 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/SubControllers.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/View.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/View.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/View/ChangedProperties.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/IObserver.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Observable.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/Pane.h"

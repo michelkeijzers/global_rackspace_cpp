@@ -2,6 +2,9 @@
 
 #include "../Widgets/WidgetIds.h"
 #include "../Widgets/Widgets.h"
+#include "../View/Panes/OrganPane.h"
+#include "../View/Panes/PrimaryKeyboardButtonsPane.h"
+#include "../Plugins/OrganPlugin.h"
 #include <memory>
 #include <vector>
 
@@ -22,24 +25,16 @@ class View
     std::shared_ptr<Model> GetModel();
 
   private:
-    std::vector<std::shared_ptr<Pane>> _panes; // TODO: make separate Panes class
+    std::vector<Pane *> _panes; // TODO: make separate Panes class
 
-    std::vector<std::shared_ptr<Plugin>> _plugins; // TODO: Make separate Plugins class
+    std::vector<Plugin *> _plugins; // TODO: Make separate Plugins class
 
     WidgetIds _widgetIds;
     std::shared_ptr<Model> _model;
 
-  public:
-    enum class EChangedProperty
-    {
-        Drawbar1,
-        Drawbar2,
-        Drawbar3,
-        Drawbar4,
-        Drawbar5,
-        Drawbar6,
-        Drawbar7,
-        Drawbar8,
-        Drawbar9
-    };
+
+	 OrganPane _organPane;
+    PrimaryKeyboardButtonsPane _primaryKeyboardButtonsPane;
+
+    OrganPlugin _organPlugin;
 };

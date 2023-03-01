@@ -16,6 +16,7 @@ void MvcFramework::Init(gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
     _model->Init();
 
     _view = std::make_shared<View>(_model);
+    _view->GetWidgetIds().Fill();
     _view->Init();
     _controller = std::make_shared<Controller>(_model, _view);
     _widgetsListener = std::make_shared<WidgetsListener>(_controller, _view->GetWidgetIds());

@@ -7,13 +7,14 @@
 #include "../Model/Model.h"
 
 View::View(std::shared_ptr<Model> model)
+    : _model(model),
+  _organPane(this, model->GetOrganSubModel()),
+    _primaryKeyboardButtonsPane(this, model->GetOrganSubModel()), 
+	_organPlugin(this, model->GetOrganSubModel())
 {
-    _panes.push_back(std::make_shared<OrganPane>(this, model->GetOrganSubModel()));
-    _panes.push_back(std::make_shared<PrimaryKeyboardButtonsPane>(this, model->GetOrganSubModel()));
-
-	 _plugins.push_back(std::make_shared<OrganPlugin>(this, model->GetOrganSubModel()));
-
-	 _model = model;
+    _panes.push_back(&_organPane);
+     _panes.push_back(&_primaryKeyboardButtonsPane);
+    _plugins.push_back(&_organPlugin);
 }
 
 std::shared_ptr<Model> View::GetModel()

@@ -2,13 +2,14 @@
 
 // See: http://www.vishalchovatiya.com/observer-design-pattern-in-modern-cpp/
 
-#include "IObserver.h"
 #include <vector>
+#include "IObserver.h"
+#include "ChangedProperties.h"
 
 class Observable
 {
   public:
-    void Notify(View::EChangedProperty changedProperty)
+    void Notify(ChangedProperties::EChangedProperty changedProperty)
     {
         for (auto observer : mObservers)
         {

@@ -34,7 +34,8 @@ class Debug
     /// \brief Prints a method entry logging
     /// \param methodName: name of the method
     /// \param parameters: optional parameter list to be printed
-    static void LogMethodEntry(std::string methodName, std::string parameters = "");
+	 /// \param additionalText: more text that is added after the prototype
+    static void LogMethodEntry(std::string methodName, std::string parameters = "", std::string additionalText = "");
 
     /// \brief Prints a method entry logging
     /// \param methodName: name of the method

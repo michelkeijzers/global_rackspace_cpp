@@ -4,7 +4,8 @@
 #include "../../Widgets/ValueWidget.h"
 #include "../../Widgets/Widget.h"
 #include "../View.h"
-#include "../../View/IObserver.h"
+#include "../ChangedProperties.h"
+#include "../IObserver.h"
 #include <memory>
 
 OrganPane::OrganPane(View *view, std::shared_ptr<OrganSubModel> organSubModel) : Pane(view)
@@ -19,12 +20,12 @@ void OrganPane::Init() // override
         std::make_shared<Widget>(GetView()->GetWidgetIds(), WidgetIds::EWidgetId::OrganDrawbar1, true));
 }
 
-void OrganPane::Update(View::EChangedProperty changedProperty) /* override */
+void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (changedProperty == View::EChangedProperty::Drawbar1)
+    if (changedProperty == ChangedProperties::EChangedProperty::Drawbar1)
     {
         Widget &widget = GetWidgets()->GetWidgetById(WidgetIds::EWidgetId::OrganDrawbar1);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(GetView()->GetModel()->GetOrganSubModel()->GetDrawbarValue(1));
+        valueWidget.SetValue(GetView()->GetModel()->GetOrganSubModel()->GetDrawbarValue(0));
     }
 }

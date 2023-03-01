@@ -3,10 +3,10 @@
 // See https://refactoring.guru/design-patterns/observer/cpp/example
 
 #include <string>
-#include "View.h"
+#include "ChangedProperties.h"
 
 class IObserver
 {
   public:
-    virtual void Update(View::EChangedProperty changedProperty) = 0;
+    virtual void Update(ChangedProperties::EChangedProperty changedProperty) = 0;
 };

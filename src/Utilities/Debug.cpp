@@ -41,7 +41,7 @@
     _logHeaders = logHeaders;
 }
 
-/* static */ void Debug::LogMethodEntry(std::string methodName, std::string parameters)
+/* static */ void Debug::LogMethodEntry(std::string methodName, std::string parameters, std::string additionalText)
 {
     std::string text = std::string(_logMethodIndentation, ' ') + ">" + methodName + "(";
 
@@ -50,13 +50,14 @@
         text += parameters;
     }
 
-    text += ")";
-#ifdef _CONSOLE
-    text += "\n";
-#endif
+	 text += ")";
+
+	 if (additionalText != "")
+    {
+         text += ", " + additionalText;
+	 }
 
     _gigPerformerApi->scriptLog(text, true);
-
     _logMethodIndentation++;
 }
 
@@ -71,10 +72,6 @@
     {
         text += ": " + returnInfo;
     }
-
-#ifdef _CONSOLE
-    text += "\n";
-#endif
 
     _gigPerformerApi->scriptLog(text, true);
 }
