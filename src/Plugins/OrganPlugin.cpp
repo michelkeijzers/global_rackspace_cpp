@@ -25,30 +25,26 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
 {
     if (changedProperty == ChangedProperties::EChangedProperty::Drawbar1)
     {
-        double drawbarValue = GetView().GetModel().GetOrganSubModel().GetDrawbarValue(0);
-        MvcFramework::GetGigPerformerApi().setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET,
-                                                               drawbarValue, true);
-        Debug::Log("$ Plugin: " + PLUGIN_NAME + ", drawbar 1 = " + std::to_string(drawbarValue));
+        SetDrawbarValue(1);
     }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
+    {
+        SetRotatorSpeed();
+	 }
 }
 
-void OrganPlugin::SetDrawbarValue(int drawbarIndex, double newValue)
+void OrganPlugin::SetDrawbarValue(int drawbarIndex)
 {
-    Debug::LogMethodEntry(__FUNCTION__, "DrawbarIndex = " + std::to_string(drawbarIndex) +
-                                            ", newValue = " + std::to_string(newValue));
-
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), 16 + drawbarIndex, newValue,
-                                                           true); // TODO: Check number + make const
-
-    Debug::LogMethodExit(__FUNCTION__);
+    double drawbarValue = GetView().GetModel().GetOrganSubModel().GetDrawbarValue(0);
+    MvcFramework::GetGigPerformerApi().setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET,
+                                                          drawbarValue, true);
+    Debug::Log("$ Plugin: " + PLUGIN_NAME + ", drawbar 1 = " + std::to_string(drawbarValue));
 }
 
-void OrganPlugin::SetRotatorSpeedFast(bool fast)
+void OrganPlugin::SetRotatorSpeed()
 {
-    Debug::LogMethodEntry(__FUNCTION__, "fast: " + std::to_string(fast));
-
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), 8, BoolUtilities::ToDouble(fast),
-                                                           true); // TODO: Make const
-
-    Debug::LogMethodExit(__FUNCTION__);
+    double rotatorSpeedFast = GetView().GetModel().GetOrganSubModel().IsRotatorSpeedFast();
+    MvcFramework::GetGigPerformerApi().setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETER_ROTATOR_SPEED, rotatorSpeedFast,
+                                                          true);
+    Debug::Log("$ Plugin: " + PLUGIN_NAME + ", rotator speed fast = " + std::to_string(rotatorSpeedFast));
 }

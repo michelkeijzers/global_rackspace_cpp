@@ -13,7 +13,8 @@ class ChangedProperties
         Drawbar6,
         Drawbar7,
         Drawbar8,
-        Drawbar9
+        Drawbar9,
+		  OrganRotatorSpeed
     };
 
   private:

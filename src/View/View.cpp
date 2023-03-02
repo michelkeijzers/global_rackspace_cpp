@@ -20,8 +20,10 @@ void View::FillWidgets()
 
 void View::Init()
 {
+    _widgetIds.Fill();
     _panes.Init();
     //TODO: Check if needed _plugins.Init();
+
 }
 
 Model &View::GetModel()

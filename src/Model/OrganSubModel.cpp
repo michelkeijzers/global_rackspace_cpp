@@ -55,6 +55,7 @@ void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
     if (rotatorSpeedFast != _isRotatorSpeedFast)
     {
         _isRotatorSpeedFast = rotatorSpeedFast;
+        Notify(ChangedProperties::EChangedProperty::OrganRotatorSpeed);
     }
 }
 

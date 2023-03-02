@@ -45,7 +45,6 @@ void MvcFramework::Init()
     _model->Init();
 
     _view = new View(*_model);
-    _view->GetWidgetIds().Fill();
     _view->Init();
     _controller = new Controller(*_model, *_view);
     _widgetsListener = new WidgetsListener(*_controller, _view->GetWidgetIds());

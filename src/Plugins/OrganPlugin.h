@@ -15,6 +15,6 @@ class OrganPlugin : public Plugin
 
 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-	 void SetDrawbarValue(int drawbarIndex, double newValue);
-    void SetRotatorSpeedFast(bool fast);
+	 void SetDrawbarValue(int drawbarIndex);
+    void SetRotatorSpeed();
 };

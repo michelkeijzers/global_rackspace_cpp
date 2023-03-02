@@ -7,11 +7,12 @@ class WidgetIds;
 class Widget
 {
   public:
-    Widget(WidgetIds& widgetIds, WidgetIds::EWidgetId id, bool isListenedTo);
-	 	 
     WidgetIds::EWidgetId GetId();
     std::string GetName();
     bool IsListenedTo();
+
+	protected:
+    Widget(WidgetIds &widgetIds, WidgetIds::EWidgetId id, bool isListenedTo);
 
   private:
     WidgetIds::EWidgetId _id;
