@@ -26,6 +26,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 	 WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
     switch (widgetId)
      {
+		 //TODO: Use if statement to make shorter 
     case WidgetIds::EWidgetId::OrganDrawbar1:
         _controller.GetOrganSubController().SetDrawbarValue(0, newValue);
         break;

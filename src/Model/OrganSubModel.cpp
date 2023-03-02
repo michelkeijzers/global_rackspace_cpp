@@ -38,7 +38,7 @@ void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
     Debug::Assert((drawbarIndex >= 0) && (drawbarIndex < NR_OF_DRAWBARS), __FUNCTION__,
                   "Drawbar index out of range: " + std::to_string(drawbarIndex));
 
-	 if (fabs(newValue - _drawbarValues[drawbarIndex]) > 0.01) // TODO: Constant for 0.01
+	 if (fabs(newValue - _drawbarValues[drawbarIndex]) > 0.01) // TODO: Remove from here, handle in widget
     {
         _drawbarValues[drawbarIndex] = newValue;
         Notify(ChangedProperties::EChangedProperty::Drawbar1);
