@@ -40,6 +40,10 @@ class WidgetIds
         PrimaryKeyboardButton7,
         PrimaryKeyboardButton8,
         PrimaryKeyboardButton9,
+        PrimaryKeyboardButton10,
+        PrimaryKeyboardButton11,
+        PrimaryKeyboardButton12,
+        PrimaryKeyboardButton13,
 
         Last
     };

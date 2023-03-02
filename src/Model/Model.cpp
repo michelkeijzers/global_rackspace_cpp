@@ -2,22 +2,21 @@
 #include "MixerSubModel.h"
 #include "OrganSubModel.h"
 
-Model::Model() : _organSubModel(), _mixerSubModel()
+Model::Model()
 {
 }
 
 void Model::Init()
 {
-    _organSubModel.Init();
-    _mixerSubModel.Init();
+    _subModels.Init();
 }
 
-MixerSubModel& Model::GetMixerSubModel()
+void Model::Fill()
 {
-    return _mixerSubModel;
+    _subModels.Fill();
 }
 
-OrganSubModel& Model::GetOrganSubModel()
+SubModel &Model::GetSubModel(SubModels::ESubModelId id)
 {
-    return _organSubModel;
+    return _subModels.GetSubModelById(id);
 }

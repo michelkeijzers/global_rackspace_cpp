@@ -42,10 +42,12 @@ MvcFramework::~MvcFramework()
 void MvcFramework::Init()
 {
     _model = new Model();
+    _model->Fill();
     _model->Init();
 
     _view = new View(*_model);
     _view->Init();
+    _view->Fill();
     _controller = new Controller(*_model, *_view);
     _widgetsListener = new WidgetsListener(*_controller, _view->GetWidgetIds());
 

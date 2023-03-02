@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-#include "Pane.h"
 #include "../ChangedProperties.h"
+#include "Pane.h"
+#include <string>
 
 class OrganSubModel;
 class View;
@@ -16,5 +16,10 @@ class OrganPane : public Pane
 
     void Init() override;
 
+	 void Fill() override;
+
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
+
+  private:
+    OrganSubModel &_organSubModel;
 };

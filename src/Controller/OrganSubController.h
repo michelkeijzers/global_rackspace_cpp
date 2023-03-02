@@ -4,7 +4,7 @@
 #include "SubController.h"
 
 class Controller;
-class OrganPlugin;
+class OrganSubModel;
 
 class OrganSubController : SubController
 {
@@ -21,5 +21,5 @@ class OrganSubController : SubController
     void SwapRotatorSpeed();
 
   private:
-    //std::shared_ptr<OrganPlugin> _organPlugin;
+    OrganSubModel &_organSubModel;
 };

@@ -17,4 +17,7 @@ class OrganPlugin : public Plugin
 
 	 void SetDrawbarValue(int drawbarIndex);
     void SetRotatorSpeed();
+
+	private:
+    OrganSubModel &_organSubModel;
 };

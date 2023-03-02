@@ -17,7 +17,7 @@ class View
   public:
     View(Model &model);
 
-    void FillWidgets();
+    void Fill();
     void Init(); // TODO: Change to relayout
 
     WidgetIds &GetWidgetIds();
@@ -30,9 +30,4 @@ class View
 
     WidgetIds _widgetIds;
     Model &_model;
-
-    OrganPane _organPane;
-    PrimaryKeyboardButtonsPane _primaryKeyboardButtonsPane;
-
-    OrganPlugin _organPlugin;
 };

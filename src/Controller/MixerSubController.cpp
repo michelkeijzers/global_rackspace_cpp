@@ -8,9 +8,11 @@
 
 /* static */ const int MixerSubController::CHANNELS_IN_MIXER = 16;
 
-MixerSubController::MixerSubController(Controller& controller)
-    : SubController(controller) // _paneSelection(EPaneSelection::Channels1To8)
+MixerSubController::MixerSubController(Controller &controller)
+    : SubController(controller), // _paneSelection(EPaneSelection::Channels1To8)
+      _mixerSubModel((MixerSubModel&) (GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer)))
 {
+    SubModel& x = GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer);
 }
 
 void MixerSubController::Init()
@@ -19,12 +21,10 @@ void MixerSubController::Init()
 
 void MixerSubController::SetChannelVolume(int channelIndex, double volume, bool forced /* = false */)
 {
-    MixerSubModel& mixerSubModel = GetController().GetModel().GetMixerSubModel();
-
-    if (forced || (fabs(volume - mixerSubModel.GetChannelVolume(channelIndex)) >
+    if (forced || (fabs(volume - _mixerSubModel.GetChannelVolume(channelIndex)) >
                    0.01)) // TODO: make const (also used in other controllers
     {
-        mixerSubModel.SetChannelVolume(channelIndex, volume);
+        _mixerSubModel.SetChannelVolume(channelIndex, volume);
         // GetPluginForChannel(channelIndex)->SetChannelVolume(channelIndex % CHANNELS_IN_MIXER, volume);
         // if (GetPaneSelection() == EPaneSelection::Channels1To8)
         //{

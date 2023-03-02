@@ -3,15 +3,28 @@
 #include <vector>
 
 class Plugin;
+class Model;
+class View;
 
 class Plugins
 {
   public:
-    Plugins();
+    enum class EPluginId
+    {
+	          Organ
+    };
+
+    Plugins(Model &model, View &view);
     ~Plugins();
 
-    void AddPlugin(Plugin& plugin);
+	 void Fill();
+    void Init();
+    
+	 Plugin &GetPluginById(EPluginId organ);
 
-  private:
+private:
     std::vector<Plugin *> _plugins;
+
+	 Model &_model;
+    View &_view;
 };

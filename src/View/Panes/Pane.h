@@ -13,6 +13,8 @@ class Pane : public IObserver
 
     virtual void Init() = 0;
 
+	 virtual void Fill() = 0;
+
 	protected:
     Widgets& GetWidgets();
       View& GetView();

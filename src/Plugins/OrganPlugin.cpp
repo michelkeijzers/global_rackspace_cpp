@@ -16,9 +16,10 @@ static const int PLUGIN_PARAMETER_REVERB_AMOUNT = 4;
 static const int PLUGIN_PARAMETER_ROTATOR_SPEED = 8;
 static const int PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET = 20;
 
-OrganPlugin::OrganPlugin(View& view, OrganSubModel& organSubModel) : Plugin(PLUGIN_NAME, view)
+OrganPlugin::OrganPlugin(View &view, OrganSubModel &organSubModel)
+    : Plugin(PLUGIN_NAME, view), _organSubModel(organSubModel)
 {
-    organSubModel.Subscribe(*this);
+    _organSubModel.Subscribe(*this);
 }
 
 void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
@@ -30,12 +31,12 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {
         SetRotatorSpeed();
-	 }
+    }
 }
 
 void OrganPlugin::SetDrawbarValue(int drawbarIndex)
 {
-    double drawbarValue = GetView().GetModel().GetOrganSubModel().GetDrawbarValue(0);
+    double drawbarValue = _organSubModel.GetDrawbarValue(0);
     MvcFramework::GetGigPerformerApi().setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET,
                                                           drawbarValue, true);
     Debug::Log("$ Plugin: " + PLUGIN_NAME + ", drawbar 1 = " + std::to_string(drawbarValue));
@@ -43,7 +44,7 @@ void OrganPlugin::SetDrawbarValue(int drawbarIndex)
 
 void OrganPlugin::SetRotatorSpeed()
 {
-    double rotatorSpeedFast = GetView().GetModel().GetOrganSubModel().IsRotatorSpeedFast();
+    double rotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
     MvcFramework::GetGigPerformerApi().setPluginParameter(PLUGIN_NAME, PLUGIN_PARAMETER_ROTATOR_SPEED, rotatorSpeedFast,
                                                           true);
     Debug::Log("$ Plugin: " + PLUGIN_NAME + ", rotator speed fast = " + std::to_string(rotatorSpeedFast));

@@ -3,8 +3,9 @@
 #include <vector>
 #include "MixerChannelSubModel.h"
 #include "SubModel.h"
+#include "../View/Observable.h"
 
-class MixerSubModel : SubModel
+class MixerSubModel : public SubModel, public Observable
 {
   public:
     static const int NR_OF_MIXER_CHANNELS = 24;

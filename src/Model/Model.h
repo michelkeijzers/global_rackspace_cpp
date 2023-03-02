@@ -1,18 +1,19 @@
 #pragma once
 
-#include "MixerSubModel.h"
-#include "OrganSubModel.h"
+#include "SubModels.h"
+
 
 class Model
 {
   public:
     Model();
+
+	 void Fill();
     void Init();
 
-	 MixerSubModel& GetMixerSubModel();
-    OrganSubModel& GetOrganSubModel();
+	 SubModel &GetSubModel(SubModels::ESubModelId id);
 
   private:
-    MixerSubModel _mixerSubModel;
-	 OrganSubModel _organSubModel;
+    SubModels _subModels;
+
 };

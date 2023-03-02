@@ -17,5 +17,7 @@ class PrimaryKeyboardButtonsPane : public Pane
 
     void Init() override;
 
+	 void Fill() override;
+
 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
 };
