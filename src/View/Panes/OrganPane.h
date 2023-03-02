@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <string>
 #include "Pane.h"
 #include "../ChangedProperties.h"
@@ -11,9 +10,9 @@ class View;
 class OrganPane : public Pane
 {
   public:
-    OrganPane(View *view, std::shared_ptr<OrganSubModel> organSubModel);
+    OrganPane(View &view, OrganSubModel &organSubModel);
 
-	 void Init() override;
+    void Init() override;
 
-	 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
+    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 };

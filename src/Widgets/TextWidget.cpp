@@ -12,7 +12,7 @@ void TextWidget::SetText(std::string text)
     Debug::LogMethodEntry(__FUNCTION__, "text = " + text + ")");
 
     _text = text;
-    MvcFramework::GetGigPerformerApi()->setWidgetCaption(GetName(), text);
+    MvcFramework::GetGigPerformerApi().setWidgetCaption(GetName(), text);
 
     Debug::LogMethodExit(__FUNCTION__);
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "WidgetIds.h"
-#include <memory>
 #include <string>
 
 class WidgetIds;

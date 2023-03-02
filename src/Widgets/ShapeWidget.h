@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Widget.h"
-#include <memory>
 
 class ShapeWidget : public Widget
 {

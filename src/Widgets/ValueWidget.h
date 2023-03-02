@@ -2,7 +2,6 @@
 
 #include "TextWidget.h"
 #include "WidgetIds.h"
-#include <memory>
 #include <string>
 
 class ValueWidget : public TextWidget

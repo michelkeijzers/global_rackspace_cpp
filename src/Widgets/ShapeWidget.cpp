@@ -1,8 +1,7 @@
+#include <string>
 #include "ShapeWidget.h"
 #include "../Framework/MvcFramework.h"
 #include "../Utilities/Debug.h"
-#include <memory>
-#include <string>
 
 ShapeWidget::ShapeWidget(WidgetIds& ids, WidgetIds::EWidgetId id, bool isListenedTo)
     : Widget(ids, id, isListenedTo), _left(0), _top(0), _width(100), _height(100), _red(0.0), _green(0.0), _blue(0.0),
@@ -117,8 +116,8 @@ void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, doub
     _green = green;
     _blue = blue;
     _alpha = alpha;
-    MvcFramework::GetGigPerformerApi()->setWidgetFillColor(
-        GetName(), MvcFramework::GetGigPerformerApi()->RGBAToColor(_red, _green, _blue, _alpha));
+    MvcFramework::GetGigPerformerApi().setWidgetFillColor(
+        GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(_red, _green, _blue, _alpha));
 
     Debug::LogMethodExit(__FUNCTION__);
 }

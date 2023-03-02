@@ -8,9 +8,14 @@ Widgets::Widgets()
 {
 }
 
-void Widgets::AddWidget(WidgetIds::EWidgetId id, std::shared_ptr<Widget> widget)
+Widgets::~Widgets()
 {
-    _widgets.insert(std::pair<WidgetIds::EWidgetId, std::shared_ptr<Widget>>(id, widget));
+    _widgets.clear();
+} 
+
+void Widgets::AddWidget(WidgetIds::EWidgetId id, Widget * widget)
+{
+    _widgets.insert(std::pair<WidgetIds::EWidgetId, Widget *>(id, widget));
 }
 
 Widget &Widgets::GetWidgetById(WidgetIds::EWidgetId id)

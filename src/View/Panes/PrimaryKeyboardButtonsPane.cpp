@@ -5,10 +5,10 @@
 
 /* static */ const std::string PrimaryKeyboardButtonsPane::WIDGET_BUTTON_NAME = "BUTTON_";
 
-PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View *view, std::shared_ptr<OrganSubModel> organSubModel)
+PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View& view, OrganSubModel& organSubModel)
     : Pane(view)
 {
-    organSubModel->Subscribe(*this);
+    organSubModel.Subscribe(*this);
 }
 
 void PrimaryKeyboardButtonsPane::Init() /* override */

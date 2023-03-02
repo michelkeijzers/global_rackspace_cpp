@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "../Model/MixerSubModel.h"
 #include "SubController.h"
 
@@ -19,7 +18,7 @@ class MixerSubController : SubController
 	//	  Channels17To23,
    //};
 
-    MixerSubController(Controller *controller);
+    MixerSubController(Controller& controller);
 
     void Init();
 

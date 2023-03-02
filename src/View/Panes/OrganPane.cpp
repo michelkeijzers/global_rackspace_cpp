@@ -6,26 +6,25 @@
 #include "../View.h"
 #include "../ChangedProperties.h"
 #include "../IObserver.h"
-#include <memory>
 
-OrganPane::OrganPane(View *view, std::shared_ptr<OrganSubModel> organSubModel) : Pane(view)
+OrganPane::OrganPane(View& view, OrganSubModel& organSubModel) : Pane(view)
 {
-    organSubModel->Subscribe(*this);
+    organSubModel.Subscribe(*this);
 }
 
 void OrganPane::Init() // override
 {
-    GetWidgets()->AddWidget(
+    GetWidgets().AddWidget(
         WidgetIds::EWidgetId::OrganDrawbar1,
-        std::make_shared<Widget>(GetView()->GetWidgetIds(), WidgetIds::EWidgetId::OrganDrawbar1, true));
+        new Widget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganDrawbar1, true));
 }
 
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (changedProperty == ChangedProperties::EChangedProperty::Drawbar1)
     {
-        Widget &widget = GetWidgets()->GetWidgetById(WidgetIds::EWidgetId::OrganDrawbar1);
+        Widget &widget = GetWidgets().GetWidgetById(WidgetIds::EWidgetId::OrganDrawbar1);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(GetView()->GetModel()->GetOrganSubModel()->GetDrawbarValue(0));
+        valueWidget.SetValue(GetView().GetModel().GetOrganSubModel().GetDrawbarValue(0));
     }
 }

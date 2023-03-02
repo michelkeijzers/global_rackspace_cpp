@@ -7,7 +7,7 @@ class View;
 class AudioMixerPlugin : public Plugin
 {
   public:
-    AudioMixerPlugin(View *view, bool lowerChannels);
+    AudioMixerPlugin(View& view, bool lowerChannels);
 
 	 void SetChannelVolume(int channelIndex, double volume);
 

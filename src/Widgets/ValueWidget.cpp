@@ -10,7 +10,7 @@ ValueWidget::ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListene
 void ValueWidget::SetValue(double value)
 {
     _value = value;
-    MvcFramework::GetGigPerformerApi()->setWidgetValue(GetName(), value);
+    MvcFramework::GetGigPerformerApi().setWidgetValue(GetName(), value);
 }
 
  double ValueWidget::GetValue()

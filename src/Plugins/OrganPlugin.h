@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <string>
 #include "Plugin.h"
 #include "../View/ChangedProperties.h"
@@ -12,7 +11,7 @@ class Controller;
 class OrganPlugin : public Plugin
 {
   public:
-    OrganPlugin(View *view, std::shared_ptr<OrganSubModel> organSubModel);
+    OrganPlugin(View& view, OrganSubModel& organSubModel);
 
 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
 

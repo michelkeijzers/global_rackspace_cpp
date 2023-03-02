@@ -6,8 +6,13 @@ MixerSubModel::MixerSubModel()
 {
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
-        _mixerChannelSubModels.push_back(std::make_shared<MixerChannelSubModel>());
+        _mixerChannelSubModels.push_back(new MixerChannelSubModel());
 	 }
+}
+
+MixerSubModel::~MixerSubModel()
+{
+    _mixerChannelSubModels.clear();
 }
 
 void MixerSubModel::Init() /* override */ 

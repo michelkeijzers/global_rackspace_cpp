@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <string>
 #include "ShapeWidget.h"
 #include "WidgetIds.h"

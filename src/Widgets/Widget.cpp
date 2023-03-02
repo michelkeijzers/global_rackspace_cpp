@@ -7,7 +7,7 @@ Widget::Widget(WidgetIds& widgetIds, WidgetIds::EWidgetId id, bool isListenedTo)
 {
     if (isListenedTo)
     {
-        MvcFramework::GetGigPerformerApi()->listenForWidget(GetName(), true);
+        MvcFramework::GetGigPerformerApi().listenForWidget(GetName(), true);
     }
 }
 

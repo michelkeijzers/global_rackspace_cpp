@@ -1,20 +1,19 @@
 #pragma once
 
-#include <memory>
+#include "MixerSubController.h"
+#include "OrganSubController.h"
 
 class Controller;
-class MixerSubController;
-class OrganSubController;
 
 class SubControllers
 {
   public:
-    SubControllers(Controller *controller);
-    std::shared_ptr<MixerSubController> GetMixerSubController();
-    std::shared_ptr<OrganSubController> GetOrganSubController();
+    SubControllers(Controller& controller);
+    MixerSubController& GetMixerSubController();
+    OrganSubController& GetOrganSubController();
     void Init();
 
   private:
-    std::shared_ptr<MixerSubController> _mixerSubController;
-    std::shared_ptr<OrganSubController> _organSubController;
+    MixerSubController _mixerSubController;
+    OrganSubController _organSubController;
 };

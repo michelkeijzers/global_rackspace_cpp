@@ -1,13 +1,7 @@
 #include "MidiInBlock.h"
 
-MidiInBlock::MidiInBlock(Controller* controller)
+MidiInBlock::MidiInBlock(Controller &controller, std::string name) : _controller(controller), _name(name)
 {
-    _controller = controller;
-}
-
-MidiInBlock::MidiInBlock(std::string name)
-{
-    _name = name;
 }
 
 std::string MidiInBlock::GetName()
@@ -16,7 +10,7 @@ std::string MidiInBlock::GetName()
 }
 
 
-Controller* MidiInBlock::GetController()
+Controller& MidiInBlock::GetController()
 {
     return _controller;
 }

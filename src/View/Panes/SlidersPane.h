@@ -8,7 +8,7 @@ class View;
 class SlidersPane : public Pane
 {
   public:
-    SlidersPane(View *view);
+    SlidersPane(View& view);
 
     void Init() override;
 };

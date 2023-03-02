@@ -1,7 +1,7 @@
 #include "SlidersPane.h"
 #include "../View.h"
 
-SlidersPane::SlidersPane(View *view) : Pane(view)
+SlidersPane::SlidersPane(View& view) : Pane(view)
 {
 }
 

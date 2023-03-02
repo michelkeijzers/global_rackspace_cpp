@@ -2,44 +2,71 @@
 
 #include "../Widgets/WidgetsListener.h"
 
-/* static */ gigperformer::sdk::GigPerformerAPI *MvcFramework::_gigPerformerApi;
+/* static */ gigperformer::sdk::GigPerformerAPI* MvcFramework::_gigPerformerApi = nullptr;
 
 class OrganSubModel;
 
-MvcFramework::MvcFramework() : _model(nullptr), _view(nullptr), _controller(nullptr), _widgetsListener(nullptr)
+MvcFramework::MvcFramework(gigperformer::sdk::GigPerformerAPI &gigPerformerApi)
+    : _model(nullptr), _view(nullptr), _controller(nullptr), _widgetsListener(nullptr)
 {
+    _gigPerformerApi = &gigPerformerApi;
 }
 
-void MvcFramework::Init(gigperformer::sdk::GigPerformerAPI *gigPerformerApi)
+MvcFramework::~MvcFramework()
 {
-    _model = std::make_shared<Model>();
+    if (_model != nullptr)
+    {
+        delete _model;
+        _model = nullptr;
+    }
+
+    if (_view != nullptr)
+    {
+        delete _view;
+        _view = nullptr;
+    }
+
+    if (_controller != nullptr)
+    {
+        delete _controller;
+        _controller = nullptr;
+    }
+
+    if (_widgetsListener != nullptr)
+    {
+        delete _widgetsListener;
+        _widgetsListener = nullptr;
+    }
+}
+
+void MvcFramework::Init()
+{
+    _model = new Model();
     _model->Init();
 
-    _view = std::make_shared<View>(_model);
+    _view = new View(*_model);
     _view->GetWidgetIds().Fill();
     _view->Init();
-    _controller = std::make_shared<Controller>(_model, _view);
-    _widgetsListener = std::make_shared<WidgetsListener>(_controller, _view->GetWidgetIds());
+    _controller = new Controller(*_model, *_view);
+    _widgetsListener = new WidgetsListener(*_controller, _view->GetWidgetIds());
 
     _controller->FillControllers();
     _controller->FillMidiInBlocks();
     _controller->Init();
-
-	 MvcFramework::_gigPerformerApi = gigPerformerApi;
 }
 
 
-/* static */ gigperformer::sdk::GigPerformerAPI *MvcFramework::GetGigPerformerApi()
+/* static */ gigperformer::sdk::GigPerformerAPI& MvcFramework::GetGigPerformerApi()
 {
-    return _gigPerformerApi;
+    return *_gigPerformerApi;
 }
 
-std::shared_ptr<Controller> MvcFramework::GetController()
+Controller& MvcFramework::GetController()
 {
-    return _controller;
+    return *_controller;
 }
 
-std::shared_ptr<WidgetsListener> MvcFramework::GetWidgetsListener()
-    {
-    return _widgetsListener;
+WidgetsListener& MvcFramework::GetWidgetsListener()
+{
+    return *_widgetsListener;
 }

@@ -5,12 +5,12 @@ class Controller;
 class SubController
 {
   public:
-    SubController(Controller *controller);
+    SubController(Controller& controller);
 
-    Controller *GetController();
+    Controller& GetController();
 
 	 virtual void Init() = 0;
 
   private:
-    Controller *_controller;
+    Controller& _controller;
 };

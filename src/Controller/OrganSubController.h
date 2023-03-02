@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "../Model/organSubModel.h"
 #include "SubController.h"
 
@@ -10,7 +9,7 @@ class OrganPlugin;
 class OrganSubController : SubController
 {
   public:
-    OrganSubController(Controller* controller);
+    OrganSubController(Controller& controller);
 
 	 void Init();
 

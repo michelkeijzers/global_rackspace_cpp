@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <string>
 
 class MixerSubController;
@@ -13,13 +12,14 @@ class WidgetsListener;
 class Controller
 {
   public:
-    Controller(std::shared_ptr<Model> model, std::shared_ptr<View> view);
+    Controller(Model& model, View& view);
+    ~Controller();
 
-    std::shared_ptr<Model> GetModel();
-    std::shared_ptr<View> GetView();
+    Model& GetModel();
+    View& GetView();
 
-    std::shared_ptr<MixerSubController> GetMixerSubController();
-    std::shared_ptr<OrganSubController> GetOrganSubController();
+    MixerSubController& GetMixerSubController();
+    OrganSubController& GetOrganSubController();
 
     bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
@@ -28,14 +28,11 @@ class Controller
     void Init();
 
   private:
-    std::shared_ptr<Model> _model;
-    std::shared_ptr<View> _view;
+    Model& _model;
+    View& _view;
 
-    std::shared_ptr<MixerSubController> _mixerSubController;
-    std::shared_ptr<OrganSubController> _organSubController;
+    MixerSubController* _mixerSubController;
+    OrganSubController* _organSubController;
 
-    std::shared_ptr<PrimaryKeyboardMidiInBlock>
-        _primaryKeyboardMidiInBlock; // Make sub controller list, enum for type ?
-
-    std::shared_ptr<WidgetsListener> _widgetsListener;
+    PrimaryKeyboardMidiInBlock* _primaryKeyboardMidiInBlock; // Make sub controller list, enum for type ?
 };

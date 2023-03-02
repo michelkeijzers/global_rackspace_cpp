@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include "../Controller/Controller.h"
 #include "../Model/Model.h"
 #include "../View/View.h"
@@ -20,23 +19,21 @@ class gigPerformerApi;
 class MvcFramework
 {
   public:
-    MvcFramework();
+    MvcFramework(gigperformer::sdk::GigPerformerAPI& gigPerformerApi);
+    ~MvcFramework();
 
-	 void Init(gigperformer::sdk::GigPerformerAPI *gigPerformerApi);
+	 void Init();
 
-	 static gigperformer::sdk::GigPerformerAPI *GetGigPerformerApi();
+	 static gigperformer::sdk::GigPerformerAPI& GetGigPerformerApi();
 
-	 //std::shared_ptr<Model> GetModel();
-    //std::shared_ptr<View> GetView();
-    std::shared_ptr<Controller> GetController();
-    std::shared_ptr<WidgetsListener> GetWidgetsListener();
+    Controller& GetController();
+    WidgetsListener& GetWidgetsListener();
 
   private:
-    std::shared_ptr<Model> _model;
-    std::shared_ptr<View> _view;
-    std::shared_ptr<Controller> _controller;
+    Model* _model;
+    View* _view;
+    Controller* _controller;
+    WidgetsListener* _widgetsListener;
 
-    std::shared_ptr<WidgetsListener> _widgetsListener;
-
-	 static gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
+	 static gigperformer::sdk::GigPerformerAPI* _gigPerformerApi;
 };

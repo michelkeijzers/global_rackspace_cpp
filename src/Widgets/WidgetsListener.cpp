@@ -14,7 +14,7 @@
 #endif
 #include "../Framework/MvcFramework.h"
 
-WidgetsListener::WidgetsListener(std::shared_ptr<Controller> controller, WidgetIds& widgetIds)
+WidgetsListener::WidgetsListener(Controller& controller, WidgetIds& widgetIds)
     : _controller(controller), _widgetIds(widgetIds)
 {
 }
@@ -27,45 +27,45 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     switch (widgetId)
      {
     case WidgetIds::EWidgetId::OrganDrawbar1:
-        _controller->GetOrganSubController()->SetDrawbarValue(0, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(0, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar2:
-        _controller->GetOrganSubController()->SetDrawbarValue(1, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(1, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar3:
-        _controller->GetOrganSubController()->SetDrawbarValue(2, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(2, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar4:
-        _controller->GetOrganSubController()->SetDrawbarValue(3, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(3, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar5:
-        _controller->GetOrganSubController()->SetDrawbarValue(4, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(4, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar6:
-        _controller->GetOrganSubController()->SetDrawbarValue(5, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(5, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar7:
-        _controller->GetOrganSubController()->SetDrawbarValue(6, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(6, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar8:
-        _controller->GetOrganSubController()->SetDrawbarValue(7, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(7, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar9:
-        _controller->GetOrganSubController()->SetDrawbarValue(8, newValue);
+        _controller.GetOrganSubController().SetDrawbarValue(8, newValue);
         break;
 
     case WidgetIds::EWidgetId::PrimaryKeyboardButton9:
         if (newValue >= 0.5)
         {
-            _controller->GetOrganSubController()->SwapRotatorSpeed();
+            _controller.GetOrganSubController().SwapRotatorSpeed();
         }
         break;
 
@@ -115,7 +115,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
 void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderIndex, double newValue)
 {
-    std::shared_ptr<MixerSubController> mixerSubController = _controller->GetMixerSubController();
+    MixerSubController& mixerSubController = _controller.GetMixerSubController();
     // switch (mixerSubController->GetPaneSelection())
     //{
     // case MixerSubController::EPaneSelection::Channels1To8:
