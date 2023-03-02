@@ -27,8 +27,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
 
   public:
     // These must be here but no need to do anything unless you want extra behavior
-    explicit LibMain(LibraryHandle handle)
-		 : GigPerformerAPI(handle)
+    explicit LibMain(LibraryHandle handle) : GigPerformerAPI(handle), _mvcFramework(*this)
     {
     }
 

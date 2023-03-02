@@ -56,7 +56,7 @@ void LibMain::OnGlobalPlayStateChanged(bool playing)
 
 void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
-    _mvcFramework.GetWidgetsListener()->OnWidgetValueChanged(widgetName, newValue);
+    _mvcFramework.GetWidgetsListener().OnWidgetValueChanged(widgetName, newValue);
 
     // int noteNumber = (int)GPUtils::Scale(newValue, 0.0, 1.0, 36, 96);
     // GPMidiMessage n = GPMidiMessage::makeNoteOnMessage(noteNumber, 64, 0);
@@ -66,7 +66,7 @@ void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValu
 
 bool LibMain::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {
-    return _mvcFramework.GetController()->OnMidiIn(deviceName, data, length);
+    return _mvcFramework.GetController().OnMidiIn(deviceName, data, length);
 }
 
 void LibMain::OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vector<std::string> &outputs)
@@ -88,7 +88,7 @@ void LibMain::OnWidgetCaptionChanged(const std::string &widgetName, const std::s
 
 void LibMain::OnSongChanged(int oldIndex, int newIndex)
 {
-    _mvcFramework.GetController()->Init();
+    _mvcFramework.GetController().Init();
 }
 
 void LibMain::OnWidgetStateChanged(const std::string &widgetName, int newState)
@@ -102,7 +102,7 @@ void LibMain::Initialization()
     Debug::SetGigPerformerApi(this);
     Debug::LogHeaders(true);
 
-    _mvcFramework.Init(this);
+    _mvcFramework.Init();
 
     // Finally, register all the methods that you are going to actually use,
     // i.e, the ones you declared above as override
