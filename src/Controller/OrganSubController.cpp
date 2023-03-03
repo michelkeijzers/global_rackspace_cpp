@@ -31,7 +31,7 @@ void OrganSubController::SetIsPresent(bool isPresent, bool forced /* = false */)
 
 void OrganSubController::SetDrawbarValue(int drawbarIndex, double newValue, bool forced /* = false */)
 {
-    if (forced || (fabs(newValue - _organSubModel.GetDrawbarValue(drawbarIndex)) > 0.01))
+    if (forced || (newValue != _organSubModel.GetDrawbarValue(drawbarIndex)))
     {
         _organSubModel.SetDrawbarValue(drawbarIndex, newValue);
     }

@@ -7,6 +7,10 @@
 #include "../View/View.h"
 #include "WidgetIds.h"
 #include "Widgets.h"
+#include "ValueWidget.h"
+#include "../View/Panes/OrganPane.h"
+#include "../View/Panes/SlidersPane.h"
+
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
 #else
@@ -21,97 +25,47 @@ WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
 
 void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
+    bool processed = false;
+
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
 
     WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
-    OrganSubController &organSubController =
-        (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
 
-    switch (widgetId)
+	 const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
+	 if (((int)widgetId >= drawbar1Value) &&
+        ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {
-        // TODO: Use if statement to make shorter
-    case WidgetIds::EWidgetId::OrganDrawbar1:
-        organSubController.SetDrawbarValue(0, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar2:
-        organSubController.SetDrawbarValue(1, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar3:
-        organSubController.SetDrawbarValue(2, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar4:
-        organSubController.SetDrawbarValue(3, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar5:
-        organSubController.SetDrawbarValue(4, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar6:
-        organSubController.SetDrawbarValue(5, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar7:
-        organSubController.SetDrawbarValue(6, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar8:
-        organSubController.SetDrawbarValue(7, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::OrganDrawbar9:
-        organSubController.SetDrawbarValue(8, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardButton9:
-        if (newValue >= 0.5)
+         OrganSubController &organSubController =
+             (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
+         organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
+        processed = true;
+    }
+    
+	 if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
+    {
+        if (ValueWidget::IsButtonPressed(newValue))
         {
+            OrganSubController &organSubController =
+                (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
             organSubController.SwapRotatorSpeed();
         }
-        break;
+        processed = true;
+    }
 
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider1:
-        ProcessSlider(widgetId, 0, newValue);
-        break;
+	 if (!processed)
+    {
+        const int primaryKeyboardSlider1Value = (int)(WidgetIds::EWidgetId::PrimaryKeyboardSlider1);
+        if (((int)widgetId >= primaryKeyboardSlider1Value) &&
+            ((int)widgetId < primaryKeyboardSlider1Value + SlidersPane::NR_OF_SLIDERS))
+        {
+            ProcessSlider(widgetId, (int)widgetId - primaryKeyboardSlider1Value, newValue);
+            processed = true;
+        }
+    }
 
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider2:
-        ProcessSlider(widgetId, 1, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider3:
-        ProcessSlider(widgetId, 2, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider4:
-        ProcessSlider(widgetId, 3, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider5:
-        ProcessSlider(widgetId, 4, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider6:
-        ProcessSlider(widgetId, 5, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider7:
-        ProcessSlider(widgetId, 6, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider8:
-        ProcessSlider(widgetId, 7, newValue);
-        break;
-
-    case WidgetIds::EWidgetId::PrimaryKeyboardSlider9:
-        ProcessSlider(widgetId, 8, newValue);
-        break;
-
-    default:
+	 if (!processed)
+    {
         Debug::Error(__FUNCTION__, "Illegal widgetId");
-        break;
     }
 
     Debug::LogMethodExit(__FUNCTION__);

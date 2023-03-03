@@ -43,8 +43,8 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
 
     switch (ccNumber)
     {
-    case 90:              // TODO button 9
-        if (value == 127) // Pressed
+    case CC_BUTTON_9:
+        if (value == VALUE_BUTTON_PRESSED)
         {
             OrganSubController &organSubController =
                 (OrganSubController &)(GetController().GetSubControllerById(SubControllers::ESubControllerId::Organ));

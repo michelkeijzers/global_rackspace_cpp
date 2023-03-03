@@ -21,8 +21,7 @@ void MixerSubController::Init()
 
 void MixerSubController::SetChannelVolume(int channelIndex, double volume, bool forced /* = false */)
 {
-    if (forced || (fabs(volume - _mixerSubModel.GetChannelVolume(channelIndex)) >
-                   0.01)) // TODO: make const (also used in other controllers
+    if (forced || (volume != _mixerSubModel.GetChannelVolume(channelIndex)))
     {
         _mixerSubModel.SetChannelVolume(channelIndex, volume);
         // GetPluginForChannel(channelIndex)->SetChannelVolume(channelIndex % CHANNELS_IN_MIXER, volume);

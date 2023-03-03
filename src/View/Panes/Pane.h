@@ -1,25 +1,25 @@
 #pragma once
 
-#include <string>
-#include "../IObserver.h"
 #include "../../Widgets/Widgets.h"
+#include "../IObserver.h"
+#include <string>
 
 class View;
 
 class Pane : public IObserver
 {
   public:
-    Pane(View& view);
+    Pane(View &view);
 
     virtual void Init() = 0;
-	 virtual void Fill() = 0;
+    virtual void Fill() = 0;
 
-	protected:
-    Widgets& GetWidgets();
-      View& GetView();
+  protected:
+    Widgets &GetWidgets();
+    View &GetView();
 
   private:
     Widgets _widgets;
 
-    View& _view;
+    View &_view;
 };

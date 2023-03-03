@@ -24,7 +24,7 @@ void PrimaryKeyboardButtonsPane::Fill()
 void PrimaryKeyboardButtonsPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
 	//TODO
-    //if (changedProperty == "Drawbar1") // TODO: Use widget, use widget ID?
+    //if (changedProperty == button 9 ...
     {
         // MvcFramework::GetGigPerformerApi()->setWidgetCaption(Widgets::EWidgetId::Drawbar1, )
     }

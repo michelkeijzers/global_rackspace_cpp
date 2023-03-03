@@ -14,5 +14,8 @@ class PrimaryKeyboardMidiInBlock : public MidiInBlock
     bool OnMidiIn(const uint8_t *data, int length) override;
 
   private:
+    static const int CC_BUTTON_9 = 90;
+    static const int VALUE_BUTTON_PRESSED = 127;
+
     bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
 };

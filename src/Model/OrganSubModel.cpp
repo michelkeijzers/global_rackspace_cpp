@@ -1,5 +1,6 @@
 #include "OrganSubModel.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/DoubleUtilities.h"
 #include "../View/View.h"
 #include "../View/ChangedProperties.h"
 
@@ -38,7 +39,7 @@ void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
     Debug::Assert((drawbarIndex >= 0) && (drawbarIndex < NR_OF_DRAWBARS), __FUNCTION__,
                   "Drawbar index out of range: " + std::to_string(drawbarIndex));
 
-	 if (fabs(newValue - _drawbarValues[drawbarIndex]) > 0.01) // TODO: Remove from here, handle in widget
+	 if (!DoubleUtilities::AreEqual(newValue, _drawbarValues[drawbarIndex]))
     {
         _drawbarValues[drawbarIndex] = newValue;
         Notify(ChangedProperties::EChangedProperty::Drawbar1);

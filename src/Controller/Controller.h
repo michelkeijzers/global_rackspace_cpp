@@ -27,7 +27,7 @@ class Controller
 
   private:
     Model &_model;
-    View &_view;
+    View &_view; 
 
     SubControllers _subControllers;
     MidiInBlocks _midiInBlocks;

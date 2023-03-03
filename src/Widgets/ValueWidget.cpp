@@ -13,7 +13,12 @@ void ValueWidget::SetValue(double value)
     MvcFramework::GetGigPerformerApi().setWidgetValue(GetName(), value);
 }
 
- double ValueWidget::GetValue()
+double ValueWidget::GetValue()
 {
-     return _value;
- }
+    return _value;
+}
+
+/* static */ bool ValueWidget::IsButtonPressed(double value)
+{
+    return value >= 0.5;
+}
