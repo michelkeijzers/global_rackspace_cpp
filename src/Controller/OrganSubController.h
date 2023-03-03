@@ -6,7 +6,7 @@
 class Controller;
 class OrganSubModel;
 
-class OrganSubController : SubController
+class OrganSubController : public SubController
 {
   public:
     OrganSubController(Controller& controller);

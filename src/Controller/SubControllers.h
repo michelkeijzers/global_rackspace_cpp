@@ -2,18 +2,29 @@
 
 #include "MixerSubController.h"
 #include "OrganSubController.h"
+#include <vector>
 
 class Controller;
 
 class SubControllers
 {
   public:
+    enum class ESubControllerId
+    {
+        Mixer,
+        Organ
+    };
+
     SubControllers(Controller& controller);
-    MixerSubController& GetMixerSubController();
-    OrganSubController& GetOrganSubController();
+    ~SubControllers();
+
+    void Fill();
     void Init();
 
+    SubController &GetSubControllerById(ESubControllerId id);
+
   private:
-    MixerSubController _mixerSubController;
-    OrganSubController _organSubController;
+    std::vector<SubController *> _subControllers;
+    
+	 Controller& _controller;
 };

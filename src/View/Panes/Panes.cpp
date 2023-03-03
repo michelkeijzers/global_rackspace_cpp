@@ -1,9 +1,9 @@
 #include "Panes.h"
-#include "Pane.h"
-#include "OrganPane.h"
-#include "SlidersPane.h"
-#include "PrimaryKeyboardButtonsPane.h"
 #include "../../Model/Model.h"
+#include "OrganPane.h"
+#include "Pane.h"
+#include "PrimaryKeyboardButtonsPane.h"
+#include "SlidersPane.h"
 
 Panes::Panes(Model &model, View &view) : _panes(), _model(model), _view(view)
 {
@@ -16,14 +16,14 @@ Panes::~Panes()
 
 void Panes::Fill()
 {
-    _panes.push_back(new OrganPane(_view, (OrganSubModel&) _model.GetSubModel(SubModels::ESubModelId::Organ)));
-    _panes.push_back(new SlidersPane(_view, (MixerSubModel&) _model.GetSubModel(SubModels::ESubModelId::Mixer)));
+    _panes.push_back(new OrganPane(_view, (OrganSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Organ)));
+    _panes.push_back(new SlidersPane(_view, (MixerSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Mixer)));
 
-	 for (auto pane : _panes)
+    for (auto pane : _panes)
     {
         pane->Fill();
     }
-	 //_panes.push_back(new PrimaryKeyboardButtonsPane(_view, _model.GetSubModel(SubModels::ESubModuleId::xxx)));
+    //_panes.push_back(new PrimaryKeyboardButtonsPane(_view, _model.GetSubModel(SubModels::ESubModuleId::xxx)));
 }
 
 void Panes::Init()

@@ -12,7 +12,6 @@ class Pane : public IObserver
     Pane(View& view);
 
     virtual void Init() = 0;
-
 	 virtual void Fill() = 0;
 
 	protected:

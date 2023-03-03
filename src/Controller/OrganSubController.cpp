@@ -11,7 +11,7 @@
 
 OrganSubController::OrganSubController(Controller &controller)
     : SubController(controller),
-      _organSubModel((OrganSubModel &)controller.GetModel().GetSubModel(SubModels::ESubModelId::Organ))
+      _organSubModel((OrganSubModel &)controller.GetModel().GetSubModelById(SubModels::ESubModelId::Organ))
 {
 }
 

@@ -15,7 +15,7 @@ Plugins::~Plugins()
 
 void Plugins::Fill()
 {
-    _plugins.push_back(new OrganPlugin(_view, (OrganSubModel &)_model.GetSubModel(SubModels::ESubModelId::Organ)));
+    _plugins.push_back(new OrganPlugin(_view, (OrganSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Organ)));
 }
 
 void Plugins::Init()

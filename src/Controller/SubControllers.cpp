@@ -5,23 +5,27 @@
 
 //TODO: NOT USED YET
 
-SubControllers::SubControllers(Controller& controller)
-    : _mixerSubController(controller), _organSubController(controller)
+SubControllers::SubControllers(Controller &controller) : _controller(controller)
 {
 }
 
-MixerSubController& SubControllers::GetMixerSubController()
+SubControllers::~SubControllers()
 {
-    return _mixerSubController;
+    _subControllers.clear();
 }
 
-OrganSubController& SubControllers::GetOrganSubController()
+
+void SubControllers::Fill()
 {
-    return _organSubController;
+    _subControllers.push_back(new MixerSubController(_controller));
+    _subControllers.push_back(new OrganSubController(_controller));
 }
 
 void SubControllers::Init()
 {
-    _mixerSubController.Init();
-    _organSubController.Init();
+}
+
+SubController &SubControllers::GetSubControllerById(ESubControllerId id)
+{
+    return *(_subControllers.at((int)id));
 }

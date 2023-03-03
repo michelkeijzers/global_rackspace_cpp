@@ -2,7 +2,6 @@
 
 #include "SubModels.h"
 
-
 class Model
 {
   public:
@@ -11,7 +10,7 @@ class Model
 	 void Fill();
     void Init();
 
-	 SubModel &GetSubModel(SubModels::ESubModelId id);
+	 SubModel &GetSubModelById(SubModels::ESubModelId id);
 
   private:
     SubModels _subModels;

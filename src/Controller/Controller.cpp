@@ -8,53 +8,25 @@
 #include "Controller.h"
 
 Controller::Controller(Model &model, View &view)
-    : _model(model), _view(view), _mixerSubController(nullptr), _organSubController(nullptr),
-      _primaryKeyboardMidiInBlock(nullptr)
+    : _model(model), _view(view), 
+      _primaryKeyboardMidiInBlock(nullptr), _subControllers(*this)
 {
 }
 
 Controller::~Controller()
 {
-    if (_mixerSubController != nullptr)
-    {
-        delete _mixerSubController;
-        _mixerSubController = nullptr;
-    }
-
-    if (_organSubController != nullptr)
-    {
-        delete _organSubController;
-        _organSubController = nullptr;
-    }
-
-	 if (_primaryKeyboardMidiInBlock != nullptr)
-    {
-         delete _primaryKeyboardMidiInBlock;
-        _primaryKeyboardMidiInBlock = nullptr;
-    }
 }
 
-void Controller::FillControllers()
+void Controller::Fill()
 {
-    // TODO: Create plugins in specific controller classes, not here.
-    // std::shared_ptr<AudioMixerPlugin> audioMixerChannels1To16Plugin = std::make_shared<AudioMixerPlugin>(this, true);
-    // std::shared_ptr<AudioMixerPlugin> audioMixerChannels17To23Plugin = std::make_shared<AudioMixerPlugin>(this,
-    // false);
-    _mixerSubController = new MixerSubController(*this);
+    _subControllers.Fill();
 
-    // std::shared_ptr<OrganPlugin> organPlugin = std::make_shared<OrganPlugin>(this, );
-    _organSubController = new OrganSubController(*this);
-}
-
-void Controller::FillMidiInBlocks()
-{
-    _primaryKeyboardMidiInBlock = new PrimaryKeyboardMidiInBlock(*this) ;
+	 _primaryKeyboardMidiInBlock = new PrimaryKeyboardMidiInBlock(*this);
 }
 
 void Controller::Init()
 {
-    // TODO: make sub controller list???, iterate through it
-    _organSubController->Init();
+    _subControllers.Init();
 }
 
 Model &Controller::GetModel()
@@ -67,15 +39,12 @@ View &Controller::GetView()
     return _view;
 }
 
-MixerSubController &Controller::GetMixerSubController()
+
+SubController &Controller::GetSubControllerById(SubControllers::ESubControllerId id)
 {
-    return *_mixerSubController;
+    return _subControllers.GetSubControllerById(id);
 }
 
-OrganSubController &Controller::GetOrganSubController()
-{
-    return *_organSubController;
-}
 
 bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {

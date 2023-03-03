@@ -7,7 +7,7 @@ class Controller;
 class AudioMixerPlugin;
 class MixerSubModel;
 
-class MixerSubController : SubController
+class MixerSubController : public SubController
 {
   public:
     //  enum class EPaneSelection

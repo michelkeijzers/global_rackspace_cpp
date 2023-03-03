@@ -51,8 +51,7 @@ void MvcFramework::Init()
     _controller = new Controller(*_model, *_view);
     _widgetsListener = new WidgetsListener(*_controller, _view->GetWidgetIds());
 
-    _controller->FillControllers();
-    _controller->FillMidiInBlocks();
+    _controller->Fill();
     _controller->Init();
 }
 

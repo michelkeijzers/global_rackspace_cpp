@@ -1,9 +1,8 @@
 #pragma once
 
+#include "SubControllers.h"
 #include <string>
 
-class MixerSubController;
-class OrganSubController;
 class PrimaryKeyboardMidiInBlock;
 class Model;
 class View;
@@ -12,27 +11,24 @@ class WidgetsListener;
 class Controller
 {
   public:
-    Controller(Model& model, View& view);
+    Controller(Model &model, View &view);
     ~Controller();
 
-    Model& GetModel();
-    View& GetView();
-
-    MixerSubController& GetMixerSubController();
-    OrganSubController& GetOrganSubController();
+    Model &GetModel();
+    View &GetView();
 
     bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
-    void FillControllers();
-    void FillMidiInBlocks();
+    void Fill();
     void Init();
 
+    SubController &GetSubControllerById(SubControllers::ESubControllerId id);
+
   private:
-    Model& _model;
-    View& _view;
+    Model &_model;
+    View &_view;
 
-    MixerSubController* _mixerSubController;
-    OrganSubController* _organSubController;
+    SubControllers _subControllers;
 
-    PrimaryKeyboardMidiInBlock* _primaryKeyboardMidiInBlock; // Make sub controller list, enum for type ?
+    PrimaryKeyboardMidiInBlock *_primaryKeyboardMidiInBlock; // TODO: Make sub controller list, enum for type ?
 };

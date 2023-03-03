@@ -5,8 +5,8 @@
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
 #include "../View/View.h"
-#include "Widgets.h"
 #include "WidgetIds.h"
+#include "Widgets.h"
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
 #else
@@ -14,7 +14,7 @@
 #endif
 #include "../Framework/MvcFramework.h"
 
-WidgetsListener::WidgetsListener(Controller& controller, WidgetIds& widgetIds)
+WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
     : _controller(controller), _widgetIds(widgetIds)
 {
 }
@@ -23,50 +23,53 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 {
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
 
-	 WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
+    WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
+    OrganSubController &organSubController =
+        (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
+
     switch (widgetId)
-     {
-		 //TODO: Use if statement to make shorter 
+    {
+        // TODO: Use if statement to make shorter
     case WidgetIds::EWidgetId::OrganDrawbar1:
-        _controller.GetOrganSubController().SetDrawbarValue(0, newValue);
+        organSubController.SetDrawbarValue(0, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar2:
-        _controller.GetOrganSubController().SetDrawbarValue(1, newValue);
+        organSubController.SetDrawbarValue(1, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar3:
-        _controller.GetOrganSubController().SetDrawbarValue(2, newValue);
+        organSubController.SetDrawbarValue(2, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar4:
-        _controller.GetOrganSubController().SetDrawbarValue(3, newValue);
+        organSubController.SetDrawbarValue(3, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar5:
-        _controller.GetOrganSubController().SetDrawbarValue(4, newValue);
+        organSubController.SetDrawbarValue(4, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar6:
-        _controller.GetOrganSubController().SetDrawbarValue(5, newValue);
+        organSubController.SetDrawbarValue(5, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar7:
-        _controller.GetOrganSubController().SetDrawbarValue(6, newValue);
+        organSubController.SetDrawbarValue(6, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar8:
-        _controller.GetOrganSubController().SetDrawbarValue(7, newValue);
+        organSubController.SetDrawbarValue(7, newValue);
         break;
 
     case WidgetIds::EWidgetId::OrganDrawbar9:
-        _controller.GetOrganSubController().SetDrawbarValue(8, newValue);
+        organSubController.SetDrawbarValue(8, newValue);
         break;
 
     case WidgetIds::EWidgetId::PrimaryKeyboardButton9:
         if (newValue >= 0.5)
         {
-            _controller.GetOrganSubController().SwapRotatorSpeed();
+            organSubController.SwapRotatorSpeed();
         }
         break;
 
@@ -116,7 +119,9 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
 void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderIndex, double newValue)
 {
-    MixerSubController& mixerSubController = _controller.GetMixerSubController();
+    MixerSubController &mixerSubController = 
+		 (MixerSubController&) _controller.GetSubControllerById(SubControllers::ESubControllerId::Mixer);
+
     // switch (mixerSubController->GetPaneSelection())
     //{
     // case MixerSubController::EPaneSelection::Channels1To8:
