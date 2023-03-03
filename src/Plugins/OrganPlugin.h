@@ -13,6 +13,8 @@ class OrganPlugin : public Plugin
   public:
     OrganPlugin(View& view, OrganSubModel& organSubModel);
 
+	 void Init() override;
+
 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
 	 void SetDrawbarValue(int drawbarIndex);

@@ -20,6 +20,10 @@ void Plugins::Fill()
 
 void Plugins::Init()
 {
+    for (auto plugin : _plugins)
+    {
+        plugin->Init();
+    }
 }
 
 Plugin &Plugins::GetPluginById(EPluginId id)

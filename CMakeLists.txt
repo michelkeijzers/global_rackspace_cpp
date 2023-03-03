@@ -27,6 +27,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Midi/MidiMessage.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlock.h" 
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlock.cpp" 
+   "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlocks.h" 
+   "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlocks.cpp" 
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/PrimaryKeyboardMidiInBlock.cpp" 
 	"${CMAKE_CURRENT_LIST_DIR}/src/Model/MixerSubModel.h"

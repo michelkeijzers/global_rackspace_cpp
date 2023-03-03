@@ -19,6 +19,10 @@ AudioMixerPlugin::AudioMixerPlugin(View& view, bool lowerChannels)
 {
 }
 
+void AudioMixerPlugin::Init() /* override */
+{
+}
+
 void AudioMixerPlugin::SetChannelVolume(int channelIndex, double volume)
 {
     Debug::LogMethodEntry(__FUNCTION__,
