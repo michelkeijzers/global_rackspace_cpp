@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../MidiInBlocks/MidiInBlocks.h"
 #include "SubControllers.h"
 #include <string>
 
@@ -29,6 +30,5 @@ class Controller
     View &_view;
 
     SubControllers _subControllers;
-
-    PrimaryKeyboardMidiInBlock *_primaryKeyboardMidiInBlock; // TODO: Make sub controller list, enum for type ?
+    MidiInBlocks _midiInBlocks;
 };

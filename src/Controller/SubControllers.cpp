@@ -3,8 +3,6 @@
 #include "MixerSubController.h"
 #include "OrganSubController.h"
 
-//TODO: NOT USED YET
-
 SubControllers::SubControllers(Controller &controller) : _controller(controller)
 {
 }

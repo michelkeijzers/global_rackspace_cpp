@@ -106,7 +106,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         break;
 
     case WidgetIds::EWidgetId::PrimaryKeyboardSlider9:
-        // TODO: Main volume
+        ProcessSlider(widgetId, 8, newValue);
         break;
 
     default:

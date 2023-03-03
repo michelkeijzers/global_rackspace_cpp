@@ -1,10 +1,10 @@
 #include "Plugin.h"
 
-Plugin::Plugin(std::string name, View& view) : _name(name), _view(view)
+Plugin::Plugin(const std::string& name, View& view) : _name(name), _view(view)
 {
 }
 
-std::string Plugin::GetName()
+const std::string& Plugin::GetName()
 {
     return _name;
 }

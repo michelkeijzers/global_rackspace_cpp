@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 class MidiInBlock;
@@ -19,7 +20,9 @@ class MidiInBlocks
     void Fill();
     void Init();
 
-    MidiInBlock &GetPluginById(EMidiInBlockId organ);
+    MidiInBlock &GetMidiInBlockById(EMidiInBlockId organ);
+
+	 bool OnMidiIn(const std::string &deviceName, const uint8_t *data, int length);
 
   private:
     std::vector<MidiInBlock *> _midiInBlocks;

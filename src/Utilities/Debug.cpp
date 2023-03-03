@@ -9,7 +9,7 @@
 /* static */ bool Debug::_logHeaders = true;
 /* static */ int Debug::_logMethodIndentation = 0;
 
-/* static */ void Debug::Error(std::string functionName, std::string errorText)
+/* static */ void Debug::Error(const std::string& functionName, const std::string& errorText)
 {
     std::cout << "ERROR: " << functionName << ": " << errorText;
 #ifdef _CONSOLE
@@ -19,7 +19,7 @@
     // exit(1);
 }
 
-/* static */ void Debug::Assert(bool condition, std::string functionName, std::string errorText)
+/* static */ void Debug::Assert(bool condition, const std::string& functionName, const std::string& errorText)
 {
     if (!condition)
     {
@@ -31,7 +31,7 @@
     }
 }
 
-/* static */ void Debug::Log(std::string text)
+/* static */ void Debug::Log(const std::string& text)
 {
     _gigPerformerApi->scriptLog(std::string(_logMethodIndentation, ' ') + text, true);
 }
@@ -41,7 +41,8 @@
     _logHeaders = logHeaders;
 }
 
-/* static */ void Debug::LogMethodEntry(std::string methodName, std::string parameters, std::string additionalText)
+/* static */ void Debug::LogMethodEntry(
+	const std::string& methodName, const std::string& parameters, const std::string& additionalText)
 {
     std::string text = std::string(_logMethodIndentation, ' ') + ">" + methodName + "(";
 
@@ -61,7 +62,7 @@
     _logMethodIndentation++;
 }
 
-/* static */ void Debug::LogMethodExit(std::string methodName, std::string returnInfo)
+/* static */ void Debug::LogMethodExit(const std::string& methodName, const std::string& returnInfo)
 {
     _logMethodIndentation--;
     Debug::Assert(_logMethodIndentation >= 0, __FUNCTION__, "Debug _logMethodIntendation is negative");

@@ -18,7 +18,7 @@ class View
     View(Model &model);
 
     void Fill();
-    void Init(); // TODO: Change to relayout
+    void Init(); 
 
     WidgetIds &GetWidgetIds();
 

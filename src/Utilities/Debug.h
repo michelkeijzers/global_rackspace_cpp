@@ -13,19 +13,19 @@ class Debug
     /// \brief Displays error, but continues run
     /// \param functionName: name of the function to print
     /// \param text: text to print
-    static void Error(std::string functionName, std::string text);
+    static void Error(const std::string& functionName, const std::string& text);
 
     /// \brief Displays error, but continues run
     /// \param condition: boolean to be checked, if false, error is printed
     /// \param functionName: name of the function to print
     /// \param text: text to print
-    static void Assert(bool condition, std::string functionName, std::string text);
+    static void Assert(bool condition, const std::string& functionName, const std::string& text);
 
     /// \brief Sets GP library to print to console, need to be executed before other calls are done
     static void SetGigPerformerApi(gigperformer::sdk::GigPerformerAPI *gig_performer_api);
 
     /// \brief Text to log.
-    static void Log(std::string text);
+    static void Log(const std::string& text);
 
     /// \brief Sets boolean if header entries and exits are logged, default true.
     /// \param logHeaders: boolean to activate/deactivate printing of headers
@@ -35,12 +35,13 @@ class Debug
     /// \param methodName: name of the method
     /// \param parameters: optional parameter list to be printed
 	 /// \param additionalText: more text that is added after the prototype
-    static void LogMethodEntry(std::string methodName, std::string parameters = "", std::string additionalText = "");
+    static void LogMethodEntry(const std::string& methodName, const std::string& parameters = "",
+                               const std::string& additionalText = "");
 
     /// \brief Prints a method entry logging
     /// \param methodName: name of the method
     /// \param returnInfo: optional return or other values (as string) to be printed
-    static void LogMethodExit(std::string methodName, std::string returnInfo = "");
+    static void LogMethodExit(const std::string& methodName, const std::string& returnInfo = "");
 
   private:
     Debug();

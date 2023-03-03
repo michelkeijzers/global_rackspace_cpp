@@ -6,7 +6,7 @@
 class MidiInBlock
 {
   public:
-    MidiInBlock(Controller &controller, std::string name);
+    MidiInBlock(Controller &controller, const std::string name);
 
     virtual void Init() = 0;
 

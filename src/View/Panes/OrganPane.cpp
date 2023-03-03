@@ -8,6 +8,9 @@
 #include "../IObserver.h"
 #include "../View.h"
 
+static const std::string ROTATOR_SPEED_FAST_TEXT = "FAST";
+static const std::string ROTATOR_SPEED_SLOW_TEXT = "SLOW";
+
 OrganPane::OrganPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
 {
     organSubModel.Subscribe(*this);
@@ -55,7 +58,7 @@ void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* o
         Widget &widget = GetWidgets().GetWidgetById(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(widget);
         bool isRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
-        textWidget.SetText(isRotatorSpeedFast ? "FAST" : "SLOW"); // TODO: Use constants
+        textWidget.SetText(isRotatorSpeedFast ? ROTATOR_SPEED_FAST_TEXT : ROTATOR_SPEED_SLOW_TEXT);
         textWidget.SetWidgetFillColor(isRotatorSpeedFast ? 1.0 : 0.0, isRotatorSpeedFast ? 0.0 : 1.0, 0.0, 1.0);
     }
 }

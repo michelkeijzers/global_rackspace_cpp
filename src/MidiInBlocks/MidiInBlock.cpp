@@ -1,6 +1,6 @@
 #include "MidiInBlock.h"
 
-MidiInBlock::MidiInBlock(Controller &controller, std::string name) : _controller(controller), _name(name)
+MidiInBlock::MidiInBlock(Controller &controller, const std::string name) : _controller(controller), _name(name)
 {
 }
 
