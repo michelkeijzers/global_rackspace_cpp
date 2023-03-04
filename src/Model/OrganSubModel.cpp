@@ -29,7 +29,7 @@ void OrganSubModel::SetIsPresent(bool isPresent)
     if (_isPresent != isPresent)
     {
         _isPresent = isPresent;
-        Debug::Log("@ " + SUB_MODEL_NAME + ": Is Present, is present = " + std::to_string(isPresent));
+        Debug::Log("# " + SUB_MODEL_NAME + ": Is Present, is present = " + std::to_string(isPresent));
         Notify(ChangedProperties::EChangedProperty::OrganIsPresent);
     }
 }
@@ -50,7 +50,7 @@ void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
 	 if (!DoubleUtilities::AreEqual(newValue, _drawbarValues[drawbarIndex]))
     {
         _drawbarValues[drawbarIndex] = newValue;
-        Debug::Log("@ " + SUB_MODEL_NAME + ": Drawbar, index = " + std::to_string(drawbarIndex) +
+        Debug::Log("# " + SUB_MODEL_NAME + ": Drawbar, index = " + std::to_string(drawbarIndex) +
                    ", value = " + std::to_string(newValue));
         Notify((ChangedProperties::EChangedProperty) ((int)ChangedProperties::EChangedProperty::OrganDrawbar1 + drawbarIndex));
     }
@@ -66,7 +66,7 @@ void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
     if (rotatorSpeedFast != _isRotatorSpeedFast)
     {
         _isRotatorSpeedFast = rotatorSpeedFast;
-        Debug::Log("@ " + SUB_MODEL_NAME + ": Rotator Speed Fast, fast = " + std::to_string(rotatorSpeedFast));
+        Debug::Log("# " + SUB_MODEL_NAME + ": Rotator Speed Fast, fast = " + std::to_string(rotatorSpeedFast));
         Notify(ChangedProperties::EChangedProperty::OrganRotatorSpeed);
     }
 }

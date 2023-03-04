@@ -24,7 +24,7 @@ class SubModels
 	 bool IsForcedMode();
     void SetForcedMode(bool forcedMode);
 
-    SubModel &GetSubModelById(ESubModelId id);
+    SubModel &GetSubModel(ESubModelId id);
 
   private:
     std::vector<SubModel *> _subModels;

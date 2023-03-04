@@ -28,7 +28,7 @@ void SubControllers::Init()
 {
 }
 
-SubController &SubControllers::GetSubControllerById(ESubControllerId id)
+SubController &SubControllers::GetSubController(ESubControllerId id)
 {
     return *(_subControllers.at((int)id));
 }

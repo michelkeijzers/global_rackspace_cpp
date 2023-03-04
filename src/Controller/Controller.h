@@ -23,7 +23,7 @@ class Controller
     void Fill();
     void Init();
 
-    SubController &GetSubControllerById(SubControllers::ESubControllerId id);
+    SubController &GetSubController(SubControllers::ESubControllerId id);
 
   private:
     Model &_model;
@@ -31,4 +31,6 @@ class Controller
 
     SubControllers _subControllers;
     MidiInBlocks _midiInBlocks;
+
+	 const std::string ConvertDataToString(const uint8_t *data, int length);
 };

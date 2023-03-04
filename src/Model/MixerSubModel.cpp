@@ -9,7 +9,7 @@
 static const std::string SUB_MODEL_NAME = "Mixer";
 
 MixerSubModel::MixerSubModel(SubModels &subModels)
-    : SubModel(subModels), _paneSelection(MixerSubModel::EPaneSelection::Drawbars)
+    : SubModel(subModels), _masterVolume(0.0), _paneSelection(MixerSubModel::EPaneSelection::Drawbars)
 {
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
@@ -45,8 +45,23 @@ void MixerSubModel::SetPaneSelection(EPaneSelection paneSelection)
     if (IsForcedMode() || (_paneSelection != paneSelection))
     {
         _paneSelection = paneSelection;
-        Debug::Log("@ " + SUB_MODEL_NAME + ": Pane Selection = " + std::to_string((int)_paneSelection));
+        Debug::Log("# " + SUB_MODEL_NAME + ": Pane Selection = " + std::to_string((int)_paneSelection));
         Notify(ChangedProperties::EChangedProperty::SlidersPaneSelection);
+    }
+}
+
+double MixerSubModel::GetMasterVolume()
+{
+    return _masterVolume;
+}
+
+void MixerSubModel::SetMasterVolume(double newVolume)
+{
+    if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newVolume))
+    {
+        _masterVolume = newVolume;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Master Volume = " + std::to_string((int)_masterVolume));
+        Notify(ChangedProperties::EChangedProperty::MasterVolume);
     }
 }
 

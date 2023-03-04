@@ -22,7 +22,7 @@ void SubModels::Init()
 {
 }
 
-SubModel &SubModels::GetSubModelById(ESubModelId id)
+SubModel &SubModels::GetSubModel(ESubModelId id)
 {
     return *(_subModels.at((int) id));
 }

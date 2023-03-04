@@ -30,10 +30,15 @@ class MixerSubModel : public SubModel, public Observable
 	 EPaneSelection GetPaneSelection();
     void SetPaneSelection(EPaneSelection paneSelection);
 
-	 double GetChannelVolume(int channelIndex);
-    void SetChannelVolume(int channelIndex, double volume);
-     
+	 double GetMasterVolume();
+    void SetMasterVolume(double newVolume);
+
+    double GetChannelVolume(int channelIndex);
+    void SetChannelVolume(int channelIndex, double newVolume);
+
   private:
     EPaneSelection _paneSelection;
-    std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
+    double _masterVolume;
+
+	 std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 };

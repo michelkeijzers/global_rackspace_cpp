@@ -38,8 +38,8 @@ void AudioMixerPlugin::Init() /* override */
 void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
-        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) +
-            _mixerChannelSubModels.size())
+        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1Volume +
+            _mixerChannelSubModels.size()))
     {
         int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1Volume;
         SetChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);

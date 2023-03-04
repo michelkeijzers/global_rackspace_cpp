@@ -24,7 +24,7 @@ class SubControllers
     void Fill();
     void Init();
 
-    SubController &GetSubControllerById(ESubControllerId id);
+    SubController &GetSubController(ESubControllerId id);
 
   private:
     std::vector<SubController *> _subControllers;

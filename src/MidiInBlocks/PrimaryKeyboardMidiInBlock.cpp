@@ -18,7 +18,7 @@ void PrimaryKeyboardMidiInBlock::Init() /* override */
 
 bool PrimaryKeyboardMidiInBlock::OnMidiIn(const uint8_t *data, int length)
 {
-    std::cout << "PrimaryKeyboardMidiInBlock::OnMidiIn\n";
+    Debug::LogMethodEntry(__FUNCTION__, "length = " + std::to_string(length));
 
     bool handleMessage = true;
 
@@ -34,6 +34,8 @@ bool PrimaryKeyboardMidiInBlock::OnMidiIn(const uint8_t *data, int length)
         handleMessage = false;
     }
 
+	 Debug::LogMethodExit(__FUNCTION__);
+
     return handleMessage;
 }
 
@@ -47,7 +49,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
         if (value == VALUE_BUTTON_PRESSED)
         {
             OrganSubController &organSubController =
-                (OrganSubController &)(GetController().GetSubControllerById(SubControllers::ESubControllerId::Organ));
+                (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
             organSubController.SwapRotatorSpeed();
         }

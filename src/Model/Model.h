@@ -10,7 +10,7 @@ class Model
 	 void Fill();
     void Init();
 
-	 SubModel &GetSubModelById(SubModels::ESubModelId id);
+	 SubModel &GetSubModel(SubModels::ESubModelId id);
 
   private:
     SubModels _subModels;

@@ -18,7 +18,7 @@ void Model::Fill()
     _subModels.Fill();
 }
 
-SubModel &Model::GetSubModelById(SubModels::ESubModelId id)
+SubModel &Model::GetSubModel(SubModels::ESubModelId id)
 {
-    return _subModels.GetSubModelById(id);
+    return _subModels.GetSubModel(id);
 }

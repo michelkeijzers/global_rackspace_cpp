@@ -36,7 +36,7 @@ void OrganPane::Fill() // override
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::OrganDrawbar1) + OrganSubModel::NR_OF_DRAWBARS)
+        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
     {
         int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);

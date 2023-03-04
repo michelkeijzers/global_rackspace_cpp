@@ -20,7 +20,7 @@ class Plugins
 	 void Fill();
     void Init();
     
-	 Plugin &GetPluginById(EPluginId organ);
+	 Plugin &GetPlugin(EPluginId organ);
 
 private:
     std::vector<Plugin *> _plugins;

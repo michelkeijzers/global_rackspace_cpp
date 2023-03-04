@@ -14,9 +14,17 @@
     std::cout << "ERROR: " << functionName << ": " << errorText;
 #ifdef _CONSOLE
     std::cout << std::endl;
+    exit(1);
 #endif
+}
 
-    // exit(1);
+/* static */ void Debug::NotImplemented(const std::string &functionName)
+{
+    std::cout << "ERROR: " << functionName << " is not implemented";
+#ifdef _CONSOLE
+        std::cout << std::endl;
+    exit(1);
+#endif
 }
 
 /* static */ void Debug::Assert(bool condition, const std::string &functionName, const std::string &errorText)

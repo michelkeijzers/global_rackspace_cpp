@@ -41,6 +41,7 @@ class ChangedProperties
         MixerChannel22Volume,
         MixerChannel23Volume,
         MixerChannel24Volume,
+		  MasterVolume,
 		  Last
     };
 

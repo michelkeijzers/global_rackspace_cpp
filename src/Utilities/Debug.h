@@ -15,6 +15,13 @@ class Debug
     /// \param text: text to print
     static void Error(const std::string& functionName, const std::string& text);
 
+	 /// <summary>
+	 /// \brief Displays error that a function is not implemented.
+	 /// \param functionName: name of the function to print
+	 /// </summary>
+	 /// <param name="functionName"></param>
+	 static void NotImplemented(const std::string &functionName);
+
     /// \brief Displays error, but continues run
     /// \param condition: boolean to be checked, if false, error is printed
     /// \param functionName: name of the function to print

@@ -24,7 +24,7 @@ void MixerChannelSubModel::SetVolume(double volume)
     if (IsForcedMode() || (_volume != volume))
     {
         _volume = volume;
-        Debug::Log("@ " + SUB_MODEL_NAME + ": channel = " + std::to_string(_channelIndex) +
+        Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
                    ", volume = " + std::to_string(_volume));
         Notify((ChangedProperties::EChangedProperty) 
 			  ((int)ChangedProperties::EChangedProperty::MixerChannel1Volume + _channelIndex));

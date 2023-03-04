@@ -22,7 +22,8 @@ void SlidersPane::Init() // override
 
 void SlidersPane::Fill() // override
 {
-    for (int sliderIndex = 0; sliderIndex < NR_OF_CHANNEL_SLIDERS; sliderIndex++)
+	 // Add sliders for channels and master volume.
+    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
     {
         WidgetIds::EWidgetId widgetId =
             (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
@@ -33,8 +34,8 @@ void SlidersPane::Fill() // override
 void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
-        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) +
-            MixerSubModel::NR_OF_MIXER_CHANNELS)
+        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1Volume +
+            MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
         int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1Volume;
 
@@ -68,6 +69,12 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
             Debug::Error(__FUNCTION__, "Illegal pane selection");
             break;
         }
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::MasterVolume)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_mixerSubModel.GetMasterVolume());
     }
 }
 

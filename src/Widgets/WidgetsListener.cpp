@@ -31,14 +31,14 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
     WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
 
-    Debug::Log("# Widget " + widgetName + ": value = " + std::to_string(newValue));
+    Debug::Log("@--- On Widget " + widgetName + ": value = " + std::to_string(newValue));
 
     const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
 	 if (((int)widgetId >= drawbar1Value) &&
         ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {
          OrganSubController &organSubController =
-             (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
+             (OrganSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Organ);
          organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
         processed = true;
     }
@@ -48,7 +48,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         if (ValueWidget::IsButtonPressed(newValue))
         {
             OrganSubController &organSubController =
-                (OrganSubController &)_controller.GetSubControllerById(SubControllers::ESubControllerId::Organ);
+                (OrganSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Organ);
             organSubController.SwapRotatorSpeed();
         }
         processed = true;
@@ -76,6 +76,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderIndex, double newValue)
 {
     MixerSubController &mixerSubController = 
-		 (MixerSubController&) _controller.GetSubControllerById(SubControllers::ESubControllerId::Mixer);
+		 (MixerSubController&) _controller.GetSubController(SubControllers::ESubControllerId::Mixer);
     mixerSubController.SetSliderValue(sliderIndex, newValue);
 }
