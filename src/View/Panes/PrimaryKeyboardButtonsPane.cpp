@@ -18,7 +18,7 @@ void PrimaryKeyboardButtonsPane::Init() /* override */
 
 void PrimaryKeyboardButtonsPane::Fill()
 {
-	//TODO
+	// TODO
 }
 
 void PrimaryKeyboardButtonsPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */

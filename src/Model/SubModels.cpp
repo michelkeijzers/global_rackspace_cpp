@@ -3,7 +3,7 @@
 #include "../Model/OrganSubModel.h"
 #include "../Model/Model.h"
 
-SubModels::SubModels()
+SubModels::SubModels() : _forcedMode(false)
 {
 }
 
@@ -14,8 +14,8 @@ SubModels::~SubModels()
 
 void SubModels::Fill()
 {
-    _subModels.push_back(new MixerSubModel());
-    _subModels.push_back(new OrganSubModel());
+    _subModels.push_back(new MixerSubModel(*this));
+    _subModels.push_back(new OrganSubModel(*this));
 }
 
 void SubModels::Init()
@@ -25,4 +25,14 @@ void SubModels::Init()
 SubModel &SubModels::GetSubModelById(ESubModelId id)
 {
     return *(_subModels.at((int) id));
+}
+
+bool SubModels::IsForcedMode()
+{
+    return _forcedMode;
+}
+
+void SubModels::SetForcedMode(bool forcedMode)
+{
+    _forcedMode = forcedMode;
 }

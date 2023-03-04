@@ -13,6 +13,9 @@ class SubControllers
     {
         Mixer,
         Organ
+#ifdef _CONSOLE
+		  , Test
+#endif
     };
 
     SubControllers(Controller& controller);

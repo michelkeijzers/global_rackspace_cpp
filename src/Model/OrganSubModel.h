@@ -11,12 +11,14 @@ enum class EOrganRotatorSpeed
     Off
 };
 
+class SubModels;
+
 class OrganSubModel : public SubModel, public Observable
 {
   public:
     static const int NR_OF_DRAWBARS = 9;
 
-    OrganSubModel();
+    OrganSubModel(SubModels& subModels);
 	 	 
 	 void Init() override;
 

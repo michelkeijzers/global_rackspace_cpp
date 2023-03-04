@@ -4,7 +4,10 @@
 #include "../View/View.h"
 #include "../View/ChangedProperties.h"
 
-OrganSubModel::OrganSubModel() : SubModel(), _isPresent(false), _isRotatorSpeedFast(false)
+static const std::string SUB_MODEL_NAME = "Organ";
+
+OrganSubModel::OrganSubModel(SubModels& subModels)
+	: SubModel(subModels), _isPresent(false), _isRotatorSpeedFast(false)
 {
     for (int n = 0; n < NR_OF_DRAWBARS; n++)
     {
@@ -23,7 +26,12 @@ bool OrganSubModel::IsPresent()
 
 void OrganSubModel::SetIsPresent(bool isPresent)
 {
-    _isPresent = isPresent;
+    if (_isPresent != isPresent)
+    {
+        _isPresent = isPresent;
+        Debug::Log("@ " + SUB_MODEL_NAME + ": Is Present, is present = " + std::to_string(isPresent));
+        Notify(ChangedProperties::EChangedProperty::OrganIsPresent);
+    }
 }
 
 double OrganSubModel::GetDrawbarValue(int drawbarIndex)
@@ -42,7 +50,9 @@ void OrganSubModel::SetDrawbarValue(int drawbarIndex, double newValue)
 	 if (!DoubleUtilities::AreEqual(newValue, _drawbarValues[drawbarIndex]))
     {
         _drawbarValues[drawbarIndex] = newValue;
-        Notify(ChangedProperties::EChangedProperty::Drawbar1);
+        Debug::Log("@ " + SUB_MODEL_NAME + ": Drawbar, index = " + std::to_string(drawbarIndex) +
+                   ", value = " + std::to_string(newValue));
+        Notify((ChangedProperties::EChangedProperty) ((int)ChangedProperties::EChangedProperty::OrganDrawbar1 + drawbarIndex));
     }
 }
 
@@ -56,6 +66,7 @@ void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
     if (rotatorSpeedFast != _isRotatorSpeedFast)
     {
         _isRotatorSpeedFast = rotatorSpeedFast;
+        Debug::Log("@ " + SUB_MODEL_NAME + ": Rotator Speed Fast, fast = " + std::to_string(rotatorSpeedFast));
         Notify(ChangedProperties::EChangedProperty::OrganRotatorSpeed);
     }
 }

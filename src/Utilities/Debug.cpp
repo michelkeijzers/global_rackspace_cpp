@@ -9,7 +9,7 @@
 /* static */ bool Debug::_logHeaders = true;
 /* static */ int Debug::_logMethodIndentation = 0;
 
-/* static */ void Debug::Error(const std::string& functionName, const std::string& errorText)
+/* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
     std::cout << "ERROR: " << functionName << ": " << errorText;
 #ifdef _CONSOLE
@@ -19,7 +19,7 @@
     // exit(1);
 }
 
-/* static */ void Debug::Assert(bool condition, const std::string& functionName, const std::string& errorText)
+/* static */ void Debug::Assert(bool condition, const std::string &functionName, const std::string &errorText)
 {
     if (!condition)
     {
@@ -31,9 +31,15 @@
     }
 }
 
-/* static */ void Debug::Log(const std::string& text)
+/* static */ void Debug::Log(const std::string &text)
 {
     _gigPerformerApi->scriptLog(std::string(_logMethodIndentation, ' ') + text, true);
+}
+
+/* static */ void Debug::Log(const std::string &methodName, const std::string &text)
+{
+    const std::string fullText = std::string(_logMethodIndentation, ' ') + methodName + " : " + text;
+    _gigPerformerApi->scriptLog(fullText, true);
 }
 
 /* static */ void Debug::LogHeaders(bool logHeaders)
@@ -41,9 +47,14 @@
     _logHeaders = logHeaders;
 }
 
-/* static */ void Debug::LogMethodEntry(
-	const std::string& methodName, const std::string& parameters, const std::string& additionalText)
+/* static */ void Debug::LogMethodEntry(const std::string &methodName, const std::string &parameters,
+                                        const std::string &additionalText)
 {
+    if (!_logHeaders)
+    {
+        return;
+    }
+
     std::string text = std::string(_logMethodIndentation, ' ') + ">" + methodName + "(";
 
     if (parameters != "")
@@ -51,19 +62,24 @@
         text += parameters;
     }
 
-	 text += ")";
+    text += ")";
 
-	 if (additionalText != "")
+    if (additionalText != "")
     {
-         text += ", " + additionalText;
-	 }
+        text += ", " + additionalText;
+    }
 
     _gigPerformerApi->scriptLog(text, true);
     _logMethodIndentation++;
 }
 
-/* static */ void Debug::LogMethodExit(const std::string& methodName, const std::string& returnInfo)
+/* static */ void Debug::LogMethodExit(const std::string &methodName, const std::string &returnInfo)
 {
+    if (!_logHeaders)
+    {
+        return;
+    }
+
     _logMethodIndentation--;
     Debug::Assert(_logMethodIndentation >= 0, __FUNCTION__, "Debug _logMethodIntendation is negative");
 

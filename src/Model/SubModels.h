@@ -21,8 +21,13 @@ class SubModels
     void Fill();
     void Init();
 
+	 bool IsForcedMode();
+    void SetForcedMode(bool forcedMode);
+
     SubModel &GetSubModelById(ESubModelId id);
 
   private:
     std::vector<SubModel *> _subModels;
+
+	 bool _forcedMode;
 };

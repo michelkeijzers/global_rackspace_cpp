@@ -47,7 +47,7 @@ void OrganPane::Fill() // override
 
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (changedProperty == ChangedProperties::EChangedProperty::Drawbar1)
+    if (changedProperty == ChangedProperties::EChangedProperty::OrganDrawbar1)
     {
         Widget &widget = GetWidgets().GetWidgetById(WidgetIds::EWidgetId::OrganDrawbar1);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);

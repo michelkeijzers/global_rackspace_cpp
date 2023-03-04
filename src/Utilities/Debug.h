@@ -25,7 +25,11 @@ class Debug
     static void SetGigPerformerApi(gigperformer::sdk::GigPerformerAPI *gig_performer_api);
 
     /// \brief Text to log.
-    static void Log(const std::string& text);
+    static void Log(const std::string &text);
+
+    /// \brief Text to log.
+    /// \param methodName: name of the method
+    static void Log(const std::string& methodName, const std::string &text);
 
     /// \brief Sets boolean if header entries and exits are logged, default true.
     /// \param logHeaders: boolean to activate/deactivate printing of headers

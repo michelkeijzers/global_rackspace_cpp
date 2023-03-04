@@ -75,24 +75,5 @@ void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderInd
 {
     MixerSubController &mixerSubController = 
 		 (MixerSubController&) _controller.GetSubControllerById(SubControllers::ESubControllerId::Mixer);
-
-    // switch (mixerSubController->GetPaneSelection())
-    //{
-    // case MixerSubController::EPaneSelection::Channels1To8:
-    //   mixerSubController->SetChannelVolume(sliderIndex, newValue);
-    //   break;
-
-    // case MixerSubController::EPaneSelection::Channels9To16:
-    //    mixerSubController->SetChannelVolume(8 + sliderIndex, newValue);
-    //    break;
-
-    // case MixerSubController::EPaneSelection::Channels17To23:
-    //    mixerSubController->SetChannelVolume(16 + sliderIndex, newValue);
-    //    break;
-
-    // case MixerSubController::EPaneSelection::Drawbars:
-    //    // Not possible, invisible
-    //    Debug::Error(__FUNCTION__, "Widget should be invisible: " + Widgets::GetWidgetName(widgetId));
-    //    break;
-    //}
+    mixerSubController.SetSliderValue(sliderIndex, newValue);
 }
