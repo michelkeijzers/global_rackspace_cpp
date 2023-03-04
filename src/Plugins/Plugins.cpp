@@ -1,6 +1,9 @@
 #include "Plugins.h"
+#include "../Model/MixerSubModel.h"
 #include "../Model/Model.h"
+#include "../Model/OrganSubModel.h"
 #include "../Model/SubModels.h"
+#include "AudioMixerPlugin.h"
 #include "OrganPlugin.h"
 #include "Plugin.h"
 
@@ -15,7 +18,14 @@ Plugins::~Plugins()
 
 void Plugins::Fill()
 {
-    _plugins.push_back(new OrganPlugin(_view, (OrganSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Organ)));
+    _plugins.push_back(
+        new OrganPlugin(_view, (OrganSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Organ), "OrganPlugin"));
+    _plugins.push_back(new AudioMixerPlugin(_view,
+                                            (MixerSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Mixer),
+                                            false, "AudioMixerChannels1To16"));
+    _plugins.push_back(new AudioMixerPlugin(_view,
+                                            (MixerSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Mixer),
+                                            true, "AudioMixerChannels17To23"));
 }
 
 void Plugins::Init()

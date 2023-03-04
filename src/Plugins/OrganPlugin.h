@@ -11,7 +11,7 @@ class Controller;
 class OrganPlugin : public Plugin
 {
   public:
-    OrganPlugin(View& view, OrganSubModel& organSubModel);
+    OrganPlugin(View& view, OrganSubModel& organSubModel, const std::string& name);
 
 	 void Init() override;
 

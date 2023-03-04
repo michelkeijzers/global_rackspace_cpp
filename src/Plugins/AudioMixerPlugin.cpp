@@ -1,9 +1,9 @@
 #include "AudioMixerplugin.h"
 #include "../Controller/Controller.h"
+#include "../Framework/MvcFramework.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
 #include <iostream>
-#include "../Framework/MvcFramework.h"
 
 #ifdef _CONSOLE
     #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
@@ -11,27 +11,45 @@
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
+const int NR_OF_STEREO_CHANNELS = 16;
 const int NR_OF_PARAMETERS_PER_CHANNEL = 7;
 const int VOLUME_PARAMETER = 0;
 
-AudioMixerPlugin::AudioMixerPlugin(View& view, bool lowerChannels) 
-	: Plugin(lowerChannels ? "AudioMixerChannels1To16" : "AudioMixerChannels17To23", view)
+AudioMixerPlugin::AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels,
+                                   const std::string &name)
+    : Plugin(name, view), _mixerSubModel(mixerSubModel), _lowerChannels(lowerChannels)
 {
+    _mixerSubModel.Subscribe(*this);
 }
 
 void AudioMixerPlugin::Init() /* override */
 {
 }
 
-void AudioMixerPlugin::SetChannelVolume(int channelIndex, double volume)
+void AudioMixerPlugin::SetChannelVolume(int channelIndex)
 {
-    Debug::LogMethodEntry(__FUNCTION__,
-                          "channelIndex: " + std::to_string(channelIndex) + ", volume = " + std::to_string(volume));
+    if (IsChannelIndexForThisAudioMixer(channelIndex))
+    {
+        double newVolume = _mixerSubModel.GetChannelVolume(channelIndex);
+        MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetVolumeOfChannelParameter(channelIndex),
+                                                              newVolume, true);
+        Debug::Log("$ " + GetName() + ": channel volume, channel index = " + std::to_string(channelIndex) +
+                   ", new volume = " + std::to_string(newVolume));
+    }
+}
 
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetVolumeOfChannelParameter(channelIndex),
-                                                              volume, true);
+void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
+{
+    if (changedProperty == ChangedProperties::EChangedProperty::MixerChannel1Volume)
+    {
+        SetChannelVolume(0); // TODO: channels 1..24
+    }
+}
 
-    Debug::LogMethodExit(__FUNCTION__);
+bool AudioMixerPlugin::IsChannelIndexForThisAudioMixer(int channelIndex)
+{
+    return ((_lowerChannels && (channelIndex < NR_OF_STEREO_CHANNELS)) ||
+            (!_lowerChannels && (channelIndex >= NR_OF_STEREO_CHANNELS)));
 }
 
 int AudioMixerPlugin::GetVolumeOfChannelParameter(int channelIndex)

@@ -18,7 +18,7 @@ class Plugin : public IObserver
     View& GetView();
 
   private:
-    const std::string& _name;
+    const std::string _name;
 
     View& _view;
 };
