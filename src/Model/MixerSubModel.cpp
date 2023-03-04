@@ -1,8 +1,10 @@
+#include <string>
 #include "MixerSubModel.h"
+#include "MixerChannelSubModel.h"
+#include "SubModels.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-#include "MixerChannelSubModel.h"
-#include <string>
+
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
@@ -11,7 +13,7 @@ MixerSubModel::MixerSubModel(SubModels &subModels)
 {
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
-        _mixerChannelSubModels.push_back(new MixerChannelSubModel());
+        _mixerChannelSubModels.push_back(new MixerChannelSubModel(subModels, channelIndex));
     }
 }
 
@@ -22,6 +24,15 @@ MixerSubModel::~MixerSubModel()
 
 void MixerSubModel::Init() /* override */
 {
+    for (auto mixerChannelSubModel : _mixerChannelSubModels)
+    {
+        mixerChannelSubModel->Init();
+	 }
+}
+
+std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()
+{
+    return _mixerChannelSubModels;
 }
 
 MixerSubModel::EPaneSelection MixerSubModel::GetPaneSelection()
@@ -50,12 +61,8 @@ void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-    if (!DoubleUtilities::AreEqual(_mixerChannelSubModels[channelIndex]->GetVolume(), newVolume))
+    if (IsForcedMode() || !DoubleUtilities::AreEqual(_mixerChannelSubModels[channelIndex]->GetVolume(), newVolume))
     {
         _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
-        Debug::Log("@ " + SUB_MODEL_NAME + ": Set Volume, index = " + std::to_string(channelIndex) +
-                                     ", new volume = " + std::to_string(newVolume));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1Volume +
-                                                     channelIndex));
     }
 }

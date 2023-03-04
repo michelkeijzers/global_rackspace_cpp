@@ -1,26 +1,26 @@
 #pragma once
 
+#include <vector>
 #include "Plugin.h"
 
+class MixerChannelSubModel;
 class MixerSubModel;
 class View;
 
 class AudioMixerPlugin : public Plugin
 {
   public:
-    AudioMixerPlugin(View& view, MixerSubModel& mixerSubModel, bool lowerChannels, const std::string& name);
+    AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels, const std::string &name);
 
-	 void Init() override;
+    void Init() override;
 
-	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
+    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-	 void SetChannelVolume(int channelIndex);
+    void SetChannelVolume(int channelIndex);
 
-	 private:
-     bool IsChannelIndexForThisAudioMixer(int channelIndex);
-       
-     int GetVolumeOfChannelParameter(int channelIndex);
+  private:
+    int GetChannelVolumeParameter(int channelIndex);
 
-     MixerSubModel &_mixerSubModel;
-     bool _lowerChannels;
+    MixerSubModel &_mixerSubModel;
+    std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 };

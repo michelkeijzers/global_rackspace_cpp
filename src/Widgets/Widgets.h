@@ -12,7 +12,7 @@ class Widgets
     ~Widgets();
 
 	 void AddWidget(WidgetIds::EWidgetId id, Widget* widget);
-	 Widget &GetWidgetById(WidgetIds::EWidgetId id);
+    Widget &GetWidget(WidgetIds::EWidgetId id, int offset = 0);
 
   private:
     std::map<WidgetIds::EWidgetId, Widget*> _widgets;

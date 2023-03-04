@@ -25,6 +25,8 @@ class MixerSubModel : public SubModel, public Observable
 
     void Init() override;
 
+	 std::vector<MixerChannelSubModel *> GetMixerChannelSubModels();
+
 	 EPaneSelection GetPaneSelection();
     void SetPaneSelection(EPaneSelection paneSelection);
 

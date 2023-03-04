@@ -22,10 +22,10 @@ void Plugins::Fill()
         new OrganPlugin(_view, (OrganSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Organ), "OrganPlugin"));
     _plugins.push_back(new AudioMixerPlugin(_view,
                                             (MixerSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Mixer),
-                                            false, "AudioMixerChannels1To16"));
+                                            true, "AudioMixerChannels1To16"));
     _plugins.push_back(new AudioMixerPlugin(_view,
                                             (MixerSubModel &)_model.GetSubModelById(SubModels::ESubModelId::Mixer),
-                                            true, "AudioMixerChannels17To23"));
+                                            false, "AudioMixerChannels17To23"));
 }
 
 void Plugins::Init()

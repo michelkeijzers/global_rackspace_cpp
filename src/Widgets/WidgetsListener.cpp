@@ -31,7 +31,9 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
     WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
 
-	 const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
+    Debug::Log("# Widget " + widgetName + ": value = " + std::to_string(newValue));
+
+    const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
 	 if (((int)widgetId >= drawbar1Value) &&
         ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {

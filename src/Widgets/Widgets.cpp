@@ -18,7 +18,7 @@ void Widgets::AddWidget(WidgetIds::EWidgetId id, Widget * widget)
     _widgets.insert(std::pair<WidgetIds::EWidgetId, Widget *>(id, widget));
 }
 
-Widget &Widgets::GetWidgetById(WidgetIds::EWidgetId id)
+Widget &Widgets::GetWidget(WidgetIds::EWidgetId id, int offset /* = 0 */)
 {
-    return *(_widgets.at(id));
+    return *(_widgets.at((WidgetIds::EWidgetId)((int) id + offset)));
 }
