@@ -12,8 +12,6 @@ class ValueWidget : public TextWidget
     void SetValue(double value);
     double GetValue();
 
-    static bool IsButtonPressed(double value);
-
   private:
     double _value;
 };

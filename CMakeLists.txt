@@ -86,6 +86,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/PrimaryKeyboardButtonsPane.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/SlidersPane.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/SlidersPane.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/ButtonWidget.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/ButtonWidget.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/ShapeWidget.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/ShapeWidget.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/TextWidget.h"

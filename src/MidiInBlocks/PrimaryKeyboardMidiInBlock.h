@@ -16,7 +16,7 @@ class PrimaryKeyboardMidiInBlock : public MidiInBlock
   private:
     enum class ECCs
     {
-        Button1 = 0x90, // TODO: Check numbers
+        Button1 = 0x90, // TODO: Check numbers, also change in test
         Button2 = 0x91,
         Button3 = 0x92,
         Button4 = 0x93,

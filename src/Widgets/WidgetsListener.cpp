@@ -8,6 +8,7 @@
 #include "WidgetIds.h"
 #include "Widgets.h"
 #include "ValueWidget.h"
+#include "ButtonWidget.h"
 #include "../View/Panes/OrganPane.h"
 #include "../View/Panes/SlidersPane.h"
 
@@ -45,7 +46,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 
 	 if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
     {
-        if (ValueWidget::IsButtonPressed(newValue))
+        if (ButtonWidget::IsPressed(newValue))
         {
             OrganSubController &organSubController =
                 (OrganSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Organ);

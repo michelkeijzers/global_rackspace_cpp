@@ -17,8 +17,3 @@ double ValueWidget::GetValue()
 {
     return _value;
 }
-
-/* static */ bool ValueWidget::IsButtonPressed(double value)
-{
-    return value >= 0.5;
-}

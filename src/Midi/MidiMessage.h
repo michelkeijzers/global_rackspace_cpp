@@ -12,6 +12,9 @@
     static bool IsChannel1(const uint8_t *data, int length);
     static bool IsCcMessage(const uint8_t *data, int length);
 
+	 static double MidiToParam(uint8_t value);
+    static uint8_t ParamToMidi(double value);
+
   private:
     MidiMessage();
 };

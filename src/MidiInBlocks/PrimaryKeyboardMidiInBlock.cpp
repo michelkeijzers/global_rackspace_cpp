@@ -48,7 +48,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
-        organSubController.SetDrive((double)(value / 128.0)); // TODO: Make utility function
+        organSubController.SetDrive(MidiMessage::MidiToParam(value));
         handleMessage = false;
     }
     break;
@@ -58,7 +58,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
-        organSubController.SetReverbAmount((double)(value / 128.0)); // TODO: Make utility function
+        organSubController.SetReverbAmount(MidiMessage::MidiToParam(value));
         handleMessage = false;
     }
     break;
