@@ -1,10 +1,12 @@
 #include "SlidersPane.h"
 #include "../../Model/MixerSubModel.h"
+#include "../../Model/OrganSubModel.h"
 #include "../../Utilities/Debug.h"
 #include "../../Widgets/ValueWidget.h"
 #include "../View.h"
 
-SlidersPane::SlidersPane(View &view, MixerSubModel &mixerSubModel) : Pane(view), _mixerSubModel(mixerSubModel)
+SlidersPane::SlidersPane(View &view, MixerSubModel &mixerSubModel, OrganSubModel& organSubModel)
+    : Pane(view), _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
 {
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
@@ -14,6 +16,7 @@ SlidersPane::SlidersPane(View &view, MixerSubModel &mixerSubModel) : Pane(view),
     }
 
     _mixerSubModel.Subscribe(*this);
+    _organSubModel.Subscribe(*this);
 }
 
 void SlidersPane::Init() // override
@@ -22,13 +25,28 @@ void SlidersPane::Init() // override
 
 void SlidersPane::Fill() // override
 {
+    WidgetIds::EWidgetId widgetId;
+
 	 // Add sliders for channels and master volume.
     for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
     {
-        WidgetIds::EWidgetId widgetId =
-            (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
+        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
     }
+
+	 // Add organ drawbars.
+	 for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
+    {
+        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrawbar1 + drawbarIndex);
+        GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+    }
+
+	 // Add organ overdrive and reverb.
+    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganOverdrive);
+    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+
+    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverb);
+    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
 void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
@@ -75,6 +93,27 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         valueWidget.SetValue(_mixerSubModel.GetMasterVolume());
+    }
+ 	 else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
+        ((int)changedProperty <
+         (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
+    {
+        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganOverdrive)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganOverdrive);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetOverdrive());
+	 }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverb)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverb);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetReverb());
     }
 }
 

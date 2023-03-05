@@ -34,8 +34,8 @@
         std::cout << "ASSERT ERROR: " << functionName << ": " << errorText;
 #ifdef _CONSOLE
         std::cout << std::endl;
+        exit(1);
 #endif
-        // exit(1);
     }
 }
 

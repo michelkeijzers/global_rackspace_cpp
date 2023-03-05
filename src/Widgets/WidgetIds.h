@@ -20,6 +20,8 @@ class WidgetIds
         OrganDrawbar9,
 
         OrganRotatorSpeedTextLabel,
+		  OrganOverdrive,
+		  OrganReverb,
 
         PrimaryKeyboardSlider1,
         PrimaryKeyboardSlider2,

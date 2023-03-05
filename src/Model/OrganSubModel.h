@@ -32,8 +32,16 @@ class OrganSubModel : public SubModel, public Observable
     void SetRotatorSpeedFast(bool rotatorSpeedFast);
     void SwapRotatorSpeed();
 
+	 double GetOverdrive();
+    void SetOverdrive(double overdrive);
+     
+	 double GetReverb();
+    void SetReverb(double reverb);
+
   private:
 	 std::vector<double> _drawbarValues;
     bool _isPresent;
     bool _isRotatorSpeedFast;
+    double _overdrive;
+    double _reverb;
 };

@@ -42,7 +42,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
         processed = true;
     }
-    
+
 	 if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
     {
         if (ValueWidget::IsButtonPressed(newValue))

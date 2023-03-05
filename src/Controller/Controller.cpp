@@ -61,6 +61,7 @@ const std::string Controller::ConvertDataToString(const uint8_t *data, int lengt
             hexString += ", ";
         }
     }
+    hexString += ']';
 
 	 return hexString;
 }

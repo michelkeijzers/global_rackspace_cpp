@@ -16,6 +16,8 @@ class ChangedProperties
         OrganDrawbar8,
         OrganDrawbar9,
         OrganRotatorSpeed,
+		  OrganOverdrive,
+		  OrganReverb,
         SlidersPaneSelection,
         MixerChannel1Volume,
         MixerChannel2Volume,

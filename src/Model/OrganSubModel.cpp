@@ -75,3 +75,34 @@ void OrganSubModel::SwapRotatorSpeed()
 {
     SetRotatorSpeedFast(!_isRotatorSpeedFast);
 }
+
+
+double OrganSubModel::GetOverdrive()
+{
+    return _overdrive;
+}
+
+void OrganSubModel::SetOverdrive(double overdrive)
+{
+    if (overdrive != _overdrive)
+    {
+        _overdrive = overdrive;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Overdrive, value = " + std::to_string(overdrive));
+        Notify(ChangedProperties::EChangedProperty::OrganOverdrive);
+	 }
+}
+
+double OrganSubModel::GetReverb()
+{
+    return _reverb;
+}
+
+void OrganSubModel::SetReverb(double reverb)
+{
+    if (reverb != _reverb)
+    {
+        _reverb = reverb;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Reverb, value = " + std::to_string(reverb));
+        Notify(ChangedProperties::EChangedProperty::OrganReverb);
+    }
+}

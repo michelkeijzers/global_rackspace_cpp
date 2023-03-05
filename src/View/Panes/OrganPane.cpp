@@ -22,12 +22,6 @@ void OrganPane::Init()
 
 void OrganPane::Fill() // override
 {
-    for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
-    {
-        WidgetIds::EWidgetId widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrawbar1 + drawbarIndex);
-        GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-    }
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel,
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, true));
@@ -35,15 +29,7 @@ void OrganPane::Fill() // override
 
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-        ((int)changedProperty < (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
-    {
-        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
-    }
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
+    if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(widget);

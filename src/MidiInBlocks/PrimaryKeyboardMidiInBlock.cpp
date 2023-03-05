@@ -28,13 +28,11 @@ bool PrimaryKeyboardMidiInBlock::OnMidiIn(const uint8_t *data, int length)
         {
             Debug::Assert(length == 3, __FUNCTION__, "Illegal length for MIDI CC message");
 
-            HandleCcMessage(data[1], data[2]);
+            handleMessage = HandleCcMessage(data[1], data[2]);
         }
-
-        handleMessage = false;
     }
 
-	 Debug::LogMethodExit(__FUNCTION__);
+    Debug::LogMethodExit(__FUNCTION__);
 
     return handleMessage;
 }
@@ -43,15 +41,36 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
 {
     bool handleMessage = true;
 
-    switch (ccNumber)
+    switch ((ECCs)ccNumber)
     {
-    case CC_BUTTON_9:
+    case ECCs::Knob1: 
+	 {
+        OrganSubController &organSubController =
+            (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+
+        organSubController.SetOverdrive((double)(value / 128.0)); // TODO: Make utility function
+        handleMessage = false;
+    }
+    break;
+
+    case ECCs::Knob2:
+	 {
+        OrganSubController &organSubController =
+            (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+
+        organSubController.SetReverb((double)(value / 128.0)); // TODO: Make utility function
+        handleMessage = false;
+    }
+    break;
+
+    case ECCs::Button9:
         if (value == VALUE_BUTTON_PRESSED)
         {
             OrganSubController &organSubController =
                 (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
             organSubController.SwapRotatorSpeed();
+            handleMessage = false;
         }
         break;
     }

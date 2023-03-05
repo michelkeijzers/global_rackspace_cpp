@@ -4,6 +4,7 @@
 #include "../Model/OrganSubModel.h"
 #include "../Plugins/OrganPlugin.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/DoubleUtilities.h"
 #include "../View/View.h"
 #include "Controller.h"
 #include "OrganSubController.h"
@@ -23,7 +24,7 @@ void OrganSubController::Init()
 
 void OrganSubController::SetIsPresent(bool isPresent, bool forced /* = false */)
 {
-    // if ((forced) || (_isPresent != isPresent))
+    // if ((forced) || (_isPresent != isPresent)) //TODO
     {
         //_isPresent = isPresent;
     }
@@ -37,14 +38,13 @@ void OrganSubController::SetDrawbarValue(int drawbarIndex, double newValue, bool
     }
 }
 
-void OrganSubController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced)
+void OrganSubController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced /* = false */)
 {
     Debug::LogMethodEntry(__FUNCTION__, "newRotatorSpeedFast = " + std::to_string(newRotatorSpeedFast) +
                                             ", forced = " + std::to_string(forced));
 
     bool currentRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
 
-    // Update widgets
     if (forced || currentRotatorSpeedFast != newRotatorSpeedFast)
     {
         _organSubModel.SetRotatorSpeedFast(newRotatorSpeedFast);
@@ -60,4 +60,20 @@ void OrganSubController::SwapRotatorSpeed()
     SetRotatorSpeed(!_organSubModel.IsRotatorSpeedFast());
 
     Debug::LogMethodExit(__FUNCTION__);
+}
+
+void OrganSubController::SetOverdrive(double overdrive, bool forced /* = false */)
+{
+    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetOverdrive(), overdrive))
+    {
+        _organSubModel.SetOverdrive(overdrive);
+	 }
+}
+
+void OrganSubController::SetReverb(double reverb, bool forced /* = true */)
+{
+    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetReverb(), reverb))
+    {
+        _organSubModel.SetReverb(reverb);
+	 }
 }

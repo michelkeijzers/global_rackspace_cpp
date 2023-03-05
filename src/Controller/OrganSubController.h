@@ -20,6 +20,9 @@ class OrganSubController : public SubController
 	 void SetRotatorSpeed(bool newRotatorSpeedFast, bool forced = false);
     void SwapRotatorSpeed();
 
+	 void SetOverdrive(double overdrive, bool forced = false);
+    void SetReverb(double reverb, bool forced = false);
+
   private:
     OrganSubModel &_organSubModel;
 };

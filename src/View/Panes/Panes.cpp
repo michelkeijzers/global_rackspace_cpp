@@ -17,7 +17,8 @@ Panes::~Panes()
 void Panes::Fill()
 {
     _panes.push_back(new OrganPane(_view, (OrganSubModel &)_model.GetSubModel(SubModels::ESubModelId::Organ)));
-    _panes.push_back(new SlidersPane(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer)));
+    _panes.push_back(new SlidersPane(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer),
+		 (OrganSubModel &)_model.GetSubModel(SubModels::ESubModelId::Organ)));
 
     for (auto pane : _panes)
     {
