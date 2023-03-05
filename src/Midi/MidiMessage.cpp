@@ -14,10 +14,10 @@
 
  /* static */ double MidiMessage::MidiToParam(uint8_t value)
 {
-    return (value / 128.0);
+    return (value / 127.0);
 }
 
 /* static */ uint8_t MidiMessage::ParamToMidi(double value)
 {
-    return (uint8_t) (value * 128 + 0.5);
+    return (uint8_t) (value * 127 + 0.5);
 }
