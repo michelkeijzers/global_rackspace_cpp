@@ -62,18 +62,18 @@ void OrganSubController::SwapRotatorSpeed()
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void OrganSubController::SetOverdrive(double overdrive, bool forced /* = false */)
+void OrganSubController::SetDrive(double drive, bool forced /* = false */)
 {
-    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetOverdrive(), overdrive))
+    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetDrive(), drive))
     {
-        _organSubModel.SetOverdrive(overdrive);
+        _organSubModel.SetDrive(drive);
 	 }
 }
 
-void OrganSubController::SetReverb(double reverb, bool forced /* = true */)
+void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = true */)
 {
-    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetReverb(), reverb))
+    if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetReverbAmount(), reverbAmount))
     {
-        _organSubModel.SetReverb(reverb);
+        _organSubModel.SetReverbAmount(reverbAmount);
 	 }
 }

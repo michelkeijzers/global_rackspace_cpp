@@ -7,7 +7,7 @@
 static const std::string SUB_MODEL_NAME = "Organ";
 
 OrganSubModel::OrganSubModel(SubModels& subModels)
-	: SubModel(subModels), _isPresent(false), _isRotatorSpeedFast(false)
+    : SubModel(subModels), _isPresent(false), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0)
 {
     for (int n = 0; n < NR_OF_DRAWBARS; n++)
     {
@@ -77,32 +77,32 @@ void OrganSubModel::SwapRotatorSpeed()
 }
 
 
-double OrganSubModel::GetOverdrive()
+double OrganSubModel::GetDrive()
 {
-    return _overdrive;
+    return _drive;
 }
 
-void OrganSubModel::SetOverdrive(double overdrive)
+void OrganSubModel::SetDrive(double drive)
 {
-    if (overdrive != _overdrive)
+    if (drive != _drive)
     {
-        _overdrive = overdrive;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Overdrive, value = " + std::to_string(overdrive));
-        Notify(ChangedProperties::EChangedProperty::OrganOverdrive);
+        _drive = drive;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Drive, value = " + std::to_string(drive));
+        Notify(ChangedProperties::EChangedProperty::OrganDrive);
 	 }
 }
 
-double OrganSubModel::GetReverb()
+double OrganSubModel::GetReverbAmount()
 {
-    return _reverb;
+    return _reverbAmount;
 }
 
-void OrganSubModel::SetReverb(double reverb)
+void OrganSubModel::SetReverbAmount(double reverbAmount)
 {
-    if (reverb != _reverb)
+    if (reverbAmount != _reverbAmount)
     {
-        _reverb = reverb;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Reverb, value = " + std::to_string(reverb));
-        Notify(ChangedProperties::EChangedProperty::OrganReverb);
+        _reverbAmount = reverbAmount;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Reverb Amount, value = " + std::to_string(reverbAmount));
+        Notify(ChangedProperties::EChangedProperty::OrganReverbAmount);
     }
 }

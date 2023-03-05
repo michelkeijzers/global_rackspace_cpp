@@ -26,11 +26,11 @@ void WidgetIds::Fill()
     _nameToIds.insert(
         std::pair<std::string, EWidgetId>("OrganRotatorSpeedTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
 
-    _idToNames.push_back("OrganOverdrive");
-    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganOverdrive", EWidgetId::OrganRotatorSpeedTextLabel));
+    _idToNames.push_back("OrganDrive");
+    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganDrive", EWidgetId::OrganRotatorSpeedTextLabel));
 
-    _idToNames.push_back("OrganReverb");
-    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganReverb", EWidgetId::OrganRotatorSpeedTextLabel));
+    _idToNames.push_back("OrganReverbAmount");
+    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganReverbAmount", EWidgetId::OrganRotatorSpeedTextLabel));
 
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {

@@ -39,13 +39,13 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
     {
         SetRotatorSpeed();
     }
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganOverdrive)
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
     {
-        SetOverdrive();
+        SetDrive();
     }
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverb)
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
     {
-        SetReverb();
+        SetReverbAmount();
     }
 }
 
@@ -66,16 +66,17 @@ void OrganPlugin::SetRotatorSpeed()
     Debug::Log("$ " + GetName() + ": rotator speed fast = " + std::to_string(rotatorSpeedFast));
 }
 
-void OrganPlugin::SetOverdrive()
+void OrganPlugin::SetDrive()
 {
-    double overdrive = _organSubModel.GetOverdrive();
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_DRIVE, overdrive, true);
-    Debug::Log("$ " + GetName() + ": overdrive = " + std::to_string(overdrive));
+    double drive = _organSubModel.GetDrive();
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_DRIVE, drive, true);
+    Debug::Log("$ " + GetName() + ": drive = " + std::to_string(drive));
 }
 
-void OrganPlugin::SetReverb()
+void OrganPlugin::SetReverbAmount()
 {
-    double reverb = _organSubModel.GetReverb();
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_REVERB_AMOUNT, reverb, true);
-    Debug::Log("$ " + GetName() + ": reverb = " + std::to_string(reverb));
+    double reverbAmount = _organSubModel.GetReverbAmount();
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_REVERB_AMOUNT, reverbAmount,
+                                                          true);
+    Debug::Log("$ " + GetName() + ": reverbAmount = " + std::to_string(reverbAmount));
 }

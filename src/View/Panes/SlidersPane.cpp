@@ -41,11 +41,11 @@ void SlidersPane::Fill() // override
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
     }
 
-	 // Add organ overdrive and reverb.
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganOverdrive);
+	 // Add organ drive and reverbAmount.
+    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrive);
     GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverb);
+    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverbAmount);
     GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
@@ -103,17 +103,17 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
     }
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganOverdrive)
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganOverdrive);
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetOverdrive());
+        valueWidget.SetValue(_organSubModel.GetDrive());
 	 }
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverb)
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverb);
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetReverb());
+        valueWidget.SetValue(_organSubModel.GetReverbAmount());
     }
 }
 
