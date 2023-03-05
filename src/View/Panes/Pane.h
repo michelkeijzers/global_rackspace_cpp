@@ -20,6 +20,5 @@ class Pane : public IObserver
 
   private:
     Widgets _widgets;
-
     View &_view;
 };

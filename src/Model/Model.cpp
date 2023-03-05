@@ -5,7 +5,7 @@
 
 Model::Model()
 {
-    DoubleUtilities::SetMaximumEqualityDifference(0.01);
+    DoubleUtilities::SetMaximumEqualityDifference(1 / 127.0);
 }
 
 void Model::Init()

@@ -16,15 +16,13 @@ Panes::~Panes()
     _panes.clear();
 }
 
+void Panes::AddPane(Pane &pane)
+{
+    _panes.push_back(&pane);
+}
+
 void Panes::Fill()
 {
-   
-	OrganSubModel &organSubModel = static_cast<OrganSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Organ));
-    _panes.push_back(new OrganPane(_view, organSubModel));
-    _panes.push_back(new SlidersPane(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer),
-		 (OrganSubModel &)_model.GetSubModel(SubModels::ESubModelId::Organ)));
-    _panes.push_back(new PrimaryKeyboardButtonsPane(_view, organSubModel));
-
     for (auto pane : _panes)
     {
         pane->Fill();

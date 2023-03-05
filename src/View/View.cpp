@@ -1,24 +1,23 @@
 #include "View.h"
+#include "SubViews.h"
 #include "../Model/Model.h"
-#include "../Plugins/OrganPlugin.h"
-#include "../Widgets/Widgets.h"
-#include "Panes/OrganPane.h"
-#include "Panes/PrimaryKeyboardButtonsPane.h"
+#include "../Plugins/Plugins.h"
 
-View::View(Model &model) : _model(model), _panes(model, *this), _plugins(model, *this)
+View::View(Model &model) : _model(model), _subViews(model, *this), _plugins(model, *this)
 {
 }
 
 void View::Fill()
 {
     _widgetIds.Fill();
-    _panes.Fill();
+    _subViews.Fill();
     _plugins.Fill();
 }
 
 void View::Init()
 {
-
+    _subViews.Init();
+    _plugins.Init();
 }
 
 Model &View::GetModel()

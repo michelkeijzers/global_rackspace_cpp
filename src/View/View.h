@@ -1,13 +1,10 @@
 #pragma once
 
-#include "../Plugins/OrganPlugin.h"
+#include "SubViews.h"
 #include "../Plugins/Plugins.h"
-#include "../View/Panes/OrganPane.h"
-#include "../View/Panes/Panes.h"
-#include "../View/Panes/PrimaryKeyboardButtonsPane.h"
 #include "../Widgets/WidgetIds.h"
-#include "../Widgets/Widgets.h"
 
+class WidgetIds;
 class Model;
 class Pane;
 class Plugin;
@@ -25,7 +22,7 @@ class View
     Model &GetModel();
 
   private:
-    Panes _panes;
+    SubViews _subViews;
     Plugins _plugins;
 
     WidgetIds _widgetIds;
