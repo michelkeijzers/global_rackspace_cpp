@@ -1,7 +1,13 @@
 #include "SubView.h"
+#include "Panes/Panes.h"
 
 SubView::SubView(Model &model, View &view) : _panes(model, view), _view(view), _model(model)
 {
+}
+
+void SubView::Fill() 
+{
+    _panes.Fill();
 }
 
 void SubView::AddPane(Pane &pane)

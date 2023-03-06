@@ -20,10 +20,12 @@ void LiveSubView::Fill() // override
                              (OrganSubModel &)GetModel().GetSubModel(SubModels::ESubModelId::Organ)));
     AddPane(*new PrimaryKeyboardButtonsPane(GetView(), organSubModel));
 
-	 GetPanes().Fill();
+	 SubView::Fill(); // TODO: Move this function to Add Panes, 
+	 // instead of fill, so this call can be removed., AddPanes will be a function called
+	 // from the baseclass Fill
 }
 
-void  LiveSubView::Init() // override
+void LiveSubView::Init() // override
 {
-    // TODO Implement
+    // No action required
 }

@@ -10,8 +10,8 @@ class SubView
   public:
     SubView(Model &model, View &view);
 
+    virtual void Fill();
     virtual void Init() = 0;
-    virtual void Fill() = 0;
 
     void AddPane(Pane &pane);
 
