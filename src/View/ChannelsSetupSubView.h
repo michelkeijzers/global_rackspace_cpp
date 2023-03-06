@@ -5,10 +5,10 @@
 class Model;
 class View;
 
-class SetupSubView : public SubView
+class ChannelsSetupSubView : public SubView
 {
   public:
-    SetupSubView(Model &model, View &view);
+    ChannelsSetupSubView(Model &model, View &view);
 
   protected:
     void Fill() override;
