@@ -81,3 +81,30 @@ void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
         _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
     }
 }
+
+MixerChannelSubModel::ESource MixerSubModel::GetChannelSource(int channelIndex)
+{
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+	 return _mixerChannelSubModels[channelIndex]->GetSource();
+}
+
+void MixerSubModel::SelectNextChannelSource(int channelIndex)
+{
+	 // Always (independent of current source, and thus also independent of forced modee)
+    _mixerChannelSubModels[channelIndex]->SelectNextSource();
+}
+
+bool MixerSubModel::GetVolumeOverride(int channelIndex)
+{
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+    return _mixerChannelSubModels[channelIndex]->IsVolumeOverridden();
+}
+
+void MixerSubModel::SetVolumeOverride(int channelIndex, bool volumeOverride)
+{
+    // Always (independent of current source, and thus also independent of forced modee)
+
+	_mixerChannelSubModels[channelIndex]->SetVolumeOverride(volumeOverride);
+}

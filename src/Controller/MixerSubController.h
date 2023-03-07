@@ -15,7 +15,10 @@ class MixerSubController : public SubController
     void Init() override;
 
     void SetSliderValue(int sliderIndex, double value);
+    void SelectNextSource(int channelIndex);
+    void SetVolumeOverride(int channelIndex, double value);
 
+	 // TODO: Check
     // protected:
     //	std::shared_ptr<AudioMixerPlugin> GetPluginForChannel(int channelIndex);
 

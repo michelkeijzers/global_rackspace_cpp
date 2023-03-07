@@ -9,7 +9,7 @@ class WidgetIds
   public:
     enum class EWidgetId
     {
-		 // Slider pane
+        // Slider pane
         OrganDrawbar1,
         OrganDrawbar2,
         OrganDrawbar3,
@@ -30,13 +30,33 @@ class WidgetIds
         PrimaryKeyboardSlider8,
         PrimaryKeyboardSlider9,
 
-		  // Organ pane
+        PrimaryKeyboardSlider1Name,
+        PrimaryKeyboardSlider2Name,
+        PrimaryKeyboardSlider3Name,
+        PrimaryKeyboardSlider4Name,
+        PrimaryKeyboardSlider5Name,
+        PrimaryKeyboardSlider6Name,
+        PrimaryKeyboardSlider7Name,
+        PrimaryKeyboardSlider8Name,
+        PrimaryKeyboardSlider9Name,
+
+        PrimaryKeyboardSlider1SourceName,
+        PrimaryKeyboardSlider2SourceName,
+        PrimaryKeyboardSlider3SourceName,
+        PrimaryKeyboardSlider4SourceName,
+        PrimaryKeyboardSlider5SourceName,
+        PrimaryKeyboardSlider6SourceName,
+        PrimaryKeyboardSlider7SourceName,
+        PrimaryKeyboardSlider8SourceName,
+        PrimaryKeyboardSlider9SourceName,
+
+        // Organ pane
         OrganRotatorSpeedTextLabel,
         OrganDrive,
         OrganReverbAmount,
 
-		  // Primary Keyboard Buttons pane
-		  PrimaryKeyboardButton1,
+        // Primary Keyboard Buttons pane
+        PrimaryKeyboardButton1,
         PrimaryKeyboardButton2,
         PrimaryKeyboardButton3,
         PrimaryKeyboardButton4,
@@ -50,13 +70,13 @@ class WidgetIds
         PrimaryKeyboardButton12,
         PrimaryKeyboardButton13,
 
-		  // Channels Setup pane
-		  SyncLabelsToMixerButton,
-		  ChannelIndexTextLabel,
-		  NextSourceTextLabel,
-		  VolumeOverrideTextLabel,
+        // Channels Setup pane
+        SyncLabelsToMixerButton,
+        ChannelIndexTextLabel,
+        NextSourceTextLabel,
+        VolumeOverrideTextLabel,
 
-		  SetupChannel1Name,
+        SetupChannel1Name,
         SetupChannel2Name,
         SetupChannel3Name,
         SetupChannel4Name,
@@ -81,7 +101,7 @@ class WidgetIds
         SetupChannel23Name,
         SetupChannel24Name,
 
-		  SetupChannel1Number,
+        SetupChannel1Number,
         SetupChannel2Number,
         SetupChannel3Number,
         SetupChannel4Number,
@@ -106,7 +126,7 @@ class WidgetIds
         SetupChannel23Number,
         SetupChannel24Number,
 
-		  SetupChannel1SourceName,
+        SetupChannel1SourceName,
         SetupChannel2SourceName,
         SetupChannel3SourceName,
         SetupChannel4SourceName,
@@ -131,7 +151,7 @@ class WidgetIds
         SetupChannel23SourceName,
         SetupChannel24SourceName,
 
-		  SetupChannel1NextSourceButton,
+        SetupChannel1NextSourceButton,
         SetupChannel2NextSourceButton,
         SetupChannel3NextSourceButton,
         SetupChannel4NextSourceButton,
@@ -156,7 +176,7 @@ class WidgetIds
         SetupChannel23NextSourceButton,
         SetupChannel24NextSourceButton,
 
-		  SetupChannel1VolumeOverrideButton,
+        SetupChannel1VolumeOverrideButton,
         SetupChannel2VolumeOverrideButton,
         SetupChannel3VolumeOverrideButton,
         SetupChannel4VolumeOverrideButton,
@@ -188,7 +208,7 @@ class WidgetIds
 
     void Fill();
 
-    EWidgetId GetId(std::string name);
+    EWidgetId GetId(const std::string &name);
     std::string GetName(EWidgetId id);
 
   private:
@@ -197,6 +217,6 @@ class WidgetIds
     void FillSetupChannelsPane();
     void FillSetupChannelWidget(const std::string &setupChannelPrefix, int channelIndex);
 
-	 std::vector<std::string> _idToNames;
+    std::vector<std::string> _idToNames;
     std::map<std::string, EWidgetId> _nameToIds;
 };

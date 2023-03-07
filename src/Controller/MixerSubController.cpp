@@ -55,3 +55,12 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
 	 }
 }
 
+void MixerSubController::SelectNextSource(int channelIndex)
+{
+    _mixerSubModel.SelectNextChannelSource(channelIndex);
+}
+
+void MixerSubController::SetVolumeOverride(int channelIndex, double value)
+{
+    _mixerSubModel.SetVolumeOverride(channelIndex, value);
+}

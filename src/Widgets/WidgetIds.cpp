@@ -1,11 +1,11 @@
-#include <vector>
-#include <map>
 #include "WidgetIds.h"
+#include "../Model/MixerSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../View/Panes/OrganPane.h"
 #include "../View/Panes/PrimaryKeyboardButtonsPane.h"
 #include "../View/Panes/SlidersPane.h"
-#include "../Model/MixerSubModel.h"
+#include <map>
+#include <vector>
 
 WidgetIds::WidgetIds()
 {
@@ -17,7 +17,7 @@ WidgetIds::WidgetIds()
 void WidgetIds::Fill()
 {
     FillSlidersPane();
- 	 FillOrganPane();
+    FillOrganPane();
     FillSetupChannelsPane();
 
     // Check if lists are of equal size.
@@ -44,6 +44,22 @@ void WidgetIds::FillSlidersPane()
         _nameToIds.insert(
             std::pair<std::string, EWidgetId>("PrimaryKeyboardSlider" + std::to_string(sliderNumber),
                                               (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1 + sliderNumber - 1)));
+    }
+
+    for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    {
+        const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "Name";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1Name + sliderNumber - 1)));
+    }
+
+    for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    {
+        const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "SourceName";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1SourceName + sliderNumber - 1)));
     }
 }
 
@@ -80,30 +96,61 @@ void WidgetIds::FillSetupChannelsPane()
 
     _idToNames.push_back("NextSourceTextLabel");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("NextSourceTextLabel", EWidgetId::NextSourceTextLabel));
-   
+
     _idToNames.push_back("VolumeOverrideTextLabel");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("VolumeOverrideTextLabel", EWidgetId::VolumeOverrideTextLabel));
 
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
-        for (auto &lastPart : std::vector<std::string> 
-			  {"Name", "Number", "SourceName", "NextSourceButton", "VolumeOverrideButton"})
-        {
-            FillSetupChannelWidget("SetupChannel" + std::to_string(channelIndex) + lastPart, channelIndex);
-        }
+        const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex)));
+    }
+
+    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+        const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Number";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex)));
+    }
+
+    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+        const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "SourceName";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1SourceName + channelIndex)));
+    }
+
+    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+        const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "NextSourceButton";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1NextSourceButton + channelIndex)));
+    }
+
+    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+        const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "VolumeOverrideButton";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1VolumeOverrideButton + channelIndex)));
     }
 }
 
 void WidgetIds::FillSetupChannelWidget(const std::string &widgetName, int channelIndex)
 {
     _idToNames.push_back(widgetName);
-    _nameToIds.insert(std::pair<std::string, EWidgetId>
-		 (widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex - 1)));
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(
+        widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex - 1)));
 }
 
-WidgetIds::EWidgetId WidgetIds::GetId(std::string name)
+WidgetIds::EWidgetId WidgetIds::GetId(const std::string &name)
 {
-    return _nameToIds[name];
+    return _nameToIds.find(name)->second;
 }
 
 std::string WidgetIds::GetName(EWidgetId id)

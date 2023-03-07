@@ -15,6 +15,8 @@ class MixerChannelSubModel : public SubModel, public Observable
         PrimaryKeyboard,
         PrimaryKeyboardPads,
         SecondaryKeyboard,
+
+		  Last
     };
 
     MixerChannelSubModel(SubModels subModels, int channelIndex);
@@ -28,10 +30,10 @@ class MixerChannelSubModel : public SubModel, public Observable
     void SetName(const std::string &name);
 
 	 ESource GetSource();
-    void SetSource(ESource source);
+    void SelectNextSource();
 
 	 bool IsVolumeOverridden();
-    void SetSource(bool volumeOverride);
+    void SetVolumeOverride(bool volumeOverride);
 
   private:
     std::string GetSourceAsName();
@@ -41,5 +43,5 @@ class MixerChannelSubModel : public SubModel, public Observable
     
 	 std::string _name;
     ESource _source;
-     bool _volumeIsOverridden;
+     bool _isVolumeOverridden;
 };

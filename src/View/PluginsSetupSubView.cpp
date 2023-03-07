@@ -1,7 +1,7 @@
 #include "../Model/MixerSubModel.h"
 #include "../Model/Model.h"
-#include "../Model/OrganSubModel.h"
-//TODO #include "Panes/ChannelsSetupPane.h"
+#include "../Model/MixerSubModel.h"
+#include "Panes/ChannelsSetupPane.h"
 #include "PluginsSetupSubView.h"
 
 PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(model, view)
@@ -10,9 +10,9 @@ PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(mod
 
 void PluginsSetupSubView::Fill() // override
 {
-    OrganSubModel &organSubModel = static_cast<OrganSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Organ));
+    MixerSubModel &mixerSubModel = static_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
 
-    //TODO AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
+    AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
 
     SubView::Fill();
 }

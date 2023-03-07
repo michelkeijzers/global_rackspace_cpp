@@ -25,6 +25,7 @@ class MixerSubModel : public SubModel, public Observable
 
     void Init() override;
 
+	 //TODO: Check if this method should be made protected
 	 std::vector<MixerChannelSubModel *> GetMixerChannelSubModels();
 
 	 EPaneSelection GetPaneSelection();
@@ -35,6 +36,12 @@ class MixerSubModel : public SubModel, public Observable
 
     double GetChannelVolume(int channelIndex);
     void SetChannelVolume(int channelIndex, double newVolume);
+
+	 MixerChannelSubModel::ESource GetChannelSource(int channelIndex);
+	 void SelectNextChannelSource(int channelIndex);
+    
+	 bool GetVolumeOverride(int channelIndex);
+    void SetVolumeOverride(int channelIndex, bool enable /* = true */ );
 
   private:
     EPaneSelection _paneSelection;

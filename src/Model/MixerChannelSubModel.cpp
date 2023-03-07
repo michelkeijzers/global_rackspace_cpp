@@ -7,7 +7,7 @@ static std::string SUB_MODEL_NAME = "MixerChannel";
 
 MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
     : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0), _name(""), _source(ESource::PrimaryKeyboard),
-      _volumeIsOverridden(false)
+      _isVolumeOverridden(false)
 {
 }
 
@@ -53,15 +53,13 @@ MixerChannelSubModel::ESource MixerChannelSubModel::GetSource()
     return _source;
 }
 
-void MixerChannelSubModel::SetSource(ESource source)
+void MixerChannelSubModel::SelectNextSource()
 {
-    if (IsForcedMode() || (_source != source))
-    {
-        Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-                   ", source = " + GetSourceAsName());
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Source +
-                                                     _channelIndex));
-    }
+    _source = (ESource)(((int)_source + 1) % (int)ESource::Last);
+    Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
+               ", source = " + GetSourceAsName());
+    Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Source +
+                                                 _channelIndex));
 }
 
 std::string MixerChannelSubModel::GetSourceAsName()
@@ -90,15 +88,15 @@ std::string MixerChannelSubModel::GetSourceAsName()
 
 bool MixerChannelSubModel::IsVolumeOverridden()
 {
-    return _volumeIsOverridden;
+    return _isVolumeOverridden;
 }
 
-void MixerChannelSubModel::SetSource(bool volumeIsOverriden)
+void MixerChannelSubModel::SetVolumeOverride(bool isVolumeOverridden)
 {
-    if (IsForcedMode() || (_volumeIsOverridden != volumeIsOverriden))
+    if (IsForcedMode() || (_isVolumeOverridden != isVolumeOverridden))
     {
         Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-                   ", volume override = " + ( IsVolumeOverridden() ? "YES" : "No"));
+                   ", volume override = " + (IsVolumeOverridden() ? "YES" : "No"));
         Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1VolumeOverride +
                                                      _channelIndex));
     }
