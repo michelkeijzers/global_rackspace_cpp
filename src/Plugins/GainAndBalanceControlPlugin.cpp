@@ -21,10 +21,6 @@ GainAndBalanceControlPlugin::GainAndBalanceControlPlugin(View &view, MixerSubMod
     _mixerSubModel.Subscribe(*this);
 }
 
-void GainAndBalanceControlPlugin::Init() /* override */
-{
-}
-
 void GainAndBalanceControlPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (changedProperty == ChangedProperties::EChangedProperty::MasterVolume)

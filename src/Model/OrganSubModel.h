@@ -20,8 +20,6 @@ class OrganSubModel : public SubModel, public Observable
 
     OrganSubModel(SubModels& subModels);
 	 	 
-	 void Init() override;
-
 	 bool IsPresent();
     void SetIsPresent(bool isPresent);
 

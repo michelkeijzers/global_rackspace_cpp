@@ -15,11 +15,6 @@ PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View& view, OrganSubModel
     organSubModel.Subscribe(*this);
 }
 
-void PrimaryKeyboardButtonsPane::Init() /* override */
-{
-    // No init actions needed for now
-}
-
 void PrimaryKeyboardButtonsPane::Fill()
 {
     for (int buttonIndex = 0; buttonIndex < NR_OF_BUTTONS; buttonIndex++)

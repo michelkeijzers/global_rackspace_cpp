@@ -16,7 +16,7 @@ OrganSubController::OrganSubController(Controller &controller)
 {
 }
 
-void OrganSubController::Init()
+void OrganSubController::Init() // override
 {
     SetIsPresent(true);
     SetRotatorSpeed(false, true);

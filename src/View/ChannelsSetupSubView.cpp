@@ -13,10 +13,5 @@ void ChannelsSetupSubView::Fill() // override
 
 	 AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
 
-    SubView::Fill();
-}
-
-void ChannelsSetupSubView::Init() // override
-{
-	// No action required
+	 SubView::Fill();
 }

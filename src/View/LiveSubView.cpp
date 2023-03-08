@@ -25,7 +25,3 @@ void LiveSubView::Fill() // override
 	 // from the baseclass Fill
 }
 
-void LiveSubView::Init() // override
-{
-    // No action required
-}

@@ -12,5 +12,4 @@ class PluginsSetupSubView : public SubView
 
   protected:
     void Fill() override;
-    void Init() override;
 };

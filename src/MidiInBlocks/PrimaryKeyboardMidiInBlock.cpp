@@ -12,10 +12,6 @@ PrimaryKeyboardMidiInBlock::PrimaryKeyboardMidiInBlock(Controller &controller)
 {
 }
 
-void PrimaryKeyboardMidiInBlock::Init() /* override */
-{
-}
-
 bool PrimaryKeyboardMidiInBlock::OnMidiIn(const uint8_t *data, int length)
 {
     Debug::LogMethodEntry(__FUNCTION__, "length = " + std::to_string(length));

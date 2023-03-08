@@ -8,7 +8,7 @@ class MidiInBlock
   public:
     MidiInBlock(Controller &controller, const std::string name);
 
-    virtual void Init() = 0;
+    virtual void Init();
 
     virtual bool OnMidiIn(const uint8_t *data, int length) = 0;
 

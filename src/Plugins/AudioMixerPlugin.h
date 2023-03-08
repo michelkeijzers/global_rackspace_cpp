@@ -12,11 +12,10 @@ class AudioMixerPlugin : public Plugin
   public:
     AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels, const std::string &name);
 
-    void Init() override;
-
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
     void SetChannelVolume(int channelIndex);
+    void SetChannelName(int channelIndex);
 
   private:
     int GetChannelVolumeParameter(int channelIndex);

@@ -37,7 +37,7 @@ void Plugins::Init()
     for (auto plugin : _plugins)
     {
         plugin->Init();
-    }
+	 }
 }
 
 Plugin &Plugins::GetPlugin(EPluginId id)

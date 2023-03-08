@@ -5,6 +5,11 @@ Pane::Pane(View& view) : _view(view)
 {
 }
 
+void Pane::Init()
+{
+	// No actions needed (widgets do not need to init.
+}
+
 View& Pane::GetView()
 {
     return _view;

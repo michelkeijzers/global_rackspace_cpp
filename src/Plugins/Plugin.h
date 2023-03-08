@@ -10,7 +10,7 @@ class Plugin : public IObserver
   public:
     Plugin(const std::string& name, View& view);
 
-	 virtual void Init() = 0;
+	 virtual void Init();
 
     const std::string& GetName();
 

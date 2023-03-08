@@ -5,6 +5,9 @@ SubModel::SubModel(SubModels &subModels) : _subModels(subModels)
 {
 }
 
+void SubModel::Init()
+{
+}
 
 bool SubModel::IsForcedMode()
 {

@@ -11,10 +11,6 @@ MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex
 {
 }
 
-void MixerChannelSubModel::Init() /* override */
-{
-}
-
 double MixerChannelSubModel::GetVolume()
 {
     return _volume;
@@ -92,13 +88,11 @@ bool MixerChannelSubModel::IsVolumeOverridden()
     return _isVolumeOverridden;
 }
 
-void MixerChannelSubModel::SetVolumeOverride(bool isVolumeOverridden)
+void MixerChannelSubModel::SwapVolumeOverride()
 {
-    if (IsForcedMode() || (_isVolumeOverridden != isVolumeOverridden))
-    {
-        Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-                   ", volume override = " + (IsVolumeOverridden() ? "YES" : "No"));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1VolumeOverride +
-                                                     _channelIndex));
-    }
+      _isVolumeOverridden = !_isVolumeOverridden;
+      Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
+                  ", volume override = " + (IsVolumeOverridden() ? "YES" : "No"));
+      Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1VolumeOverride +
+                                                   _channelIndex));
 }

@@ -9,7 +9,7 @@ class SubController
 
     Controller& GetController();
 
-	 virtual void Init() = 0;
+	 virtual void Init();
 
   private:
     Controller& _controller;

@@ -12,11 +12,9 @@ class MixerSubController : public SubController
   public:
     MixerSubController(Controller &controller);
 
-    void Init() override;
-
     void SetSliderValue(int sliderIndex, double value);
     void SelectNextSource(int channelIndex);
-    void SetVolumeOverride(int channelIndex, double value);
+    void SwapVolumeOverride(int channelIndex);
 
 	 // TODO: Check
     // protected:

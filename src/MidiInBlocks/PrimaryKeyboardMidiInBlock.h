@@ -9,8 +9,6 @@ class PrimaryKeyboardMidiInBlock : public MidiInBlock
   public:
     PrimaryKeyboardMidiInBlock(Controller &controller);
 
-    void Init() override;
-
     bool OnMidiIn(const uint8_t *data, int length) override;
 
   private:

@@ -7,7 +7,7 @@ class SubModel
   public:
     SubModel(SubModels &subModels);
 
-    virtual void Init() = 0;
+   virtual void Init();
 
   protected:
     bool IsForcedMode();

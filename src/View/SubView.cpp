@@ -10,6 +10,11 @@ void SubView::Fill()
     _panes.Fill();
 }
 
+void SubView::Init()
+{
+    _panes.Init();
+}
+
 void SubView::AddPane(Pane &pane)
 {
     _panes.AddPane(pane);

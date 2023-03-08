@@ -15,8 +15,6 @@ class PrimaryKeyboardButtonsPane : public Pane
 
     PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel);
 
-    void Init() override;
-
     void Fill() override;
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;

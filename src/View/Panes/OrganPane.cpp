@@ -16,10 +16,6 @@ OrganPane::OrganPane(View &view, OrganSubModel &organSubModel) : Pane(view), _or
     organSubModel.Subscribe(*this);
 }
 
-void OrganPane::Init()
-{
-}
-
 void OrganPane::Fill() // override
 {
     GetWidgets().AddWidget(

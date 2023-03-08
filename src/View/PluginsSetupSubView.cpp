@@ -16,8 +16,3 @@ void PluginsSetupSubView::Fill() // override
 
     SubView::Fill();
 }
-
-void PluginsSetupSubView::Init() // override
-{
-    // No action required
-}

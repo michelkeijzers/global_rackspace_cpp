@@ -8,14 +8,14 @@ Model::Model()
     DoubleUtilities::SetMaximumEqualityDifference(1 / 127.0);
 }
 
-void Model::Init()
-{
-    _subModels.Init();
-}
-
 void Model::Fill()
 {
     _subModels.Fill();
+}
+
+void Model::Init()
+{
+    _subModels.Init();
 }
 
 SubModel &Model::GetSubModel(SubModels::ESubModelId id)

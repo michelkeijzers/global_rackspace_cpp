@@ -20,6 +20,10 @@ void SubModels::Fill()
 
 void SubModels::Init()
 {
+    for (auto subModel : _subModels)
+    {
+        subModel->Init();
+    }
 }
 
 SubModel &SubModels::GetSubModel(ESubModelId id)

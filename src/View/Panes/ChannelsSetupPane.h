@@ -12,8 +12,6 @@ class ChannelsSetupPane : public Pane
   public:
     ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel);
 
-    void Init() override;
-
     void Fill() override;
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;

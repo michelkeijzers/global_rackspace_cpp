@@ -19,10 +19,6 @@ SlidersPane::SlidersPane(View &view, MixerSubModel &mixerSubModel, OrganSubModel
     _organSubModel.Subscribe(*this);
 }
 
-void SlidersPane::Init() // override
-{
-}
-
 void SlidersPane::Fill() // override
 {
     WidgetIds::EWidgetId widgetId;

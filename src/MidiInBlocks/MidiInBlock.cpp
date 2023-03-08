@@ -4,6 +4,10 @@ MidiInBlock::MidiInBlock(Controller &controller, const std::string name) : _cont
 {
 }
 
+/* virtual */ void MidiInBlock::Init()
+{
+}
+
 std::string MidiInBlock::GetName()
 {
     return _name;

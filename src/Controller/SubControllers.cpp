@@ -26,6 +26,10 @@ void SubControllers::Fill()
 
 void SubControllers::Init()
 {
+    for (auto subController : _subControllers)
+    {
+        subController->Init();
+	 }
 }
 
 SubController &SubControllers::GetSubController(ESubControllerId id)

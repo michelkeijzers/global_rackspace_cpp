@@ -21,8 +21,6 @@ class MixerChannelSubModel : public SubModel, public Observable
 
     MixerChannelSubModel(SubModels subModels, int channelIndex);
 
-    void Init() override;
-
     double GetVolume();
     void SetVolume(double volume);
 
@@ -34,7 +32,7 @@ class MixerChannelSubModel : public SubModel, public Observable
     void SelectNextSource();
 
 	 bool IsVolumeOverridden();
-    void SetVolumeOverride(bool volumeOverride);
+    void SwapVolumeOverride();
 
   private:
     int _channelIndex;

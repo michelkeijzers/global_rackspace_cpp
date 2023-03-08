@@ -128,9 +128,9 @@ bool MixerSubModel::GetVolumeOverride(int channelIndex)
     return _mixerChannelSubModels[channelIndex]->IsVolumeOverridden();
 }
 
-void MixerSubModel::SetVolumeOverride(int channelIndex, bool volumeOverride)
+void MixerSubModel::SwapVolumeOverride(int channelIndex)
 {
     // Always (independent of current source, and thus also independent of forced modee)
 
-	_mixerChannelSubModels[channelIndex]->SetVolumeOverride(volumeOverride);
+	_mixerChannelSubModels[channelIndex]->SwapVolumeOverride();
 }

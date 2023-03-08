@@ -18,10 +18,6 @@ MixerSubController::MixerSubController(Controller &controller)
     SubModel &x = GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer);
 }
 
-void MixerSubController::Init()
-{
-}
-
 void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
 {
     if (sliderIndex < SlidersPane::NR_OF_CHANNEL_SLIDERS)
@@ -60,7 +56,7 @@ void MixerSubController::SelectNextSource(int channelIndex)
     _mixerSubModel.SelectNextChannelSource(channelIndex);
 }
 
-void MixerSubController::SetVolumeOverride(int channelIndex, double value)
+void MixerSubController::SwapVolumeOverride(int channelIndex)
 {
-    _mixerSubModel.SetVolumeOverride(channelIndex, value);
+    _mixerSubModel.SwapVolumeOverride(channelIndex);
 }

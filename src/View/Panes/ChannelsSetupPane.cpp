@@ -16,10 +16,6 @@ ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel)
     mixerSubModel.Subscribe(*this);
 }
 
-void ChannelsSetupPane::Init()
-{
-}
-
 void ChannelsSetupPane::Fill() // override
 {
 

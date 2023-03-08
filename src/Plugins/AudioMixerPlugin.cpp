@@ -31,10 +31,6 @@ AudioMixerPlugin::AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, boo
     _mixerSubModel.Subscribe(*this);
 }
 
-void AudioMixerPlugin::Init() /* override */
-{
-}
-
 void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
@@ -43,6 +39,14 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
     {
         int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1Volume;
         SetChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
+    }
+
+    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Name) &&
+        ((int)changedProperty <
+              (int)ChangedProperties::EChangedProperty::Channel1Name + _mixerChannelSubModels.size()))
+    {
+        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Name;
+        SetChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 }
 
@@ -60,3 +64,15 @@ int AudioMixerPlugin::GetChannelVolumeParameter(int channelIndex)
 {
     return channelIndex * NR_OF_PARAMETERS_PER_CHANNEL + VOLUME_PARAMETER;
 }
+
+void AudioMixerPlugin::SetChannelName(int channelIndex)
+{
+    const std::string &newName = _mixerChannelSubModels[channelIndex]->GetName();
+
+	 //TODO: Implement when an SDK function is available
+   // MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex), newVolume,
+    //                                                      true);
+    Debug::Log("$ " + GetName() + ": channel name, channel index = " + std::to_string(channelIndex) +
+               ", new name = " + newName);
+}
+

@@ -11,7 +11,7 @@ class OrganSubController : public SubController
   public:
     OrganSubController(Controller& controller);
 
-	 void Init();
+	 void Init() override;
 
     void SetIsPresent(bool isPresent, bool forced = false);
 

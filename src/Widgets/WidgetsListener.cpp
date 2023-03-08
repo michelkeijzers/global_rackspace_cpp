@@ -84,8 +84,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
                 MixerSubController &mixerSubController =
                     (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
                 mixerSubController.SelectNextSource((int)widgetId - (int) Channel1NextSourceButtonId);
-                processed = true;
             }
+            processed = true;
         }
     }
 
@@ -101,10 +101,10 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
                     (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
                 if (ButtonWidget::IsPressed(newValue))
                 {
-                    mixerSubController.SetVolumeOverride((int)widgetId - (int)Channel1VolumeOverrideButtonId, newValue);
-                    processed = true;
+                    mixerSubController.SwapVolumeOverride((int)widgetId - (int)Channel1VolumeOverrideButtonId);
                 }
             }
+            processed = true;
         }
     }
 

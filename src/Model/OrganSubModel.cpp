@@ -15,10 +15,6 @@ OrganSubModel::OrganSubModel(SubModels& subModels)
     }
 }
 
-void OrganSubModel::Init() /* override */
-{
-}
-
 bool OrganSubModel::IsPresent()
 {
     return _isPresent;

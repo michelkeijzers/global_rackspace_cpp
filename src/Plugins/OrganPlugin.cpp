@@ -22,10 +22,6 @@ OrganPlugin::OrganPlugin(View &view, OrganSubModel &organSubModel, const std::st
     _organSubModel.Subscribe(*this);
 }
 
-void OrganPlugin::Init() /* override */
-{
-}
-
 void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
