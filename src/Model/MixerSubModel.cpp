@@ -82,17 +82,43 @@ void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
     }
 }
 
+const std::string &MixerSubModel::GetChannelName(int channelIndex)
+{
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+    return _mixerChannelSubModels[channelIndex]->GetName();
+}
+
+void MixerSubModel::SetChannelName(int channelIndex, const std::string &channelName)
+{
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+    if (IsForcedMode() || (_mixerChannelSubModels[channelIndex]->GetName() != channelName))
+    {
+        _mixerChannelSubModels[channelIndex]->SetName(channelName);
+    }
+}
+
 MixerChannelSubModel::ESource MixerSubModel::GetChannelSource(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-	 return _mixerChannelSubModels[channelIndex]->GetSource();
+    return _mixerChannelSubModels[channelIndex]->GetSource();
+}
+
+std::string MixerSubModel::GetChannelSourceName(int channelIndex)
+{
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+    return _mixerChannelSubModels[channelIndex]->GetSourceName();
 }
 
 void MixerSubModel::SelectNextChannelSource(int channelIndex)
 {
-	 // Always (independent of current source, and thus also independent of forced modee)
-    _mixerChannelSubModels[channelIndex]->SelectNextSource();
+    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
+
+	 // Always select next, not relevent if IsForcedMode.
+   _mixerChannelSubModels[channelIndex]->SelectNextSource();
 }
 
 bool MixerSubModel::GetVolumeOverride(int channelIndex)

@@ -37,9 +37,13 @@ class MixerSubModel : public SubModel, public Observable
     double GetChannelVolume(int channelIndex);
     void SetChannelVolume(int channelIndex, double newVolume);
 
+	 const std::string& GetChannelName(int channelIndex);
+    void SetChannelName(int channelIndex, const std::string &channelName);
+
 	 MixerChannelSubModel::ESource GetChannelSource(int channelIndex);
-	 void SelectNextChannelSource(int channelIndex);
-    
+    std::string GetChannelSourceName(int channelIndex);
+    void SelectNextChannelSource(int channelIndex);
+   
 	 bool GetVolumeOverride(int channelIndex);
     void SetVolumeOverride(int channelIndex, bool enable /* = true */ );
 

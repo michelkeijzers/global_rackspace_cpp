@@ -53,16 +53,8 @@ MixerChannelSubModel::ESource MixerChannelSubModel::GetSource()
     return _source;
 }
 
-void MixerChannelSubModel::SelectNextSource()
-{
-    _source = (ESource)(((int)_source + 1) % (int)ESource::Last);
-    Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-               ", source = " + GetSourceAsName());
-    Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Source +
-                                                 _channelIndex));
-}
 
-std::string MixerChannelSubModel::GetSourceAsName()
+std::string MixerChannelSubModel::GetSourceName()
 {
     std::string name;
     switch (_source)
@@ -84,6 +76,15 @@ std::string MixerChannelSubModel::GetSourceAsName()
     }
 
     return name;
+}
+
+void MixerChannelSubModel::SelectNextSource()
+{
+    _source = (ESource)(((int)_source + 1) % (int)ESource::Last);
+    Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
+               ", source = " + GetSourceName());
+    Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Source +
+                                                 _channelIndex));
 }
 
 bool MixerChannelSubModel::IsVolumeOverridden()
