@@ -60,3 +60,13 @@ void MixerSubController::SwapVolumeOverride(int channelIndex)
 {
     _mixerSubModel.SwapVolumeOverride(channelIndex);
 }
+
+void MixerSubController::SetChannelNames(std::vector<std::string> channelNames)
+{
+    Debug::Assert(channelNames.size() == MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "Illegal number of channels names");
+
+    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+        _mixerSubModel.SetChannelName(channelIndex, channelNames[channelIndex]);
+    }
+}

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+#include <vector>
 #include "../Model/MixerSubModel.h"
 #include "SubController.h"
 
@@ -15,6 +17,8 @@ class MixerSubController : public SubController
     void SetSliderValue(int sliderIndex, double value);
     void SelectNextSource(int channelIndex);
     void SwapVolumeOverride(int channelIndex);
+
+	 void SetChannelNames(std::vector<std::string>);
 
 	 // TODO: Check
     // protected:

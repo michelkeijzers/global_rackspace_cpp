@@ -41,11 +41,11 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
         SetChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Name) &&
+    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel17Name) &&
         ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::Channel1Name + _mixerChannelSubModels.size()))
+              (int)ChangedProperties::EChangedProperty::Channel17Name + _mixerChannelSubModels.size()))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Name;
+        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel17Name;
         SetChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 }

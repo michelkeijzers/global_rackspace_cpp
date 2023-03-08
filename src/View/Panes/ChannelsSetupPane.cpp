@@ -94,7 +94,7 @@ void ChannelsSetupPane::SetChannelSource(int channelIndex)
     const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
 
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1SourceName, channelIndex);
-   TextWidget &valueWidget = static_cast<TextWidget &>(widget);
+    TextWidget &valueWidget = static_cast<TextWidget &>(widget);
     valueWidget.SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
 }
 

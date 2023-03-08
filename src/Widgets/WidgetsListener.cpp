@@ -69,7 +69,22 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     {
         if (widgetId == WidgetIds::EWidgetId::SyncLabelsToMixerButton)
         {
-            // TODO;
+            if (ButtonWidget::IsPressed(newValue))
+            {
+                MixerSubController &mixerSubController =
+                    (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
+
+					 std::vector<std::string> channelNames;
+					 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+                {
+                  WidgetIds::EWidgetId channelNameWidget =
+                     WidgetIds::EWidgetId((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
+                    const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
+                  channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetName));
+                }
+                
+					 mixerSubController.SetChannelNames(channelNames);
+            }
         }
     }
 

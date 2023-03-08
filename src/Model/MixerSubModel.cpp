@@ -1,10 +1,9 @@
-#include <string>
 #include "MixerSubModel.h"
-#include "MixerChannelSubModel.h"
-#include "SubModels.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-
+#include "MixerChannelSubModel.h"
+#include "SubModels.h"
+#include <string>
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
@@ -27,7 +26,7 @@ void MixerSubModel::Init() /* override */
     for (auto mixerChannelSubModel : _mixerChannelSubModels)
     {
         mixerChannelSubModel->Init();
-	 }
+    }
 }
 
 std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()
@@ -76,10 +75,7 @@ void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-    if (IsForcedMode() || !DoubleUtilities::AreEqual(_mixerChannelSubModels[channelIndex]->GetVolume(), newVolume))
-    {
-        _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
-    }
+    _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
 }
 
 const std::string &MixerSubModel::GetChannelName(int channelIndex)
@@ -93,10 +89,7 @@ void MixerSubModel::SetChannelName(int channelIndex, const std::string &channelN
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-    if (IsForcedMode() || (_mixerChannelSubModels[channelIndex]->GetName() != channelName))
-    {
-        _mixerChannelSubModels[channelIndex]->SetName(channelName);
-    }
+    _mixerChannelSubModels[channelIndex]->SetName(channelName);
 }
 
 MixerChannelSubModel::ESource MixerSubModel::GetChannelSource(int channelIndex)
@@ -117,8 +110,8 @@ void MixerSubModel::SelectNextChannelSource(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-	 // Always select next, not relevent if IsForcedMode.
-   _mixerChannelSubModels[channelIndex]->SelectNextSource();
+    // Always select next, not relevent if IsForcedMode.
+    _mixerChannelSubModels[channelIndex]->SelectNextSource();
 }
 
 bool MixerSubModel::GetVolumeOverride(int channelIndex)
@@ -132,5 +125,5 @@ void MixerSubModel::SwapVolumeOverride(int channelIndex)
 {
     // Always (independent of current source, and thus also independent of forced modee)
 
-	_mixerChannelSubModels[channelIndex]->SwapVolumeOverride();
+    _mixerChannelSubModels[channelIndex]->SwapVolumeOverride();
 }
