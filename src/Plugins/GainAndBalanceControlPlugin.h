@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Plugin.h"
-#include <vector>
 
 class MixerSubModel;
 class View;

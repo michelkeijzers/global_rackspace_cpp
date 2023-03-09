@@ -24,7 +24,19 @@ class MixerChannelSubModel : public SubModel, public Observable
     double GetVolume();
     void SetVolume(double volume);
 
-    const std::string &GetName();
+	 double GetLevelLeft();
+    void SetLevelLeft(double level);
+
+    double GetLevelRight();
+    void SetLevelRight(double level);
+    
+	 bool GetGateLeft();
+    void SetGateLeft(bool level);
+
+    bool GetGateRight();
+    void SetGateRight(bool level);
+    
+	 const std::string &GetName();
     void SetName(const std::string &name);
 
 	 ESource GetSource();
@@ -37,6 +49,10 @@ class MixerChannelSubModel : public SubModel, public Observable
   private:
     int _channelIndex;
     double _volume;
+    double _levelLeft;
+    double _levelRight;
+    bool _gateLeft;
+    bool _gateRight;
     
 	 std::string _name;
     ESource _source;

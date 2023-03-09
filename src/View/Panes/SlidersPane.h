@@ -25,6 +25,9 @@ class SlidersPane : public Pane
     bool IsChannelIndexActive(int channelIndex);
 
 	 void SetChannelVolume(int channelIndex);
+    void SetChannelLevelLeft(int channelIndex);
+     void SetChannelLevelRight(int channelIndex);
+
     void SetChannelName(int channelIndex);
     void SetChannelSource(int channelIndex);
 

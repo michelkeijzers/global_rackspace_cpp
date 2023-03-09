@@ -31,13 +31,40 @@ class MixerSubModel : public SubModel, public Observable
 	 EPaneSelection GetPaneSelection();
     void SetPaneSelection(EPaneSelection paneSelection);
 
+	 double GetChannelVolume(int channelIndex);
+    void SetChannelVolume(int channelIndex, double newVolume);
+
 	 double GetMasterVolume();
     void SetMasterVolume(double newVolume);
 
-    double GetChannelVolume(int channelIndex);
-    void SetChannelVolume(int channelIndex, double newVolume);
+	 
+	 double GetChannelLevelLeft(int channelIndex);
+    void SetChannelLevelLeft(int channelIndex, double newLevel);
 
-	 const std::string& GetChannelName(int channelIndex);
+	 double GetChannelLevelRight(int channelIndex);
+    void SetChannelLevelRight(int channelIndex, double newLevel);
+
+	 double GetMasterLevelLeft();
+    void SetMasterLevelLeft(double newVolume);
+
+	 double GetMasterLevelRight();
+    void SetMasterLevelRight(double newVolume);
+
+
+	 bool GetChannelGateLeft(int channelIndex);
+    void SetChannelGateLeft(int channelIndex, bool newGate);
+
+	 bool GetChannelGateRight(int channelIndex);
+    void SetChannelGateRight(int channelIndex, bool newGate);
+
+    bool GetMasterGateLeft();
+    void SetMasterGateLeft(bool newGate);
+
+    bool GetMasterGateRight();
+    void SetMasterGateRight(bool newGate);
+
+
+	 const std::string &GetChannelName(int channelIndex);
     void SetChannelName(int channelIndex, const std::string &channelName);
 
 	 MixerChannelSubModel::ESource GetChannelSource(int channelIndex);
@@ -50,6 +77,10 @@ class MixerSubModel : public SubModel, public Observable
   private:
     EPaneSelection _paneSelection;
     double _masterVolume;
+    double _masterLevelLeft;
+    double _masterLevelRight;
+	 bool _masterGateLeft;
+    bool _masterGateRight;
 
 	 std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 };

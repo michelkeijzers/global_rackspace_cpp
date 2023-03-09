@@ -7,6 +7,7 @@
 #include "../Widgets/Widgets.h"
 #include "Controller.h"
 #include "../View/Panes/SlidersPane.h"
+#include "../Midi/MidiMessage.h"
 
 
 /* static */ const int MixerSubController::CHANNELS_IN_MIXER = 16;
@@ -60,6 +61,55 @@ void MixerSubController::SwapVolumeOverride(int channelIndex)
 {
     _mixerSubModel.SwapVolumeOverride(channelIndex);
 }
+
+void MixerSubController::SetChannelLevelLeft(bool master, int channelIndex, int value)
+{
+    if (master)
+    {
+        _mixerSubModel.SetMasterLevelLeft(MidiMessage::MidiToParam(value));
+    }
+    else
+    {
+        _mixerSubModel.SetChannelLevelLeft(channelIndex, MidiMessage::MidiToParam(value));
+    }
+}
+
+void MixerSubController::SetChannelLevelRight(bool master, int channelIndex, int value)
+{
+    if (master)
+    {
+        _mixerSubModel.SetMasterLevelRight(MidiMessage::MidiToParam(value));
+    }
+    else
+    {
+        _mixerSubModel.SetChannelLevelRight(channelIndex, MidiMessage::MidiToParam(value));
+    }
+}
+
+void MixerSubController::SetChannelGateLeft(bool master, int channelIndex, bool value)
+{
+    if (master)
+    {
+        _mixerSubModel.SetMasterGateLeft(value);
+    }
+    else
+    {
+        _mixerSubModel.SetChannelGateLeft(channelIndex, value);
+    }
+}
+
+void MixerSubController::SetChannelGateRight(bool master, int channelIndex, bool value)
+{
+    if (master)
+    {
+        _mixerSubModel.SetMasterGateRight(value);
+    }
+    else
+    {
+        _mixerSubModel.SetChannelGateRight(channelIndex, value);
+    }
+}
+
 
 void MixerSubController::SetChannelNames(std::vector<std::string> channelNames)
 {

@@ -3,7 +3,9 @@
 #include "../Model/Model.h"
 #include "../Model/OrganSubModel.h"
 #include "../Model/SubModels.h"
+#include "AudioToCcPlugin.h"
 #include "AudioMixerPlugin.h"
+#include "AudioToCcPlugin.h"
 #include "GainAndBalanceControlPlugin.h"
 #include "OrganPlugin.h"
 #include "Plugin.h"
@@ -30,6 +32,15 @@ void Plugins::Fill()
     _plugins.push_back(
         new GainAndBalanceControlPlugin(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer),
                                         "GainAndBalanceControlMainVolume"));
+	 
+	 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+    {
+         _plugins.push_back(new AudioToCcPlugin(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer), 
+				false, channelIndex, "AudioToCcChannel" + std::to_string(channelIndex + 1)));
+    }
+
+	 _plugins.push_back(new AudioToCcPlugin(_view, (MixerSubModel &)_model.GetSubModel(SubModels::ESubModelId::Mixer),
+                                           true, -1, "AudioToCcChannelMaster"));
 }
 
 void Plugins::Init()

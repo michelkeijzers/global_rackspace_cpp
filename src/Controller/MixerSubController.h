@@ -18,6 +18,11 @@ class MixerSubController : public SubController
     void SelectNextSource(int channelIndex);
     void SwapVolumeOverride(int channelIndex);
 
+	 void SetChannelLevelLeft(bool master, int channelIndex, int value);
+    void SetChannelLevelRight(bool master, int channelIndex, int value);
+    void SetChannelGateLeft(bool master, int channelIndex, bool value);
+    void SetChannelGateRight(bool master, int channelIndex, bool value);
+
 	 void SetChannelNames(std::vector<std::string>);
 
 	 // TODO: Check

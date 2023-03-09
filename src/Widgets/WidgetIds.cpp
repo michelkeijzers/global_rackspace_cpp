@@ -48,6 +48,22 @@ void WidgetIds::FillSlidersPane()
 
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
+        std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "LevelLeft";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1LevelLeft + sliderNumber - 1)));
+    }
+
+    for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    {
+        std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "LevelRight";
+        _idToNames.push_back(widgetName);
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderNumber - 1)));
+    }
+
+	 for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    {
         const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "Name";
         _idToNames.push_back(widgetName);
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
