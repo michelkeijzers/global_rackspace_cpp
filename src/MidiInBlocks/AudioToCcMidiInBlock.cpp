@@ -58,22 +58,22 @@ bool AudioToCcMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
     switch (ccType)
     {
     case ECcType::LevelLeft:
-        mixerSubController.SetChannelLevelLeft(master, channelIndex, IntUtilities::ToBool(value));
+        mixerSubController.SetChannelLevelLeft(master, channelIndex, MidiMessage::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::LevelRight:
-        mixerSubController.SetChannelLevelRight(master, channelIndex, IntUtilities::ToBool(value));
+        mixerSubController.SetChannelLevelRight(master, channelIndex, MidiMessage::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::GateLeft:
-        mixerSubController.SetChannelGateLeft(master, channelIndex, IntUtilities::ToBool(value));
+        mixerSubController.SetChannelGateLeft(master, channelIndex, MidiMessage::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::GateRight:
-        mixerSubController.SetChannelGateRight(master, channelIndex, IntUtilities::ToBool(value));
+        mixerSubController.SetChannelGateRight(master, channelIndex, MidiMessage::MidiToParam(value));
         handleMessage = true;
         break;
 

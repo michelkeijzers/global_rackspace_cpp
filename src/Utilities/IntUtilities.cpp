@@ -1,6 +1,6 @@
 #include "IntUtilities.h"
-#include <string>
 #include "Debug.h"
+#include <string>
 
 /* static */ std::string IntUtilities::ToHexString(int value)
 {
@@ -12,4 +12,7 @@
     return valueAsHex;
 }
 
-
+/* static */ bool IntUtilities::ToBool(int value)
+{
+    return value != 0;
+}

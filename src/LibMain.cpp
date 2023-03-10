@@ -26,12 +26,12 @@ std::string pathToMe;
 
 void LibMain::OnModeChanged(int mode)
 {
-    consoleLog(std::string("Switching to mode: ") + ((mode == GP_SetlistMode) ? "Setlist" : "FrontBack"));
+    consoleLog(std::string(" Switching to mode: ") + ((mode == GP_SetlistMode) ? "Setlist" : "FrontBack"));
 }
 
 void LibMain::OnSwitchToPanelView()
 {
-    consoleLog("Switching to panel view");
+    consoleLog(" Switching to panel view");
     setPlayheadState(true);
 
     int count = getPluginParameterCount("Legend", false);
@@ -43,7 +43,7 @@ void LibMain::OnSwitchToPanelView()
 
 void LibMain::OnSwitchToWiringView()
 {
-    consoleLog("Switching to wiring view");
+    consoleLog(" Switching to wiring view");
     setPlayheadState(false);
 
     setBPM(99);
@@ -121,8 +121,11 @@ void LibMain::Initialization()
     registerCallback("OnSetlistChanged");
     registerCallback("OnRackspaceActivated");
 
-    consoleLog("Version 0.01");
+	 //TODO: not printed (probably GP clears screen afterwards)
+	 consoleLog("------------------------------------------");
+    consoleLog("Version 0.02");
     consoleLog("path to library " + getPathToMe());
+    consoleLog("------------------------------------------");
 }
 
 std::string LibMain::GetProductDescription()

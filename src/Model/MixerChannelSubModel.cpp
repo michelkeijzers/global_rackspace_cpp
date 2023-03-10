@@ -7,7 +7,7 @@ static std::string SUB_MODEL_NAME = "MixerChannel";
 
 MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
     : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0), _name(""), _source(ESource::PrimaryKeyboard),
-      _levelLeft(0.0), _levelRight(0.0), _isVolumeOverridden(false)
+      _levelLeft(0.0), _levelRight(0.0), _gateLeft(false), _gateRight(false), _isVolumeOverridden(false)
 {
 }
 

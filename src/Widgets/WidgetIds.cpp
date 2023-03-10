@@ -62,7 +62,7 @@ void WidgetIds::FillSlidersPane()
             widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderNumber - 1)));
     }
 
-	 for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "Name";
         _idToNames.push_back(widgetName);
@@ -162,6 +162,48 @@ void WidgetIds::FillSetupChannelWidget(const std::string &widgetName, int channe
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(
         widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex - 1)));
+}
+
+void WidgetIds::FillSetupOrganPane()
+{
+    std::string widgetName;
+
+    widgetName = "SetupOrganPaneBox";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganPaneBox));
+
+    widgetName = "SetupOrganTitleTextLabel";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganTitleTextLabel));
+
+    widgetName = "SetupOrganPrimaryKeyboardActive";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganPrimaryKeyboardActiveButton));
+
+    widgetName = "SetupOrganSecondaryKeyboardActive";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(
+        std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSecondaryKeyboardActiveButton));
+
+    widgetName = "SetupOrganLowestNoteSlider";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganLowestNoteSlider));
+
+    widgetName = "SetupOrganHighestNoteSlider";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganHighestNoteSlider));
+
+    widgetName = "SetupOrganLowestNoteTextLabel";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganLowestNoteTextLabel));
+
+    widgetName = "SetupOrganHighestNoteTextLabel";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganHighestNoteTextLabel));
+
+    widgetName = "SetupOrganSustainPedalActive";
+    _idToNames.push_back(widgetName);
+    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSustainPedalActiveButton));
 }
 
 WidgetIds::EWidgetId WidgetIds::GetId(const std::string &name)

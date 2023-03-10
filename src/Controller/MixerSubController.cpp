@@ -35,7 +35,7 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
             break;
 
         case MixerSubModel::EPaneSelection::Channels9To16:
-            _mixerSubModel.SetChannelVolume(SlidersPane::NR_OF_SLIDERS - 1 + sliderIndex, newValue);
+            _mixerSubModel.SetChannelVolume(1 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
             break;
 
         case MixerSubModel::EPaneSelection::Channels17To23:
@@ -62,27 +62,27 @@ void MixerSubController::SwapVolumeOverride(int channelIndex)
     _mixerSubModel.SwapVolumeOverride(channelIndex);
 }
 
-void MixerSubController::SetChannelLevelLeft(bool master, int channelIndex, int value)
+void MixerSubController::SetChannelLevelLeft(bool master, int channelIndex, double value)
 {
     if (master)
     {
-        _mixerSubModel.SetMasterLevelLeft(MidiMessage::MidiToParam(value));
+        _mixerSubModel.SetMasterLevelLeft(value);
     }
     else
     {
-        _mixerSubModel.SetChannelLevelLeft(channelIndex, MidiMessage::MidiToParam(value));
+        _mixerSubModel.SetChannelLevelLeft(channelIndex, value);
     }
 }
 
-void MixerSubController::SetChannelLevelRight(bool master, int channelIndex, int value)
+void MixerSubController::SetChannelLevelRight(bool master, int channelIndex, double value)
 {
     if (master)
     {
-        _mixerSubModel.SetMasterLevelRight(MidiMessage::MidiToParam(value));
+        _mixerSubModel.SetMasterLevelRight(value);
     }
     else
     {
-        _mixerSubModel.SetChannelLevelRight(channelIndex, MidiMessage::MidiToParam(value));
+        _mixerSubModel.SetChannelLevelRight(channelIndex, value);
     }
 }
 

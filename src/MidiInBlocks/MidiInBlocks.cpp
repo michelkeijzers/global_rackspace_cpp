@@ -1,6 +1,7 @@
 #include "MidiInBlocks.h"
 #include "../Utilities/Debug.h"
 #include "MidiInBlock.h"
+#include "AudioToCcMidiInBlock.h"
 #include "PrimaryKeyboardMidiInBlock.h"
 
 MidiInBlocks::MidiInBlocks(Controller &controller) : _controller(controller)
@@ -18,6 +19,8 @@ void MidiInBlocks::Fill()
     _midiInBlocks.push_back(new PrimaryKeyboardMidiInBlock(_controller));
     _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>("PrimaryKeyboardMidiInBlock",
                                                                      new PrimaryKeyboardMidiInBlock(_controller)));
+    _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>("AudioToCcMidiInput",
+                                                                     new AudioToCcMidiInBlock(_controller)));
 }
 
 void MidiInBlocks::Init()

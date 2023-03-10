@@ -71,6 +71,7 @@ class WidgetIds
         PrimaryKeyboardSlider9SourceName,
 
         // Organ pane
+		  //TODO: Add box/title widgets
         OrganRotatorSpeedTextLabel,
         OrganDrive,
         OrganReverbAmount,
@@ -221,6 +222,16 @@ class WidgetIds
         SetupChannel23VolumeOverrideButton,
         SetupChannel24VolumeOverrideButton,
 
+		  SetupOrganPaneBox,
+		  SetupOrganTitleTextLabel,
+        SetupOrganPrimaryKeyboardActiveButton,
+        SetupOrganSecondaryKeyboardActiveButton,
+        SetupOrganLowestNoteSlider,
+		  SetupOrganHighestNoteSlider,
+		  SetupOrganLowestNoteTextLabel,
+        SetupOrganHighestNoteTextLabel,
+		  SetupOrganSustainPedalActiveButton,
+
         Last
     };
 
@@ -236,6 +247,7 @@ class WidgetIds
     void FillOrganPane();
     void FillSetupChannelsPane();
     void FillSetupChannelWidget(const std::string &setupChannelPrefix, int channelIndex);
+    void FillSetupOrganPane();
 
     std::vector<std::string> _idToNames;
     std::map<std::string, EWidgetId> _nameToIds;
