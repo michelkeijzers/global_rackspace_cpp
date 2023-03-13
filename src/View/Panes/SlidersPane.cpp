@@ -240,7 +240,7 @@ void SlidersPane::SetChannelGate(int channelIndex)
 {
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % 8);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    bool gateActivated = _mixerSubModel.GetMasterGateLeft() || _mixerSubModel.GetMasterGateRight();
+    bool gateActivated = _mixerSubModel.GetChannelGateLeft(channelIndex) || _mixerSubModel.GetChannelGateRight(channelIndex);
     valueWidget.SetWidgetOutlineColor(gateActivated ? 1.0 : 0.5, 0.5, 0.5, 1.0); // TODO: Check values
     valueWidget.SetWidgetOutlineThickness(5);
 }

@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <memory>
 
+
 using GPUtils = gigperformer::sdk::GPUtils;
 
 template <typename T> void Ignore(T const &) noexcept

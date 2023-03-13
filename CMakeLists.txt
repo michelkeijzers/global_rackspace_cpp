@@ -1,25 +1,27 @@
 cmake_minimum_required(VERSION 3.21)
 
+# language standard
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED YES)
+set(CMAKE_C_EXTENSIONS NO)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS NO)
+
 # Let's choose a name and version for the extension. Change the name to your
 # liking. The version should be a string like "1.0".
-set(PROJECT_NAME "LivePanelExtension")
+set(PROJECT_NAME "MK_GlobalRackExtension")
 project(${PROJECT_NAME} VERSION 0.1)
 
-# Import the SDK
-include(FetchContent)
-FetchContent_Declare(
-  gp-sdk
-  GIT_REPOSITORY https://github.com/gigperformer/gp-sdk.git
-  # GIT_TAG 6c5432518ef42ea0870fb44597e9d1d3780e2f98 # v44
-  GIT_TAG 6d1b92fbb59fafbf47e38dd80f33d46692fb3425 # v51
-)
-FetchContent_MakeAvailable(gp-sdk)
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/dependencies.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/juce-shared-library.cmake")
 
 # Define our library including sources, include directories and dependencies
-add_library(${PROJECT_NAME} SHARED)
+juce_add_shared_library(${PROJECT_NAME})
 target_sources(
-  ${PROJECT_NAME} PRIVATE  
-   "${CMAKE_CURRENT_LIST_DIR}/src/LibMain.cpp"
+  ${PROJECT_NAME} 
+   PRIVATE "${CMAKE_CURRENT_LIST_DIR}/src/LibMain.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/LibMain.h" 
 	"${CMAKE_CURRENT_LIST_DIR}/src/Framework/MvcFramework.h" 
 	"${CMAKE_CURRENT_LIST_DIR}/src/Framework/MvcFramework.cpp" 
@@ -122,25 +124,14 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/Widgets.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.cpp")
-target_link_libraries(${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp)
+target_link_libraries(
+  ${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp juce::juce_gui_basics
+                          juce::juce_core juce::juce_events juce::juce_graphics)
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# Language options: this will be a pure C++20 project
-set_target_properties(
-  ${PROJECT_NAME}
-  PROPERTIES CXX_STANDARD 20
-             CXX_STANDARD_REQUIRED ON
-             CXX_EXTENSIONS NO)
-
-# Added by myself.
-# Enable testing, see https://gitlab.kitware.com/cmake/community/-/wikis/doc/ctest/Testing-With-CTest
-# enable_testing()
-add_executable(tester tester.cpp)
-#add_test(Tester tester)
-target_link_libraries(tester PRIVATE ${PROJECT_NAME})
-
-#include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+target_compile_definitions(
+  ${PROJECT_NAME} PRIVATE "JUCER_ENABLE_GPL_MODE=1"
+                          "JUCE_DISPLAY_SPLASH_SCREEN=0")
 
 # Install the extension on the development machine
 install(

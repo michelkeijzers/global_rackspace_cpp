@@ -14,7 +14,7 @@ DoubleUtilities::DoubleUtilities()
 
 /* static */ double DoubleUtilities::DoubleUtilities::AreEqual(double value1, double value2, double equalityDifference)
 {
-    return (fabs(value1 - value2) <= _maximumEqualityDifference);
+    return (fabs(value1 - value2) <= equalityDifference);
 }
 
 /* static */ double DoubleUtilities::GetMaximumEqualityDifference()

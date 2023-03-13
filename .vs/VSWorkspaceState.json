@@ -1,7 +1,23 @@
 {
+  "OutputFoldersPerTargetSystem": {
+    "Local Machine": [
+      "build\\mac-native",
+      "build\\mac-universal",
+      "build\\windows-native"
+    ]
+  },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\cmake",
+    "\\src",
+    "\\src\\Framework",
+    "\\src\\Midi",
+    "\\src\\MidiInBlocks",
+    "\\src\\Model",
+    "\\src\\Plugins",
+    "\\src\\View",
+    "\\src\\View\\Panes"
   ],
-  "SelectedNode": "\\tester.cpp",
+  "SelectedNode": "\\src\\LibMain.cpp",
   "PreviewInSolutionExplorer": false
 }

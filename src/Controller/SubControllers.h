@@ -13,7 +13,7 @@ class SubControllers
     {
         Mixer,
         Organ
-#ifdef _CONSOLE
+#ifdef WIN32
 		  , Test
 #endif
     };

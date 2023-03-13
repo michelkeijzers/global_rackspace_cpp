@@ -19,6 +19,7 @@ void WidgetIds::Fill()
     FillSlidersPane();
     FillOrganPane();
     FillSetupChannelsPane();
+    FillSetupOrganPane();
 
     // Check if lists are of equal size.
     Debug::Assert(_idToNames.size() == (int)WidgetIds::EWidgetId::Last, __FUNCTION__,

@@ -2,8 +2,8 @@
 
 #include "MixerSubController.h"
 #include "OrganSubController.h"
-#ifdef _CONSOLE
-	#include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/TestController.h"
+#ifdef WIN32
+	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/Tester/TestController.h"
 #endif
 
 SubControllers::SubControllers(Controller &controller) : _controller(controller)
@@ -19,7 +19,7 @@ void SubControllers::Fill()
 {
     _subControllers.push_back(new MixerSubController(_controller));
     _subControllers.push_back(new OrganSubController(_controller));
-#ifdef _CONSOLE
+#ifdef WIN32
     _subControllers.push_back(new TestController(_controller));
 #endif
 }

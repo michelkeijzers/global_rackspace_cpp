@@ -82,26 +82,22 @@ void ChannelsSetupPane::Update(ChangedProperties::EChangedProperty changedProper
 
 void ChannelsSetupPane::SetChannelName(int channelIndex)
 {
-    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
-
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1Name, channelIndex);
     TextWidget &valueWidget = static_cast<TextWidget &>(widget);
-    valueWidget.SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
+    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
+    valueWidget.SetText(channelName);
 }
 
 void ChannelsSetupPane::SetChannelSource(int channelIndex)
 {
-    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
-
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1SourceName, channelIndex);
     TextWidget &valueWidget = static_cast<TextWidget &>(widget);
-    valueWidget.SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
+    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
+    valueWidget.SetText(channelName);
 }
 
 void ChannelsSetupPane::SetChannelVolumeOverride(int channelIndex)
 {
-    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
-
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton, channelIndex);
     ButtonWidget &valueWidget = static_cast<ButtonWidget &>(widget);
     valueWidget.SetPressed(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->IsVolumeOverridden());

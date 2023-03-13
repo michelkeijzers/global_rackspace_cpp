@@ -26,7 +26,7 @@ void ShapeWidget::SetBounds(int left, int top, int width, int height)
     _top = top;
     _width = width;
     _height = height;
-    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    //TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -43,7 +43,7 @@ void ShapeWidget::SetLeft(int left)
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
 
     _left = left;
-    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -60,7 +60,7 @@ void ShapeWidget::SetTop(int top)
     Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
 
     _top = top;
-    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -77,7 +77,7 @@ void ShapeWidget::SetWidth(int width)
     Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
 
     _width = width;
-    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -94,7 +94,7 @@ void ShapeWidget::SetHeight(int height)
     Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
 
     _height = height;
-    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }

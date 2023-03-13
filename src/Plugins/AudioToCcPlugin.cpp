@@ -41,8 +41,8 @@
 #include "../Utilities/Debug.h"
 #include <iostream>
 
-#ifdef _CONSOLE
-    #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
+#ifdef WIN32
+    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -99,9 +99,9 @@ void AudioToCcPlugin::Init() // override
 
 	 api.setPluginParameter(name, EParameters::RmsGain, 0.0312500, true);  // 0.0 dB
     api.setPluginParameter(name, EParameters::PeakGain, 0.0434777, true); // 2.8 dB
-    api.setPluginParameter(name, EParameters::LeftCc, (ccNumber + 1) / 128.0, true);
-    api.setPluginParameter(name, EParameters::RightCc, (ccNumber + 2) / 128.0, true);
-    api.setPluginParameter(name, EParameters::Channel, (5 - 1) / 15, true);
+    api.setPluginParameter(name, EParameters::LeftCc, (double)(ccNumber + 1) / 128.0, true);
+    api.setPluginParameter(name, EParameters::RightCc, (double)(ccNumber + 2) / 128.0, true);
+    api.setPluginParameter(name, EParameters::Channel, (double)(5 - 1) / 15.0, true);
     api.setPluginParameter(name, EParameters::MonoStereo, 1.0, true);
     api.setPluginParameter(name, EParameters::Rate, 0.66, true); // 1.8 ms
     api.setPluginParameter(name, EParameters::Inertia, 50 / 100.0, true);
@@ -113,10 +113,10 @@ void AudioToCcPlugin::Init() // override
     api.setPluginParameter(name, EParameters::GateTreshold, 1.0, true); // 0.0 dB
     api.setPluginParameter(name, EParameters::LeftGateCc, (ccNumber + 3) / 128.0, true);
     api.setPluginParameter(name, EParameters::RightGateCc, (ccNumber + 4) / 128.0, true);
-    api.setPluginParameter(name, EParameters::LeftOnValue, (127 + 1) / 128, true);
-    api.setPluginParameter(name, EParameters::RightOnValue, (127 + 1) / 128, true);
-    api.setPluginParameter(name, EParameters::LeftOffValue, (0 + 1) / 128, true);
-    api.setPluginParameter(name, EParameters::RightOffValue, (0 + 1) / 128, true);
+    api.setPluginParameter(name, EParameters::LeftOnValue, (double)(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EParameters::RightOnValue, (double)(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EParameters::LeftOffValue, (double)(0 + 1) / 128.0, true);
+    api.setPluginParameter(name, EParameters::RightOffValue, (double)(0 + 1) / 128.0, true);
 }
 
 void AudioToCcPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */

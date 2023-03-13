@@ -1,9 +1,10 @@
 #include "Debug.h"
 #include <iostream>
 #include <string>
-#ifdef _CONSOLE
-    #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/types.h"
+#ifdef WIN32
+    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/types.h"
 #endif
+#include <juce_core/juce_core.h>
 
 /* static */ gigperformer::sdk::GigPerformerAPI *Debug::_gigPerformerApi = nullptr;
 /* static */ bool Debug::_logHeaders = true;
@@ -11,18 +12,21 @@
 
 /* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
-    std::cout << "ERROR: " << functionName << ": " << errorText;
-#ifdef _CONSOLE
-    std::cout << std::endl;
+    std::string message = "ERROR: " + functionName + ": " + errorText;
+
+#ifdef WIN32
+    // std::cout << message;
+    DBG(message);
     exit(1);
 #endif
 }
 
 /* static */ void Debug::NotImplemented(const std::string &functionName)
 {
-    std::cout << "ERROR: " << functionName << " is not implemented";
-#ifdef _CONSOLE
-        std::cout << std::endl;
+    std::string message = "ERROR: " + functionName + " is not implemented";
+#ifdef WIN32
+    //std::cout << std::endl;
+    DBG(message);
     exit(1);
 #endif
 }
@@ -31,9 +35,9 @@
 {
     if (!condition)
     {
-        std::cout << "ASSERT ERROR: " << functionName << ": " << errorText;
-#ifdef _CONSOLE
-        std::cout << std::endl;
+        std::string message = "ASSERT ERROR: " + functionName + ": " + errorText;
+#ifdef WIN32
+        DBG(message);
         exit(1);
 #endif
     }

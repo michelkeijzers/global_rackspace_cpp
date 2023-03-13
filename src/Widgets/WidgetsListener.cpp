@@ -12,8 +12,8 @@
 #include "WidgetIds.h"
 #include "Widgets.h"
 
-#ifdef _CONSOLE
-    #include "../../../global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/global_rackspace_cpp2_tester/GigPerformerAPI.h"
+#ifdef WIN32
+    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -22,6 +22,12 @@
 WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
     : _controller(controller), _widgetIds(widgetIds)
 {
+    juce::Timer::startTimerHz(1);
+}
+
+WidgetsListener::~WidgetsListener()
+{
+    juce::Timer::stopTimer();
 }
 
 void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double newValue)
@@ -60,7 +66,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         if (((int)widgetId >= primaryKeyboardSlider1) &&
             ((int)widgetId < primaryKeyboardSlider1 + SlidersPane::NR_OF_SLIDERS))
         {
-            ProcessSlider(widgetId, (int)widgetId - primaryKeyboardSlider1, newValue);
+            ProcessSlider((int)widgetId - primaryKeyboardSlider1, newValue);
             processed = true;
         }
     }
@@ -77,10 +83,10 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 					 std::vector<std::string> channelNames;
 					 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
                 {
-                  WidgetIds::EWidgetId channelNameWidget =
-                     WidgetIds::EWidgetId((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
-                    const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
-                  channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetName));
+                  //TODO check WidgetIds::EWidgetId channelNameWidget =
+                  //   WidgetIds::EWidgetId((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
+                  const std::string widgetNameSetupChannel = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
+                  channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
                 }
                 
 					 mixerSubController.SetChannelNames(channelNames);
@@ -131,9 +137,14 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     Debug::LogMethodExit(__FUNCTION__);
 }
 
-void WidgetsListener::ProcessSlider(WidgetIds::EWidgetId widgetId, int sliderIndex, double newValue)
+void WidgetsListener::ProcessSlider(int sliderIndex, double newValue)
 {
     MixerSubController &mixerSubController =
         (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
     mixerSubController.SetSliderValue(sliderIndex, newValue);
+}
+
+void WidgetsListener::timerCallback() // override
+{
+    Debug::Log("#Callback 1Hz");
 }

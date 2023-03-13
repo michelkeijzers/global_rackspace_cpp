@@ -9,6 +9,8 @@
 #include "../ChangedProperties.h"
 #include "../IObserver.h"
 #include "../View.h"
+#include "../../Utilities/Debug.h"
+
 
 OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
 {
@@ -53,9 +55,29 @@ void OrganSetupPane::Fill() // override
         new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton, true));
 }
 
+
 void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
 
+
+	/*
+	* 
+	* 
+	* TODO
+
+	ChangedPr5operties OrganPrimaryKeyboardActive, OrganSecondaryKeyboardActive, OrganLowestNote, OrganHighestNote,
+        OrganSustainPedalActive,
+
+
+   Widgets 
+                  SetupOrganPrimaryKeyboardActiveButton,
+                  SetupOrganSecondaryKeyboardActiveButton,
+                  SetupOrganLowestNoteSlider,
+                  SetupOrganHighestNoteSlider,
+                  SetupOrganLowestNoteTextLabel,
+                  SetupOrganHighestNoteTextLabel,
+                  SetupOrganSustainPedalActiveButton,
+						*/
 		 
     if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {

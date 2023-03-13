@@ -14,7 +14,7 @@
 
  /* static */ double MidiMessage::MidiToParam(uint8_t value)
 {
-    return (value / 127.0);
+    return ((value + 0.001 ) / 127.0); // TODO: Make constant
 }
 
 /* static */ uint8_t MidiMessage::ParamToMidi(double value)
