@@ -2,7 +2,7 @@
 
 #include "MixerSubController.h"
 #include "OrganSubController.h"
-#ifdef WIN32
+#ifdef TESTER
 	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/Tester/TestController.h"
 #endif
 
@@ -19,7 +19,7 @@ void SubControllers::Fill()
 {
     _subControllers.push_back(new MixerSubController(_controller));
     _subControllers.push_back(new OrganSubController(_controller));
-#ifdef WIN32
+#ifdef TESTER
     _subControllers.push_back(new TestController(_controller));
 #endif
 }

@@ -3,7 +3,8 @@
 #include "../Controller/Controller.h"
 #include "../Model/Model.h"
 #include "../View/View.h"
-#ifdef WIN32
+#include "../Utilities/Debug.h"
+#ifdef TESTER
 	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>

@@ -9,6 +9,8 @@
 #include <juce_core/juce_core.h>
 #include <juce_core/time/juce_Time.h>
 
+#include "../../Framework/MvcFramework.h"
+
 SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel)
     : Pane(view), _model(model), _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
 {
@@ -66,7 +68,22 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
 {
     if (changedProperty == ChangedProperties::EChangedProperty::SecondElapsed)
     {
-        CheckGatesFading();
+        Debug::Log("UPDATE SECOND ELAPSED");
+        if (MvcFramework::GetGigPerformerApi().widgetExists("SHAPE1"))
+        {
+            Debug::Log("a1");
+            auto& api = MvcFramework::GetGigPerformerApi();
+            Debug::Log("a2");
+            api.setWidgetOutlineRoundness("SHAPE1", 25); 
+            Debug::Log("a3");
+            api.setWidgetHideOnPresentation("SHAPE1", false);
+            Debug::Log("a4");
+            api.setWidgetBounds("SHAPE1", 100, 200, 300, 250);
+            Debug::Log("a5");
+            
+        }
+
+        //CheckGatesFading();
     }
 
     else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
@@ -259,12 +276,12 @@ void SlidersPane::UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidg
     double red = std::max(0.0, 1.0 - (1.0 / 30) * (ago / 1000.0));
     int thickness = std::max(0, 5 - (int)(5 / 30.0 * (ago / 1000.0)));
 
-	 if (!DoubleUtilities::AreEqual(valueWidget.GetWidgetOutlineColorRed(), red))
+    if (!DoubleUtilities::AreEqual(valueWidget.GetWidgetOutlineColorRed(), red))
     {
         valueWidget.SetWidgetOutlineColor(red, 0.0, 0.0, 1.0); // TODO: Check values
     }
 
-	 if (valueWidget.GetWidgetOutlineThickness() != thickness)
+    if (valueWidget.GetWidgetOutlineThickness() != thickness)
     {
         valueWidget.SetWidgetOutlineThickness(thickness);
     }

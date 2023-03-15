@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef WIN32
+#ifdef TESTER
 	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/types.h"
 #else
 	#include "../../build/windows-native/_deps//gp-sdk-src/c/include/gigperformer/sdk/types.h"

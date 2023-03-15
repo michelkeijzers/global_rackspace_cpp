@@ -5,7 +5,7 @@
 #include "../Utilities/Debug.h"
 #include "../View/ChangedProperties.h"
 #include <iostream>
-#ifdef WIN32
+#ifdef TESTER
     #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>

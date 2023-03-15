@@ -7,28 +7,36 @@ ShapeWidget::ShapeWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListene
     : Widget(ids, id, isListenedTo), _left(0), _top(0), _width(100), _height(100), _redOutlineColor(0.0),
       _greenOutlineColor(0.0), _blueOutlineColor(0.0), _alphaOutlineColor(0.0), _redFillColor(0.0),
       _greenFillColor(0.0), _blueFillColor(0.0), _alphaFillColor(0.0), _redTextColor(0.0), _greenTextColor(0.0),
-      _blueTextColor(0.0), _alphaTextColor(0.0)
+      _blueTextColor(0.0), _alphaTextColor(0.0), _outlineThickness(1)
 {
 }
 
 void ShapeWidget::SetBounds(int left, int top, int width, int height)
 {
+    Debug::Log("c0");
     Debug::LogMethodEntry(__FUNCTION__, "left = " + std::to_string(left) + ", top = " + std::to_string(top) +
                                             ", width = " + std::to_string(width) +
                                             ", height = " + std::to_string(height) + ")");
 
+	 Debug::Log("c1");
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
-    Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
-    Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
-    Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
+     Debug::Log("c2");
 
+    Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
+     Debug::Log("c3");
+    Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
+     Debug::Log("c4");
+    Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
+     Debug::Log("c5");
     _left = left;
     _top = top;
     _width = width;
     _height = height;
+    Debug::Log("c6");
     //TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
+    Debug::Log("c8");
 }
 
 int ShapeWidget::GetLeft()

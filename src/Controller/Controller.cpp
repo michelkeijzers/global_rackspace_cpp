@@ -11,16 +11,21 @@
 Controller::Controller(Model &model, View &view)
     : _model(model), _view(view), _subControllers(*this), _midiInBlocks(*this)
 {
-    juce::Timer::startTimerHz(1);
+    StartTimer();
 }
 
 Controller::~Controller()
 {
-    juce::Timer::stopTimer();
+    juce::HighResolutionTimer::stopTimer();
 }
 
-void Controller::Fill()
+void Controller::StartTimer()
 {
+    juce::HighResolutionTimer::startTimer(1000);
+} 
+
+void Controller::Fill()
+    {
     _subControllers.Fill();
     _midiInBlocks.Fill();
 }
@@ -48,7 +53,6 @@ SubController &Controller::GetSubController(SubControllers::ESubControllerId id)
 bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {
     Debug::Log("@--- On Midi In: Device Name = " + deviceName + ", data = " + ConvertDataToString(data, length));
-
     return _midiInBlocks.OnMidiIn(deviceName, data, length);
 }
 
@@ -64,11 +68,10 @@ const std::string Controller::ConvertDataToString(const uint8_t *data, int lengt
         }
     }
     hexString += ']';
-
 	 return hexString;
 }
 
-void Controller::timerCallback() // override
+void Controller::hiResTimerCallback() // override
 {
      Debug::Log("#Callback 1Hz");
      _model.OnTimer(Model::ETimer::OneSecond);

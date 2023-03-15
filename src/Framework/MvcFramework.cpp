@@ -55,7 +55,6 @@ void MvcFramework::Init()
     _controller->Init();
 }
 
-
 /* static */ gigperformer::sdk::GigPerformerAPI& MvcFramework::GetGigPerformerApi()
 {
     return *_gigPerformerApi;
@@ -70,3 +69,4 @@ WidgetsListener& MvcFramework::GetWidgetsListener()
 {
     return *_widgetsListener;
 }
+

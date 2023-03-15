@@ -61,5 +61,5 @@ class ShapeWidget : public Widget
     double _blueTextColor;
     double _alphaTextColor;
 
-	 double _outlineThickness;
+	 int _outlineThickness;
 };

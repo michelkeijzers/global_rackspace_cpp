@@ -1,7 +1,10 @@
 #pragma once
 
-#include <vector>
-#ifdef WIN32
+#include <juce_core/juce_core.h>
+#include <juce_core/files/juce_File.h>
+#include <juce_core/logging/juce_FileLogger.h>
+
+#ifdef TESTER
     #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
    #include "../../build/windows-native/_deps/gp-sdk-src/CPP/include/gigperformer/sdk/GigPerformerAPI.h"
@@ -56,8 +59,14 @@ class Debug
 
   private:
     Debug();
+    ~Debug();
+
+    static void LogToAll(std::string message);
 
     static gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
     static bool _logHeaders;
     static int _logMethodIndentation;
+
+	 static juce::File* _logFile;
+    static juce::FileLogger *_fileLogger;
 };

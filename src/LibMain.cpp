@@ -15,8 +15,8 @@ template <typename T> void Ignore(T const &) noexcept
 // define an XML string describing your product
 const std::string XMLProductDescription = "<Library>"
                                           "  <Product "
-                                          "    Name=\"Live Panel Extension 0.12\""
-                                          "    Version=\"0.12\""
+                                          "    Name=\"Live Panel Extension 0.13\""
+                                          "    Version=\"0.13\""
                                           "    BuildDate=\"02/02/2023\">"
                                           "  </Product> "
                                           "  <Description>Global Rackspace for GigPerformer</Description>"
@@ -28,6 +28,9 @@ std::string pathToMe;
 void LibMain::OnModeChanged(int mode)
 {
     consoleLog(std::string(" Switching to mode: ") + ((mode == GP_SetlistMode) ? "Setlist" : "FrontBack"));
+
+	 Debug::Log("start timer");
+	 _mvcFramework.GetController().StartTimer();
 }
 
 void LibMain::OnSwitchToPanelView()
@@ -50,7 +53,7 @@ void LibMain::OnSwitchToWiringView()
     setBPM(99);
 }
 
-void LibMain::OnGlobalPlayStateChanged(bool playing)
+void LibMain::OnGlobalPlayStateChanged(double playing)
 {
     Ignore(playing);
 }
@@ -122,15 +125,13 @@ void LibMain::Initialization()
     registerCallback("OnSetlistChanged");
     registerCallback("OnRackspaceActivated");
 
-	 //TODO: not printed (probably GP clears screen afterwards)
-	 consoleLog("------------------------------------------");
+    // TODO: not printed (probably GP clears screen afterwards)
+    consoleLog("------------------------------------------");
     consoleLog("Version 0.02");
     consoleLog("path to library " + getPathToMe());
     consoleLog("------------------------------------------");
-
-	 setWidgetBounds("Shape1", 10, 20, 30, 40);
-
 }
+
 
 std::string LibMain::GetProductDescription()
 {

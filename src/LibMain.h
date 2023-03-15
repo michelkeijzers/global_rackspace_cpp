@@ -60,7 +60,7 @@ class LibMain : public gigperformer::sdk::GigPerformerAPI
         consoleLog("Tempo changed");
     }
 
-    void OnGlobalPlayStateChanged(bool playing) override;
+    void OnGlobalPlayStateChanged(double playing) override;
 
     // Now, simply override the callback methods in which you are interested
     // and, in the Initialization method at the end of this class,

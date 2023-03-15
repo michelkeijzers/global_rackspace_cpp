@@ -8,8 +8,8 @@
   },
   "ExpandedNodes": [
     "",
-    "\\cmake",
     "\\src",
+    "\\src\\Controller",
     "\\src\\Framework",
     "\\src\\Midi",
     "\\src\\MidiInBlocks",
@@ -18,5 +18,6 @@
     "\\src\\View",
     "\\src\\View\\Panes"
   ],
+  "SelectedNode": "\\src\\View\\Panes\\SlidersPane.cpp",
   "PreviewInSolutionExplorer": false
 }
