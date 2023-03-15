@@ -8,3 +8,5 @@
 # Build output
 build/
 /.vs
+/.vs/cmake.db
+/.vs/slnx.sqlite
