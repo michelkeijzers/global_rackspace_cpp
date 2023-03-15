@@ -3,7 +3,7 @@
 #include "../Model/OrganSubModel.h"
 #include "../Model/Model.h"
 
-SubModels::SubModels() : _forcedMode(false)
+SubModels::SubModels(Model& model) : _model(model), _forcedMode(false)
 {
 }
 
@@ -26,8 +26,13 @@ void SubModels::Init()
     }
 }
 
-SubModel &SubModels::GetSubModel(ESubModelId id)
+Model &SubModels::GetModel()
 {
+    return _model;
+}
+
+SubModel &SubModels::GetSubModel(ESubModelId id)
+    {
     return *(_subModels.at((int) id));
 }
 

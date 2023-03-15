@@ -1,13 +1,17 @@
-#include "MixerChannelSubModel.h"
-#include "../Utilities/Debug.h"
-#include "SubModels.h"
 #include <string>
+#include "MixerChannelSubModel.h"
+#include "SubModels.h"
+#include "Model.h"
+#include "../Utilities/Debug.h"
+#include "../Utilities/DoubleUtilities.h"
+#include "../Framework/MvcFramework.h"
 
 static std::string SUB_MODEL_NAME = "MixerChannel";
 
 MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
     : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0), _name(""), _source(ESource::PrimaryKeyboard),
-      _levelLeft(0.0), _levelRight(0.0), _gateLeft(false), _gateRight(false), _isVolumeOverridden(false)
+      _levelLeft(0.0), _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0),
+      _isVolumeOverridden(false)
 {
 }
 
@@ -63,40 +67,55 @@ void MixerChannelSubModel::SetLevelRight(double level)
 }
 
 
-bool MixerChannelSubModel::GetGateLeft()
+juce::Time MixerChannelSubModel::GetLastTimeGateLeftActive()
 {
-    return _gateLeft;
+    return _lastTimeGateLeftActive;
 }
 
-void MixerChannelSubModel::SetGateLeft(bool gate)
+void MixerChannelSubModel::SetGateLeft(bool gateActive)
 {
-    if (IsForcedMode() || (_gateLeft != gate))
+    long long ms = _lastTimeGateLeftActive.toMilliseconds();
+    if (IsForcedMode() || ((ms == 0LL) && gateActive) || ((ms != 0LL) && !gateActive))
     {
-        _gateLeft = gate;
+        if (gateActive)
+        {
+            _lastTimeGateLeftActive = juce::Time::getCurrentTime();
+        }
+		  else
+		  {
+            _lastTimeGateLeftActive = juce::Time(0);
+		  }
         Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-                   ", gate left = " + std::to_string(_gateLeft));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1GateLeft +
+                   ", gate left = " + std::to_string(_lastTimeGateLeftActive.toMilliseconds()));
+        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive +
                                                      _channelIndex));
     }
 }
 
-bool MixerChannelSubModel::GetGateRight()
+juce::Time MixerChannelSubModel::GetLastTimeGateRightActive()
 {
-    return _gateRight;
+    return _lastTimeGateRightActive;
 }
 
-void MixerChannelSubModel::SetGateRight(bool gate)
+void MixerChannelSubModel::SetGateRight(bool gateActive)
 {
-    if (IsForcedMode() || (_gateRight != gate))
+    long long ms = _lastTimeGateRightActive.toMilliseconds();
+    if (IsForcedMode() || ((ms == 0LL) && gateActive) || ((ms != 0LL) && !gateActive))
     {
-        _gateRight = gate;
+        if (gateActive)
+        {
+            _lastTimeGateRightActive = juce::Time::getCurrentTime();
+        }
+        else
+        {
+            _lastTimeGateRightActive = juce::Time(0);
+        }
         Debug::Log("# " + SUB_MODEL_NAME + ": channel index = " + std::to_string(_channelIndex) +
-                   ", gate right = " + std::to_string(_gateRight));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1GateRight +
-                                                     _channelIndex));
+                   ", gate left = " + std::to_string(_lastTimeGateRightActive.toMilliseconds()));
+        Notify((ChangedProperties::EChangedProperty)(
+            (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive + _channelIndex));
     }
 }
-
 
 const std::string &MixerChannelSubModel::GetName()
 {

@@ -1,15 +1,15 @@
+#include <string>
 #include "MixerSubModel.h"
-#include "../Utilities/Debug.h"
-#include "../Utilities/DoubleUtilities.h"
 #include "MixerChannelSubModel.h"
 #include "SubModels.h"
-#include <string>
+#include "../Utilities/Debug.h"
+#include "../Utilities/DoubleUtilities.h"
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
 MixerSubModel::MixerSubModel(SubModels &subModels)
-    : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0), _masterGateLeft(false),
-      _masterGateRight(false), _paneSelection(MixerSubModel::EPaneSelection::Drawbars)
+    : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0), _masterLastTimeGateLeftActive(0),
+      _masterLastTimeGateRightActive(0), _paneSelection(MixerSubModel::EPaneSelection::Drawbars)
 {
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
@@ -48,6 +48,34 @@ void MixerSubModel::SetPaneSelection(EPaneSelection paneSelection)
         Debug::Log("# " + SUB_MODEL_NAME + ": Pane Selection = " + std::to_string((int)_paneSelection));
         Notify(ChangedProperties::EChangedProperty::SlidersPaneSelection);
     }
+}
+
+int MixerSubModel::GetChannelOffset()
+{
+    int channelOffset = -1;
+    switch (_paneSelection)
+    {
+    case MixerSubModel::EPaneSelection::Drawbars:
+        // Do nothing
+        break;
+
+    case MixerSubModel::EPaneSelection::Channels1To8:
+        channelOffset = 0;
+        break;
+
+    case MixerSubModel::EPaneSelection::Channels9To16:
+        channelOffset = 8;
+        break;
+
+    case MixerSubModel::EPaneSelection::Channels17To23:
+        channelOffset = 16;
+        break;
+
+	 default:
+        Debug::Error(__FUNCTION__, "Illegal pane selection");
+    }
+
+	 return channelOffset;
 }
 
 double MixerSubModel::GetChannelVolume(int channelIndex)
@@ -137,11 +165,11 @@ void MixerSubModel::SetMasterLevelRight(double newLevel)
     }
 }
 
-bool MixerSubModel::GetChannelGateLeft(int channelIndex)
+juce::Time MixerSubModel::GetChannelLastTimeGateLeftActive(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-    return _mixerChannelSubModels[channelIndex]->GetGateLeft();
+    return _mixerChannelSubModels[channelIndex]->GetLastTimeGateLeftActive();
 }
 
 void MixerSubModel::SetChannelGateLeft(int channelIndex, bool newGate)
@@ -151,11 +179,11 @@ void MixerSubModel::SetChannelGateLeft(int channelIndex, bool newGate)
     _mixerChannelSubModels[channelIndex]->SetGateLeft(newGate);
 }
 
-bool MixerSubModel::GetChannelGateRight(int channelIndex)
+juce::Time MixerSubModel::GetChannelLastTimeGateRightActive(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
-    return _mixerChannelSubModels[channelIndex]->GetGateRight();
+    return _mixerChannelSubModels[channelIndex]->GetLastTimeGateRightActive();
 }
 
 void MixerSubModel::SetChannelGateRight(int channelIndex, bool newGate)
@@ -165,33 +193,52 @@ void MixerSubModel::SetChannelGateRight(int channelIndex, bool newGate)
     _mixerChannelSubModels[channelIndex]->SetGateRight(newGate);
 }
 
-bool MixerSubModel::GetMasterGateLeft()
+juce::Time MixerSubModel::GetMasterLastTimeGateLeftActive()
 {
-    return _masterGateLeft;
+    return _masterLastTimeGateLeftActive;
 }
 
-bool MixerSubModel::GetMasterGateRight()
+juce::Time MixerSubModel::GetMasterLastTimeGateRightActive()
 {
-    return _masterGateRight;
+    return _masterLastTimeGateRightActive;
 }
 
-void MixerSubModel::SetMasterGateLeft(bool newGate)
+void MixerSubModel::SetMasterGateLeft(bool gateActive)
 {
-    if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newGate))
+    long long ms = _masterLastTimeGateLeftActive.toMilliseconds();
+    if (IsForcedMode() || ((ms == 0) && gateActive) || ((ms != 0) && !gateActive))
     {
-        _masterGateLeft = newGate;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Master Gate Left = " + std::to_string(_masterGateLeft));
-        Notify(ChangedProperties::EChangedProperty::MasterGateLeft);
+        if (gateActive)
+        {
+            _masterLastTimeGateLeftActive = juce::Time::getCurrentTime();
+        }
+        else
+        {
+            _masterLastTimeGateLeftActive = juce::Time(0);
+        }
+        Debug::Log("# " + SUB_MODEL_NAME + 
+                   ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
+        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
     }
 }
 
-void MixerSubModel::SetMasterGateRight(bool newGate)
+void MixerSubModel::SetMasterGateRight(bool gateActive)
 {
-    if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newGate))
+    long long ms = _masterLastTimeGateRightActive.toMilliseconds();
+    if (IsForcedMode() || ((ms == 0) && gateActive) || ((ms != 0) && !gateActive))
     {
-        _masterGateLeft = newGate;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Master Gate Right = " + std::to_string(_masterGateRight));
-        Notify(ChangedProperties::EChangedProperty::MasterGateRight);
+        if (gateActive)
+        {
+            _masterLastTimeGateRightActive = juce::Time::getCurrentTime();
+        }
+        else
+        {
+            _masterLastTimeGateRightActive = juce::Time(0);
+        }
+        Debug::Log("# " + SUB_MODEL_NAME +
+                   ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
+        Notify((ChangedProperties::EChangedProperty)(
+            (int)ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive));
     }
 }
 

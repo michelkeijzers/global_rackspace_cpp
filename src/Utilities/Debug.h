@@ -4,7 +4,7 @@
 #ifdef WIN32
     #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
-    #include <gigperformer/sdk/GigPerformerAPI.h>
+   #include "../../build/windows-native/_deps/gp-sdk-src/CPP/include/gigperformer/sdk/GigPerformerAPI.h"
 #endif
 
 class Debug

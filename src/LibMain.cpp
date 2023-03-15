@@ -15,8 +15,8 @@ template <typename T> void Ignore(T const &) noexcept
 // define an XML string describing your product
 const std::string XMLProductDescription = "<Library>"
                                           "  <Product "
-                                          "    Name=\"Live Panel Extension\""
-                                          "    Version=\"0.1\""
+                                          "    Name=\"Live Panel Extension 0.12\""
+                                          "    Version=\"0.12\""
                                           "    BuildDate=\"02/02/2023\">"
                                           "  </Product> "
                                           "  <Description>Global Rackspace for GigPerformer</Description>"
@@ -127,6 +127,9 @@ void LibMain::Initialization()
     consoleLog("Version 0.02");
     consoleLog("path to library " + getPathToMe());
     consoleLog("------------------------------------------");
+
+	 setWidgetBounds("Shape1", 10, 20, 30, 40);
+
 }
 
 std::string LibMain::GetProductDescription()

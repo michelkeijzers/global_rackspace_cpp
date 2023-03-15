@@ -10,10 +10,10 @@
 #include <utility> //declarations of unique_ptr
 // using std::unique_ptr;
 
-#include "gigperformer/sdk/GPMidiMessages.h"
-#include "gigperformer/sdk/GPUtils.h"
-#include "gigperformer/sdk/GigPerformerAPI.h"
-#include "gigperformer/sdk/types.h"
+#include "../build/windows-native/_deps/gp-sdk-src/cpp/include/gigperformer/sdk/GPMidiMessages.h"
+#include "../build/windows-native/_deps/gp-sdk-src/cpp/include/gigperformer/sdk/GPUtils.h"
+#include "../build/windows-native/_deps/gp-sdk-src/cpp/include/gigperformer/sdk/GigPerformerAPI.h"
+#include "../build/windows-native/_deps/gp-sdk-src/c/include/gigperformer/sdk/types.h"
 
 #include "Framework/MvcFramework.h"
 

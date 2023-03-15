@@ -225,6 +225,11 @@ void ShapeWidget::SetWidgetOutlineThickness(int thickness)
         GetName(), (int)(_outlineThickness / 255.0 * 256.0)); // TODO: check int->double conversion
 }
 
+int ShapeWidget::GetWidgetOutlineThickness()
+{
+    return _outlineThickness;
+}
+
 void ShapeWidget::AssertColors(double red, double green, double blue, double alpha)
 {
     Debug::Assert(red >= 0.0, __FUNCTION__, "Red color too low");

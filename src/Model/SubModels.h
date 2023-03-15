@@ -12,10 +12,10 @@ class SubModels
     enum class ESubModelId
     {
 		 Mixer,
-        Organ
+       Organ
     };
 
-    SubModels();
+    SubModels(Model& model);
     ~SubModels();
 
     void Fill();
@@ -25,9 +25,11 @@ class SubModels
     void SetForcedMode(bool forcedMode);
 
     SubModel &GetSubModel(ESubModelId id);
+    Model &GetModel();
 
   private:
     std::vector<SubModel *> _subModels;
 
 	 bool _forcedMode;
+    Model &_model;
 };

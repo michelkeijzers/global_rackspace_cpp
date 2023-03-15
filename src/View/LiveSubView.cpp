@@ -19,7 +19,7 @@ void LiveSubView::Fill() // override
     MixerSubModel &mixerSubModel = static_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
 
     AddPane(*new OrganPane(GetView(), organSubModel));
-    AddPane(*new SlidersPane(GetView(), mixerSubModel, organSubModel));
+    AddPane(*new SlidersPane(GetView(), GetModel(), mixerSubModel, organSubModel));
     AddPane(*new PrimaryKeyboardButtonsPane(GetView(), organSubModel));
 
 	 AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));

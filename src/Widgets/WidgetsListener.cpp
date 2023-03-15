@@ -1,4 +1,8 @@
 #include "WidgetsListener.h"
+#include "ButtonWidget.h"
+#include "ValueWidget.h"
+#include "WidgetIds.h"
+#include "Widgets.h"
 #include "../Controller/Controller.h"
 #include "../Controller/MixerSubController.h"
 #include "../Controller/OrganSubController.h"
@@ -7,27 +11,16 @@
 #include "../View/Panes/OrganPane.h"
 #include "../View/Panes/SlidersPane.h"
 #include "../View/View.h"
-#include "ButtonWidget.h"
-#include "ValueWidget.h"
-#include "WidgetIds.h"
-#include "Widgets.h"
-
+#include "../Framework/MvcFramework.h"
 #ifdef WIN32
     #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
-#include "../Framework/MvcFramework.h"
 
 WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
     : _controller(controller), _widgetIds(widgetIds)
 {
-    juce::Timer::startTimerHz(1);
-}
-
-WidgetsListener::~WidgetsListener()
-{
-    juce::Timer::stopTimer();
 }
 
 void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double newValue)
@@ -142,9 +135,4 @@ void WidgetsListener::ProcessSlider(int sliderIndex, double newValue)
     MixerSubController &mixerSubController =
         (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
     mixerSubController.SetSliderValue(sliderIndex, newValue);
-}
-
-void WidgetsListener::timerCallback() // override
-{
-    Debug::Log("#Callback 1Hz");
 }

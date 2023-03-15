@@ -1,9 +1,11 @@
 #pragma once
 
+#include <string>
+#include <juce_core/juce_core.h>
+#include <juce_core/time/juce_Time.h>
 #include "../View/Observable.h"
 #include "MixerChannelSubModel.h"
 #include "SubModel.h"
-#include <string>
 
 class SubModels;
 
@@ -30,10 +32,10 @@ class MixerChannelSubModel : public SubModel, public Observable
     double GetLevelRight();
     void SetLevelRight(double level);
     
-	 bool GetGateLeft();
+	 juce::Time GetLastTimeGateLeftActive();
     void SetGateLeft(bool level);
 
-    bool GetGateRight();
+    juce::Time GetLastTimeGateRightActive();
     void SetGateRight(bool level);
     
 	 const std::string &GetName();
@@ -51,8 +53,8 @@ class MixerChannelSubModel : public SubModel, public Observable
     double _volume;
     double _levelLeft;
     double _levelRight;
-    bool _gateLeft;
-    bool _gateRight;
+    juce::Time _lastTimeGateLeftActive;
+    juce::Time _lastTimeGateRightActive;
     
 	 std::string _name;
     ESource _source;

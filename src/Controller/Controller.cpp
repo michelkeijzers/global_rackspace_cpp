@@ -11,10 +11,12 @@
 Controller::Controller(Model &model, View &view)
     : _model(model), _view(view), _subControllers(*this), _midiInBlocks(*this)
 {
+    juce::Timer::startTimerHz(1);
 }
 
 Controller::~Controller()
 {
+    juce::Timer::stopTimer();
 }
 
 void Controller::Fill()
@@ -64,4 +66,10 @@ const std::string Controller::ConvertDataToString(const uint8_t *data, int lengt
     hexString += ']';
 
 	 return hexString;
+}
+
+void Controller::timerCallback() // override
+{
+     Debug::Log("#Callback 1Hz");
+     _model.OnTimer(Model::ETimer::OneSecond);
 }

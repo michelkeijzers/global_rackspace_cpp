@@ -3,7 +3,7 @@
 #ifdef WIN32
 	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/types.h"
 #else
-	#include "gigperformer/sdk/types.h"
+	#include "../../build/windows-native/_deps//gp-sdk-src/c/include/gigperformer/sdk/types.h"
 #endif
 
 /* static */ class MidiMessage

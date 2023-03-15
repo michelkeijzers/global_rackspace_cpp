@@ -31,13 +31,19 @@ class MixerSubModel : public SubModel, public Observable
 	 EPaneSelection GetPaneSelection();
     void SetPaneSelection(EPaneSelection paneSelection);
 
+	 /// <summary>
+	 /// Returns -1 if not in a channel mode
+	 /// </summary>
+	 /// <returns></returns>
+	 int GetChannelOffset();
+
 	 double GetChannelVolume(int channelIndex);
     void SetChannelVolume(int channelIndex, double newVolume);
 
 	 double GetMasterVolume();
     void SetMasterVolume(double newVolume);
-
 	 
+
 	 double GetChannelLevelLeft(int channelIndex);
     void SetChannelLevelLeft(int channelIndex, double newLevel);
 
@@ -51,16 +57,16 @@ class MixerSubModel : public SubModel, public Observable
     void SetMasterLevelRight(double newVolume);
 
 
-	 bool GetChannelGateLeft(int channelIndex);
+	 juce::Time GetChannelLastTimeGateLeftActive(int channelIndex);
     void SetChannelGateLeft(int channelIndex, bool newGate);
 
-	 bool GetChannelGateRight(int channelIndex);
+	 juce::Time GetChannelLastTimeGateRightActive(int channelIndex);
     void SetChannelGateRight(int channelIndex, bool newGate);
 
-    bool GetMasterGateLeft();
+    juce::Time GetMasterLastTimeGateLeftActive();
     void SetMasterGateLeft(bool newGate);
 
-    bool GetMasterGateRight();
+    juce::Time GetMasterLastTimeGateRightActive();
     void SetMasterGateRight(bool newGate);
 
 
@@ -79,8 +85,8 @@ class MixerSubModel : public SubModel, public Observable
     double _masterVolume;
     double _masterLevelLeft;
     double _masterLevelRight;
-	 bool _masterGateLeft;
-    bool _masterGateRight;
+	 juce::Time _masterLastTimeGateLeftActive;
+    juce::Time _masterLastTimeGateRightActive;
 
 	 std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 };
