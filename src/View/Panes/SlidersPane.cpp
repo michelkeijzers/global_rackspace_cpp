@@ -68,22 +68,16 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
 {
     if (changedProperty == ChangedProperties::EChangedProperty::SecondElapsed)
     {
-        Debug::Log("UPDATE SECOND ELAPSED");
-        if (MvcFramework::GetGigPerformerApi().widgetExists("SHAPE1"))
+        // Debug::Log("UPDATE SECOND ELAPSED"); This gives focus to the script logger window every second
+         // Test code for setwidgetbounds
+       /*  if (MvcFramework::GetGigPerformerApi().widgetExists("SHAPE1"))
         {
-            Debug::Log("a1");
             auto& api = MvcFramework::GetGigPerformerApi();
-            Debug::Log("a2");
-            api.setWidgetOutlineRoundness("SHAPE1", 25); 
-            Debug::Log("a3");
+            api.setWidgetOutlineRoundness("SHAPE1", 25);
             api.setWidgetHideOnPresentation("SHAPE1", false);
-            Debug::Log("a4");
-            api.setWidgetBounds("SHAPE1", 100, 200, 300, 250);
-            Debug::Log("a5");
-            
-        }
-
-        //CheckGatesFading();
+            api.setWidgetBounds("SHAPE1", -100, 200, 300, 250);
+        }*/
+        CheckGatesFading();
     }
 
     else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
@@ -317,6 +311,5 @@ void SlidersPane::CheckGatesFading()
             UpdateWidgetForGateFading(ms, valueWidget);
         }
     }
-
     UpdatePropertyMasterLastTimeGate();
 }

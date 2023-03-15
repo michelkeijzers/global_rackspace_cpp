@@ -73,6 +73,6 @@ const std::string Controller::ConvertDataToString(const uint8_t *data, int lengt
 
 void Controller::hiResTimerCallback() // override
 {
-     Debug::Log("#Callback 1Hz");
+     // Debug::Log("#Callback 1Hz");  This gives focus to the script logger window every second
      _model.OnTimer(Model::ETimer::OneSecond);
 }

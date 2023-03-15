@@ -9,14 +9,14 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\Controller",
-    "\\src\\Framework",
     "\\src\\Midi",
     "\\src\\MidiInBlocks",
     "\\src\\Model",
     "\\src\\Plugins",
+    "\\src\\Utilities",
     "\\src\\View",
-    "\\src\\View\\Panes"
+    "\\src\\View\\Panes",
+    "\\src\\Widgets"
   ],
   "SelectedNode": "\\src\\View\\Panes\\SlidersPane.cpp",
   "PreviewInSolutionExplorer": false

@@ -24,6 +24,8 @@ FetchContent_Declare(
   # GIT_TAG origin/beta
   GIT_TAG 6d1b92fbb59fafbf47e38dd80f33d46692fb3425 # v51
   #SOURCE_DIR C:/Users/fdenb/source/repos/gpextensions/gp-sdk.4.6
+  # GIT_TAG 39ab2d1aae8194b4c6a11e899360f1d925a25d5c fix 2
+  # GIT_TAG f6b1ad94a3af83afd269a327e93ddc6cf94cb1b1
 )
 FetchContent_MakeAvailable(gp-sdk)
 fetch_dependency(gp-sdk)
