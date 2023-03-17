@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #ifdef TESTER
-    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/types.h"
+    #include "../../../JuceTester2/NewProject/Source/types.h"
 #endif
 #include <juce_core/juce_core.h>
 
@@ -30,8 +30,6 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 #ifdef TESTER
     exit(1);
 #endif
-
-    LogToAll(message);
 }
 
 /* static */ void Debug::Assert(bool condition, const std::string &functionName, const std::string &errorText)

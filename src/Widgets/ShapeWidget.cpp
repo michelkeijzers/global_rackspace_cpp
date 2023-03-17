@@ -18,25 +18,16 @@ void ShapeWidget::SetBounds(int left, int top, int width, int height)
                                             ", width = " + std::to_string(width) +
                                             ", height = " + std::to_string(height) + ")");
 
-	 Debug::Log("c1");
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
-     Debug::Log("c2");
-
     Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
-     Debug::Log("c3");
     Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
-     Debug::Log("c4");
     Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
-     Debug::Log("c5");
     _left = left;
     _top = top;
     _width = width;
     _height = height;
-    Debug::Log("c6");
-    //TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-
+    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
     Debug::LogMethodExit(__FUNCTION__);
-    Debug::Log("c8");
 }
 
 int ShapeWidget::GetLeft()
@@ -51,7 +42,7 @@ void ShapeWidget::SetLeft(int left)
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
 
     _left = left;
-    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -68,7 +59,7 @@ void ShapeWidget::SetTop(int top)
     Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
 
     _top = top;
-    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -85,7 +76,7 @@ void ShapeWidget::SetWidth(int width)
     Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
 
     _width = width;
-    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -102,7 +93,7 @@ void ShapeWidget::SetHeight(int height)
     Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
 
     _height = height;
-    // TODO MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
+    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 
     Debug::LogMethodExit(__FUNCTION__);
 }
@@ -198,7 +189,7 @@ void ShapeWidget::SetWidgetTextColor(double red, double green, double blue, doub
     _blueTextColor = blue;
     _alphaTextColor = alpha;
     Debug::NotImplemented(__FUNCTION__);
-    // TODO: Not implemented by GP
+    // Not implemented by GP
     // MvcFramework::GetGigPerformerApi().setWidgetTextColor(
     //    GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(_redTextColor, _greenTextColor, _blueTextColor,
     //                                                             _alphaTextColor));
@@ -229,8 +220,7 @@ double ShapeWidget::GetWidgetTextColorAlpha()
 void ShapeWidget::SetWidgetOutlineThickness(int thickness)
 {
     _outlineThickness = thickness;
-    MvcFramework::GetGigPerformerApi().setWidgetOutlineThickness(
-        GetName(), (int)(_outlineThickness / 255.0 * 256.0)); // TODO: check int->double conversion
+    MvcFramework::GetGigPerformerApi().setWidgetOutlineThickness(GetName(), _outlineThickness);
 }
 
 int ShapeWidget::GetWidgetOutlineThickness()

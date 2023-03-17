@@ -36,10 +36,31 @@ class OrganSubModel : public SubModel, public Observable
 	 double GetReverbAmount();
     void SetReverbAmount(double reverbAmount);
 
+	 // Setup
+    bool IsPrimaryKeyboardActive();
+    void SetPrimaryKeyboardActive(bool primaryKeyboardIsActive);
+	 bool IsSecondaryKeyboardActive();
+    void SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive);
+
+	 int GetLowestNote();
+    void SetLowestNote(int lowestNote);
+    int GetHighestNote();
+    void SetHighestNote(int highestNote);
+
+	 bool IsSustainPedalActive();
+    void SetSustainPedalActive(bool sustainPedalIsActive);
+
   private:
 	 std::vector<double> _drawbarValues;
     bool _isPresent;
     bool _isRotatorSpeedFast;
     double _drive;
     double _reverbAmount;
+
+	 // Setup
+    bool _primaryKeyboardIsActive;
+    bool _secondaryKeyboardIsActive;
+    int _lowestNote;
+    int _highestNote;
+    bool _sustainPedalIsActive;
 };

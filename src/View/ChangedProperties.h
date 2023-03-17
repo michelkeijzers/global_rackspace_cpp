@@ -18,6 +18,7 @@ class ChangedProperties
         OrganRotatorSpeed,
         OrganDrive,
         OrganReverbAmount,
+
 		  // Setup
 		  OrganPrimaryKeyboardActive,
 		  OrganSecondaryKeyboardActive,
@@ -27,7 +28,6 @@ class ChangedProperties
 
         SlidersPaneSelection,
 
-        // TODO: Check if Mixer from MixerChannel  should be removed, as in ...Name etc.
         MixerChannel1Volume,
         MixerChannel2Volume,
         MixerChannel3Volume,

@@ -1,6 +1,7 @@
 // See https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message
 
 #include "MidiMessage.h"
+static const double PARAM_ACCURACY = 0.001;
 
 /* static */ bool MidiMessage::IsChannel1(const uint8_t *data, int length)
 {
@@ -14,7 +15,7 @@
 
  /* static */ double MidiMessage::MidiToParam(uint8_t value)
 {
-    return ((value + 0.001 ) / 127.0); // TODO: Make constant
+    return ((value + PARAM_ACCURACY ) / 127.0);
 }
 
 /* static */ uint8_t MidiMessage::ParamToMidi(double value)

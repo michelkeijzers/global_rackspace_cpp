@@ -16,7 +16,6 @@ MixerSubController::MixerSubController(Controller &controller)
     : SubController(controller), // _paneSelection(EPaneSelection::Channels1To8)
       _mixerSubModel((MixerSubModel &)(GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer)))
 {
-    //TODO SubModel &x = GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer);
 }
 
 void MixerSubController::SetSliderValue(int sliderIndex, double newValue)

@@ -125,7 +125,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/WidgetsListener.cpp")
 target_link_libraries(
-  ${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp juce::juce_gui_basics
+  ${PROJECT_NAME} PRIVATE gigperformer::sdk::cpp juce::juce_audio_basics
+                          gigperformer::sdk::cpp juce::juce_gui_basics
                           juce::juce_core juce::juce_events juce::juce_graphics)
 target_include_directories(${PROJECT_NAME}
                            PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

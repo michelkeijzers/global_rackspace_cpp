@@ -25,10 +25,6 @@ class MixerSubController : public SubController
 
 	 void SetChannelNames(std::vector<std::string>);
 
-	 // TODO: Check
-    // protected:
-    //	std::shared_ptr<AudioMixerPlugin> GetPluginForChannel(int channelIndex);
-
   private:
     static const int CHANNELS_IN_MIXER;
 

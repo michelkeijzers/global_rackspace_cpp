@@ -272,9 +272,8 @@ void SlidersPane::UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidg
 
     if (!DoubleUtilities::AreEqual(valueWidget.GetWidgetOutlineColorRed(), red))
     {
-        valueWidget.SetWidgetOutlineColor(red, 0.0, 0.0, 1.0); // TODO: Check values
+        valueWidget.SetWidgetOutlineColor(red, 0.0, 0.0, 1.0); // TODO: Check values (green/blue values, going to black?)
     }
-
     if (valueWidget.GetWidgetOutlineThickness() != thickness)
     {
         valueWidget.SetWidgetOutlineThickness(thickness);

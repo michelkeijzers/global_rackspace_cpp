@@ -42,7 +42,7 @@
 #include <iostream>
 
 #ifdef TESTER
-    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
+    #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -119,7 +119,9 @@ void AudioToCcPlugin::Init() // override
     api.setPluginParameter(name, EParameters::RightOffValue, (double)(0 + 1) / 128.0, true);
 }
 
+#pragma warning( disable: 4100 )
 void AudioToCcPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
+#pragma warning(default : 4100)
 {
-	// TODO: No subscriptions needed, however, maybe later to bypass unused channels
+	// No subscriptions needed, however, maybe later to bypass unused channels
 }

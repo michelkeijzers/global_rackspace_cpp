@@ -3,7 +3,7 @@
 #include "MixerSubController.h"
 #include "OrganSubController.h"
 #ifdef TESTER
-	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/Tester/TestController.h"
+	#include "../../../JuceTester2/NewProject/Source/TestController.h"
 #endif
 
 SubControllers::SubControllers(Controller &controller) : _controller(controller)

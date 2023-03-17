@@ -1,6 +1,9 @@
+#include <juce_core/juce_core.h>
+#include <juce_audio_basics/midi/juce_MidiMessage.h>
 #include "OrganSetupPane.h"
 #include "../../Framework/MvcFramework.h"
 #include "../../Model/OrganSubModel.h"
+#include "../../Utilities/Debug.h"
 #include "../../Widgets/ButtonWidget.h"
 #include "../../Widgets/ShapeWidget.h"
 #include "../../Widgets/TextWidget.h"
@@ -9,8 +12,6 @@
 #include "../ChangedProperties.h"
 #include "../IObserver.h"
 #include "../View.h"
-#include "../../Utilities/Debug.h"
-
 
 OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
 {
@@ -55,36 +56,74 @@ void OrganSetupPane::Fill() // override
         new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton, true));
 }
 
-
 void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-
-
-	/*
-	* 
-	* 
-	* TODO
-
-	ChangedPr5operties OrganPrimaryKeyboardActive, OrganSecondaryKeyboardActive, OrganLowestNote, OrganHighestNote,
-        OrganSustainPedalActive,
-
-
-   Widgets 
-                  SetupOrganPrimaryKeyboardActiveButton,
-                  SetupOrganSecondaryKeyboardActiveButton,
-                  SetupOrganLowestNoteSlider,
-                  SetupOrganHighestNoteSlider,
-                  SetupOrganLowestNoteTextLabel,
-                  SetupOrganHighestNoteTextLabel,
-                  SetupOrganSustainPedalActiveButton,
-						*/
-		 
-    if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
+    if (changedProperty == ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel);
-        TextWidget &textWidget = static_cast<TextWidget &>(widget);
-        bool isRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
-        // textWidget.SetText(isRotatorSpeedFast ? ROTATOR_SPEED_FAST_TEXT : ROTATOR_SPEED_SLOW_TEXT);
-        textWidget.SetWidgetFillColor(isRotatorSpeedFast ? 1.0 : 0.0, isRotatorSpeedFast ? 0.0 : 1.0, 0.0, 1.0);
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton);
+        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
+        bool isActive = _organSubModel.IsPrimaryKeyboardActive();
+        buttonWidget.SetPressed(isActive);
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton);
+        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
+        bool isActive = _organSubModel.IsSecondaryKeyboardActive();
+        buttonWidget.SetPressed(isActive);
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganLowestNote)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        int noteNumber = _organSubModel.GetLowestNote();
+        valueWidget.SetValue(noteNumber / 127.0); // TODO: 127 ?
+
+        Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel);
+        TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
+        textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganHighestNote)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        int noteNumber = _organSubModel.GetHighestNote();
+        valueWidget.SetValue(noteNumber / 127.0); // TODO: 127 ?
+
+        Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel);
+        TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
+        textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganSustainPedalActive)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton);
+        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
+        bool isActive = _organSubModel.IsSustainPedalActive();
+        buttonWidget.SetPressed(isActive);
     }
 }
+
+
+
+    /*
+* TODO
+
+ChangedPr5operties OrganPrimaryKeyboardActive,
+ OrganSecondaryKeyboardActive,
+
+ OrganLowestNote,
+ OrganHighestNote,
+
+    OrganSustainPedalActive,
+
+
+Widgets
+              SetupOrganPrimaryKeyboardActiveButton,
+              SetupOrganSecondaryKeyboardActiveButton,
+
+              SetupOrganLowestNoteSlider,
+              SetupOrganHighestNoteSlider,
+              SetupOrganLowestNoteTextLabel,
+              SetupOrganHighestNoteTextLabel,
+              SetupOrganSustainPedalActiveButton,
+                    */

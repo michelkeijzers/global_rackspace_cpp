@@ -13,7 +13,7 @@
 #include "../View/View.h"
 #include "../Framework/MvcFramework.h"
 #ifdef TESTER
-    #include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
+    #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -76,8 +76,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
 					 std::vector<std::string> channelNames;
 					 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
                 {
-                  //TODO check WidgetIds::EWidgetId channelNameWidget =
-                  //   WidgetIds::EWidgetId((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
                   const std::string widgetNameSetupChannel = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
                   channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
                 }

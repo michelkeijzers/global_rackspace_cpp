@@ -5,7 +5,7 @@
 #include "../View/View.h"
 #include "../Utilities/Debug.h"
 #ifdef TESTER
-	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
+	 #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif

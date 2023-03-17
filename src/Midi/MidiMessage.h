@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef TESTER
-	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/types.h"
+	#include "../../../JuceTester2/NewProject/Source/types.h"
 #else
 	#include "../../build/windows-native/_deps//gp-sdk-src/c/include/gigperformer/sdk/types.h"
 #endif

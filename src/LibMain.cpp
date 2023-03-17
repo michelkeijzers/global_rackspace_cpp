@@ -132,7 +132,6 @@ void LibMain::Initialization()
     consoleLog("------------------------------------------");
 }
 
-
 std::string LibMain::GetProductDescription()
 {
     return XMLProductDescription;

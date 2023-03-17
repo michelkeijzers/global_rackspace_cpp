@@ -7,7 +7,7 @@
 #include <iostream>
 
 #ifdef TESTER
-	#include "../../../JuceTest1/NewProject/Builds/VisualStudio2022/GP_API/GigPerformerAPI.h"
+	#include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -69,7 +69,7 @@ void AudioMixerPlugin::SetChannelName(int channelIndex)
 {
     const std::string &newName = _mixerChannelSubModels[channelIndex]->GetName();
 
-	 //TODO: Implement when an SDK function is available
+	 //Not implemented by GP
    // MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex), newVolume,
     //                                                      true);
     Debug::Log("$ " + GetName() + ": channel name, channel index = " + std::to_string(channelIndex) +
