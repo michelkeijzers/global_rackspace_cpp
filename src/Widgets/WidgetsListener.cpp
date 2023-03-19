@@ -1,17 +1,18 @@
 #include "WidgetsListener.h"
-#include "ButtonWidget.h"
-#include "ValueWidget.h"
-#include "WidgetIds.h"
-#include "Widgets.h"
 #include "../Controller/Controller.h"
 #include "../Controller/MixerSubController.h"
 #include "../Controller/OrganSubController.h"
+#include "../Framework/MvcFramework.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
 #include "../View/Panes/OrganPane.h"
 #include "../View/Panes/SlidersPane.h"
 #include "../View/View.h"
-#include "../Framework/MvcFramework.h"
+#include "ButtonWidget.h"
+#include "ValueWidget.h"
+#include "WidgetIds.h"
+#include "Widgets.h"
+#include "../Midi/MidiMessage.h"
 #ifdef TESTER
     #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
 #else
@@ -37,7 +38,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     if (((int)widgetId >= drawbar1Value) && ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {
         OrganSubController &organSubController =
-            (OrganSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Organ);
+            static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
         organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
         processed = true;
     }
@@ -46,8 +47,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     {
         if (ButtonWidget::IsPressed(newValue))
         {
-            OrganSubController &organSubController =
-                (OrganSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Organ);
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
             organSubController.SwapRotatorSpeed();
         }
         processed = true;
@@ -70,32 +71,34 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         {
             if (ButtonWidget::IsPressed(newValue))
             {
-                MixerSubController &mixerSubController =
-                    (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
+                MixerSubController &mixerSubController = static_cast<MixerSubController &>(
+                    _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
 
-					 std::vector<std::string> channelNames;
-					 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+                std::vector<std::string> channelNames;
+                for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
                 {
-                  const std::string widgetNameSetupChannel = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
-                  channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
+                    const std::string widgetNameSetupChannel =
+                        "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
+                    channelNames.push_back(
+                        MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
                 }
-                
-					 mixerSubController.SetChannelNames(channelNames);
+
+                mixerSubController.SetChannelNames(channelNames);
             }
         }
     }
 
     if (!processed)
     {
-        WidgetIds::EWidgetId Channel1NextSourceButtonId = WidgetIds::EWidgetId::SetupChannel1NextSourceButton;
-        if ((widgetId >= Channel1NextSourceButtonId) &&
-            ((int)widgetId < (int)Channel1NextSourceButtonId + MixerSubModel::NR_OF_MIXER_CHANNELS))
+        WidgetIds::EWidgetId channel1NextSourceButtonId = WidgetIds::EWidgetId::SetupChannel1NextSourceButton;
+        if ((widgetId >= channel1NextSourceButtonId) &&
+            ((int)widgetId < (int)channel1NextSourceButtonId + MixerSubModel::NR_OF_MIXER_CHANNELS))
         {
             if (ButtonWidget::IsPressed(newValue))
             {
-                MixerSubController &mixerSubController =
-                    (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
-                mixerSubController.SelectNextSource((int)widgetId - (int) Channel1NextSourceButtonId);
+                MixerSubController &mixerSubController = static_cast<MixerSubController &>(
+                    _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
+                mixerSubController.SelectNextSource((int)widgetId - (int)channel1NextSourceButtonId);
             }
             processed = true;
         }
@@ -109,13 +112,66 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         {
             if (ButtonWidget::IsPressed(newValue))
             {
-                MixerSubController &mixerSubController =
-                    (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
-                if (ButtonWidget::IsPressed(newValue))
-                {
-                    mixerSubController.SwapVolumeOverride((int)widgetId - (int)Channel1VolumeOverrideButtonId);
-                }
+                MixerSubController &mixerSubController = static_cast<MixerSubController &>(
+                    _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
+                mixerSubController.SwapVolumeOverride((int)widgetId - (int)Channel1VolumeOverrideButtonId);
             }
+            processed = true;
+        }
+    }
+
+    if (!processed)
+    {
+        if (widgetId == WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton)
+        {
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
+            organSubController.SetPrimaryKeyboardActive(ButtonWidget::IsPressed(newValue));
+            processed = true;
+        }
+    }
+
+    if (!processed)
+    {
+        if (widgetId == WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton)
+        {
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
+            organSubController.SetSecondaryKeyboardActive(ButtonWidget::IsPressed(newValue));
+            processed = true;
+        }
+    }
+
+    if (!processed)
+    {
+        if (widgetId == WidgetIds::EWidgetId::SetupOrganLowestNoteSlider)
+        {
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
+            organSubController.SetLowestNote(MidiMessage::ParamToMidi(newValue));
+            processed = true;
+        }
+    }
+
+    if (!processed)
+    {
+        if (widgetId == WidgetIds::EWidgetId::SetupOrganHighestNoteSlider)
+        {
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
+            organSubController.SetHighestNote(MidiMessage::ParamToMidi(newValue));
+            processed = true;
+        }
+    }
+
+
+    if (!processed)
+    {
+        if (widgetId == WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton)
+        {
+            OrganSubController &organSubController = static_cast<OrganSubController &>(
+                _controller.GetSubController(SubControllers::ESubControllerId::Organ));
+            organSubController.SetSustainPedalActive(MidiMessage::ParamToMidi(newValue));
             processed = true;
         }
     }

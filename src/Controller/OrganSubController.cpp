@@ -70,10 +70,50 @@ void OrganSubController::SetDrive(double drive, bool forced /* = false */)
 	 }
 }
 
-void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = true */)
+void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = false */)
 {
     if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetReverbAmount(), reverbAmount))
     {
         _organSubModel.SetReverbAmount(reverbAmount);
 	 }
+}
+
+void OrganSubController::SetPrimaryKeyboardActive(bool active, bool forced /* = false */)
+{
+	if (forced || (_organSubModel.IsPrimaryKeyboardActive() != active))
+	{
+        _organSubModel.SetPrimaryKeyboardActive(active);
+	 }
+}
+
+void OrganSubController::SetSecondaryKeyboardActive(bool active, bool forced /* = false */)
+{
+     if (forced || (_organSubModel.IsSecondaryKeyboardActive() != active))
+     {
+        _organSubModel.SetSecondaryKeyboardActive(active);
+     }
+}
+
+void OrganSubController::SetLowestNote(int note, bool forced /* = false */)
+{
+     if (forced || (_organSubModel.GetLowestNote() != note))
+     {
+        _organSubModel.SetLowestNote(note);
+     }
+}
+
+void OrganSubController::SetHighestNote(int note, bool forced /* = false */)
+{
+     if (forced || (_organSubModel.GetHighestNote() != note))
+     {
+        _organSubModel.SetHighestNote(note);
+     }
+}
+
+void OrganSubController::SetSustainPedalActive(bool active, bool forced /* = false */)
+{
+     if (forced || (_organSubModel.IsSustainPedalActive() != active))
+     {
+        _organSubModel.SetSustainPedalActive(active);
+     }
 }

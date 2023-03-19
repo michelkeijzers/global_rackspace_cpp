@@ -102,28 +102,3 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
         buttonWidget.SetPressed(isActive);
     }
 }
-
-
-
-    /*
-* TODO
-
-ChangedPr5operties OrganPrimaryKeyboardActive,
- OrganSecondaryKeyboardActive,
-
- OrganLowestNote,
- OrganHighestNote,
-
-    OrganSustainPedalActive,
-
-
-Widgets
-              SetupOrganPrimaryKeyboardActiveButton,
-              SetupOrganSecondaryKeyboardActiveButton,
-
-              SetupOrganLowestNoteSlider,
-              SetupOrganHighestNoteSlider,
-              SetupOrganLowestNoteTextLabel,
-              SetupOrganHighestNoteTextLabel,
-              SetupOrganSustainPedalActiveButton,
-                    */

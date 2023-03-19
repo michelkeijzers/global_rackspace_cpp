@@ -130,6 +130,5 @@ Debug::~Debug()
         }
     }
     _gigPerformerApi->scriptLog(message, true);
-    DBG(message);
     _fileLogger->logMessage(message);
 }

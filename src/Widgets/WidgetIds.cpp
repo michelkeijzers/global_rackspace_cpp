@@ -177,11 +177,11 @@ void WidgetIds::FillSetupOrganPane()
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganTitleTextLabel));
 
-    widgetName = "SetupOrganPrimaryKeyboardActive";
+    widgetName = "SetupOrganPrimaryKeyboardActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganPrimaryKeyboardActiveButton));
 
-    widgetName = "SetupOrganSecondaryKeyboardActive";
+    widgetName = "SetupOrganSecondaryKeyboardActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(
         std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSecondaryKeyboardActiveButton));
@@ -202,14 +202,16 @@ void WidgetIds::FillSetupOrganPane()
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganHighestNoteTextLabel));
 
-    widgetName = "SetupOrganSustainPedalActive";
+    widgetName = "SetupOrganSustainPedalActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSustainPedalActiveButton));
 }
 
 WidgetIds::EWidgetId WidgetIds::GetId(const std::string &name)
 {
-    return _nameToIds.find(name)->second;
+    auto iterator = _nameToIds.find(name);
+    Debug::Assert(iterator != _nameToIds.end(), __FUNCTION__, "Widget " + name + " not found");
+    return iterator->second;
 }
 
 std::string WidgetIds::GetName(EWidgetId id)

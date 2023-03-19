@@ -23,6 +23,13 @@ class OrganSubController : public SubController
 	 void SetDrive(double drive, bool forced = false);
     void SetReverbAmount(double reverbAmount, bool forced = false);
 
+	 // Setup
+    void SetPrimaryKeyboardActive(bool active, bool forced = false);
+    void SetSecondaryKeyboardActive(bool active, bool forced = false);
+    void SetLowestNote(int note, bool forced = false);
+    void SetHighestNote(int note, bool forced = false);
+    void SetSustainPedalActive(bool active, bool forced = false);
+
   private:
     OrganSubModel &_organSubModel;
 };
