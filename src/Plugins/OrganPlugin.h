@@ -15,11 +15,11 @@ class OrganPlugin : public Plugin
 
 	 void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-	 void SetDrawbarValue(int drawbarIndex);
-    void SetRotatorSpeed();
-    void SetDrive();
-    void SetReverbAmount();
-
+    void UpdateBypass();
+     void UpdateDrawbarValue(int drawbarIndex);
+    void UpdateRotatorSpeed();
+    void UpdateDrive();
+    void UpdateReverbAmount();
 
 	private:
     OrganSubModel &_organSubModel;

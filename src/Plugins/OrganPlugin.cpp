@@ -11,10 +11,14 @@
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
-static const int PLUGIN_PARAMETER_REVERB_AMOUNT = 4;
-static const int PLUGIN_PARAMETER_DRIVE = 44;
-static const int PLUGIN_PARAMETER_ROTATOR_SPEED = 8;
-static const int PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET = 20;
+enum EPluginParameters
+{
+    Bypass = -2,
+    ReverbAmount = 4,
+    Drive = 44,
+    RotatorSpeed = 8,
+    UpperDrawbarsOffset = 20
+};
 
 OrganPlugin::OrganPlugin(View &view, OrganSubModel &organSubModel, const std::string &name)
     : Plugin(name, view), _organSubModel(organSubModel)
@@ -24,55 +28,67 @@ OrganPlugin::OrganPlugin(View &view, OrganSubModel &organSubModel, const std::st
 
 void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
+    if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)
+    {
+        UpdateBypass();
+    }
+    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
+             ((int)changedProperty <
+              (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
     {
         int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
-        SetDrawbarValue(drawbarIndex);
+        UpdateDrawbarValue(drawbarIndex);
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {
-        SetRotatorSpeed();
+        UpdateRotatorSpeed();
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
     {
-        SetDrive();
+        UpdateDrive();
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
     {
-        SetReverbAmount();
+        UpdateReverbAmount();
     }
 }
 
-void OrganPlugin::SetDrawbarValue(int drawbarIndex)
+void OrganPlugin::UpdateBypass()
+{
+    bool isEnabled = _organSubModel.IsEnabled();
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::Bypass,
+                                                          BoolUtilities::ToDouble(!isEnabled), true);
+    Debug::Log("$ " + GetName() + ": bypass = " + std::to_string(!isEnabled));
+}
+
+void OrganPlugin::UpdateDrawbarValue(int drawbarIndex)
 {
     double drawbarValue = _organSubModel.GetDrawbarValue(0);
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETERS_UPPDR_DRAWBARS_OFFSET,
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::UpperDrawbarsOffset,
                                                           drawbarValue, true);
     Debug::Log("$ " + GetName() + ": drawbar index = " + std::to_string(drawbarIndex) +
                ", value = " + std::to_string(drawbarValue));
 }
 
-void OrganPlugin::SetRotatorSpeed()
+void OrganPlugin::UpdateRotatorSpeed()
 {
     double rotatorSpeedFast = BoolUtilities::ToDouble(_organSubModel.IsRotatorSpeedFast());
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_ROTATOR_SPEED, rotatorSpeedFast,
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::RotatorSpeed, rotatorSpeedFast,
                                                           true);
     Debug::Log("$ " + GetName() + ": rotator speed fast = " + std::to_string(rotatorSpeedFast));
 }
 
-void OrganPlugin::SetDrive()
+void OrganPlugin::UpdateDrive()
 {
     double drive = _organSubModel.GetDrive();
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_DRIVE, drive, true);
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::Drive, drive, true);
     Debug::Log("$ " + GetName() + ": drive = " + std::to_string(drive));
 }
 
-void OrganPlugin::SetReverbAmount()
+void OrganPlugin::UpdateReverbAmount()
 {
     double reverbAmount = _organSubModel.GetReverbAmount();
-    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), PLUGIN_PARAMETER_REVERB_AMOUNT, reverbAmount,
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::ReverbAmount, reverbAmount,
                                                           true);
     Debug::Log("$ " + GetName() + ": reverbAmount = " + std::to_string(reverbAmount));
 }
