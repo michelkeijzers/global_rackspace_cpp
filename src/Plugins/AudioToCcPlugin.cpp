@@ -49,9 +49,10 @@
 
 static const int NR_OF_VARIABLE_PARAMETERS_PER_CHANNEL = 4;
 
-enum EParameters
+enum EPluginParameters
 {
-    EnvelopeLeft,
+	 Bypass = -2,
+    EnvelopeLeft = 0,
     EnvelopeRight,
     GateEnvelopeLeft,
     GateEnvelopeRight,
@@ -97,31 +98,44 @@ void AudioToCcPlugin::Init() // override
     auto &name = GetName();
     const int ccNumber = _channelIndex * NR_OF_VARIABLE_PARAMETERS_PER_CHANNEL;
 
-	 api.setPluginParameter(name, EParameters::RmsGain, 0.0312500, true);  // 0.0 dB
-    api.setPluginParameter(name, EParameters::PeakGain, 0.0434777, true); // 2.8 dB
-    api.setPluginParameter(name, EParameters::LeftCc, (double)(ccNumber + 1) / 128.0, true);
-    api.setPluginParameter(name, EParameters::RightCc, (double)(ccNumber + 2) / 128.0, true);
-    api.setPluginParameter(name, EParameters::Channel, (double)(5 - 1) / 15.0, true);
-    api.setPluginParameter(name, EParameters::MonoStereo, 1.0, true);
-    api.setPluginParameter(name, EParameters::Rate, 0.66, true); // 1.8 ms
-    api.setPluginParameter(name, EParameters::Inertia, 50 / 100.0, true);
-    api.setPluginParameter(name, EParameters::Attack, 17 / 100.0, true);
-    api.setPluginParameter(name, EParameters::Release, 27 / 100.0, true);
-    api.setPluginParameter(name, EParameters::Device, 0, true);
-    api.setPluginParameter(name, EParameters::MidiToHost, BoolUtilities::ToDouble(true), true);
-    api.setPluginParameter(name, EParameters::AutomateHost, BoolUtilities::ToDouble(false), true);
-    api.setPluginParameter(name, EParameters::GateTreshold, 1.0, true); // 0.0 dB
-    api.setPluginParameter(name, EParameters::LeftGateCc, (ccNumber + 3) / 128.0, true);
-    api.setPluginParameter(name, EParameters::RightGateCc, (ccNumber + 4) / 128.0, true);
-    api.setPluginParameter(name, EParameters::LeftOnValue, (double)(127 + 1) / 128.0, true);
-    api.setPluginParameter(name, EParameters::RightOnValue, (double)(127 + 1) / 128.0, true);
-    api.setPluginParameter(name, EParameters::LeftOffValue, (double)(0 + 1) / 128.0, true);
-    api.setPluginParameter(name, EParameters::RightOffValue, (double)(0 + 1) / 128.0, true);
+	 api.setPluginParameter(name, EPluginParameters::RmsGain, 0.0312500, true);  // 0.0 dB
+    api.setPluginParameter(name, EPluginParameters::PeakGain, 0.0434777, true); // 2.8 dB
+    api.setPluginParameter(name, EPluginParameters::LeftCc, (double)(ccNumber + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightCc, (double)(ccNumber + 2) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::Channel, (double)(5 - 1) / 15.0, true);
+    api.setPluginParameter(name, EPluginParameters::MonoStereo, 1.0, true);
+    api.setPluginParameter(name, EPluginParameters::Rate, 0.66, true); // 1.8 ms
+    api.setPluginParameter(name, EPluginParameters::Inertia, 50 / 100.0, true);
+    api.setPluginParameter(name, EPluginParameters::Attack, 17 / 100.0, true);
+    api.setPluginParameter(name, EPluginParameters::Release, 27 / 100.0, true);
+    api.setPluginParameter(name, EPluginParameters::Device, 0, true);
+    api.setPluginParameter(name, EPluginParameters::MidiToHost, BoolUtilities::ToDouble(true), true);
+    api.setPluginParameter(name, EPluginParameters::AutomateHost, BoolUtilities::ToDouble(false), true);
+    api.setPluginParameter(name, EPluginParameters::GateTreshold, 1.0, true); // 0.0 dB
+    api.setPluginParameter(name, EPluginParameters::LeftGateCc, (ccNumber + 3) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightGateCc, (ccNumber + 4) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::LeftOnValue, (double)(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightOnValue, (double)(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::LeftOffValue, (double)(0 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightOffValue, (double)(0 + 1) / 128.0, true);
 }
 
-#pragma warning( disable: 4100 )
 void AudioToCcPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
-#pragma warning(default : 4100)
 {
-	// No subscriptions needed, however, maybe later to bypass unused channels
+    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Source) &&
+        ((int)changedProperty <
+         (int)ChangedProperties::EChangedProperty::Channel1Source + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    {
+        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Source;
+
+        UpdateBypass(channelIndex);
+    }
+}
+
+void AudioToCcPlugin::UpdateBypass(int channelIndex)
+{
+    bool isEnabled = (_mixerSubModel.GetChannelSource(channelIndex) != MixerChannelSubModel::ESource::Off);
+    MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::Bypass,
+                                                          BoolUtilities::ToDouble(!isEnabled), true);
+    Debug::Log("$ " + GetName() + ": bypass = " + std::to_string(!isEnabled));
 }

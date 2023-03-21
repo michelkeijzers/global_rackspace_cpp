@@ -65,6 +65,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Plugins/GainAndBalanceControlPlugin.cpp" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/OrganPlugin.h" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/OrganPlugin.cpp"  
+   "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/KeyboardPlugin.h" 
+   "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/KeyboardPlugin.cpp"  
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/Debug.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/Debug.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/BoolUtilities.h"

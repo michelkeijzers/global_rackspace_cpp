@@ -23,8 +23,8 @@ class MixerSubModel : public SubModel, public Observable
 
     MixerSubModel(SubModels& subModels);
     ~MixerSubModel();
-
     void Init() override;
+    const std::string GetDebugName() override;
 
 	 //TODO: Check if this method should be made protected or remove methods below that interact with individual mixer channel models
 	 std::vector<MixerChannelSubModel *> GetMixerChannelSubModels();

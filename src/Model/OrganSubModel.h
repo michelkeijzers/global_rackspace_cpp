@@ -19,6 +19,7 @@ class OrganSubModel : public SubModel, public Observable
     static const int NR_OF_DRAWBARS = 9;
 
     OrganSubModel(SubModels& subModels);
+    const std::string GetDebugName() override;
 	 	 
 	 bool IsEnabled();
     void Enable(bool enable);

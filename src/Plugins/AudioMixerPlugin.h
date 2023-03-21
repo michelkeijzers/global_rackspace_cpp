@@ -14,8 +14,8 @@ class AudioMixerPlugin : public Plugin
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-    void SetChannelVolume(int channelIndex);
-    void SetChannelName(int channelIndex);
+    void UpdateChannelVolume(int channelIndex);
+    void UpdateChannelName(int channelIndex);
 
   private:
     int GetChannelVolumeParameter(int channelIndex);

@@ -14,6 +14,7 @@ class MixerChannelSubModel : public SubModel, public Observable
   public:
     enum class ESource
     {
+		  Off,
         PrimaryKeyboard,
         PrimaryKeyboardPads,
         SecondaryKeyboard,
@@ -22,6 +23,7 @@ class MixerChannelSubModel : public SubModel, public Observable
     };
 
     MixerChannelSubModel(SubModels subModels, int channelIndex);
+    const std::string GetDebugName() override;
 
     double GetVolume();
     void SetVolume(double volume);

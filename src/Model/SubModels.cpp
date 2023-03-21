@@ -3,6 +3,7 @@
 #include "../Model/OrganSubModel.h"
 #include "../Model/KeyboardSubModel.h"
 #include "../Model/Model.h"
+#include "../Utilities/Debug.h"
 
 SubModels::SubModels(Model& model) : _model(model), _forcedMode(false)
 {
@@ -19,6 +20,7 @@ void SubModels::Fill()
     _subModels.push_back(new OrganSubModel(*this));
     _subModels.push_back(new KeyboardSubModel(*this, true));
     _subModels.push_back(new KeyboardSubModel(*this, false));
+	 Debug::Assert(_subModels.size() == (int)ESubModelId::Last, __FUNCTION__, "sub models list incorrect");
 }
 
 void SubModels::Init()

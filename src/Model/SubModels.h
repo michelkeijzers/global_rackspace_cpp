@@ -13,7 +13,10 @@ class SubModels
     {
 		 Mixer,
        Organ,
-		 Keyboard
+		 PrimaryKeyboard,
+		 SecondaryKeyboard,
+
+		 Last
     };
 
     SubModels(Model& model);

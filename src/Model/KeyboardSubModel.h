@@ -10,7 +10,12 @@ class KeyboardSubModel : public SubModel, public Observable
 {
   public:
     KeyboardSubModel(SubModels &subModels, bool primaryKeyboard);
+    const std::string GetDebugName() override;
+
+    void EnableSustain(bool enable = true);
+    bool IsSustainEnabled();
 
   private:
     bool _isPrimaryKeyboard;
+    bool _sustainEnabled;
 };

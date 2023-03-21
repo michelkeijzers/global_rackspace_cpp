@@ -7,6 +7,16 @@
 
 static const double PARAM_ACCURACY = 0.001;
 
+/* static */ void MidiMessage::FillCcMessage(uint8_t* data, uint8_t ccNumber, uint8_t ccValue)
+{
+    Debug::Assert(data != nullptr, __FUNCTION__, "data not initialized");
+    Debug::Assert(ccNumber < 128, __FUNCTION__, "ccNumber too big");
+    Debug::Assert(ccValue < 128, __FUNCTION__, "ccValue too big");
+    data[0] = 0xB0;
+    data[1] = ccNumber;
+    data[2] = ccValue;
+}
+
 /* static */ bool MidiMessage::IsChannel1(const uint8_t *data, int length)
 {
     Debug::Assert(length > 0, __FUNCTION__, "illegal length");
@@ -26,6 +36,17 @@ static const double PARAM_ACCURACY = 0.001;
     return static_cast<double>(value) / 127;
 }
 
+ /* static */ bool MidiMessage::MidiToBool(uint8_t value)
+{
+    Debug::Assert(value >= 0, __FUNCTION__, "value too low");
+    Debug::Assert(value <= 127, __FUNCTION__, "value too high");
+    return value >= 64;
+}
+
+/* static */ int MidiMessage::BoolToMidi(bool value)
+{
+    return value ? 127 : 0;
+}
 /* static */ uint8_t MidiMessage::ParamToMidi(double value)
 {
     Debug::Assert(DoubleUtilities::AreEqual(value, 0.0) || (value >= 0.0), __FUNCTION__, "value too low");

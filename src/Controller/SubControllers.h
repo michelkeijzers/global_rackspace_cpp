@@ -13,10 +13,13 @@ class SubControllers
     {
         Mixer,
         Organ,
-		  Window
+		  Window,
+		  PrimaryKeyboard,
+		  SecondaryKeyboard,
 #ifdef TESTER
-		  , Test
+		  Test,
 #endif
+		  Last
     };
 
     SubControllers(Controller& controller);

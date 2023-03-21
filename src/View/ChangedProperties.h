@@ -5,7 +5,10 @@ class ChangedProperties
   public:
     enum class EChangedProperty
     {
-        OrganIsEnabled,
+        PrimaryKeyboardSustainEnabled,
+        SecondaryKeyboardSustainEnabled,
+
+		  OrganIsEnabled,
         OrganDrawbar1,
         OrganDrawbar2,
         OrganDrawbar3,

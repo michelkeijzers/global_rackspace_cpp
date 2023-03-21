@@ -393,6 +393,10 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
 
         switch (_mixerSubModel.GetChannelSource(channelIndex))
         {
+        case MixerChannelSubModel::ESource::Off:
+            shapeWidget.SetWidgetFillColor(0.1, 0.1, 0.1, 1.0);
+            break;
+
         case MixerChannelSubModel::ESource::PrimaryKeyboard:
             shapeWidget.SetWidgetFillColor(1.0, 1.0, 0.0, 1.0);
             break;

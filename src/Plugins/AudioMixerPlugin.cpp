@@ -38,7 +38,7 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
             _mixerChannelSubModels.size()))
     {
         int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1Volume;
-        SetChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
+        UpdateChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 
     else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel17Name) &&
@@ -46,14 +46,13 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
               (int)ChangedProperties::EChangedProperty::Channel17Name + _mixerChannelSubModels.size()))
     {
         int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel17Name;
-        SetChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
+        UpdateChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 }
 
-void AudioMixerPlugin::SetChannelVolume(int channelIndex)
+void AudioMixerPlugin::UpdateChannelVolume(int channelIndex)
 {
     double newVolume = _mixerChannelSubModels[channelIndex]->GetVolume();
-
     MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex), newVolume,
                                                           true);
     Debug::Log("$ " + GetName() + ": channel volume, channel index = " + std::to_string(channelIndex) +
@@ -65,7 +64,7 @@ int AudioMixerPlugin::GetChannelVolumeParameter(int channelIndex)
     return channelIndex * NR_OF_PARAMETERS_PER_CHANNEL + VOLUME_PARAMETER;
 }
 
-void AudioMixerPlugin::SetChannelName(int channelIndex)
+void AudioMixerPlugin::UpdateChannelName(int channelIndex)
 {
     const std::string &newName = _mixerChannelSubModels[channelIndex]->GetName();
 

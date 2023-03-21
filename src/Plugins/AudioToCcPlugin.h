@@ -9,14 +9,13 @@ class AudioToCcPlugin : public Plugin
 {
   public:
     AudioToCcPlugin(View &view, MixerSubModel &mixerSubModel, bool master, int channelIndex, const std::string &name);
-
-	 void Init() override;
-
+    void Init() override;
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
   private:
-    MixerSubModel &_mixerSubModel;
+    void UpdateBypass(int channelIndex);
 
-	 bool _master;
+    MixerSubModel &_mixerSubModel;
+    bool _master;
     int _channelIndex;
 };

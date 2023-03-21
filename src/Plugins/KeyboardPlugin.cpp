@@ -1,12 +1,13 @@
+#include "KeyboardPlugin.h"
 #include "../Framework/MvcFramework.h"
+#include "../Midi/MidiMessage.h"
 #include "../Model/KeyboardSubModel.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
 #include "../View/ChangedProperties.h"
-#include "KeyboardPlugin.h"
 #include <iostream>
 #ifdef TESTER
-    #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
+    #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
@@ -19,5 +20,24 @@ KeyboardPlugin::KeyboardPlugin(View &view, KeyboardSubModel &keyboardSubModel, c
 
 void KeyboardPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-}
+    switch (changedProperty)
+    {
+    case ChangedProperties::EChangedProperty::PrimaryKeyboardSustainEnabled: {
+        bool isEnabled = _keyboardSubModel.IsSustainEnabled();
+        uint8_t midiMessage[3];
+        MidiMessage::FillCcMessage(midiMessage, 64, MidiMessage::BoolToMidi(isEnabled));
+        MvcFramework::GetGigPerformerApi().injectMidiMessageToMidiInputDevice(GetName(), midiMessage, 3);
+        Debug::Log("$ " + GetName() + ": Sustain = " + std::to_string(isEnabled));
+    }
+    break;
 
+    case ChangedProperties::EChangedProperty::SecondaryKeyboardSustainEnabled: {
+        bool isEnabled = _keyboardSubModel.IsSustainEnabled();
+        uint8_t midiMessage[3];
+        MidiMessage::FillCcMessage(midiMessage, 64, MidiMessage::BoolToMidi(isEnabled));
+        MvcFramework::GetGigPerformerApi().injectMidiMessageToMidiInputDevice(GetName(), midiMessage, 3);
+        Debug::Log("$ " + GetName() + ": Sustain = " + std::to_string(isEnabled));
+    }
+    break;
+    }
+}
