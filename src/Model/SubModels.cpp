@@ -1,6 +1,7 @@
 #include "../Model/SubModels.h"
 #include "../Model/MixerSubModel.h"
 #include "../Model/OrganSubModel.h"
+#include "../Model/KeyboardSubModel.h"
 #include "../Model/Model.h"
 
 SubModels::SubModels(Model& model) : _model(model), _forcedMode(false)
@@ -16,6 +17,8 @@ void SubModels::Fill()
 {
     _subModels.push_back(new MixerSubModel(*this));
     _subModels.push_back(new OrganSubModel(*this));
+    _subModels.push_back(new KeyboardSubModel(*this, true));
+    _subModels.push_back(new KeyboardSubModel(*this, false));
 }
 
 void SubModels::Init()

@@ -12,7 +12,10 @@ class MidiInBlocks
   public:
     enum class EMidiInBlockId
     {
-        PrimaryKeyboard
+        PrimaryKeyboard,
+		  SecondaryKeyboard,
+		  FootBoard,
+		  AudioToCc
     };
 
     MidiInBlocks(Controller &controller);

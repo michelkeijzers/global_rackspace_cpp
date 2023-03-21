@@ -25,7 +25,19 @@ class SlidersPane : public Pane
   private:
     void UpdateTab();
 
-    void UpdatePropertyMasterLastTimeGate();
+    void UpdateTabShowOrganWidgets(bool drawbarsSelected);
+    void UpdateTabShowSliders(bool drawbarsSelected);
+    void UpdateTabUpdateValues(bool drawbarsSelected);
+
+	 void UpdateDrawbar(int drawbarIndex);
+    void UpdateOrganDrive();
+    void UpdateOrganReverbAmount();
+
+    void UpdateMasterVolume();
+    void UpdateMasterLevelLeft();
+    void UpdateMasterLevelRight();
+
+	 void UpdatePropertyMasterLastTimeGate();
     void UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidget);
 
     bool IsChannelIndexActive(int channelIndex);

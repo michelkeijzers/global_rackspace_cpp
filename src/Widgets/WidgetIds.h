@@ -20,6 +20,16 @@ class WidgetIds
         OrganDrawbar8,
         OrganDrawbar9,
 
+        PrimaryKeyboardSliderBox1,
+        PrimaryKeyboardSliderBox2,
+        PrimaryKeyboardSliderBox3,
+        PrimaryKeyboardSliderBox4,
+        PrimaryKeyboardSliderBox5,
+        PrimaryKeyboardSliderBox6,
+        PrimaryKeyboardSliderBox7,
+        PrimaryKeyboardSliderBox8,
+        PrimaryKeyboardSliderBox9,
+
         PrimaryKeyboardSlider1,
         PrimaryKeyboardSlider2,
         PrimaryKeyboardSlider3,
@@ -39,7 +49,7 @@ class WidgetIds
         PrimaryKeyboardSlider7LevelLeft,
         PrimaryKeyboardSlider8LevelLeft,
         PrimaryKeyboardSlider9LevelLeft,
-        
+
         PrimaryKeyboardSlider1LevelRight,
         PrimaryKeyboardSlider2LevelRight,
         PrimaryKeyboardSlider3LevelRight,
@@ -50,7 +60,7 @@ class WidgetIds
         PrimaryKeyboardSlider8LevelRight,
         PrimaryKeyboardSlider9LevelRight,
 
-		  PrimaryKeyboardSlider1Name,
+        PrimaryKeyboardSlider1Name,
         PrimaryKeyboardSlider2Name,
         PrimaryKeyboardSlider3Name,
         PrimaryKeyboardSlider4Name,
@@ -71,7 +81,7 @@ class WidgetIds
         PrimaryKeyboardSlider9SourceName,
 
         // Organ pane
-		  //TODO: Add box/title widgets
+        // TODO: Add box/title widgets
         OrganRotatorSpeedTextLabel,
         OrganDrive,
         OrganReverbAmount,
@@ -222,15 +232,15 @@ class WidgetIds
         SetupChannel23VolumeOverrideButton,
         SetupChannel24VolumeOverrideButton,
 
-		  SetupOrganPaneBox,
-		  SetupOrganTitleTextLabel,
+        SetupOrganPaneBox,
+        SetupOrganTitleTextLabel,
         SetupOrganPrimaryKeyboardActiveButton,
         SetupOrganSecondaryKeyboardActiveButton,
         SetupOrganLowestNoteSlider,
-		  SetupOrganHighestNoteSlider,
-		  SetupOrganLowestNoteTextLabel,
+        SetupOrganHighestNoteSlider,
+        SetupOrganLowestNoteTextLabel,
         SetupOrganHighestNoteTextLabel,
-		  SetupOrganSustainPedalActiveButton,
+        SetupOrganSustainPedalActiveButton,
 
         Last
     };

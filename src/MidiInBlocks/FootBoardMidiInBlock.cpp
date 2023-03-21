@@ -1,4 +1,4 @@
-#include "PrimaryKeyboardMidiInBlock.h"
+#include "FootBoardMidiInBlock.h"
 #include "../Controller/Controller.h"
 #include "../Controller/OrganSubController.h"
 #include "../Controller/WindowSubController.h"
@@ -8,43 +8,40 @@
 #include "../Utilities/Debug.h"
 #include <iostream>
 
-PrimaryKeyboardMidiInBlock::PrimaryKeyboardMidiInBlock(Controller &controller)
-    : MidiInBlock(controller, "PrimaryKeyboardMidiIn")
+FootBoardMidiInBlock::FootBoardMidiInBlock(Controller &controller) : MidiInBlock(controller, "FootBoardMidiIn")
 {
 }
 
-bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
+bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
 {
     bool handleMessage = true;
-    switch ((ECCs)ccNumber)
+	 switch ((ECCs)ccNumber)
     {
-    case ECCs::Knob1: {
-        OrganSubController &organSubController =
-            (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-        organSubController.SetDrive(MidiMessage::MidiToParam(value));
+    case ECCs::Switch1: {
+		 // TODO: Modulation wheel upper keyboard
         handleMessage = false;
     }
     break;
 
-    case ECCs::Knob2: {
-        OrganSubController &organSubController =
-            (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-        organSubController.SetReverbAmount(MidiMessage::MidiToParam(value));
+    case ECCs::Switch2: {
+		 // TODO: Modulation wheel lower keyboard
         handleMessage = false;
     }
     break;
 
-    case ECCs::Button9:
+    case ECCs::Switch3:
         if (value == VALUE_BUTTON_PRESSED)
         {
             OrganSubController &organSubController =
-                (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+                static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
             organSubController.SwapRotatorSpeed();
             handleMessage = false;
         }
         break;
 
-    case ECCs::Button12:
+    case ECCs::Switch4:
+        //PrimaryKeyboardController &primaryKeyboardController =  
+
         if (value == VALUE_BUTTON_PRESSED)
         {
             WindowSubController &windowSubController =

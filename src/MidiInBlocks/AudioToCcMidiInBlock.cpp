@@ -11,28 +11,6 @@ AudioToCcMidiInBlock::AudioToCcMidiInBlock(Controller &controller) : MidiInBlock
 {
 }
 
-bool AudioToCcMidiInBlock::OnMidiIn(const uint8_t *data, int length)
-{
-    Debug::LogMethodEntry(__FUNCTION__, "length = " + std::to_string(length));
-
-    bool handleMessage = true;
-
-    if (MidiMessage::IsCcMessage(data, length))
-    {
-        // TECHDEBT: similar code in PrimaryKeyboardMidiInBlock
-        if (MidiMessage::IsChannel1(data, length))
-        {
-            Debug::Assert(length == 3, __FUNCTION__, "Illegal length for MIDI CC message");
-
-            handleMessage = HandleCcMessage(data[1], data[2]);
-        }
-    }
-
-    Debug::LogMethodExit(__FUNCTION__);
-
-    return handleMessage;
-}
-
 /// <summary>
 /// Handle CC message. See table in AudioToCcPlugin.cpp
 /// </summary>

@@ -9,8 +9,6 @@ class PrimaryKeyboardMidiInBlock : public MidiInBlock
   public:
     PrimaryKeyboardMidiInBlock(Controller &controller);
 
-    bool OnMidiIn(const uint8_t *data, int length) override;
-
   private:
     enum class ECCs
     {
@@ -41,6 +39,5 @@ class PrimaryKeyboardMidiInBlock : public MidiInBlock
     };
 
     static const int VALUE_BUTTON_PRESSED = 127;
-
     bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
 };

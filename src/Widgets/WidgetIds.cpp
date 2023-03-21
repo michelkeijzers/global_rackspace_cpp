@@ -39,6 +39,14 @@ void WidgetIds::FillSlidersPane()
                                               (EWidgetId)((int)EWidgetId::OrganDrawbar1 + drawbarSliderNumber - 1)));
     }
 
+	 for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    {
+        _idToNames.push_back("PrimaryKeyboardSlider" + std::to_string(sliderNumber));
+        _nameToIds.insert(
+            std::pair<std::string, EWidgetId>("PrimaryKeyboardSliderBox" + std::to_string(sliderNumber),
+                                              (EWidgetId)((int)EWidgetId::PrimaryKeyboardSliderBox1 + sliderNumber - 1)));
+    }
+
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         _idToNames.push_back("PrimaryKeyboardSlider" + std::to_string(sliderNumber));

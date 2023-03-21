@@ -12,7 +12,8 @@ class SubModels
     enum class ESubModelId
     {
 		 Mixer,
-       Organ
+       Organ,
+		 Keyboard
     };
 
     SubModels(Model& model);
