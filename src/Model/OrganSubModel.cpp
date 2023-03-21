@@ -1,8 +1,11 @@
+#include <memory>
 #include "OrganSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
+#include "SubModels.h"
+#include "MixerSubModel.h"
 
 static const std::string SUB_MODEL_NAME = "Organ";
 
@@ -149,6 +152,12 @@ void OrganSubModel::CheckIfEnabled()
         _isEnabled = isEnabled;
         Debug::Log("# " + SUB_MODEL_NAME + ": Enabled, enabled = " + std::to_string(_isEnabled));
         Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
+
+		  MixerSubModel& mixerSubModel = (MixerSubModel&) (GetSubModels().GetSubModel(SubModels::ESubModelId::Mixer));
+		  if (!_isEnabled && (mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars))
+		  {
+            mixerSubModel.SetNextTab();
+		  }
 	 }
 }
 

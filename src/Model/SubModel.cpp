@@ -13,3 +13,8 @@ bool SubModel::IsForcedMode()
 {
     return _subModels.IsForcedMode();
 }
+
+SubModels& SubModel::GetSubModels()
+{
+    return _subModels;
+}

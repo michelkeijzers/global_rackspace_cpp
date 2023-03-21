@@ -12,6 +12,8 @@ class SubModel
   protected:
     bool IsForcedMode();
 
+	 SubModels &GetSubModels();
+
   private:
     SubModels &_subModels;
 };

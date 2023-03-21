@@ -84,6 +84,31 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         CheckGatesFading();
     }
 
+    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
+             ((int)changedProperty <
+              (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
+    {
+        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
+    }
+
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetDrive());
+    }
+
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
+    {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount);
+        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+        valueWidget.SetValue(_organSubModel.GetReverbAmount());
+    }
+
+
     else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
              ((int)changedProperty <
               (int)ChangedProperties::EChangedProperty::MixerChannel1Volume + MixerSubModel::NR_OF_MIXER_CHANNELS))
@@ -166,30 +191,6 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         valueWidget.SetValue(_mixerSubModel.GetMasterVolume());
-    }
-
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
-    {
-        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
-    }
-
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
-    {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetDrive());
-    }
-
-    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
-    {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        valueWidget.SetValue(_organSubModel.GetReverbAmount());
     }
 
     if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Name) &&
