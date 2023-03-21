@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef TESTER
-	#include "../../../JuceTester2/NewProject/Source/types.h"
+	#include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/types.h"
 #else
-	#include "../../build/windows-native/_deps//gp-sdk-src/c/include/gigperformer/sdk/types.h"
+	#include "../../build/windows-native/_deps/gp-sdk-src/c/include/gigperformer/sdk/types.h"
 #endif
 
 /* static */ class MidiMessage

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #ifdef TESTER
-    #include "../../../JuceTester2/NewProject/Source/types.h"
+    #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/types.h"
 #endif
 #include <juce_core/juce_core.h>
 

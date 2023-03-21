@@ -14,7 +14,7 @@
 #include "Widgets.h"
 #include "../Midi/MidiMessage.h"
 #ifdef TESTER
-    #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
+    #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
     #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif

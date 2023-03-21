@@ -5,7 +5,7 @@
 #include "WindowSubController.h"
 #include "KeyboardSubController.h"
 #ifdef TESTER
-	#include "../../../JuceTester2/NewProject/Source/TestController.h"
+	#include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/TestFramework/TestController.h"
 #endif
 
 SubControllers::SubControllers(Controller &controller) : _controller(controller)

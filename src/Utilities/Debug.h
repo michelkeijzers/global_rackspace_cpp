@@ -5,7 +5,7 @@
 #include <juce_core/logging/juce_FileLogger.h>
 
 #ifdef TESTER
-    #include "../../../JuceTester2/NewProject/Source/GigPerformerAPI.h"
+    #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
    #include "../../build/windows-native/_deps/gp-sdk-src/CPP/include/gigperformer/sdk/GigPerformerAPI.h"
 #endif
