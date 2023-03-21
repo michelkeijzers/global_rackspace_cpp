@@ -12,12 +12,13 @@ class MixerSubModel : public SubModel, public Observable
   public:
     static const int NR_OF_MIXER_CHANNELS = 24;
 
-	 enum class EPaneSelection
+	 enum class ETabSelection
     {
     	  Drawbars,
     	  Channels1To8,
     	  Channels9To16,
     	  Channels17To23,
+		  Last
     };
 
     MixerSubModel(SubModels& subModels);
@@ -28,8 +29,9 @@ class MixerSubModel : public SubModel, public Observable
 	 //TODO: Check if this method should be made protected or remove methods below that interact with individual mixer channel models
 	 std::vector<MixerChannelSubModel *> GetMixerChannelSubModels();
 
-	 EPaneSelection GetPaneSelection();
-    void SetPaneSelection(EPaneSelection paneSelection);
+	 ETabSelection GetTabSelection();
+    void SetTabSelection(ETabSelection tabSelection);
+    void SetNextTab();
 
 	 /// <summary>
 	 /// Returns -1 if not in a channel mode
@@ -81,7 +83,7 @@ class MixerSubModel : public SubModel, public Observable
     void SwapVolumeOverride(int channelIndex);
 
   private:
-    EPaneSelection _paneSelection;
+    ETabSelection _tabSelection;
     double _masterVolume;
     double _masterLevelLeft;
     double _masterLevelRight;

@@ -13,7 +13,7 @@
 /* static */ const int MixerSubController::CHANNELS_IN_MIXER = 16;
 
 MixerSubController::MixerSubController(Controller &controller)
-    : SubController(controller), // _paneSelection(EPaneSelection::Channels1To8)
+    : SubController(controller),
       _mixerSubModel((MixerSubModel &)(GetController().GetModel().GetSubModel(SubModels::ESubModelId::Mixer)))
 {
 }
@@ -22,27 +22,27 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
 {
     if (sliderIndex < SlidersPane::NR_OF_CHANNEL_SLIDERS)
     {
-        switch (_mixerSubModel.GetPaneSelection())
+        switch (_mixerSubModel.GetTabSelection())
         {
-        case MixerSubModel::EPaneSelection::Drawbars:
+        case MixerSubModel::ETabSelection::Drawbars:
             // Not possible, invisible
             Debug::Error(__FUNCTION__, "Drawbar pane active, slider selected");
             break;
 
-        case MixerSubModel::EPaneSelection::Channels1To8:
+        case MixerSubModel::ETabSelection::Channels1To8:
             _mixerSubModel.SetChannelVolume(sliderIndex, newValue);
             break;
 
-        case MixerSubModel::EPaneSelection::Channels9To16:
+        case MixerSubModel::ETabSelection::Channels9To16:
             _mixerSubModel.SetChannelVolume(1 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
             break;
 
-        case MixerSubModel::EPaneSelection::Channels17To23:
+        case MixerSubModel::ETabSelection::Channels17To23:
             _mixerSubModel.SetChannelVolume(2 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
             break;
 
         default:
-            Debug::Error(__FUNCTION__, "Illegal pane selection");
+            Debug::Error(__FUNCTION__, "Illegal tab selection");
         }
     }
     else

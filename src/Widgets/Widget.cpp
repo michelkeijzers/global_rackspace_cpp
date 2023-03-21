@@ -21,7 +21,12 @@ std::string Widget::GetName()
     return _widgetIds.GetName(_id);
 }
 
-bool Widget::IsListenedTo()
+void Widget::Show(bool show /* = true */ )
 {
+    MvcFramework::GetGigPerformerApi().setWidgetHideOnPresentation(GetName(), !show);
+}
+
+bool Widget::IsListenedTo()
+    {
     return _isListenedTo;
 }

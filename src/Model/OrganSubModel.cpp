@@ -7,7 +7,7 @@
 static const std::string SUB_MODEL_NAME = "Organ";
 
 OrganSubModel::OrganSubModel(SubModels &subModels)
-    : SubModel(subModels), _isPresent(false), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0),
+    : SubModel(subModels), _isEnabled(true), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0),
       _primaryKeyboardIsActive(false), _secondaryKeyboardIsActive(false), _lowestNote(0), _highestNote(0),
       _sustainPedalIsActive(false)
 {
@@ -17,18 +17,18 @@ OrganSubModel::OrganSubModel(SubModels &subModels)
     }
 }
 
-bool OrganSubModel::IsPresent()
+bool OrganSubModel::IsEnabled()
 {
-    return _isPresent;
+    return _isEnabled;
 }
 
-void OrganSubModel::SetIsPresent(bool isPresent)
+void OrganSubModel::Enable(bool enable)
 {
-    if (_isPresent != isPresent)
+    if (_isEnabled != enable)
     {
-        _isPresent = isPresent;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Is Present, is present = " + std::to_string(_isPresent));
-        Notify(ChangedProperties::EChangedProperty::OrganIsPresent);
+        _isEnabled = enable;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Is Enabled, is enabled = " + std::to_string(_isEnabled));
+        Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
     }
 }
 
@@ -120,6 +120,7 @@ void OrganSubModel::SetPrimaryKeyboardActive(bool primaryKeyboardIsActive)
         Debug::Log("# " + SUB_MODEL_NAME +
                    ": Set Primary Keyboard Active, value = " + std::to_string(_primaryKeyboardIsActive));
         Notify(ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive);
+        CheckIfEnabled();
     }
 }
 
@@ -136,11 +137,23 @@ void OrganSubModel::SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive)
         Debug::Log("# " + SUB_MODEL_NAME +
                    ": Set Secondary Keyboard Active, value = " + std::to_string(_secondaryKeyboardIsActive));
         Notify(ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive);
+        CheckIfEnabled();
     }
 }
 
-int OrganSubModel::GetLowestNote()
+void OrganSubModel::CheckIfEnabled()
 {
+    bool isEnabled = _primaryKeyboardIsActive || _secondaryKeyboardIsActive;
+	 if (isEnabled != _isEnabled)
+	 {
+        _isEnabled = isEnabled;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Enabled, enabled = " + std::to_string(_isEnabled));
+        Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
+	 }
+}
+
+int OrganSubModel::GetLowestNote()
+    {
     return _lowestNote;
 }
 

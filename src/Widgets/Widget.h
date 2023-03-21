@@ -9,6 +9,7 @@ class Widget
   public:
     WidgetIds::EWidgetId GetId();
     std::string GetName();
+    void Show(bool show = true);
     bool IsListenedTo();
 
 	protected:

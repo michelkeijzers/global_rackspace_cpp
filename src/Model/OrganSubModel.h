@@ -20,8 +20,8 @@ class OrganSubModel : public SubModel, public Observable
 
     OrganSubModel(SubModels& subModels);
 	 	 
-	 bool IsPresent();
-    void SetIsPresent(bool isPresent);
+	 bool IsEnabled();
+    void Enable(bool enable);
 
 	 double GetDrawbarValue(int drawbarIndex);
     void SetDrawbarValue(int drawbarIndex, double newValue);
@@ -41,6 +41,7 @@ class OrganSubModel : public SubModel, public Observable
     void SetPrimaryKeyboardActive(bool primaryKeyboardIsActive);
 	 bool IsSecondaryKeyboardActive();
     void SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive);
+    void CheckIfEnabled();
 
 	 int GetLowestNote();
     void SetLowestNote(int lowestNote);
@@ -52,7 +53,7 @@ class OrganSubModel : public SubModel, public Observable
 
   private:
 	 std::vector<double> _drawbarValues;
-    bool _isPresent;
+    bool _isEnabled;
     bool _isRotatorSpeedFast;
     double _drive;
     double _reverbAmount;

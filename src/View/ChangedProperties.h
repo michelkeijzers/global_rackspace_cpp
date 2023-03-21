@@ -5,7 +5,7 @@ class ChangedProperties
   public:
     enum class EChangedProperty
     {
-        OrganIsPresent,
+        OrganIsEnabled,
         OrganDrawbar1,
         OrganDrawbar2,
         OrganDrawbar3,
@@ -26,7 +26,7 @@ class ChangedProperties
 		  OrganHighestNote,
 		  OrganSustainPedalActive,
 
-        SlidersPaneSelection,
+        SlidersTabSelection,
 
         MixerChannel1Volume,
         MixerChannel2Volume,

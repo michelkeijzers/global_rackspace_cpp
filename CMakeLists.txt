@@ -71,6 +71,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/IntUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/Controller.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/Controller.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/WindowSubController.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/WindowSubController.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/MixerSubController.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/MixerSubController.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Controller/OrganSubController.h"

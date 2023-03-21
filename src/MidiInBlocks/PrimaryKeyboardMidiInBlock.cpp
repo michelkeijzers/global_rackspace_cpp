@@ -1,9 +1,10 @@
 #include "PrimaryKeyboardMidiInBlock.h"
 #include "../Controller/Controller.h"
 #include "../Controller/OrganSubController.h"
+#include "../Controller/WindowSubController.h"
 #include "../Midi/MidiMessage.h"
 #include "../Model/Model.h"
-#include "../Model/organSubModel.h"
+#include "../Model/OrganSubModel.h"
 #include "../Utilities/Debug.h"
 #include <iostream>
 
@@ -39,8 +40,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
 
     switch ((ECCs)ccNumber)
     {
-    case ECCs::Knob1: 
-	 {
+    case ECCs::Knob1: {
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
@@ -49,8 +49,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
     }
     break;
 
-    case ECCs::Knob2:
-	 {
+    case ECCs::Knob2: {
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
 
@@ -69,6 +68,18 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
             handleMessage = false;
         }
         break;
+
+    case ECCs::Button12:
+        if (value == VALUE_BUTTON_PRESSED)
+        {
+            WindowSubController &windowSubController =
+                (WindowSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Window));
+
+            windowSubController.SetNextSlidersPane();
+            handleMessage = false;
+        }
+        break;
     }
+
     return handleMessage;
 }

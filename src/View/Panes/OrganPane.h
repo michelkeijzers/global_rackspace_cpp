@@ -18,6 +18,8 @@ class OrganPane : public Pane
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
+	 void ShowAllWidgets(bool show);
+
   private:
     OrganSubModel &_organSubModel;
 };

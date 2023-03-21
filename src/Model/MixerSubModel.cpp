@@ -1,15 +1,16 @@
-#include <string>
 #include "MixerSubModel.h"
-#include "MixerChannelSubModel.h"
-#include "SubModels.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
+#include "MixerChannelSubModel.h"
+#include "SubModels.h"
+#include <string>
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
 MixerSubModel::MixerSubModel(SubModels &subModels)
-    : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0), _masterLastTimeGateLeftActive(0),
-      _masterLastTimeGateRightActive(0), _paneSelection(MixerSubModel::EPaneSelection::Drawbars)
+    : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0),
+      _masterLastTimeGateLeftActive(0), _masterLastTimeGateRightActive(0),
+      _tabSelection(MixerSubModel::ETabSelection::Drawbars)
 {
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
@@ -35,47 +36,54 @@ std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()
     return _mixerChannelSubModels;
 }
 
-MixerSubModel::EPaneSelection MixerSubModel::GetPaneSelection()
+MixerSubModel::ETabSelection MixerSubModel::GetTabSelection()
 {
-    return _paneSelection;
+    return _tabSelection;
 }
 
-void MixerSubModel::SetPaneSelection(EPaneSelection paneSelection)
+void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
 {
-    if (IsForcedMode() || (_paneSelection != paneSelection))
+    if (IsForcedMode() || (_tabSelection != tabSelection))
     {
-        _paneSelection = paneSelection;
-        Debug::Log("# " + SUB_MODEL_NAME + ": Pane Selection = " + std::to_string((int)_paneSelection));
-        Notify(ChangedProperties::EChangedProperty::SlidersPaneSelection);
+        _tabSelection = tabSelection;
+        Debug::Log("# " + SUB_MODEL_NAME + ": Tab Selection = " + std::to_string((int)_tabSelection));
+        Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
     }
+}
+
+void MixerSubModel::SetNextTab()
+{
+    _tabSelection = (ETabSelection)(((int)_tabSelection + 1) % (int)ETabSelection::Last);
+    Debug::Log("# " + SUB_MODEL_NAME + ": Tab Selection = " + std::to_string((int)_tabSelection));
+    Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
 }
 
 int MixerSubModel::GetChannelOffset()
 {
     int channelOffset = -1;
-    switch (_paneSelection)
+    switch (_tabSelection)
     {
-    case MixerSubModel::EPaneSelection::Drawbars:
+    case MixerSubModel::ETabSelection::Drawbars:
         // Do nothing
         break;
 
-    case MixerSubModel::EPaneSelection::Channels1To8:
+    case MixerSubModel::ETabSelection::Channels1To8:
         channelOffset = 0;
         break;
 
-    case MixerSubModel::EPaneSelection::Channels9To16:
+    case MixerSubModel::ETabSelection::Channels9To16:
         channelOffset = 8;
         break;
 
-    case MixerSubModel::EPaneSelection::Channels17To23:
+    case MixerSubModel::ETabSelection::Channels17To23:
         channelOffset = 16;
         break;
 
-	 default:
+    default:
         Debug::Error(__FUNCTION__, "Illegal pane selection");
     }
 
-	 return channelOffset;
+    return channelOffset;
 }
 
 double MixerSubModel::GetChannelVolume(int channelIndex)
@@ -216,9 +224,10 @@ void MixerSubModel::SetMasterGateLeft(bool gateActive)
         {
             _masterLastTimeGateLeftActive = juce::Time(0);
         }
-        Debug::Log("# " + SUB_MODEL_NAME + 
+        Debug::Log("# " + SUB_MODEL_NAME +
                    ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
+        Notify((ChangedProperties::EChangedProperty)(
+            (int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
     }
 }
 

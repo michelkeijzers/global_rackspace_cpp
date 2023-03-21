@@ -18,15 +18,15 @@ OrganSubController::OrganSubController(Controller &controller)
 
 void OrganSubController::Init() // override
 {
-    SetIsPresent(true);
+    Enable(true);
     SetRotatorSpeed(false, true);
 }
 
-void OrganSubController::SetIsPresent(bool isPresent, bool forced /* = false */)
+void OrganSubController::Enable(bool enable, bool forced /* = false */)
 {
-    // if ((forced) || (_isPresent != isPresent)) //TODO
+    if (forced || (enable != _organSubModel.IsEnabled()))
     {
-        //_isPresent = isPresent;
+        _organSubModel.Enable(enable);
     }
 }
 

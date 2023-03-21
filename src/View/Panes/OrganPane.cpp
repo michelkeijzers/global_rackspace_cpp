@@ -1,5 +1,4 @@
 #include "OrganPane.h"
-#include "../../Framework/MvcFramework.h"
 #include "../../Model/OrganSubModel.h"
 #include "../../Widgets/TextWidget.h"
 #include "../../Widgets/ValueWidget.h"
@@ -25,7 +24,11 @@ void OrganPane::Fill() // override
 
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
+    if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)
+    {
+        ShowAllWidgets(_organSubModel.IsEnabled());
+    }
+    else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(widget);
@@ -33,4 +36,13 @@ void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* o
         textWidget.SetText(isRotatorSpeedFast ? ROTATOR_SPEED_FAST_TEXT : ROTATOR_SPEED_SLOW_TEXT);
         textWidget.SetWidgetFillColor(isRotatorSpeedFast ? 1.0 : 0.0, isRotatorSpeedFast ? 0.0 : 1.0, 0.0, 1.0);
     }
+}
+
+void OrganPane::ShowAllWidgets(bool show)
+{
+    for (auto &widgetId : GetWidgets().GetWidgetIds())
+	 {
+        auto& widget = GetWidgets().GetWidget(widgetId);
+        widget.Show(show);
+	 }
 }

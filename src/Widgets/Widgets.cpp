@@ -22,3 +22,13 @@ Widget &Widgets::GetWidget(WidgetIds::EWidgetId id, int offset /* = 0 */)
 {
     return *(_widgets.at((WidgetIds::EWidgetId)((int) id + offset)));
 }
+
+std::vector<WidgetIds::EWidgetId> Widgets::GetWidgetIds()
+{
+    std::vector<WidgetIds::EWidgetId> widgetIds;
+    for (auto &iterator : _widgets)
+	 {
+        widgetIds.push_back(iterator.first);
+	 }
+     return widgetIds;
+}

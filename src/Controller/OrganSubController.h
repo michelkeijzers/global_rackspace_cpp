@@ -13,7 +13,7 @@ class OrganSubController : public SubController
 
 	 void Init() override;
 
-    void SetIsPresent(bool isPresent, bool forced = false);
+    void Enable(bool enable, bool forced = false);
 
 	 void SetDrawbarValue(int drawbarIndex, double newValue, bool forced = false);
 

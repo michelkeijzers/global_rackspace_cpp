@@ -12,7 +12,8 @@ class SubControllers
     enum class ESubControllerId
     {
         Mixer,
-        Organ
+        Organ,
+		  Window
 #ifdef TESTER
 		  , Test
 #endif

@@ -16,29 +16,31 @@ class SlidersPane : public Pane
     static const int NR_OF_SLIDERS = 9;
     static const int NR_OF_CHANNEL_SLIDERS = NR_OF_SLIDERS - 1;
 
-    SlidersPane(View &view, Model& model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel);
+    SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel);
 
     void Fill() override;
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
+  private:
+    void UpdateTab();
+
     void UpdatePropertyMasterLastTimeGate();
     void UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidget);
 
-  private:
     bool IsChannelIndexActive(int channelIndex);
 
-	 void SetChannelVolume(int channelIndex);
-    void SetChannelLevelLeft(int channelIndex);
-    void SetChannelLevelRight(int channelIndex);
-    void SetChannelGate(int channelIndex);
+    void UpdateChannelVolume(int channelIndex);
+    void UpdateChannelLevelLeft(int channelIndex);
+    void UpdateChannelLevelRight(int channelIndex);
+    void UpdateChannelGate(int channelIndex);
 
-    void SetChannelName(int channelIndex);
-    void SetChannelSource(int channelIndex);
+    void UpdateChannelName(int channelIndex);
+    void UpdateChannelSource(int channelIndex);
 
-	 void CheckGatesFading();
+    void CheckGatesFading();
 
-	 Model &_model;
+    Model &_model;
     MixerSubModel &_mixerSubModel;
     OrganSubModel &_organSubModel;
 

@@ -19,3 +19,8 @@ Widgets& Pane::GetWidgets()
 {
     return _widgets;
 }
+
+int Widgets::Size()
+{
+    return static_cast<int>(_widgets.size());
+}
