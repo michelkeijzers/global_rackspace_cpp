@@ -13,11 +13,5 @@ SecondaryKeyboardMidiInBlock::SecondaryKeyboardMidiInBlock(Controller &controlle
 bool SecondaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
 {
     bool handleMessage = true;
-    switch ((ECCs)ccNumber)
-    {
-    case ECCs::Sustain: 
-        break;
-    }
-
 	 return handleMessage;
 }

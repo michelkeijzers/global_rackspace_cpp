@@ -57,6 +57,8 @@ target_sources(
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/Plugins.cpp" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/Plugin.h" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/Plugin.cpp" 
+   "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/ExpressionAudioMixerPlugin.h" 
+   "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/ExpressionAudioMixerPlugin.cpp" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/AudioMixerPlugin.h" 
    "${CMAKE_CURRENT_LIST_DIR}/src/Plugins/AudioMixerPlugin.cpp" 
 	"${CMAKE_CURRENT_LIST_DIR}/src/Plugins/AudioToCcPlugin.h" 

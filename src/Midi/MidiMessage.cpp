@@ -43,7 +43,7 @@ static const double PARAM_ACCURACY = 0.001;
     return value >= 64;
 }
 
-/* static */ int MidiMessage::BoolToMidi(bool value)
+/* static */ uint8_t MidiMessage::BoolToMidi(bool value)
 {
     return value ? 127 : 0;
 }

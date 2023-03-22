@@ -16,7 +16,7 @@
 
     static double MidiToParam(uint8_t value);
     static bool MidiToBool(uint8_t value);
-    static int BoolToMidi(bool value);
+    static uint8_t BoolToMidi(bool value);
     static uint8_t ParamToMidi(double value);
 
   private:

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include "Plugin.h"
+#include <vector>
 
 class MixerChannelSubModel;
 class MixerSubModel;
@@ -22,4 +22,8 @@ class AudioMixerPlugin : public Plugin
 
     MixerSubModel &_mixerSubModel;
     std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
+
+    bool _lowerChannels;
+    int _startChannelIndex;
+    int _endChannelIndex;
 };

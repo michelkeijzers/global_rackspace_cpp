@@ -6,6 +6,7 @@
 #include "../Model/SubModels.h"
 #include "AudioMixerPlugin.h"
 #include "AudioToCcPlugin.h"
+#include "ExpressionAudioMixerPlugin.h"
 #include "GainAndBalanceControlPlugin.h"
 #include "KeyboardPlugin.h"
 #include "OrganPlugin.h"
@@ -29,7 +30,7 @@ void Plugins::Fill()
                              true, "AudioMixerChannels1To16"));
     _plugins.push_back(
         new AudioMixerPlugin(_view, static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)),
-                             false, "AudioMixerChannels17To23"));
+                             false, "AudioMixerChannels17To23")); // TODO: make 23->24
     _plugins.push_back(new GainAndBalanceControlPlugin(
         _view, static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)),
         "GainAndBalanceControlMainVolume"));
@@ -45,12 +46,23 @@ void Plugins::Fill()
         new AudioToCcPlugin(_view, static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)),
                             true, -1, "AudioToCcChannelMaster"));
 
-     _plugins.push_back(new KeyboardPlugin(
+    _plugins.push_back(new KeyboardPlugin(
         _view, static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
         "PrimaryKeyboard"));
-     _plugins.push_back(new KeyboardPlugin(
-         _view, static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
-         "SecondaryKeyboard"));
+    _plugins.push_back(new KeyboardPlugin(
+        _view, static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
+        "SecondaryKeyboard"));
+
+    _plugins.push_back(new ExpressionAudioMixerPlugin(
+        _view, static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
+        static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
+        static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)), true,
+        "ExpressionAudioMixerChannels1To16"));
+    _plugins.push_back(new ExpressionAudioMixerPlugin(
+        _view, static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
+        static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
+        static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)), false,
+        "ExpressionAudioMixerChannels17o24"));
 }
 
 void Plugins::Init()

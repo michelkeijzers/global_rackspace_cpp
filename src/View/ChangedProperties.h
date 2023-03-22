@@ -7,6 +7,8 @@ class ChangedProperties
     {
         PrimaryKeyboardSustainEnabled,
         SecondaryKeyboardSustainEnabled,
+        PrimaryKeyboardExpressionVolume,
+		  SecondaryKeyboardExpressionVolume,
 
 		  OrganIsEnabled,
         OrganDrawbar1,

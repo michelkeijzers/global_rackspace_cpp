@@ -23,8 +23,8 @@ class FootBoardMidiInBlock : public MidiInBlock
         Switch9 = 0x18,
         Switch0 = 0x19,
         
-		  LeftPedal = 0x20, // TODO: Check correct values
-		  RightPedal = 0x21,
+		  LeftPedal = 94,
+		  RightPedal = 95,
 
         Last
     };

@@ -10,12 +10,13 @@ class KeyboardSubController : public SubController
 {
   public:
     KeyboardSubController(Controller &controller, bool primaryKeyboard);
-	 void Init() override;
+    void Init() override;
 
-	 void EnableSustain(bool sustain = true, bool forced = false);
+    void EnableSustain(bool sustain = true, bool forced = false);
+    void SetExpressionVolume(uint8_t volume, bool forced = false);
 
   private:
-     KeyboardSubModel &_keyboardSubModel;
-     bool _primaryKeyboard;
-     bool _sustainEnabled;
+    KeyboardSubModel &_keyboardSubModel;
+    bool _primaryKeyboard;
+    bool _sustainEnabled;
 };
