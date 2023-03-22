@@ -17,7 +17,7 @@ class MixerSubModel : public SubModel, public Observable
     	  Drawbars,
     	  Channels1To8,
     	  Channels9To16,
-    	  Channels17To23,
+    	  Channels17To24,
 		  Last
     };
 

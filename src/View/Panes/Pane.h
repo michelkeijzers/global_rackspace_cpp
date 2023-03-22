@@ -13,6 +13,7 @@ class Pane : public IObserver
 
     virtual void Fill() = 0;
     virtual void Init();
+	 void ShowAllWidgets(bool show = true);
 
   protected:
     Widgets &GetWidgets();

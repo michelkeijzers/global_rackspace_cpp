@@ -18,6 +18,7 @@ void WidgetIds::Fill()
 {
     FillSlidersPane();
     FillOrganPane();
+    FillFootPedalPane();
     FillSetupChannelsPane();
     FillSetupOrganPane();
 
@@ -90,7 +91,6 @@ void WidgetIds::FillSlidersPane()
 
 void WidgetIds::FillOrganPane()
 {
-    // Organ pane
     _idToNames.push_back("OrganRotatorSpeedTextLabel");
     _nameToIds.insert(
         std::pair<std::string, EWidgetId>("OrganRotatorSpeedTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
@@ -109,6 +109,15 @@ void WidgetIds::FillOrganPane()
             std::pair<std::string, EWidgetId>("PrimaryKeyboardButton" + std::to_string(buttonNumber),
                                               (EWidgetId)((int)EWidgetId::PrimaryKeyboardButton1 + buttonNumber - 1)));
     }
+}
+
+void WidgetIds::FillFootPedalPane()
+{
+    _idToNames.push_back("LeftFootPedal");
+    _nameToIds.insert(std::pair<std::string, EWidgetId>("LeftFootPedal", EWidgetId::LeftFootPedal));
+
+    _idToNames.push_back("RightFootPedal");
+    _nameToIds.insert(std::pair<std::string, EWidgetId>("RightFootPedal", EWidgetId::RightFootPedal));
 }
 
 void WidgetIds::FillSetupChannelsPane()

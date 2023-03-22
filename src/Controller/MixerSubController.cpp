@@ -37,7 +37,7 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
             _mixerSubModel.SetChannelVolume(1 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
             break;
 
-        case MixerSubModel::ETabSelection::Channels17To23:
+        case MixerSubModel::ETabSelection::Channels17To24:
             _mixerSubModel.SetChannelVolume(2 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
             break;
 

@@ -80,7 +80,7 @@ int MixerSubModel::GetChannelOffset()
         channelOffset = 8;
         break;
 
-    case MixerSubModel::ETabSelection::Channels17To23:
+    case MixerSubModel::ETabSelection::Channels17To24:
         channelOffset = 16;
         break;
 

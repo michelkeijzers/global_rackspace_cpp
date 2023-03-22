@@ -101,6 +101,9 @@ class WidgetIds
         PrimaryKeyboardButton12,
         PrimaryKeyboardButton13,
 
+		  LeftFootPedal,
+		  RightFootPedal,
+
         // Channels Setup pane
         SyncLabelsToMixerButton,
         ChannelIndexTextLabel,
@@ -255,6 +258,7 @@ class WidgetIds
   private:
     void FillSlidersPane();
     void FillOrganPane();
+    void FillFootPedalPane();
     void FillSetupChannelsPane();
     void FillSetupChannelWidget(const std::string &setupChannelPrefix, int channelIndex);
     void FillSetupOrganPane();

@@ -41,6 +41,10 @@ void ExpressionAudioMixerPlugin::Update(ChangedProperties::EChangedProperty chan
     {
         UpdateVolume(true);
     }
+    else if (changedProperty == ChangedProperties::EChangedProperty::SecondaryKeyboardExpressionVolume)
+    {
+        UpdateVolume(false);
+    }
     else
     {
         int nameStartProperty = (int)(_lowerChannels ? ChangedProperties::EChangedProperty::Channel1Name

@@ -120,6 +120,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/OrganPane.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/PrimaryKeyboardButtonsPane.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/PrimaryKeyboardButtonsPane.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/FootBoardPane.cpp"
+   "${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/FootBoardPane.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/SlidersPane.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/SlidersPane.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Widgets/ButtonWidget.h"

@@ -317,7 +317,7 @@ bool SlidersPane::IsChannelIndexActive(int channelIndex)
     return (
         ((tabSelection == MixerSubModel::ETabSelection::Channels1To8) && (0 <= channelIndex) && (channelIndex < 8)) ||
         ((tabSelection == MixerSubModel::ETabSelection::Channels9To16) && (8 <= channelIndex) && (channelIndex < 16)) ||
-        ((tabSelection == MixerSubModel::ETabSelection::Channels17To23) && (16 <= channelIndex) &&
+        ((tabSelection == MixerSubModel::ETabSelection::Channels17To24) && (16 <= channelIndex) &&
          (channelIndex < 24)));
 }
 
