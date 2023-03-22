@@ -12,7 +12,7 @@
 #include "ValueWidget.h"
 #include "WidgetIds.h"
 #include "Widgets.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 #ifdef TESTER
     #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
@@ -148,7 +148,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         {
             OrganSubController &organSubController = static_cast<OrganSubController &>(
                 _controller.GetSubController(SubControllers::ESubControllerId::Organ));
-            organSubController.SetLowestNote(MidiMessage::ParamToMidi(newValue));
+            organSubController.SetLowestNote(MidiUtilities::ParamToMidi(newValue));
             processed = true;
         }
     }
@@ -159,7 +159,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         {
             OrganSubController &organSubController = static_cast<OrganSubController &>(
                 _controller.GetSubController(SubControllers::ESubControllerId::Organ));
-            organSubController.SetHighestNote(MidiMessage::ParamToMidi(newValue));
+            organSubController.SetHighestNote(MidiUtilities::ParamToMidi(newValue));
             processed = true;
         }
     }
@@ -171,7 +171,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         {
             OrganSubController &organSubController = static_cast<OrganSubController &>(
                 _controller.GetSubController(SubControllers::ESubControllerId::Organ));
-            organSubController.SetSustainPedalActive(MidiMessage::ParamToMidi(newValue));
+            organSubController.SetSustainPedalActive(MidiUtilities::ParamToMidi(newValue));
             processed = true;
         }
     }

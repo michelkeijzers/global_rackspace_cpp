@@ -5,6 +5,7 @@
 #include "../Model/MixerSubModel.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/MidiUtilities.h"
 #include <iostream>
 
 #ifdef TESTER
@@ -73,7 +74,7 @@ void ExpressionAudioMixerPlugin::UpdateVolume(bool primaryKeyboard)
             (!primaryKeyboard && (source == MixerChannelSubModel::ESource::SecondaryKeyboard)))
         {
             MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex),
-                                                                  newVolume, true);
+                                                                 newVolume, true);
             Debug::Log("$ " + GetName() + ": expression channel index = " + std::to_string(channelIndex) +
                        ", expression volume = " + std::to_string(newVolume));
         }

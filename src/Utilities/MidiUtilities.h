@@ -6,7 +6,7 @@
     #include "../../build/windows-native/_deps/gp-sdk-src/c/include/gigperformer/sdk/types.h"
 #endif
 
-/* static */ class MidiMessage
+/* static */ class MidiUtilities
 {
   public:
     static void FillCcMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue);
@@ -20,5 +20,5 @@
     static uint8_t ParamToMidi(double value);
 
   private:
-    MidiMessage();
+    MidiUtilities();
 };

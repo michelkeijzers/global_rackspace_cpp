@@ -34,7 +34,7 @@ void FootBoardPane::Update(ChangedProperties::EChangedProperty changedProperty) 
     }
 }
 
-void FootBoardPane::UpdateFootPedal(WidgetIds::EWidgetId widgetId, int volume)
+void FootBoardPane::UpdateFootPedal(WidgetIds::EWidgetId widgetId, double volume)
 {
     Widget &widget = GetWidgets().GetWidget(widgetId);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);

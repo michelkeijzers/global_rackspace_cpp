@@ -1,6 +1,6 @@
 #include "SecondaryKeyboardMidiInBlock.h"
 #include "../Controller/Controller.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
 #include <iostream>

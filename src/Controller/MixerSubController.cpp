@@ -7,7 +7,7 @@
 #include "../Widgets/Widgets.h"
 #include "Controller.h"
 #include "../View/Panes/SlidersPane.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 
 
 /* static */ const int MixerSubController::CHANNELS_IN_MIXER = 16;

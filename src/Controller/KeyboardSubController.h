@@ -13,7 +13,7 @@ class KeyboardSubController : public SubController
     void Init() override;
 
     void EnableSustain(bool sustain = true, bool forced = false);
-    void SetExpressionVolume(uint8_t volume, bool forced = false);
+    void SetExpressionVolume(double volume, bool forced = false);
 
   private:
     KeyboardSubModel &_keyboardSubModel;

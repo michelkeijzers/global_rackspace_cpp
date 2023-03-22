@@ -1,4 +1,5 @@
 #include "Debug.h"
+#include <algorithm>
 #include <iostream>
 #include <string>
 #ifdef TESTER
@@ -13,6 +14,11 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 /* static */ int Debug::_logMethodIndentation = 0;
 /* static */ juce::File *Debug::_logFile = nullptr;
 /* static */ juce::FileLogger *Debug::_fileLogger = nullptr;
+
+// For testing only
+/* static */ std::vector<std::string> Debug::_testLog;
+/* static */ std::string Debug::_testName = "";
+/* static */ bool Debug::_testPassed = false;
 
 /* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
@@ -131,4 +137,26 @@ Debug::~Debug()
     }
     _gigPerformerApi->scriptLog(message, true);
     _fileLogger->logMessage(message);
+    _testLog.push_back(message);
+}
+
+/* static */ void Debug::StartTest(const std::string &testName)
+{
+    _testName = testName;
+    _testLog.clear();
+    //    _testPassed = true;
+}
+
+/* static */ bool Debug::AssertTestLogContains(std::string line)
+{
+    bool found = std::find(_testLog.begin(), _testLog.end(), line) != _testLog.end();
+    Assert(found, _testName, "Expected line: '" + line + "'\n");
+    _testPassed |= found;
+    return found;
+}
+
+/* static */ bool Debug::CheckTestResult()
+{
+    LogToAll(_testPassed ? "Test passed" : "---->TEST FAILED");
+    return _testPassed;
 }

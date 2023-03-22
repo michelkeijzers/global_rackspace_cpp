@@ -26,7 +26,6 @@ void GainAndBalanceControlPlugin::Update(ChangedProperties::EChangedProperty cha
     if (changedProperty == ChangedProperties::EChangedProperty::MasterVolume)
     {
         double newVolume = _mixerSubModel.GetMasterVolume();
-
         MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GAIN_PARAMETER, newVolume, true);
         Debug::Log("$ " + GetName() + ": new volume = " + std::to_string(newVolume));
     }

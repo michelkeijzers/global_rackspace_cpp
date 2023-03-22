@@ -1,6 +1,6 @@
 #include "KeyboardPlugin.h"
 #include "../Framework/MvcFramework.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../Model/KeyboardSubModel.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
@@ -25,7 +25,7 @@ void KeyboardPlugin::Update(ChangedProperties::EChangedProperty changedProperty)
     case ChangedProperties::EChangedProperty::PrimaryKeyboardSustainEnabled: {
         bool isEnabled = _keyboardSubModel.IsSustainEnabled();
         uint8_t midiMessage[3];
-        MidiMessage::FillCcMessage(midiMessage, 64, MidiMessage::BoolToMidi(isEnabled));
+        MidiUtilities::FillCcMessage(midiMessage, 64, MidiUtilities::BoolToMidi(isEnabled));
         MvcFramework::GetGigPerformerApi().injectMidiMessageToMidiInputDevice(GetName(), midiMessage, 3);
         Debug::Log("$ " + GetName() + ": Sustain = " + std::to_string(isEnabled));
     }
@@ -34,7 +34,7 @@ void KeyboardPlugin::Update(ChangedProperties::EChangedProperty changedProperty)
     case ChangedProperties::EChangedProperty::SecondaryKeyboardSustainEnabled: {
         bool isEnabled = _keyboardSubModel.IsSustainEnabled();
         uint8_t midiMessage[3];
-        MidiMessage::FillCcMessage(midiMessage, 64, MidiMessage::BoolToMidi(isEnabled));
+        MidiUtilities::FillCcMessage(midiMessage, 64, MidiUtilities::BoolToMidi(isEnabled));
         MvcFramework::GetGigPerformerApi().injectMidiMessageToMidiInputDevice(GetName(), midiMessage, 3);
         Debug::Log("$ " + GetName() + ": Sustain = " + std::to_string(isEnabled));
     }

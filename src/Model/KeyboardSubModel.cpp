@@ -34,12 +34,12 @@ void KeyboardSubModel::EnableSustain(bool enable /* = true */)
     }
 }
 
-uint8_t KeyboardSubModel::GetExpressionVolume()
+double KeyboardSubModel::GetExpressionVolume()
 {
     return _expressionVolume;
 }
 
-void KeyboardSubModel::SetExpressionVolume(uint8_t volume)
+void KeyboardSubModel::SetExpressionVolume(double volume)
 {
     if (volume != _expressionVolume)
     {

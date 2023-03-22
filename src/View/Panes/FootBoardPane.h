@@ -16,7 +16,7 @@ class FootBoardPane : public Pane
 	 void Fill() override;
 
     void Update(ChangedProperties::EChangedProperty changedProperty) override;
-    void UpdateFootPedal(WidgetIds::EWidgetId widgetId, int volume);
+    void UpdateFootPedal(WidgetIds::EWidgetId widgetId, double volume);
 
   private:
     KeyboardSubModel &_primaryKeyboardSubModel;

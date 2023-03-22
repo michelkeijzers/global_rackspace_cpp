@@ -30,7 +30,7 @@ void KeyboardSubController::EnableSustain(bool sustain, bool forced /* = false *
     }
 }
 
-void KeyboardSubController::SetExpressionVolume(uint8_t volume, bool forced /* = false */)
+void KeyboardSubController::SetExpressionVolume(double volume, bool forced /* = false */)
 {
     if (forced || (volume != _keyboardSubModel.GetExpressionVolume()))
     {

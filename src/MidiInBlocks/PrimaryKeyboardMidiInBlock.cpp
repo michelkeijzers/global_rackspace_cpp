@@ -2,7 +2,7 @@
 #include "../Controller/Controller.h"
 #include "../Controller/OrganSubController.h"
 #include "../Controller/WindowSubController.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../Model/Model.h"
 #include "../Model/OrganSubModel.h"
 #include "../Utilities/Debug.h"
@@ -21,7 +21,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
     case ECCs::Knob1: {
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-        organSubController.SetDrive(MidiMessage::MidiToParam(value));
+        organSubController.SetDrive(MidiUtilities::MidiToParam(value));
         handleMessage = false;
     }
     break;
@@ -29,7 +29,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
     case ECCs::Knob2: {
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-        organSubController.SetReverbAmount(MidiMessage::MidiToParam(value));
+        organSubController.SetReverbAmount(MidiUtilities::MidiToParam(value));
         handleMessage = false;
     }
     break;

@@ -3,10 +3,10 @@
 #include "../Controller/KeyboardSubController.h"
 #include "../Controller/OrganSubController.h"
 #include "../Controller/WindowSubController.h"
-#include "../Midi/MidiMessage.h"
 #include "../Model/Model.h"
 #include "../Model/OrganSubModel.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/MidiUtilities.h"
 #include <iostream>
 
 FootBoardMidiInBlock::FootBoardMidiInBlock(Controller &controller) : MidiInBlock(controller, "FootBoardMidiIn")
@@ -43,7 +43,7 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
     case ECCs::Switch4: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
-        keyboardSubController.EnableSustain(MidiMessage::MidiToBool(value));
+        keyboardSubController.EnableSustain(MidiUtilities::MidiToBool(value));
         handleMessage = false;
     }
     break;
@@ -51,22 +51,23 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
     case ECCs::Switch5: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
-        keyboardSubController.EnableSustain(MidiMessage::MidiToBool(value));
+        keyboardSubController.EnableSustain(MidiUtilities::MidiToBool(value));
         handleMessage = false;
     }
-
-	 case ECCs::LeftPedal: {
-        KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
-            GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
-        keyboardSubController.SetExpressionVolume(value);
-        handleMessage = false;
-	 }
     break;
 
-	 	 case ECCs::RightPedal: {
+    case ECCs::LeftPedal: {
+        KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+            GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
+        keyboardSubController.SetExpressionVolume(MidiUtilities::MidiToParam(value));
+        handleMessage = false;
+    }
+    break;
+
+    case ECCs::RightPedal: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
-        keyboardSubController.SetExpressionVolume(value);
+        keyboardSubController.SetExpressionVolume(MidiUtilities::MidiToParam(value));
         handleMessage = false;
     }
     break;

@@ -1,6 +1,6 @@
 #include "AudioToCcMidiInBlock.h"
 #include "../Controller/Controller.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../Model/MixerSubModel.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
@@ -36,22 +36,22 @@ bool AudioToCcMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
     switch (ccType)
     {
     case ECcType::LevelLeft:
-        mixerSubController.SetChannelLevelLeft(master, channelIndex, MidiMessage::MidiToParam(value));
+        mixerSubController.SetChannelLevelLeft(master, channelIndex, MidiUtilities::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::LevelRight:
-        mixerSubController.SetChannelLevelRight(master, channelIndex, MidiMessage::MidiToParam(value));
+        mixerSubController.SetChannelLevelRight(master, channelIndex, MidiUtilities::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::GateLeft:
-        mixerSubController.SetChannelGateLeft(master, channelIndex, MidiMessage::MidiToParam(value));
+        mixerSubController.SetChannelGateLeft(master, channelIndex, MidiUtilities::MidiToParam(value));
         handleMessage = true;
         break;
 
     case ECcType::GateRight:
-        mixerSubController.SetChannelGateRight(master, channelIndex, MidiMessage::MidiToParam(value));
+        mixerSubController.SetChannelGateRight(master, channelIndex, MidiUtilities::MidiToParam(value));
         handleMessage = true;
         break;
 

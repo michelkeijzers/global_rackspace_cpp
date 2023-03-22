@@ -15,11 +15,11 @@ class KeyboardSubModel : public SubModel, public Observable
     bool IsSustainEnabled();
     void EnableSustain(bool enable = true);
     
-	 uint8_t GetExpressionVolume();
-    void SetExpressionVolume(uint8_t volume);
+	 double GetExpressionVolume();
+    void SetExpressionVolume(double volume);
 
   private:
     bool _isPrimaryKeyboard;
     bool _sustainEnabled;
-    uint8_t _expressionVolume;
+    double _expressionVolume;
 };

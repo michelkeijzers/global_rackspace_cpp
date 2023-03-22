@@ -1,6 +1,6 @@
 #include "MidiInBlock.h"
 #include "../Utilities/Debug.h"
-#include "../Midi/MidiMessage.h"
+#include "../Utilities/MidiUtilities.h"
 
 MidiInBlock::MidiInBlock(Controller &controller, const std::string name) : _controller(controller), _name(name)
 {
@@ -24,9 +24,9 @@ bool MidiInBlock::OnMidiIn(const uint8_t *data, int length)
 {
     Debug::LogMethodEntry(__FUNCTION__, "length = " + std::to_string(length));
     bool handleMessage = true;
-    if (MidiMessage::IsCcMessage(data, length))
+    if (MidiUtilities::IsCcMessage(data, length))
     {
-        if (MidiMessage::IsChannel1(data, length))
+        if (MidiUtilities::IsChannel1(data, length))
         {
             Debug::Assert(length == 3, __FUNCTION__, "Illegal length for MIDI CC message");
             handleMessage = HandleCcMessage(data[1], data[2]);
