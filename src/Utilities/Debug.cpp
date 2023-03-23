@@ -144,7 +144,7 @@ Debug::~Debug()
 {
     _testName = testName;
     _testLog.clear();
-    //    _testPassed = true;
+    _testPassed = true;
 }
 
 /* static */ bool Debug::AssertTestLogContains(std::string line)

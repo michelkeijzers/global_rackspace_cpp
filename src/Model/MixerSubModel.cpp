@@ -43,7 +43,7 @@ void MixerSubModel::Init() /* override */
     }
 }
 
-const std::string MixerSubModel::GetDebugName() /* override */
+const std::string& MixerSubModel::GetName() /* override */
 {
     return SUB_MODEL_NAME;
 }
@@ -75,7 +75,7 @@ void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
     if (IsForcedMode() || (_tabSelection != tabSelection))
     {
         _tabSelection = tabSelection;
-        Debug::Log("# " + GetDebugName() + ", tab selection = " + std::to_string((int)_tabSelection));
+        Debug::Log("# " + GetName() + ", tab selection = " + std::to_string((int)_tabSelection));
         Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
     }
 }
@@ -83,7 +83,7 @@ void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
 void MixerSubModel::SetNextTab()
 {
     _tabSelection = (ETabSelection)(((int)_tabSelection + 1) % (int)ETabSelection::Last);
-    Debug::Log("# " + GetDebugName() + ", tab selection = " + std::to_string((int)_tabSelection));
+    Debug::Log("# " + GetName() + ", tab selection = " + std::to_string((int)_tabSelection));
     Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
 }
 
@@ -139,7 +139,7 @@ void MixerSubModel::SetMasterVolume(double newVolume)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newVolume))
     {
         _masterVolume = newVolume;
-        Debug::Log("# " + GetDebugName() + ", master volume = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master volume = " + std::to_string((int)_masterVolume));
         Notify(ChangedProperties::EChangedProperty::MasterVolume);
     }
 }
@@ -187,7 +187,7 @@ void MixerSubModel::SetMasterLevelLeft(double newLevel)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newLevel))
     {
         _masterLevelLeft = newLevel;
-        Debug::Log("# " + GetDebugName() + ", master level left = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master level left = " + std::to_string((int)_masterVolume));
         Notify(ChangedProperties::EChangedProperty::MasterLevelLeft);
     }
 }
@@ -197,7 +197,7 @@ void MixerSubModel::SetMasterLevelRight(double newLevel)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newLevel))
     {
         _masterLevelLeft = newLevel;
-        Debug::Log("# " + GetDebugName() + ", master level right = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master level right = " + std::to_string((int)_masterVolume));
         Notify(ChangedProperties::EChangedProperty::MasterLevelRight);
     }
 }
@@ -253,7 +253,7 @@ void MixerSubModel::SetMasterGateLeft(bool gateActive)
         {
             _masterLastTimeGateLeftActive = juce::Time(0);
         }
-        Debug::Log("# " + GetDebugName() + 
+        Debug::Log("# " + GetName() + 
                    ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
         Notify((ChangedProperties::EChangedProperty)(
             (int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
@@ -273,7 +273,7 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
         {
             _masterLastTimeGateRightActive = juce::Time(0);
         }
-        Debug::Log("# " + GetDebugName() + 
+        Debug::Log("# " + GetName() + 
                    ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
         Notify((ChangedProperties::EChangedProperty)(
             (int)ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive));

@@ -23,7 +23,6 @@ class MixerChannelSubModel : public SubModel, public Observable
     };
 
     MixerChannelSubModel(SubModels subModels, int channelIndex);
-    const std::string GetDebugName() override;
 
     std::string Serialize() override;
     void Deserialize(std::string data) override;

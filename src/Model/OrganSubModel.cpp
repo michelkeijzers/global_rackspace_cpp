@@ -41,7 +41,7 @@ OrganSubModel::OrganSubModel(SubModels &subModels)
     }
 }
 
-const std::string OrganSubModel::GetDebugName() // override
+const std::string& OrganSubModel::GetName() // override
 {
     return SUB_MODEL_NAME;
 }
@@ -83,7 +83,7 @@ void OrganSubModel::Enable(bool enable)
     if (_isEnabled != enable)
     {
         _isEnabled = enable;
-        Debug::Log("# " + GetDebugName() + ", is enabled = " + std::to_string(_isEnabled));
+        Debug::Log("# " + GetName() + ", is enabled = " + std::to_string(_isEnabled));
         Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
     }
 }
@@ -104,7 +104,7 @@ void OrganSubModel::SetDrawbars(int drawbarIndex, double newValue)
     if (!DoubleUtilities::AreEqual(newValue, _drawbars[drawbarIndex]))
     {
         _drawbars[drawbarIndex] = newValue;
-        Debug::Log("# " + GetDebugName() + ", drawbar " + std::to_string(drawbarIndex) +
+        Debug::Log("# " + GetName() + ", drawbar " + std::to_string(drawbarIndex) +
                    ", value = " + std::to_string(_drawbars[drawbarIndex]));
         Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::OrganDrawbar1 +
                                                      drawbarIndex));
@@ -121,7 +121,7 @@ void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
     if (rotatorSpeedFast != _isRotatorSpeedFast)
     {
         _isRotatorSpeedFast = rotatorSpeedFast;
-        Debug::Log("# " + GetDebugName() + ", rotator speed fast, fast = " + std::to_string(_isRotatorSpeedFast));
+        Debug::Log("# " + GetName() + ", rotator speed fast, fast = " + std::to_string(_isRotatorSpeedFast));
         Notify(ChangedProperties::EChangedProperty::OrganRotatorSpeed);
     }
 }
@@ -141,7 +141,7 @@ void OrganSubModel::SetDrive(double drive)
     if (drive != _drive)
     {
         _drive = drive;
-        Debug::Log("# " + GetDebugName() + ", drive, value = " + std::to_string(_drive));
+        Debug::Log("# " + GetName() + ", drive, value = " + std::to_string(_drive));
         Notify(ChangedProperties::EChangedProperty::OrganDrive);
     }
 }
@@ -156,7 +156,7 @@ void OrganSubModel::SetReverbAmount(double reverbAmount)
     if (reverbAmount != _reverbAmount)
     {
         _reverbAmount = reverbAmount;
-        Debug::Log("# " + GetDebugName() + ", reverb amount, value = " + std::to_string(_reverbAmount));
+        Debug::Log("# " + GetName() + ", reverb amount, value = " + std::to_string(_reverbAmount));
         Notify(ChangedProperties::EChangedProperty::OrganReverbAmount);
     }
 }
@@ -173,7 +173,7 @@ void OrganSubModel::SetPrimaryKeyboardActive(bool primaryKeyboardIsActive)
     if (primaryKeyboardIsActive != _primaryKeyboardIsActive)
     {
         _primaryKeyboardIsActive = primaryKeyboardIsActive;
-        Debug::Log("# " + GetDebugName() +
+        Debug::Log("# " + GetName() +
                    ", set primary keyboard active, value = " + std::to_string(_primaryKeyboardIsActive));
         Notify(ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive);
         CheckIfEnabled();
@@ -190,7 +190,7 @@ void OrganSubModel::SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive)
     if (secondaryKeyboardIsActive != _secondaryKeyboardIsActive)
     {
         _secondaryKeyboardIsActive = secondaryKeyboardIsActive;
-        Debug::Log("# " + GetDebugName() +
+        Debug::Log("# " + GetName() +
                    ", set secondary keyboard active, value = " + std::to_string(_secondaryKeyboardIsActive));
         Notify(ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive);
         CheckIfEnabled();
@@ -203,7 +203,7 @@ void OrganSubModel::CheckIfEnabled()
     if (isEnabled != _isEnabled)
     {
         _isEnabled = isEnabled;
-        Debug::Log("# " + GetDebugName() + ", enabled, enabled = " + std::to_string(_isEnabled));
+        Debug::Log("# " + GetName() + ", enabled, enabled = " + std::to_string(_isEnabled));
         Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
 
         MixerSubModel &mixerSubModel = (MixerSubModel &)(GetSubModels().GetSubModel(SubModels::ESubModelId::Mixer));
@@ -224,7 +224,7 @@ void OrganSubModel::SetLowestNote(int lowestNote)
     if (lowestNote != _lowestNote)
     {
         _lowestNote = lowestNote;
-        Debug::Log("# " + GetDebugName() + ", set lowest note, value = " + std::to_string(_lowestNote));
+        Debug::Log("# " + GetName() + ", set lowest note, value = " + std::to_string(_lowestNote));
         Notify(ChangedProperties::EChangedProperty::OrganLowestNote);
     }
 }
@@ -239,7 +239,7 @@ void OrganSubModel::SetHighestNote(int highestNote)
     if (highestNote != _highestNote)
     {
         _highestNote = highestNote;
-        Debug::Log("# " + GetDebugName() + ", set highest note, value = " + std::to_string(_highestNote));
+        Debug::Log("# " + GetName() + ", set highest note, value = " + std::to_string(_highestNote));
         Notify(ChangedProperties::EChangedProperty::OrganHighestNote);
     }
 }
@@ -254,7 +254,7 @@ void OrganSubModel::SetSustainPedalActive(bool sustainPedalIsActive)
     if (sustainPedalIsActive != _sustainPedalIsActive)
     {
         _sustainPedalIsActive = sustainPedalIsActive;
-        Debug::Log("# " + GetDebugName() + ", sustain pedal active, value = " + std::to_string(_sustainPedalIsActive));
+        Debug::Log("# " + GetName() + ", sustain pedal active, value = " + std::to_string(_sustainPedalIsActive));
         Notify(ChangedProperties::EChangedProperty::OrganSustainPedalActive);
     }
 }

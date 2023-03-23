@@ -25,7 +25,7 @@ KeyboardSubModel::KeyboardSubModel(SubModels &subModels, bool isPrimaryKeyboard)
                   "Serialization parameter names incorrect");
 }
 
-const std::string KeyboardSubModel::GetDebugName() /* override */
+const std::string &KeyboardSubModel::GetName() /* override */
 {
     return SUB_MODEL_NAME + (_isPrimaryKeyboard ? " Primary" : " Secondary");
 }
@@ -52,7 +52,7 @@ void KeyboardSubModel::EnableSustain(bool enable /* = true */)
     if (enable != _sustainEnabled)
     {
         _sustainEnabled = enable;
-        Debug::Log("# " + GetDebugName() + ": Sustain, enabled = " + std::to_string(_sustainEnabled));
+        Debug::Log("# " + GetName() + ": Sustain, enabled = " + std::to_string(_sustainEnabled));
         Notify(_isPrimaryKeyboard ? ChangedProperties::EChangedProperty::PrimaryKeyboardSustainEnabled
                                   : ChangedProperties::EChangedProperty::SecondaryKeyboardSustainEnabled);
     }
@@ -68,7 +68,7 @@ void KeyboardSubModel::SetExpressionVolume(double volume)
     if (volume != _expressionVolume)
     {
         _expressionVolume = volume;
-        Debug::Log("# " + GetDebugName() + ": Expression volume = " + std::to_string(_expressionVolume));
+        Debug::Log("# " + GetName() + ": Expression volume = " + std::to_string(_expressionVolume));
         Notify(_isPrimaryKeyboard ? ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume
                                   : ChangedProperties::EChangedProperty::SecondaryKeyboardExpressionVolume);
     }

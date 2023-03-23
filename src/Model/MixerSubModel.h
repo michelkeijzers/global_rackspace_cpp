@@ -24,7 +24,7 @@ class MixerSubModel : public SubModel, public Observable
     MixerSubModel(SubModels &subModels);
     ~MixerSubModel();
     void Init() override;
-    const std::string GetDebugName() override;
+    const std::string& GetName() override;
 
     std::string Serialize() override;
     void Deserialize(std::string data) override;

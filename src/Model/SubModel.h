@@ -8,7 +8,7 @@ class SubModel
 {
   public:
     SubModel(SubModels &subModels);
-    virtual const std::string GetDebugName() = 0;
+    virtual const std::string& GetName() = 0;
 
     virtual void Init();
 	 

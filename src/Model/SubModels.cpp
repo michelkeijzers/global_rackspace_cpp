@@ -41,7 +41,9 @@ std::string SubModels::Serialize()
     std::string data;
 	 for (auto subModel : _subModels)
 	 {
+        data += "> " + subModel->GetName() + "\n";
         data += subModel->Serialize();
+        data += "< " + subModel->GetName() + "\n";
 	 }
 	 return data;
 }
