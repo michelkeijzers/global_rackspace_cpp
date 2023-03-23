@@ -11,7 +11,7 @@ class KeyboardSubModel : public SubModel, public Observable
 {
   public:
     KeyboardSubModel(SubModels &subModels, bool primaryKeyboard);
-    const std::string& GetName() override;
+    const std::string GetName() override;
 
 	 std::string Serialize() override;
     void Deserialize(std::string data) override;
@@ -25,7 +25,8 @@ class KeyboardSubModel : public SubModel, public Observable
     enum class EParameters
     {
         IsPrimaryKeyboard,
-        // TODO: Serialization
+		  SustainEnabled,
+		  ExpressionVolume,
         Last
     };
 

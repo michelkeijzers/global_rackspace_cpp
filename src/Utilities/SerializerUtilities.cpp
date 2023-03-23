@@ -18,6 +18,11 @@
     return CreateParameter(parameterName, std::to_string(value));
 }
 
+/* static */ std::string SerializerUtilities::CreateStringParameter(const std::string &parameterName, std::string& text)
+{
+    return CreateParameter(parameterName, text);
+}
+
 /* static */ std::string SerializerUtilities::CreateVectorDoubleParameters(const std::string &parameterName,
                                                                            std::vector<double> values)
 {

@@ -12,7 +12,7 @@ class Plugin : public IObserver
 
 	 virtual void Init();
 
-    const std::string& GetName();
+    const std::string GetName();
 
   protected:
     View& GetView();

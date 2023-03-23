@@ -4,13 +4,16 @@
 #include "Model.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
+#include "../Utilities/SerializerUtilities.h"
 #include "../Framework/MvcFramework.h"
 
 static std::string SUB_MODEL_NAME = "MixerChannel";
 
 static std::pair<MixerChannelSubModel::EParameters, std::string> SerializationParametersData[] = {
-    std::make_pair(MixerChannelSubModel::EParameters::ChannelIndex, "ChannelIndex")
-    // TODO: Serialization
+    std::make_pair(MixerChannelSubModel::EParameters::ChannelIndex, "ChannelIndex"),
+    std::make_pair(MixerChannelSubModel::EParameters::Volume, "Volume"),
+    std::make_pair(MixerChannelSubModel::EParameters::Source, "Source"),
+    std::make_pair(MixerChannelSubModel::EParameters::IsVolumeOverridden, "IsVolumeOverridden")
 };
 
 static std::map<MixerChannelSubModel::EParameters, std::string> SerializationParameters(
@@ -29,7 +32,10 @@ MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex
 std::string MixerChannelSubModel::Serialize() // override
 {
     std::string data;
-    // TODO Serialization
+    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::ChannelIndex], _channelIndex);
+    data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Volume], _volume);
+    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::Source], (int) _source);
+    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::Source], _isVolumeOverridden);
     return data;
 }
 
@@ -135,7 +141,7 @@ void MixerChannelSubModel::SetGateRight(bool gateActive)
     }
 }
 
-const std::string &MixerChannelSubModel::GetName()
+const std::string MixerChannelSubModel::GetName()
 {
     return _name;
 }

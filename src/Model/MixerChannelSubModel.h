@@ -42,7 +42,7 @@ class MixerChannelSubModel : public SubModel, public Observable
     juce::Time GetLastTimeGateRightActive();
     void SetGateRight(bool level);
 
-    const std::string &GetName();
+    const std::string GetName();
     void SetName(const std::string &name);
 
     ESource GetSource();
@@ -55,7 +55,9 @@ class MixerChannelSubModel : public SubModel, public Observable
     enum class EParameters
     {
         ChannelIndex,
-        // TODO: Serialization
+        Volume,
+		  Source,
+		  IsVolumeOverridden,
 		  Last
     };
 

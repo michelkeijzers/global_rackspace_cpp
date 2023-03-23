@@ -1,6 +1,7 @@
 #include "KeyboardSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
+#include "../Utilities/SerializerUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
 #include "SubModels.h"
@@ -10,8 +11,9 @@ static const std::string SUB_MODEL_NAME = "Keyboard";
 
 static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersData[] = 
 {
-    std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard")
-	 // TODO: Serialization
+    std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard"),
+    std::make_pair(KeyboardSubModel::EParameters::SustainEnabled, "SustainEnabled"),
+    std::make_pair(KeyboardSubModel::EParameters::ExpressionVolume, "ExpressionVolume")
 };
 
 static std::map<KeyboardSubModel::EParameters, std::string> SerializationParameters(
@@ -25,7 +27,7 @@ KeyboardSubModel::KeyboardSubModel(SubModels &subModels, bool isPrimaryKeyboard)
                   "Serialization parameter names incorrect");
 }
 
-const std::string &KeyboardSubModel::GetName() /* override */
+const std::string KeyboardSubModel::GetName() /* override */
 {
     return SUB_MODEL_NAME + (_isPrimaryKeyboard ? " Primary" : " Secondary");
 }
@@ -33,7 +35,12 @@ const std::string &KeyboardSubModel::GetName() /* override */
 std::string KeyboardSubModel::Serialize() // override
 {
     std::string data;
-    // TODO Serialization
+    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsPrimaryKeyboard],
+                                                        _isPrimaryKeyboard);
+    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainEnabled],
+                                                        _sustainEnabled);
+    data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ExpressionVolume],
+                                                       _expressionVolume);
     return data;
 }
 

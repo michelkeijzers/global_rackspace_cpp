@@ -1,6 +1,7 @@
 #include "MixerSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
+#include "../Utilities/SerializerUtilities.h"
 #include "MixerChannelSubModel.h"
 #include "SubModels.h"
 #include <string>
@@ -9,8 +10,8 @@ static const std::string SUB_MODEL_NAME = "Mixer";
 
 static std::pair<MixerSubModel::EParameters, std::string> SerializationParametersData[] = 
 {
-    std::make_pair(MixerSubModel::EParameters::TabSelection, "TabSelection")
-    // TODO: Serialization
+    std::make_pair(MixerSubModel::EParameters::TabSelection, "TabSelection"),
+    std::make_pair(MixerSubModel::EParameters::MasterVolume, "MasterVolume"),
 };
 
 static std::map<MixerSubModel::EParameters, std::string> SerializationParameters(
@@ -43,7 +44,7 @@ void MixerSubModel::Init() /* override */
     }
 }
 
-const std::string& MixerSubModel::GetName() /* override */
+const std::string MixerSubModel::GetName() /* override */
 {
     return SUB_MODEL_NAME;
 }
@@ -51,7 +52,17 @@ const std::string& MixerSubModel::GetName() /* override */
 std::string MixerSubModel::Serialize() // override
 {
     std::string data;
-    // TODO Serialization
+    data +=
+        SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection], (int)_tabSelection);
+    data +=
+        SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::MasterVolume], _masterVolume);
+
+    for (auto mixerChannelSubModel : _mixerChannelSubModels)
+    {
+        data += "> " + mixerChannelSubModel->GetName() + "\n";
+        data += mixerChannelSubModel->Serialize();
+        data += "< " + mixerChannelSubModel->GetName() + "\n";
+    }
     return data;
 }
 

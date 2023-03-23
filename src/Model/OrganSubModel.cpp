@@ -41,7 +41,7 @@ OrganSubModel::OrganSubModel(SubModels &subModels)
     }
 }
 
-const std::string& OrganSubModel::GetName() // override
+const std::string OrganSubModel::GetName() // override
 {
     return SUB_MODEL_NAME;
 }

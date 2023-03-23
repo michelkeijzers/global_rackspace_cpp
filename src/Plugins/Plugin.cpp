@@ -8,7 +8,7 @@ void Plugin::Init()
 {
 }
 
-const std::string& Plugin::GetName()
+const std::string Plugin::GetName()
 {
     return _name;
 }
