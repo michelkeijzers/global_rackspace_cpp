@@ -7,11 +7,23 @@
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
+static std::pair<MixerSubModel::EParameters, std::string> SerializationParametersData[] = 
+{
+    std::make_pair(MixerSubModel::EParameters::TabSelection, "TabSelection")
+    // TODO: Serialization
+};
+
+static std::map<MixerSubModel::EParameters, std::string> SerializationParameters(
+    SerializationParametersData,
+    SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
+
 MixerSubModel::MixerSubModel(SubModels &subModels)
     : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0),
       _masterLastTimeGateLeftActive(0), _masterLastTimeGateRightActive(0),
       _tabSelection(MixerSubModel::ETabSelection::Drawbars)
 {
+    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+                  "Serialization parameter names incorrect");
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         _mixerChannelSubModels.push_back(new MixerChannelSubModel(subModels, channelIndex));
@@ -34,6 +46,18 @@ void MixerSubModel::Init() /* override */
 const std::string MixerSubModel::GetDebugName() /* override */
 {
     return SUB_MODEL_NAME;
+}
+
+std::string MixerSubModel::Serialize() // override
+{
+    std::string data;
+    // TODO Serialization
+    return data;
+}
+
+void MixerSubModel::Deserialize(std::string data) // override
+{
+    // TODO Serialization
 }
 
 std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()

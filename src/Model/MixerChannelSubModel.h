@@ -1,11 +1,11 @@
 #pragma once
 
-#include <string>
-#include <juce_core/juce_core.h>
-#include <juce_core/time/juce_Time.h>
 #include "../View/Observable.h"
 #include "MixerChannelSubModel.h"
 #include "SubModel.h"
+#include <juce_core/juce_core.h>
+#include <juce_core/time/juce_Time.h>
+#include <string>
 
 class SubModels;
 
@@ -14,41 +14,51 @@ class MixerChannelSubModel : public SubModel, public Observable
   public:
     enum class ESource
     {
-		  Off,
+        Off,
         PrimaryKeyboard,
         PrimaryKeyboardPads,
         SecondaryKeyboard,
 
-		  Last
+        Last
     };
 
     MixerChannelSubModel(SubModels subModels, int channelIndex);
     const std::string GetDebugName() override;
 
+    std::string Serialize() override;
+    void Deserialize(std::string data) override;
+
     double GetVolume();
     void SetVolume(double volume);
 
-	 double GetLevelLeft();
+    double GetLevelLeft();
     void SetLevelLeft(double level);
 
     double GetLevelRight();
     void SetLevelRight(double level);
-    
-	 juce::Time GetLastTimeGateLeftActive();
+
+    juce::Time GetLastTimeGateLeftActive();
     void SetGateLeft(bool level);
 
     juce::Time GetLastTimeGateRightActive();
     void SetGateRight(bool level);
-    
-	 const std::string &GetName();
+
+    const std::string &GetName();
     void SetName(const std::string &name);
 
-	 ESource GetSource();
+    ESource GetSource();
     std::string GetSourceName();
     void SelectNextSource();
 
-	 bool IsVolumeOverridden();
+    bool IsVolumeOverridden();
     void SwapVolumeOverride();
+
+    enum class EParameters
+    {
+        ChannelIndex,
+        // TODO: Serialization
+		  Last
+    };
 
   private:
     int _channelIndex;
@@ -57,8 +67,8 @@ class MixerChannelSubModel : public SubModel, public Observable
     double _levelRight;
     juce::Time _lastTimeGateLeftActive;
     juce::Time _lastTimeGateRightActive;
-    
-	 std::string _name;
+
+    std::string _name;
     ESource _source;
-     bool _isVolumeOverridden;
+    bool _isVolumeOverridden;
 };

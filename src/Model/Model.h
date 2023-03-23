@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SubModels.h"
 #include "../View/Observable.h"
+#include "SubModels.h"
 
 class Model : public Observable
 {
@@ -9,18 +9,20 @@ class Model : public Observable
     enum class ETimer
     {
         OneSecond
-	 };
+    };
 
     Model();
 
-	 void Fill();
+    void Fill();
     void Init();
 
-	 void OnTimer(ETimer timer);
+    void OnTimer(ETimer timer);
 
-	 SubModel &GetSubModel(SubModels::ESubModelId id);
+    SubModel &GetSubModel(SubModels::ESubModelId id);
+
+    void LoadSong(const std::string &songName);
+    void WriteSong();
 
   private:
-
     SubModels _subModels;
 };

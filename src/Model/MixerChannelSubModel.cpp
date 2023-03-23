@@ -8,11 +8,22 @@
 
 static std::string SUB_MODEL_NAME = "MixerChannel";
 
+static std::pair<MixerChannelSubModel::EParameters, std::string> SerializationParametersData[] = {
+    std::make_pair(MixerChannelSubModel::EParameters::ChannelIndex, "ChannelIndex")
+    // TODO: Serialization
+};
+
+static std::map<MixerChannelSubModel::EParameters, std::string> SerializationParameters(
+    SerializationParametersData,
+    SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
+
 MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
     : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0), _name(""), _source(ESource::PrimaryKeyboard),
       _levelLeft(0.0), _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0),
       _isVolumeOverridden(false)
 {
+    Debug::Assert(SerializationParameters.size() == (int) EParameters::Last, __FUNCTION__,
+                  "Serialization parameter names incorrect");
 }
 
 const std::string MixerChannelSubModel::GetDebugName() /* override */
@@ -20,6 +31,17 @@ const std::string MixerChannelSubModel::GetDebugName() /* override */
     return SUB_MODEL_NAME + " " + std::to_string(_channelIndex);
 }
 
+std::string MixerChannelSubModel::Serialize() // override
+{
+    std::string data;
+    // TODO Serialization
+    return data;
+}
+
+void MixerChannelSubModel::Deserialize(std::string data) // override
+{
+    // TODO Serialization
+}
 
 double MixerChannelSubModel::GetVolume()
 {

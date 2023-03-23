@@ -32,9 +32,9 @@ void OrganSubController::Enable(bool enable, bool forced /* = false */)
 
 void OrganSubController::SetDrawbarValue(int drawbarIndex, double newValue, bool forced /* = false */)
 {
-    if (forced || (newValue != _organSubModel.GetDrawbarValue(drawbarIndex)))
+    if (forced || (newValue != _organSubModel.GetDrawbars(drawbarIndex)))
     {
-        _organSubModel.SetDrawbarValue(drawbarIndex, newValue);
+        _organSubModel.SetDrawbars(drawbarIndex, newValue);
     }
 }
 

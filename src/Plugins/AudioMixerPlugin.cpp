@@ -5,7 +5,6 @@
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
 #include <iostream>
-
 #ifdef TESTER
     #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else

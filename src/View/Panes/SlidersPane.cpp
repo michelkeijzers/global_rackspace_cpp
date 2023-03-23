@@ -284,7 +284,7 @@ void SlidersPane::UpdateDrawbar(int drawbarIndex)
 {
     Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_organSubModel.GetDrawbarValue(drawbarIndex));
+    valueWidget.SetValue(_organSubModel.GetDrawbars(drawbarIndex));
 }
 
 void SlidersPane::UpdateOrganDrive()

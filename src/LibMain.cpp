@@ -92,7 +92,7 @@ void LibMain::OnWidgetCaptionChanged(const std::string &widgetName, const std::s
 
 void LibMain::OnSongChanged(int oldIndex, int newIndex)
 {
-    _mvcFramework.GetController().Init();
+    _mvcFramework.GetController().OnSongChanged(oldIndex, newIndex);
 }
 
 void LibMain::OnWidgetStateChanged(const std::string &widgetName, int newState)

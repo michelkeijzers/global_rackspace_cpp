@@ -24,6 +24,20 @@ SubModel &Model::GetSubModel(SubModels::ESubModelId id)
     return _subModels.GetSubModel(id);
 }
 
+void Model::LoadSong(const std::string& songName)
+{
+   // SongLoader songLoader;
+   // songLoader.Load(this);
+}
+
+void Model::WriteSong()
+{
+    std::string songData = _subModels.Serialize();
+
+
+	 
+}
+
 void Model::OnTimer(ETimer timer)
 {
     switch (timer)

@@ -7,6 +7,12 @@
 #include "../Plugins/OrganPlugin.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/IntUtilities.h"
+#include "../Framework/MvcFramework.h"
+#ifdef TESTER
+    #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
+#else
+    #include <gigperformer/sdk/GigPerformerAPI.h>
+#endif
 
 Controller::Controller(Model &model, View &view)
     : _model(model), _view(view), _subControllers(*this), _midiInBlocks(*this)
@@ -25,7 +31,7 @@ void Controller::StartTimer()
 } 
 
 void Controller::Fill()
-    {
+{
     _subControllers.Fill();
     _midiInBlocks.Fill();
 }
@@ -43,6 +49,26 @@ Model &Controller::GetModel()
 View &Controller::GetView()
 {
     return _view;
+}
+
+void Controller::OnSongChanged(int oldIndex, int newIndex)
+{
+    _model.LoadSong(GetCurrentSongName());
+}
+
+void Controller::OnPreviousSong()
+{
+    _model.LoadSong(GetCurrentSongName());
+}
+
+void Controller::OnNextSong()
+{
+    _model.LoadSong(GetCurrentSongName());
+}
+
+void Controller::WriteSong()
+{
+    _model.WriteSong();
 }
 
 SubController &Controller::GetSubController(SubControllers::ESubControllerId id)
@@ -75,4 +101,10 @@ void Controller::hiResTimerCallback() // override
 {
      // Debug::Log("#Callback 1Hz");  This gives focus to the script logger window every second
      _model.OnTimer(Model::ETimer::OneSecond);
+}
+
+std::string Controller::GetCurrentSongName()
+{
+     int songIndex = MvcFramework::GetGigPerformerApi().getCurrentSongIndex();
+     return MvcFramework::GetGigPerformerApi().getSongName(songIndex);
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 class SubModel;
@@ -30,6 +31,9 @@ class SubModels
 
     SubModel &GetSubModel(ESubModelId id);
     Model &GetModel();
+
+	 std::string Serialize();
+    void Deserialize(std::string data);
 
   private:
     std::vector<SubModel *> _subModels;

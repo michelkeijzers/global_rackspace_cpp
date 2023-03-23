@@ -8,16 +8,16 @@
   },
   "ExpandedNodes": [
     "",
+    "\\cmake",
     "\\src",
-    "\\src\\Midi",
-    "\\src\\MidiInBlocks",
+    "\\src\\Controller",
+    "\\src\\Framework",
     "\\src\\Model",
-    "\\src\\Plugins",
-    "\\src\\Utilities",
-    "\\src\\View",
-    "\\src\\View\\Panes",
-    "\\src\\Widgets"
+    "\\src\\Model\\Serialization",
+    "\\src\\Widgets",
+    "\\Testing",
+    "\\Testing\\Temporary"
   ],
-  "SelectedNode": "\\src\\View\\Panes\\SlidersPane.cpp",
+  "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

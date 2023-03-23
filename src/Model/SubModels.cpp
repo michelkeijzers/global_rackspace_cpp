@@ -36,6 +36,21 @@ Model &SubModels::GetModel()
     return _model;
 }
 
+std::string SubModels::Serialize()
+{
+    std::string data;
+	 for (auto subModel : _subModels)
+	 {
+        data += subModel->Serialize();
+	 }
+	 return data;
+}
+
+void SubModels::Deserialize(std::string data)
+{
+	//TODO
+}
+
 SubModel &SubModels::GetSubModel(ESubModelId id)
     {
     return *(_subModels.at((int) id));

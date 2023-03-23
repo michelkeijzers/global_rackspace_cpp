@@ -11,6 +11,9 @@ class SubModel
     virtual const std::string GetDebugName() = 0;
 
     virtual void Init();
+	 
+	 virtual std::string Serialize() = 0;
+    virtual void Deserialize(std::string data) = 0;
 
   protected:
     bool IsForcedMode();

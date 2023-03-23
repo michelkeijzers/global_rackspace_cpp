@@ -8,14 +8,38 @@
 
 static const std::string SUB_MODEL_NAME = "Keyboard";
 
+static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersData[] = 
+{
+    std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard")
+	 // TODO: Serialization
+};
+
+static std::map<KeyboardSubModel::EParameters, std::string> SerializationParameters(
+    SerializationParametersData,
+    SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
+
 KeyboardSubModel::KeyboardSubModel(SubModels &subModels, bool isPrimaryKeyboard)
     : SubModel(subModels), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
 {
+    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+                  "Serialization parameter names incorrect");
 }
 
 const std::string KeyboardSubModel::GetDebugName() /* override */
 {
     return SUB_MODEL_NAME + (_isPrimaryKeyboard ? " Primary" : " Secondary");
+}
+
+std::string KeyboardSubModel::Serialize() // override
+{
+    std::string data;
+    // TODO Serialization
+    return data;
+}
+
+void KeyboardSubModel::Deserialize(std::string data) // override
+{
+    // TODO Serialization
 }
 
 bool KeyboardSubModel::IsSustainEnabled()
