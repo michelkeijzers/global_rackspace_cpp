@@ -73,7 +73,7 @@ class MixerSubModel : public SubModel, public Observable
     juce::Time GetMasterLastTimeGateRightActive();
     void SetMasterGateRight(bool newGate);
 
-    const std::string &GetChannelName(int channelIndex);
+    const std::string GetChannelName(int channelIndex);
     void SetChannelName(int channelIndex, const std::string &channelName);
 
     MixerChannelSubModel::ESource GetChannelSource(int channelIndex);

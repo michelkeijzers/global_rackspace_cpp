@@ -291,7 +291,7 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
     }
 }
 
-const std::string &MixerSubModel::GetChannelName(int channelIndex)
+const std::string MixerSubModel::GetChannelName(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
 
