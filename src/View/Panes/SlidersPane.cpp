@@ -1,6 +1,6 @@
 #include "SlidersPane.h"
-#include "../../Model/Model.h"
 #include "../../Model/MixerSubModel.h"
+#include "../../Model/Model.h"
 #include "../../Model/OrganSubModel.h"
 #include "../../Utilities/Debug.h"
 #include "../../Utilities/DoubleUtilities.h"
@@ -35,19 +35,14 @@ void SlidersPane::Fill() // override
     {
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1 + sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-
-		  widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
+        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft + sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name + sliderIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName + sliderIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
     }
@@ -62,17 +57,16 @@ void SlidersPane::Fill() // override
     // Add organ drive and reverbAmount.
     widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrive);
     GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-
     widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverbAmount);
     GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
 void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-	 if (changedProperty == ChangedProperties::EChangedProperty::SlidersTabSelection)
-	 {
+    if (changedProperty == ChangedProperties::EChangedProperty::SlidersTabSelection)
+    {
         UpdateTab();
-	 }
+    }
     else if (changedProperty == ChangedProperties::EChangedProperty::SecondElapsed)
     {
         CheckGatesFading();
@@ -300,7 +294,6 @@ void SlidersPane::UpdateOrganReverbAmount()
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     valueWidget.SetValue(_organSubModel.GetReverbAmount());
 }
-
 
 void SlidersPane::UpdatePropertyMasterLastTimeGate()
 {

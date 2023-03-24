@@ -26,8 +26,8 @@ class OrganSubController : public SubController
 	 // Setup
     void SetPrimaryKeyboardActive(bool active, bool forced = false);
     void SetSecondaryKeyboardActive(bool active, bool forced = false);
-    void SetLowestNote(int note, bool forced = false);
-    void SetHighestNote(int note, bool forced = false);
+    void SetLowestNote(uint8_t note, bool forced = false);
+    void SetHighestNote(uint8_t note, bool forced = false);
     void SetSustainPedalActive(bool active, bool forced = false);
 
   private:

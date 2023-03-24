@@ -18,36 +18,27 @@ ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel)
 
 void ChannelsSetupPane::Fill() // override
 {
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SyncLabelsToMixerButton,
         new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SyncLabelsToMixerButton, true));
-
     GetWidgets().AddWidget(WidgetIds::EWidgetId::ChannelIndexTextLabel,
                            new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::ChannelIndexTextLabel, true));
-
     GetWidgets().AddWidget(WidgetIds::EWidgetId::NextSourceTextLabel,
                            new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::NextSourceTextLabel, true));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::VolumeOverrideTextLabel,
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::VolumeOverrideTextLabel, true));
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         WidgetIds::EWidgetId widgetId =
             (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1Number + channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1SourceName + channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1NextSourceButton + channelIndex);
         GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
-
         widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton + channelIndex);
         GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
     }

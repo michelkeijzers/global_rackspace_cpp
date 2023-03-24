@@ -47,10 +47,10 @@ class OrganSubModel : public SubModel, public Observable
     void SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive);
     void CheckIfEnabled();
 
-    int GetLowestNote();
-    void SetLowestNote(int lowestNote);
-    int GetHighestNote();
-    void SetHighestNote(int highestNote);
+    uint8_t GetLowestNote();
+    void SetLowestNote(uint8_t lowestNote);
+    uint8_t GetHighestNote();
+    void SetHighestNote(uint8_t highestNote);
 
     bool IsSustainPedalActive();
     void SetSustainPedalActive(bool sustainPedalIsActive);

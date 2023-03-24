@@ -23,35 +23,27 @@ void OrganSetupPane::Fill() // override
 {
     GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganPaneBox,
                            new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganPaneBox, false));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganTitleTextLabel,
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganTitleTextLabel, false));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton,
         new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton, true));
-
     GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton,
                            new ButtonWidget(GetView().GetWidgetIds(),
                                             WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton, true));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganLowestNoteSlider,
         new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganLowestNoteSlider, true));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganHighestNoteSlider,
         new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganHighestNoteSlider, true));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel,
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel, false));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel,
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel, false));
-
     GetWidgets().AddWidget(
         WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton,
         new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton, true));
@@ -77,9 +69,8 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
     {
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        int noteNumber = _organSubModel.GetLowestNote();
+        uint8_t noteNumber = _organSubModel.GetLowestNote();
         valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
-
         Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
         textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
@@ -88,9 +79,8 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
     {
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-        int noteNumber = _organSubModel.GetHighestNote();
+        uint8_t noteNumber = _organSubModel.GetHighestNote();
         valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
-
         Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
         textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());

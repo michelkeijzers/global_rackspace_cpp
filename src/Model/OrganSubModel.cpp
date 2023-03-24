@@ -214,12 +214,12 @@ void OrganSubModel::CheckIfEnabled()
     }
 }
 
-int OrganSubModel::GetLowestNote()
+uint8_t OrganSubModel::GetLowestNote()
 {
     return _lowestNote;
 }
 
-void OrganSubModel::SetLowestNote(int lowestNote)
+void OrganSubModel::SetLowestNote(uint8_t lowestNote)
 {
     if (lowestNote != _lowestNote)
     {
@@ -229,12 +229,12 @@ void OrganSubModel::SetLowestNote(int lowestNote)
     }
 }
 
-int OrganSubModel::GetHighestNote()
+uint8_t OrganSubModel::GetHighestNote()
 {
     return _highestNote;
 }
 
-void OrganSubModel::SetHighestNote(int highestNote)
+void OrganSubModel::SetHighestNote(uint8_t highestNote)
 {
     if (highestNote != _highestNote)
     {

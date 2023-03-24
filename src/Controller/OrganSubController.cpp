@@ -94,7 +94,7 @@ void OrganSubController::SetSecondaryKeyboardActive(bool active, bool forced /* 
      }
 }
 
-void OrganSubController::SetLowestNote(int note, bool forced /* = false */)
+void OrganSubController::SetLowestNote(uint8_t note, bool forced /* = false */)
 {
      if (forced || (_organSubModel.GetLowestNote() != note))
      {
@@ -102,7 +102,7 @@ void OrganSubController::SetLowestNote(int note, bool forced /* = false */)
      }
 }
 
-void OrganSubController::SetHighestNote(int note, bool forced /* = false */)
+void OrganSubController::SetHighestNote(uint8_t note, bool forced /* = false */)
 {
      if (forced || (_organSubModel.GetHighestNote() != note))
      {
