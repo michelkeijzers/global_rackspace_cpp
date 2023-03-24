@@ -13,11 +13,11 @@
     "\\src\\Controller",
     "\\src\\Framework",
     "\\src\\Model",
-    "\\src\\Model\\Serialization",
+    "\\src\\Utilities",
     "\\src\\Widgets",
     "\\Testing",
     "\\Testing\\Temporary"
   ],
-  "SelectedNode": "\\CMakeLists.txt",
+  "SelectedNode": "\\src\\Controller\\MixerSubController.cpp",
   "PreviewInSolutionExplorer": false
 }

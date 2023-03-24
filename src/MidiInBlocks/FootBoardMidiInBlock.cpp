@@ -23,13 +23,11 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
         handleMessage = false;
     }
     break;
-
     case ECCs::Switch2: {
         // TODO: Modulation wheel lower keyboard
         handleMessage = false;
     }
     break;
-
     case ECCs::Switch3:
         if (value == VALUE_BUTTON_PRESSED)
         {
@@ -39,7 +37,6 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
             handleMessage = false;
         }
         break;
-
     case ECCs::Switch4: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
@@ -47,7 +44,6 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
         handleMessage = false;
     }
     break;
-
     case ECCs::Switch5: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
@@ -55,7 +51,6 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
         handleMessage = false;
     }
     break;
-
     case ECCs::LeftPedal: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
@@ -63,7 +58,6 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
         handleMessage = false;
     }
     break;
-
     case ECCs::RightPedal: {
         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
             GetController().GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));

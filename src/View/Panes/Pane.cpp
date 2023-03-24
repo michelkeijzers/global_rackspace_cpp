@@ -2,30 +2,30 @@
 #include "../../Utilities/Debug.h"
 #include "../../Widgets/Widget.h"
 
-Pane::Pane(View& view) : _view(view)
+Pane::Pane(View &view) : _view(view)
 {
 }
 
 void Pane::Init()
 {
-	// No actions needed (widgets do not need to init.
+    // No actions needed (widgets do not need to init.
 }
 
 void Pane::ShowAllWidgets(bool show /* = true */)
 {
-      for (auto &widgetId : GetWidgets().GetWidgetIds())
-      {
-         auto &widget = GetWidgets().GetWidget(widgetId);
-         widget.Show(show);
-      }
+    for (auto &widgetId : GetWidgets().GetWidgetIds())
+    {
+        auto &widget = GetWidgets().GetWidget(widgetId);
+        widget.Show(show);
+    }
 }
 
 View &Pane::GetView()
-   {
+{
     return _view;
 }
 
-Widgets& Pane::GetWidgets()
+Widgets &Pane::GetWidgets()
 {
     return _widgets;
 }

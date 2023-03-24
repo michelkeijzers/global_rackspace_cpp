@@ -8,8 +8,7 @@
 
 static const std::string SUB_MODEL_NAME = "Mixer";
 
-static std::pair<MixerSubModel::EParameters, std::string> SerializationParametersData[] = 
-{
+static std::pair<MixerSubModel::EParameters, std::string> SerializationParametersData[] = {
     std::make_pair(MixerSubModel::EParameters::TabSelection, "TabSelection"),
     std::make_pair(MixerSubModel::EParameters::MasterVolume, "MasterVolume"),
 };
@@ -106,19 +105,15 @@ int MixerSubModel::GetChannelOffset()
     case MixerSubModel::ETabSelection::Drawbars:
         // Do nothing
         break;
-
     case MixerSubModel::ETabSelection::Channels1To8:
         channelOffset = 0;
         break;
-
     case MixerSubModel::ETabSelection::Channels9To16:
         channelOffset = 8;
         break;
-
     case MixerSubModel::ETabSelection::Channels17To24:
         channelOffset = 16;
         break;
-
     default:
         Debug::Error(__FUNCTION__, "Illegal pane selection");
     }
@@ -129,14 +124,12 @@ int MixerSubModel::GetChannelOffset()
 double MixerSubModel::GetChannelVolume(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetVolume();
 }
 
 void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
 }
 
@@ -158,28 +151,24 @@ void MixerSubModel::SetMasterVolume(double newVolume)
 double MixerSubModel::GetChannelLevelLeft(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetLevelLeft();
 }
 
 void MixerSubModel::SetChannelLevelLeft(int channelIndex, double newLevel)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetLevelLeft(newLevel);
 }
 
 double MixerSubModel::GetChannelLevelRight(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetLevelRight();
 }
 
 void MixerSubModel::SetChannelLevelRight(int channelIndex, double newLevel)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetLevelRight(newLevel);
 }
 
@@ -216,28 +205,24 @@ void MixerSubModel::SetMasterLevelRight(double newLevel)
 juce::Time MixerSubModel::GetChannelLastTimeGateLeftActive(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetLastTimeGateLeftActive();
 }
 
 void MixerSubModel::SetChannelGateLeft(int channelIndex, bool newGate)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetGateLeft(newGate);
 }
 
 juce::Time MixerSubModel::GetChannelLastTimeGateRightActive(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetLastTimeGateRightActive();
 }
 
 void MixerSubModel::SetChannelGateRight(int channelIndex, bool newGate)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetGateRight(newGate);
 }
 
@@ -264,7 +249,7 @@ void MixerSubModel::SetMasterGateLeft(bool gateActive)
         {
             _masterLastTimeGateLeftActive = juce::Time(0);
         }
-        Debug::Log("# " + GetName() + 
+        Debug::Log("# " + GetName() +
                    ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
         Notify((ChangedProperties::EChangedProperty)(
             (int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
@@ -284,7 +269,7 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
         {
             _masterLastTimeGateRightActive = juce::Time(0);
         }
-        Debug::Log("# " + GetName() + 
+        Debug::Log("# " + GetName() +
                    ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
         Notify((ChangedProperties::EChangedProperty)(
             (int)ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive));
@@ -294,35 +279,30 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
 const std::string MixerSubModel::GetChannelName(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetName();
 }
 
 void MixerSubModel::SetChannelName(int channelIndex, const std::string &channelName)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     _mixerChannelSubModels[channelIndex]->SetName(channelName);
 }
 
 MixerChannelSubModel::ESource MixerSubModel::GetChannelSource(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetSource();
 }
 
 std::string MixerSubModel::GetChannelSourceName(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->GetSourceName();
 }
 
 void MixerSubModel::SelectNextChannelSource(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     // Always select next, not relevent if IsForcedMode.
     _mixerChannelSubModels[channelIndex]->SelectNextSource();
 }
@@ -330,13 +310,11 @@ void MixerSubModel::SelectNextChannelSource(int channelIndex)
 bool MixerSubModel::GetVolumeOverride(int channelIndex)
 {
     Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-
     return _mixerChannelSubModels[channelIndex]->IsVolumeOverridden();
 }
 
 void MixerSubModel::SwapVolumeOverride(int channelIndex)
 {
     // Always (independent of current source, and thus also independent of forced modee)
-
     _mixerChannelSubModels[channelIndex]->SwapVolumeOverride();
 }

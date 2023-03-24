@@ -42,23 +42,18 @@ void OrganSubController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced /
 {
     Debug::LogMethodEntry(__FUNCTION__, "newRotatorSpeedFast = " + std::to_string(newRotatorSpeedFast) +
                                             ", forced = " + std::to_string(forced));
-
     bool currentRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
-
     if (forced || currentRotatorSpeedFast != newRotatorSpeedFast)
     {
         _organSubModel.SetRotatorSpeedFast(newRotatorSpeedFast);
     }
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
 void OrganSubController::SwapRotatorSpeed()
 {
     Debug::LogMethodEntry(__FUNCTION__);
-
     SetRotatorSpeed(!_organSubModel.IsRotatorSpeedFast());
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -67,7 +62,7 @@ void OrganSubController::SetDrive(double drive, bool forced /* = false */)
     if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetDrive(), drive))
     {
         _organSubModel.SetDrive(drive);
-	 }
+    }
 }
 
 void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = false */)
@@ -75,45 +70,45 @@ void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = f
     if (forced || !DoubleUtilities::AreEqual(_organSubModel.GetReverbAmount(), reverbAmount))
     {
         _organSubModel.SetReverbAmount(reverbAmount);
-	 }
+    }
 }
 
 void OrganSubController::SetPrimaryKeyboardActive(bool active, bool forced /* = false */)
 {
-	if (forced || (_organSubModel.IsPrimaryKeyboardActive() != active))
-	{
+    if (forced || (_organSubModel.IsPrimaryKeyboardActive() != active))
+    {
         _organSubModel.SetPrimaryKeyboardActive(active);
-	 }
+    }
 }
 
 void OrganSubController::SetSecondaryKeyboardActive(bool active, bool forced /* = false */)
 {
-     if (forced || (_organSubModel.IsSecondaryKeyboardActive() != active))
-     {
+    if (forced || (_organSubModel.IsSecondaryKeyboardActive() != active))
+    {
         _organSubModel.SetSecondaryKeyboardActive(active);
-     }
+    }
 }
 
 void OrganSubController::SetLowestNote(uint8_t note, bool forced /* = false */)
 {
-     if (forced || (_organSubModel.GetLowestNote() != note))
-     {
+    if (forced || (_organSubModel.GetLowestNote() != note))
+    {
         _organSubModel.SetLowestNote(note);
-     }
+    }
 }
 
 void OrganSubController::SetHighestNote(uint8_t note, bool forced /* = false */)
 {
-     if (forced || (_organSubModel.GetHighestNote() != note))
-     {
+    if (forced || (_organSubModel.GetHighestNote() != note))
+    {
         _organSubModel.SetHighestNote(note);
-     }
+    }
 }
 
 void OrganSubController::SetSustainPedalActive(bool active, bool forced /* = false */)
 {
-     if (forced || (_organSubModel.IsSustainPedalActive() != active))
-     {
+    if (forced || (_organSubModel.IsSustainPedalActive() != active))
+    {
         _organSubModel.SetSustainPedalActive(active);
-     }
+    }
 }

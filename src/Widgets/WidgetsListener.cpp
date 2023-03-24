@@ -5,6 +5,7 @@
 #include "../Framework/MvcFramework.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../View/Panes/OrganPane.h"
 #include "../View/Panes/SlidersPane.h"
 #include "../View/View.h"
@@ -12,7 +13,6 @@
 #include "ValueWidget.h"
 #include "WidgetIds.h"
 #include "Widgets.h"
-#include "../Utilities/MidiUtilities.h"
 #ifdef TESTER
     #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
@@ -27,13 +27,9 @@ WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
 void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
     bool processed = false;
-
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
-
     WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
-
     Debug::Log("@--- On Widget " + widgetName + ": value = " + std::to_string(newValue));
-
     const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
     if (((int)widgetId >= drawbar1Value) && ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {
@@ -42,7 +38,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
         processed = true;
     }
-
     if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
     {
         if (ButtonWidget::IsPressed(newValue))
@@ -53,7 +48,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
         }
         processed = true;
     }
-
     if (!processed)
     {
         const int primaryKeyboardSlider1 = (int)(WidgetIds::EWidgetId::PrimaryKeyboardSlider1);
@@ -64,7 +58,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SyncLabelsToMixerButton)
@@ -73,7 +66,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             {
                 MixerSubController &mixerSubController = static_cast<MixerSubController &>(
                     _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
-
                 std::vector<std::string> channelNames;
                 for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
                 {
@@ -82,12 +74,10 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
                     channelNames.push_back(
                         MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
                 }
-
                 mixerSubController.SetChannelNames(channelNames);
             }
         }
     }
-
     if (!processed)
     {
         WidgetIds::EWidgetId channel1NextSourceButtonId = WidgetIds::EWidgetId::SetupChannel1NextSourceButton;
@@ -103,7 +93,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         WidgetIds::EWidgetId Channel1VolumeOverrideButtonId = WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton;
@@ -119,7 +108,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton)
@@ -130,7 +118,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton)
@@ -141,7 +128,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SetupOrganLowestNoteSlider)
@@ -152,7 +138,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SetupOrganHighestNoteSlider)
@@ -163,8 +148,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
-
     if (!processed)
     {
         if (widgetId == WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton)
@@ -175,12 +158,10 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             processed = true;
         }
     }
-
     if (!processed)
     {
         Debug::Error(__FUNCTION__, "Illegal widgetId");
     }
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 

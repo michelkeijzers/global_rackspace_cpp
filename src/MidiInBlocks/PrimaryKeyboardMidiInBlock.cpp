@@ -25,7 +25,6 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
         handleMessage = false;
     }
     break;
-
     case ECCs::Knob2: {
         OrganSubController &organSubController =
             (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
@@ -33,23 +32,19 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
         handleMessage = false;
     }
     break;
-
     case ECCs::ButtonLeft:
         GetController().OnPreviousSong();
         break;
-
     case ECCs::ButtonRight:
         GetController().OnNextSong();
         break;
-
-	 case ECCs::Button1:
+    case ECCs::Button1:
         if (value == VALUE_BUTTON_PRESSED)
         {
             GetController().WriteSong();
             handleMessage = false;
         }
         break;
-
     case ECCs::Button9:
         if (value == VALUE_BUTTON_PRESSED)
         {
@@ -59,7 +54,6 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
             handleMessage = false;
         }
         break;
-
     case ECCs::Button12:
         if (value == VALUE_BUTTON_PRESSED)
         {

@@ -1,9 +1,9 @@
 #include "KeyboardPlugin.h"
 #include "../Framework/MvcFramework.h"
-#include "../Utilities/MidiUtilities.h"
 #include "../Model/KeyboardSubModel.h"
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/MidiUtilities.h"
 #include "../View/ChangedProperties.h"
 #include <iostream>
 #ifdef TESTER
@@ -30,7 +30,6 @@ void KeyboardPlugin::Update(ChangedProperties::EChangedProperty changedProperty)
         Debug::Log("$ " + GetName() + ": Sustain = " + std::to_string(isEnabled));
     }
     break;
-
     case ChangedProperties::EChangedProperty::SecondaryKeyboardSustainEnabled: {
         bool isEnabled = _keyboardSubModel.IsSustainEnabled();
         uint8_t midiMessage[3];

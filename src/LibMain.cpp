@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <memory>
 
-
 using GPUtils = gigperformer::sdk::GPUtils;
 
 template <typename T> void Ignore(T const &) noexcept
@@ -28,19 +27,16 @@ std::string pathToMe;
 void LibMain::OnModeChanged(int mode)
 {
     consoleLog(std::string(" Switching to mode: ") + ((mode == GP_SetlistMode) ? "Setlist" : "FrontBack"));
-
-	 Debug::Log("start timer");
-	 _mvcFramework.GetController().StartTimer();
+    Debug::Log("start timer");
+    _mvcFramework.GetController().StartTimer();
 }
 
 void LibMain::OnSwitchToPanelView()
 {
     consoleLog(" Switching to panel view");
     setPlayheadState(true);
-
     int count = getPluginParameterCount("Legend", false);
     consoleLog(std::to_string(count));
-
     std::string p1 = getPluginParameterName("Legend", 1, false);
     consoleLog(p1);
 }
@@ -49,7 +45,6 @@ void LibMain::OnSwitchToWiringView()
 {
     consoleLog(" Switching to wiring view");
     setPlayheadState(false);
-
     setBPM(99);
 }
 
@@ -61,7 +56,6 @@ void LibMain::OnGlobalPlayStateChanged(double playing)
 void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
     _mvcFramework.GetWidgetsListener().OnWidgetValueChanged(widgetName, newValue);
-
     // int noteNumber = (int)GPUtils::Scale(newValue, 0.0, 1.0, 36, 96);
     // GPMidiMessage n = GPMidiMessage::makeNoteOnMessage(noteNumber, 64, 0);
     // const std::string device = "MIDI Monitor (Untitled)";
@@ -80,7 +74,6 @@ void LibMain::OnMidiDeviceListChanged(std::vector<std::string> &inputs, std::vec
         std::string &name = inputs[i];
         consoleLog("Input found: " + name);
     }
-
     Ignore(outputs);
 }
 
@@ -105,9 +98,7 @@ void LibMain::Initialization()
     // Do any initialization that you need
     Debug::SetGigPerformerApi(this);
     Debug::LogHeaders(true);
-
     _mvcFramework.Init();
-
     // Finally, register all the methods that you are going to actually use,
     // i.e, the ones you declared above as override
     registerCallback("OnSongChanged");

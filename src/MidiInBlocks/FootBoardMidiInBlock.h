@@ -12,8 +12,8 @@ class FootBoardMidiInBlock : public MidiInBlock
   private:
     enum class ECCs
     {
-        Switch1 = 0x10, //TODO: Check correct values
-		  Switch2 = 0x11,
+        Switch1 = 0x10, // TODO: Check correct values
+        Switch2 = 0x11,
         Switch3 = 0x12,
         Switch4 = 0x13,
         Switch5 = 0x14,
@@ -22,10 +22,8 @@ class FootBoardMidiInBlock : public MidiInBlock
         Switch8 = 0x17,
         Switch9 = 0x18,
         Switch0 = 0x19,
-        
-		  LeftPedal = 94,
-		  RightPedal = 95,
-
+        LeftPedal = 94,
+        RightPedal = 95,
         Last
     };
 

@@ -21,8 +21,6 @@ void WidgetIds::Fill()
     FillFootPedalPane();
     FillSetupChannelsPane();
     FillSetupOrganPane();
-
-    // Check if lists are of equal size.
     Debug::Assert(_idToNames.size() == (int)WidgetIds::EWidgetId::Last, __FUNCTION__,
                   "Widget ID to Names list does not match");
     Debug::Assert(_nameToIds.size() == (int)WidgetIds::EWidgetId::Last, __FUNCTION__,
@@ -39,15 +37,13 @@ void WidgetIds::FillSlidersPane()
             std::pair<std::string, EWidgetId>("OrganDrawbar" + std::to_string(drawbarSliderNumber),
                                               (EWidgetId)((int)EWidgetId::OrganDrawbar1 + drawbarSliderNumber - 1)));
     }
-
-	 for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
+    for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         _idToNames.push_back("PrimaryKeyboardSlider" + std::to_string(sliderNumber));
-        _nameToIds.insert(
-            std::pair<std::string, EWidgetId>("PrimaryKeyboardSliderBox" + std::to_string(sliderNumber),
-                                              (EWidgetId)((int)EWidgetId::PrimaryKeyboardSliderBox1 + sliderNumber - 1)));
+        _nameToIds.insert(std::pair<std::string, EWidgetId>(
+            "PrimaryKeyboardSliderBox" + std::to_string(sliderNumber),
+            (EWidgetId)((int)EWidgetId::PrimaryKeyboardSliderBox1 + sliderNumber - 1)));
     }
-
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         _idToNames.push_back("PrimaryKeyboardSlider" + std::to_string(sliderNumber));
@@ -55,7 +51,6 @@ void WidgetIds::FillSlidersPane()
             std::pair<std::string, EWidgetId>("PrimaryKeyboardSlider" + std::to_string(sliderNumber),
                                               (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1 + sliderNumber - 1)));
     }
-
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "LevelLeft";
@@ -63,7 +58,6 @@ void WidgetIds::FillSlidersPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1LevelLeft + sliderNumber - 1)));
     }
-
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "LevelRight";
@@ -71,7 +65,6 @@ void WidgetIds::FillSlidersPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderNumber - 1)));
     }
-
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "Name";
@@ -79,7 +72,6 @@ void WidgetIds::FillSlidersPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::PrimaryKeyboardSlider1Name + sliderNumber - 1)));
     }
-
     for (int sliderNumber = 1; sliderNumber <= SlidersPane::NR_OF_SLIDERS; sliderNumber++)
     {
         const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderNumber) + "SourceName";
@@ -94,10 +86,8 @@ void WidgetIds::FillOrganPane()
     _idToNames.push_back("OrganRotatorSpeedTextLabel");
     _nameToIds.insert(
         std::pair<std::string, EWidgetId>("OrganRotatorSpeedTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
-
     _idToNames.push_back("OrganDrive");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganDrive", EWidgetId::OrganRotatorSpeedTextLabel));
-
     _idToNames.push_back("OrganReverbAmount");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganReverbAmount", EWidgetId::OrganRotatorSpeedTextLabel));
 
@@ -115,7 +105,6 @@ void WidgetIds::FillFootPedalPane()
 {
     _idToNames.push_back("LeftFootPedal");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("LeftFootPedal", EWidgetId::LeftFootPedal));
-
     _idToNames.push_back("RightFootPedal");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("RightFootPedal", EWidgetId::RightFootPedal));
 }
@@ -124,16 +113,12 @@ void WidgetIds::FillSetupChannelsPane()
 {
     _idToNames.push_back("SyncLabelsToMixerButton");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("SyncLabelsToMixerButton", EWidgetId::SyncLabelsToMixerButton));
-
     _idToNames.push_back("ChannelIndexTextLabel");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("ChannelIndexTextLabel", EWidgetId::ChannelIndexTextLabel));
-
     _idToNames.push_back("NextSourceTextLabel");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("NextSourceTextLabel", EWidgetId::NextSourceTextLabel));
-
     _idToNames.push_back("VolumeOverrideTextLabel");
     _nameToIds.insert(std::pair<std::string, EWidgetId>("VolumeOverrideTextLabel", EWidgetId::VolumeOverrideTextLabel));
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
@@ -141,7 +126,6 @@ void WidgetIds::FillSetupChannelsPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex)));
     }
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "Number";
@@ -149,7 +133,6 @@ void WidgetIds::FillSetupChannelsPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1Name + channelIndex)));
     }
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "SourceName";
@@ -157,7 +140,6 @@ void WidgetIds::FillSetupChannelsPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1SourceName + channelIndex)));
     }
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "NextSourceButton";
@@ -165,7 +147,6 @@ void WidgetIds::FillSetupChannelsPane()
         _nameToIds.insert(std::pair<std::string, EWidgetId>(
             widgetName, (EWidgetId)((int)EWidgetId::SetupChannel1NextSourceButton + channelIndex)));
     }
-
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
         const std::string widgetName = "SetupChannel" + std::to_string(channelIndex + 1) + "VolumeOverrideButton";
@@ -185,40 +166,31 @@ void WidgetIds::FillSetupChannelWidget(const std::string &widgetName, int channe
 void WidgetIds::FillSetupOrganPane()
 {
     std::string widgetName;
-
     widgetName = "SetupOrganPaneBox";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganPaneBox));
-
     widgetName = "SetupOrganTitleTextLabel";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganTitleTextLabel));
-
     widgetName = "SetupOrganPrimaryKeyboardActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganPrimaryKeyboardActiveButton));
-
     widgetName = "SetupOrganSecondaryKeyboardActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(
         std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSecondaryKeyboardActiveButton));
-
     widgetName = "SetupOrganLowestNoteSlider";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganLowestNoteSlider));
-
     widgetName = "SetupOrganHighestNoteSlider";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganHighestNoteSlider));
-
     widgetName = "SetupOrganLowestNoteTextLabel";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganLowestNoteTextLabel));
-
     widgetName = "SetupOrganHighestNoteTextLabel";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganHighestNoteTextLabel));
-
     widgetName = "SetupOrganSustainPedalActiveButton";
     _idToNames.push_back(widgetName);
     _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::SetupOrganSustainPedalActiveButton));

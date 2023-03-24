@@ -20,7 +20,6 @@ SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel,
         _mixerChannelSubModels.push_back(&mixerChannelSubModel);
         mixerChannelSubModel.Subscribe(*this);
     }
-
     _model.Subscribe(*this);
     _mixerSubModel.Subscribe(*this);
     _organSubModel.Subscribe(*this);
@@ -389,19 +388,15 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
         case MixerChannelSubModel::ESource::Off:
             shapeWidget.SetWidgetFillColor(0.1, 0.1, 0.1, 1.0);
             break;
-
         case MixerChannelSubModel::ESource::PrimaryKeyboard:
             shapeWidget.SetWidgetFillColor(1.0, 1.0, 0.0, 1.0);
             break;
-
         case MixerChannelSubModel::ESource::PrimaryKeyboardPads:
             shapeWidget.SetWidgetFillColor(1.0, 0.0, 1.0, 1.0);
             break;
-
         case MixerChannelSubModel::ESource::SecondaryKeyboard:
             shapeWidget.SetWidgetFillColor(0.0, 1.0, 1.0, 1.0);
             break;
-
         default:
             Debug::Error(__FUNCTION__, "Illelgal source");
         }
@@ -441,7 +436,6 @@ void SlidersPane::CheckGatesFading()
             ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
             long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
                                     _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
-
             UpdateWidgetForGateFading(ms, valueWidget);
         }
     }

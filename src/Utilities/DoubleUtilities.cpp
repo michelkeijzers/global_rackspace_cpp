@@ -26,6 +26,5 @@ DoubleUtilities::DoubleUtilities()
 {
     Debug::Assert(maximumEqualityDifference > 0.0, __FUNCTION__, "MaximumEqualityDifference is 0.0 or negative");
     Debug::Assert(maximumEqualityDifference < 1.0, __FUNCTION__, "MaximumEqualityDifference is lower than 1.0");
-
     _maximumEqualityDifference = maximumEqualityDifference;
 }

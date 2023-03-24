@@ -17,7 +17,6 @@ void ShapeWidget::SetBounds(int left, int top, int width, int height)
     Debug::LogMethodEntry(__FUNCTION__, "left = " + std::to_string(left) + ", top = " + std::to_string(top) +
                                             ", width = " + std::to_string(width) +
                                             ", height = " + std::to_string(height) + ")");
-
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
     Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
     Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
@@ -38,12 +37,9 @@ int ShapeWidget::GetLeft()
 void ShapeWidget::SetLeft(int left)
 {
     Debug::LogMethodEntry(__FUNCTION__, "left = " + std::to_string(left) + ")");
-
     Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
-
     _left = left;
     MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -55,12 +51,9 @@ int ShapeWidget::GetTop()
 void ShapeWidget::SetTop(int top)
 {
     Debug::LogMethodEntry(__FUNCTION__, "top = " + std::to_string(top) + ")");
-
     Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
-
     _top = top;
     MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -72,12 +65,9 @@ int ShapeWidget::GetWidth()
 void ShapeWidget::SetWidth(int width)
 {
     Debug::LogMethodEntry(__FUNCTION__, "width = " + std::to_string(width) + ")");
-
     Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
-
     _width = width;
     MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -89,12 +79,9 @@ int ShapeWidget::GetHeight()
 void ShapeWidget::SetHeight(int height)
 {
     Debug::LogMethodEntry(__FUNCTION__, "height = " + std::to_string(height) + ")");
-
     Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
-
     _height = height;
     MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -103,9 +90,7 @@ void ShapeWidget::SetWidgetOutlineColor(double red, double green, double blue, d
     Debug::LogMethodEntry(__FUNCTION__, "red = " + std::to_string(red) + ", green = " + std::to_string(green) +
                                             ", blue = " + std::to_string(blue) + ", alpha = " + std::to_string(alpha) +
                                             ")");
-
     AssertColors(red, green, blue, alpha);
-
     _redOutlineColor = red;
     _greenOutlineColor = green;
     _blueOutlineColor = blue;
@@ -113,7 +98,6 @@ void ShapeWidget::SetWidgetOutlineColor(double red, double green, double blue, d
     MvcFramework::GetGigPerformerApi().setWidgetOutlineColor(
         GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(_redOutlineColor, _greenOutlineColor,
                                                                   _blueOutlineColor, _alphaOutlineColor));
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -142,9 +126,7 @@ void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, doub
     Debug::LogMethodEntry(__FUNCTION__, "red = " + std::to_string(red) + ", green = " + std::to_string(green) +
                                             ", blue = " + std::to_string(blue) + ", alpha = " + std::to_string(alpha) +
                                             ")");
-
     AssertColors(red, green, blue, alpha);
-
     _redFillColor = red;
     _greenFillColor = green;
     _blueFillColor = blue;
@@ -152,7 +134,6 @@ void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, doub
     MvcFramework::GetGigPerformerApi().setWidgetFillColor(
         GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(_redFillColor, _greenFillColor, _blueFillColor,
                                                                   _alphaFillColor));
-
     Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -181,9 +162,7 @@ void ShapeWidget::SetWidgetTextColor(double red, double green, double blue, doub
     Debug::LogMethodEntry(__FUNCTION__, "red = " + std::to_string(red) + ", green = " + std::to_string(green) +
                                             ", blue = " + std::to_string(blue) + ", alpha = " + std::to_string(alpha) +
                                             ")");
-
     AssertColors(red, green, blue, alpha);
-
     _redTextColor = red;
     _greenTextColor = green;
     _blueTextColor = blue;
