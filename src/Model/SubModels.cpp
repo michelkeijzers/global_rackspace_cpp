@@ -38,7 +38,7 @@ Model &SubModels::GetModel()
 
 std::string SubModels::Serialize()
 {
-    std::string data;
+    std::string data = "Version 0.1\n";
 	 for (auto subModel : _subModels)
 	 {
         data += "> " + subModel->GetName() + "\n";

@@ -21,11 +21,11 @@ static std::map<MixerChannelSubModel::EParameters, std::string> SerializationPar
     SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
 MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
-    : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0), _name(""), _source(ESource::PrimaryKeyboard),
-      _levelLeft(0.0), _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0),
-      _isVolumeOverridden(false)
+    : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0),
+      _name(SUB_MODEL_NAME + " " + std::to_string(channelIndex)), _source(ESource::PrimaryKeyboard), _levelLeft(0.0),
+      _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0), _isVolumeOverridden(false)
 {
-    Debug::Assert(SerializationParameters.size() == (int) EParameters::Last, __FUNCTION__,
+    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
                   "Serialization parameter names incorrect");
 }
 

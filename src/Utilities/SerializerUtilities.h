@@ -1,4 +1,6 @@
-#include <string>
+#pragma once
+
+#include<string>
 #include <vector>
 
 class SerializerUtilities
@@ -15,3 +17,4 @@ class SerializerUtilities
 
     SerializerUtilities();
 };
+

@@ -37,5 +37,5 @@
 /* static */ std::string SerializerUtilities::CreateParameter(const std::string& parameterName, std::string value)
 {
     Debug::Assert(parameterName != "", __FUNCTION__, "Parameter name is empty");
-    return parameterName + ":" + value + "\n";
+    return "    " + parameterName + ":" + value + "\n";
 }

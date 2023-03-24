@@ -1,8 +1,10 @@
+#include <juce_core/juce_core.h>
 #include "Model.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
 #include "MixerSubModel.h"
 #include "OrganSubModel.h"
+#include "../Framework/MvcFramework.h"
 
 Model::Model() : _subModels(*this)
 {
@@ -33,9 +35,10 @@ void Model::LoadSong(const std::string& songName)
 void Model::WriteSong()
 {
     std::string songData = _subModels.Serialize();
-
-
-	 
+    const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
+    const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
+    juce::File file("D:\\JuceOutput\\Rackspaces\\" + rackspaceName);
+	 file.replaceWithText(songData);
 }
 
 void Model::OnTimer(ETimer timer)
