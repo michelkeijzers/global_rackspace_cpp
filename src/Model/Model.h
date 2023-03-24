@@ -20,8 +20,8 @@ class Model : public Observable
 
     SubModel &GetSubModel(SubModels::ESubModelId id);
 
-    void LoadSong(const std::string &songName);
-    void WriteSong();
+    bool LoadSong();
+    bool WriteSong();
 
   private:
     SubModels _subModels;

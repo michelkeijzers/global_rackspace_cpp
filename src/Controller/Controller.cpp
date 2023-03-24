@@ -53,17 +53,17 @@ View &Controller::GetView()
 
 void Controller::OnSongChanged(int oldIndex, int newIndex)
 {
-    _model.LoadSong(GetCurrentSongName());
+    _model.LoadSong();//TODO
 }
 
 void Controller::OnPreviousSong()
 {
-    _model.LoadSong(GetCurrentSongName());
+    _model.LoadSong(); //TODO
 }
 
 void Controller::OnNextSong()
 {
-    _model.LoadSong(GetCurrentSongName());
+    _model.LoadSong();//TODO
 }
 
 void Controller::WriteSong()

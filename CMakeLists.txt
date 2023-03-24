@@ -81,6 +81,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/DoubleUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/IntUtilities.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/IntUtilities.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/StringUtilities.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/StringUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VectorUtilities.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VectorUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/MidiUtilities.h"

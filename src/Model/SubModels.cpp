@@ -48,7 +48,7 @@ std::string SubModels::Serialize()
 	 return data;
 }
 
-void SubModels::Deserialize(std::string data)
+void SubModels::Deserialize(std::vector<std::string> lines)
 {
 	//TODO
 }
