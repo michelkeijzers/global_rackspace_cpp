@@ -2,13 +2,14 @@
 #include "Model.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
+#include "../Utilities/MidiUtilities.h"
 #include "MixerSubModel.h"
 #include "OrganSubModel.h"
 #include "../Framework/MvcFramework.h"
 
 Model::Model() : _subModels(*this)
 {
-    DoubleUtilities::SetMaximumEqualityDifference(1 / 127.0);
+    DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
 
 void Model::Fill()

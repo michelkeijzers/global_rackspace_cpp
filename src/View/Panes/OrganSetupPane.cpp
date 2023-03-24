@@ -4,6 +4,7 @@
 #include "../../Framework/MvcFramework.h"
 #include "../../Model/OrganSubModel.h"
 #include "../../Utilities/Debug.h"
+#include "../../Utilities/MidiUtilities.h"
 #include "../../Widgets/ButtonWidget.h"
 #include "../../Widgets/ShapeWidget.h"
 #include "../../Widgets/TextWidget.h"
@@ -77,7 +78,7 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         int noteNumber = _organSubModel.GetLowestNote();
-        valueWidget.SetValue(noteNumber / 127.0); // TODO: 127 ?
+        valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
 
         Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
@@ -88,7 +89,7 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
         Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider);
         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         int noteNumber = _organSubModel.GetHighestNote();
-        valueWidget.SetValue(noteNumber / 127.0); // TODO: 127 ?
+        valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
 
         Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel);
         TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);

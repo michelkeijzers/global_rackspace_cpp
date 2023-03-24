@@ -33,7 +33,7 @@ static const double PARAM_ACCURACY = 0.001;
 {
     Debug::Assert(value >= 0, __FUNCTION__, "value too low");
     Debug::Assert(value <= 127, __FUNCTION__, "value too high");
-    return static_cast<double>(value) / 127;
+    return static_cast<double>(value) / 127.0;
 }
 
  /* static */ bool MidiUtilities::MidiToBool(uint8_t value)
