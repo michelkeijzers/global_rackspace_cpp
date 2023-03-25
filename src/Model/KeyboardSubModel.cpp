@@ -9,12 +9,10 @@
 
 static const std::string SUB_MODEL_NAME = "Keyboard";
 
-static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersData[] = 
-{
+static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersData[] = {
     std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard"),
     std::make_pair(KeyboardSubModel::EParameters::SustainEnabled, "SustainEnabled"),
-    std::make_pair(KeyboardSubModel::EParameters::ExpressionVolume, "ExpressionVolume")
-};
+    std::make_pair(KeyboardSubModel::EParameters::ExpressionVolume, "ExpressionVolume")};
 
 static std::map<KeyboardSubModel::EParameters, std::string> SerializationParameters(
     SerializationParametersData,
@@ -23,7 +21,7 @@ static std::map<KeyboardSubModel::EParameters, std::string> SerializationParamet
 KeyboardSubModel::KeyboardSubModel(SubModels &subModels, bool isPrimaryKeyboard)
     : SubModel(subModels), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
 {
-    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
 }
 

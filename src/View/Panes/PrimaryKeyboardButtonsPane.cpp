@@ -19,8 +19,7 @@ void PrimaryKeyboardButtonsPane::Fill()
 {
     for (int buttonIndex = 0; buttonIndex < NR_OF_BUTTONS; buttonIndex++)
     {
-        WidgetIds::EWidgetId widgetId =
-            (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardButton1 + buttonIndex);
+        WidgetIds::EWidgetId widgetId = WidgetIds::GetPrimaryKeyboardButton(buttonIndex);
         GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
     }
 }
@@ -29,12 +28,10 @@ void PrimaryKeyboardButtonsPane::Update(ChangedProperties::EChangedProperty chan
 {
     switch (changedProperty)
     {
-    case ChangedProperties::EChangedProperty::OrganRotatorSpeed:
-        {
-            Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardButton9);
-            ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
-            buttonWidget.SetPressed(_organSubModel.IsRotatorSpeedFast());
-        }
-        break;
+    case ChangedProperties::EChangedProperty::OrganRotatorSpeed: {
+        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardButton9);
+        static_cast<ButtonWidget &>(widget).SetPressed(_organSubModel.IsRotatorSpeedFast());
+    }
+    break;
     }
 }

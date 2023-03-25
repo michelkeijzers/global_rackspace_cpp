@@ -5,11 +5,14 @@
 #include "../../Utilities/Debug.h"
 #include "../../Utilities/DoubleUtilities.h"
 #include "../../Widgets/ValueWidget.h"
+#include "../../Widgets/WidgetIds.h"
 #include "../View.h"
+#include "../../Framework/MvcFramework.h"
 #include <juce_core/juce_core.h>
 #include <juce_core/time/juce_Time.h>
 
-#include "../../Framework/MvcFramework.h"
+constexpr double GATE_FADE_TIME = 30.0; // seconds
+constexpr int GATE_FADE_BOX_OUTLINE_THICKNESS = 5;
 
 SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel)
     : Pane(view), _model(model), _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
@@ -32,31 +35,31 @@ void SlidersPane::Fill() // override
     // Add sliders, and names for channels and master volume.
     for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
     {
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1 + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
     }
 
     // Add organ drawbars.
     for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
     {
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrawbar1 + drawbarIndex);
+        widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
         GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
     }
 
     // Add organ drive and reverbAmount.
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrive);
-    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverbAmount);
+    widgetId = WidgetIds::EWidgetId::OrganDrive;
+    GetWidgets().AddWidget( WidgetIds::EWidgetId::OrganDrive, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+    widgetId = WidgetIds::EWidgetId::OrganReverbAmount;
     GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
@@ -71,12 +74,11 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         CheckGatesFading();
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
+    int index = ChangedProperties::GetIndexOfOrganDrawbarProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::OrganDrawbar1) &&
+        (index < OrganSubModel::NR_OF_DRAWBARS))
     {
-        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
-        UpdateDrawbar(drawbarIndex);
+        UpdateDrawbar(index);
     }
 
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
@@ -89,36 +91,33 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         UpdateOrganReverbAmount();
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::MixerChannel1Volume + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfMixerChannelVolumeProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1Volume;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelVolume(channelIndex);
+            UpdateChannelVolume(index);
         }
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1LevelLeft) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::MixerChannel1LevelLeft + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfMixerChannelLevelLeftProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelLeft) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1LevelLeft;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelLevelLeft(channelIndex);
+            UpdateChannelLevelLeft(index);
         }
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1LevelRight) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::MixerChannel1LevelRight + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfMixerChannelLevelRightProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelRight) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1LevelRight;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelLevelRight(channelIndex);
+            UpdateChannelLevelRight(index);
         }
     }
 
@@ -132,27 +131,23 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         UpdateMasterLevelRight();
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive) &&
-             ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive +
-                                         MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfChannelLastTimeGateLeftActiveProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex =
-            (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelGate(channelIndex);
+            UpdateChannelGate(index);
         }
     }
 
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive) &&
-             ((int)changedProperty < (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive +
-                                         MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfChannelLastTimeGateRightActiveProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex =
-            (int)changedProperty - (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelGate(channelIndex);
+            UpdateChannelGate(index);
         }
     }
 
@@ -167,24 +162,23 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
         UpdateMasterVolume();
     }
 
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Name) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1Name + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Name) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Name;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelName(channelIndex);
+            UpdateChannelName(index);
         }
     }
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Source) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1Source + MixerSubModel::NR_OF_MIXER_CHANNELS))
+
+    index = ChangedProperties::GetIndexOfChannelSourceProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Source) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Source;
-        if (IsChannelIndexActive(channelIndex))
+        if (IsChannelIndexActive(index))
         {
-            UpdateChannelSource(channelIndex);
+            UpdateChannelSource(index);
         }
     }
 }
@@ -192,52 +186,43 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
 void SlidersPane::UpdateTab()
 {
     bool drawbarsSelected = _mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars;
-
     UpdateTabShowSliders(drawbarsSelected);
     UpdateTabShowOrganWidgets(drawbarsSelected);
     UpdateTabUpdateValues(drawbarsSelected);
 }
 
-void SlidersPane::UpdateTabShowOrganWidgets(bool drawbarsSelected)
+void SlidersPane::UpdateTabShowOrganWidgets(bool organDrawbarsSelected)
 {
     WidgetIds::EWidgetId widgetId;
-
-    for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
+    for (int organDrawbarIndex = 0; organDrawbarIndex < OrganSubModel::NR_OF_DRAWBARS; organDrawbarIndex++)
     {
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrawbar1 + drawbarIndex);
-        GetWidgets().GetWidget(widgetId).Show(drawbarsSelected);
+        widgetId = WidgetIds::GetOrganDrawbar(organDrawbarIndex);
+        GetWidgets().GetWidget(widgetId).Show(organDrawbarsSelected);
     }
-
-    // Add organ drive and reverbAmount.
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganDrive);
-    GetWidgets().GetWidget(widgetId).Show(drawbarsSelected);
-
-    widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::OrganReverbAmount);
-    GetWidgets().GetWidget(widgetId).Show(drawbarsSelected);
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive).Show(organDrawbarsSelected);
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount).Show(organDrawbarsSelected);
 }
 
 void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
 {
     WidgetIds::EWidgetId widgetId;
 
+	 // TODO: CONSIDER FIRST/LAST_SLIDER_PANE_WIDGET ENUM VALUES EQUAL TO START/END WIDGETS TO USE A SIMPLE FOR LOOP
     for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
     {
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1 + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1 + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft + sliderIndex);
+        widgetId = WidgetIds::GetOrganDrawbar(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName + sliderIndex);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
+        GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
+        widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
         GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
     }
 }
@@ -275,61 +260,61 @@ void SlidersPane::UpdateTabUpdateValues(bool drawbarsSelected)
 
 void SlidersPane::UpdateDrawbar(int drawbarIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_organSubModel.GetDrawbars(drawbarIndex));
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex))
+        .SetValue(_organSubModel.GetDrawbars(drawbarIndex));
 }
 
 void SlidersPane::UpdateOrganDrive()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_organSubModel.GetDrive());
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive))
+        .SetValue(_organSubModel.GetDrive());
 }
 
 void SlidersPane::UpdateOrganReverbAmount()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_organSubModel.GetReverbAmount());
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount))
+        .SetValue(_organSubModel.GetReverbAmount());
 }
 
 void SlidersPane::UpdatePropertyMasterLastTimeGate()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9SourceName);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     long long ms = std::max(_mixerSubModel.GetMasterLastTimeGateLeftActive().toMilliseconds(),
                             _mixerSubModel.GetMasterLastTimeGateRightActive().toMilliseconds());
-    UpdateWidgetForGateFading(ms, valueWidget);
+    UpdateWidgetForGateFading(
+        ms, static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9SourceName)));
 }
 
 bool SlidersPane::IsChannelIndexActive(int channelIndex)
 {
     MixerSubModel::ETabSelection tabSelection = _mixerSubModel.GetTabSelection();
-    return (
-        ((tabSelection == MixerSubModel::ETabSelection::Channels1To8) && (0 <= channelIndex) && (channelIndex < 8)) ||
-        ((tabSelection == MixerSubModel::ETabSelection::Channels9To16) && (8 <= channelIndex) && (channelIndex < 16)) ||
-        ((tabSelection == MixerSubModel::ETabSelection::Channels17To24) && (16 <= channelIndex) &&
-         (channelIndex < 24)));
+    return (((tabSelection == MixerSubModel::ETabSelection::Channels1To8) && (0 <= channelIndex) &&
+             (channelIndex < NR_OF_CHANNEL_SLIDERS)) ||
+            ((tabSelection == MixerSubModel::ETabSelection::Channels9To16) && (NR_OF_CHANNEL_SLIDERS <= channelIndex) &&
+             (channelIndex < (2 * NR_OF_CHANNEL_SLIDERS))) ||
+            ((tabSelection == MixerSubModel::ETabSelection::Channels17To24) &&
+             ((2 * NR_OF_CHANNEL_SLIDERS) <= channelIndex) && (channelIndex < (3 * NR_OF_CHANNEL_SLIDERS))));
 }
 
 void SlidersPane::UpdateChannelVolume(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1, channelIndex % 8);
+    Widget &widget =
+        GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1, channelIndex % NR_OF_CHANNEL_SLIDERS);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     valueWidget.SetValue(_mixerSubModel.GetChannelVolume(channelIndex));
 }
 
 void SlidersPane::UpdateChannelLevelLeft(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft, channelIndex % 8);
+    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft,
+                                            channelIndex % NR_OF_CHANNEL_SLIDERS);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     valueWidget.SetValue(_mixerSubModel.GetChannelLevelLeft(channelIndex));
 }
 
 void SlidersPane::UpdateChannelLevelRight(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight, channelIndex % 8);
+    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight,
+                                            channelIndex % NR_OF_CHANNEL_SLIDERS);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     valueWidget.SetValue(_mixerSubModel.GetChannelLevelRight(channelIndex));
 }
@@ -340,7 +325,8 @@ void SlidersPane::UpdateChannelLevelRight(int channelIndex)
 /// <param name="channelIndex"></param>
 void SlidersPane::UpdateChannelGate(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % 8);
+    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName,
+                                            channelIndex % NR_OF_CHANNEL_SLIDERS);
     ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
     long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
                             _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
@@ -350,8 +336,9 @@ void SlidersPane::UpdateChannelGate(int channelIndex)
 void SlidersPane::UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidget)
 {
     long long ago = std::max(0LL, juce::Time::getCurrentTime().toMilliseconds() - ms);
-    double red = std::max(0.0, 1.0 - (1.0 / 30) * (ago / 1000.0));
-    int thickness = std::max(0, 5 - (int)(5 / 30.0 * (ago / 1000.0)));
+    double red = std::max(0.0, 1.0 - (1.0 / GATE_FADE_TIME) * (ago / 1000.0));
+    int thickness = std::max(0, GATE_FADE_BOX_OUTLINE_THICKNESS -
+                                    static_cast<int>(GATE_FADE_BOX_OUTLINE_THICKNESS / GATE_FADE_TIME * (ago / 1000.0)));
 
     if (!DoubleUtilities::AreEqual(valueWidget.GetWidgetOutlineColorRed(), red))
     {
@@ -366,21 +353,24 @@ void SlidersPane::UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidg
 
 void SlidersPane::UpdateChannelName(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % 8);
+    Widget &widget =
+        GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
     TextWidget &textWidget = static_cast<TextWidget &>(widget);
     textWidget.SetText(_mixerSubModel.GetChannelName(channelIndex));
 }
 
 void SlidersPane::UpdateChannelSource(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % 8);
+    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName,
+                                            channelIndex % NR_OF_CHANNEL_SLIDERS);
     TextWidget &textWidget = static_cast<TextWidget &>(widget);
     textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
 
     int channelOffset = _mixerSubModel.GetChannelOffset();
     if (channelOffset >= 0)
     {
-        Widget &boxWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1, channelIndex % 8);
+        Widget &boxWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1,
+                                                   channelIndex % NR_OF_CHANNEL_SLIDERS);
         ShapeWidget &shapeWidget = static_cast<ShapeWidget &>(boxWidget);
 
         switch (_mixerSubModel.GetChannelSource(channelIndex))
@@ -405,23 +395,20 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
 
 void SlidersPane::UpdateMasterVolume()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_mixerSubModel.GetMasterVolume());
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9))
+        .SetValue(_mixerSubModel.GetMasterVolume());
 }
 
 void SlidersPane::UpdateMasterLevelLeft()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelLeft);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_mixerSubModel.GetMasterLevelLeft());
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelLeft))
+        .SetValue(_mixerSubModel.GetMasterLevelLeft());
 }
 
 void SlidersPane::UpdateMasterLevelRight()
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelRight);
-    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-    valueWidget.SetValue(_mixerSubModel.GetMasterLevelRight());
+    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelRight))
+        .SetValue(_mixerSubModel.GetMasterLevelRight());
 }
 
 void SlidersPane::CheckGatesFading()
@@ -431,8 +418,8 @@ void SlidersPane::CheckGatesFading()
     {
         for (int channelIndex = channelOffset; channelIndex < channelOffset + NR_OF_CHANNEL_SLIDERS; channelIndex++)
         {
-            Widget &widget =
-                GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % 8);
+            Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName,
+                                                    channelIndex % NR_OF_CHANNEL_SLIDERS);
             ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
             long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
                                     _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());

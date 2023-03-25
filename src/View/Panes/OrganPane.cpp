@@ -30,8 +30,8 @@ void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* o
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel);
-        TextWidget &textWidget = static_cast<TextWidget &>(widget);
+        TextWidget &textWidget =
+            static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel));
         bool isRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
         textWidget.SetText(isRotatorSpeedFast ? ROTATOR_SPEED_FAST_TEXT : ROTATOR_SPEED_SLOW_TEXT);
         textWidget.SetWidgetFillColor(isRotatorSpeedFast ? 1.0 : 0.0, isRotatorSpeedFast ? 0.0 : 1.0, 0.0, 1.0);

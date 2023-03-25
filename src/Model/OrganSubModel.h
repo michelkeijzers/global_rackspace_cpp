@@ -80,7 +80,7 @@ class OrganSubModel : public SubModel, public Observable
     // Setup
     bool _primaryKeyboardIsActive;
     bool _secondaryKeyboardIsActive;
-    int _lowestNote;
-    int _highestNote;
+    uint8_t _lowestNote;
+    uint8_t _highestNote;
     bool _sustainPedalIsActive;
 };

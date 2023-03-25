@@ -8,9 +8,9 @@ class ChangedProperties
         PrimaryKeyboardSustainEnabled,
         SecondaryKeyboardSustainEnabled,
         PrimaryKeyboardExpressionVolume,
-		  SecondaryKeyboardExpressionVolume,
+        SecondaryKeyboardExpressionVolume,
 
-		  OrganIsEnabled,
+        OrganIsEnabled,
         OrganDrawbar1,
         OrganDrawbar2,
         OrganDrawbar3,
@@ -24,12 +24,12 @@ class ChangedProperties
         OrganDrive,
         OrganReverbAmount,
 
-		  // Setup
-		  OrganPrimaryKeyboardActive,
-		  OrganSecondaryKeyboardActive,
-		  OrganLowestNote,
-		  OrganHighestNote,
-		  OrganSustainPedalActive,
+        // Setup
+        OrganPrimaryKeyboardActive,
+        OrganSecondaryKeyboardActive,
+        OrganLowestNote,
+        OrganHighestNote,
+        OrganSustainPedalActive,
 
         SlidersTabSelection,
 
@@ -240,10 +240,37 @@ class ChangedProperties
         Channel23VolumeOverride,
         Channel24VolumeOverride,
 
-		  SecondElapsed,
+        SecondElapsed,
 
         Last
     };
+
+    static EChangedProperty GetOrganDrawbarProperty(int organDrawbarIndex);
+    static int GetIndexOfOrganDrawbarProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetMixerChannelVolumeProperty(int channelIndex);
+    static int GetIndexOfMixerChannelVolumeProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetMixerChannelLevelLeftProperty(int channelIndex);
+    static int GetIndexOfMixerChannelLevelLeftProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetMixerChannelLevelRightProperty(int channelIndex);
+    static int GetIndexOfMixerChannelLevelRightProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetMixerChannel1LastTimeGateLeftActiveProperty(int channelIndex);
+    static int GetIndexOfChannelLastTimeGateLeftActiveProperty(EChangedProperty changedProperty);
+    
+	 static EChangedProperty GetMixerChannel1LastTimeGateRightActiveProperty(int channelIndex);
+    static int GetIndexOfChannelLastTimeGateRightActiveProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetChannelNameProperty(int channelIndex);
+    static int GetIndexOfChannelNameProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetChannelSourceProperty(int channelIndex);
+    static int GetIndexOfChannelSourceProperty(EChangedProperty changedProperty);
+
+    static EChangedProperty GetChannelVolumeOverrideProperty(int channelIndex);
+    static int GetIndexOfChannelVolumeOverrideProperty(EChangedProperty changedProperty);
 
   private:
     ChangedProperties();

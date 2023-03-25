@@ -101,8 +101,8 @@ class WidgetIds
         PrimaryKeyboardButton12,
         PrimaryKeyboardButton13,
 
-		  LeftFootPedal,
-		  RightFootPedal,
+        LeftFootPedal,
+        RightFootPedal,
 
         // Channels Setup pane
         SyncLabelsToMixerButton,
@@ -254,6 +254,45 @@ class WidgetIds
 
     EWidgetId GetId(const std::string &name);
     std::string GetName(EWidgetId id);
+
+    static EWidgetId GetOrganDrawbar(int sliderIndex);
+    static int GetIndexOfOrganDrawbar(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardSliderBox(int boxIndex);
+    static int GetIndexOfPrimaryKeyboardSliderBox(EWidgetId box);
+
+    static EWidgetId GetPrimaryKeyboardSlider(int sliderIndex);
+    static int GetIndexOfPrimaryKeyboardSlider(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardSliderLevelLeft(int sliderIndex);
+    static int GetIndexOfPrimaryKeyboardSliderLevelLeft(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardSliderLevelRight(int sliderIndex);
+    static int GetIndexOfPrimaryKeyboardSliderLevelRight(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardSliderName(int sliderIndex);
+    static int GetIndexOfPrimaryKeyboardSliderName(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardSliderSourceName(int sliderIndex);
+    static int GetIndexOfPrimaryKeyboardSliderSourceName(EWidgetId slider);
+
+    static EWidgetId GetPrimaryKeyboardButton(int buttonIndex);
+    static int GetIndexOfPrimaryKeyboardButton(EWidgetId button);
+
+    static EWidgetId GetSetupChannelName(int channelIndex);
+    static int GetIndexOfSetupChannelName(EWidgetId channelName);
+
+    static EWidgetId GetSetupChannelNumber(int channelIndex);
+    static int GetIndexOfSetupChannelNumber(EWidgetId channelNumber);
+
+    static EWidgetId GetSetupChannelSourceName(int channelIndex);
+    static int GetIndexOfSetupChannelSourceName(EWidgetId channelSourceName);
+
+    static EWidgetId GetSetupChannelNextSourceButton(int channelIndex);
+    static int GetIndexOfSetupChannelNextSourceButton(EWidgetId channelIndex);
+
+    static EWidgetId GetSetupChannelVolumeOverrideButton(int channelIndex);
+    static int GetIndexOfSetupChannelVolumeOverrideButton(EWidgetId channelIndex);
 
   private:
     void FillSlidersPane();

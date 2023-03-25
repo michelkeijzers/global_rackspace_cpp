@@ -21,8 +21,7 @@ static std::pair<OrganSubModel::EParameters, std::string> SerializationParameter
     std::make_pair(OrganSubModel::EParameters::SecondaryKeyboardIsActive, "SecondaryKeyboardIsActive"),
     std::make_pair(OrganSubModel::EParameters::LowestNote, "LowestNote"),
     std::make_pair(OrganSubModel::EParameters::HighestNote, "HighestNote"),
-    std::make_pair(OrganSubModel::EParameters::SustainPedalIsActive, "SustainPedalIsActive")
-};
+    std::make_pair(OrganSubModel::EParameters::SustainPedalIsActive, "SustainPedalIsActive")};
 
 static std::map<OrganSubModel::EParameters, std::string> SerializationParameters(
     SerializationParametersData,
@@ -33,7 +32,7 @@ OrganSubModel::OrganSubModel(SubModels &subModels)
       _primaryKeyboardIsActive(false), _secondaryKeyboardIsActive(false), _lowestNote(0), _highestNote(0),
       _sustainPedalIsActive(false)
 {
-    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
     for (int n = 0; n < NR_OF_DRAWBARS; n++)
     {
@@ -49,8 +48,8 @@ const std::string OrganSubModel::GetName() // override
 std::string OrganSubModel::Serialize() // override
 {
     std::string data;
-    data += SerializerUtilities::CreateVectorDoubleParameters(SerializationParameters[EParameters::Drawbars],
-                                                              _drawbars);
+    data +=
+        SerializerUtilities::CreateVectorDoubleParameters(SerializationParameters[EParameters::Drawbars], _drawbars);
     data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsEnabled], _isEnabled);
     data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsRotatorSpeedFast],
                                                         _isRotatorSpeedFast);
@@ -106,8 +105,7 @@ void OrganSubModel::SetDrawbars(int drawbarIndex, double newValue)
         _drawbars[drawbarIndex] = newValue;
         Debug::Log("# " + GetName() + ", drawbar " + std::to_string(drawbarIndex) +
                    ", value = " + std::to_string(_drawbars[drawbarIndex]));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::OrganDrawbar1 +
-                                                     drawbarIndex));
+        Notify(ChangedProperties::GetOrganDrawbarProperty(drawbarIndex));
     }
 }
 

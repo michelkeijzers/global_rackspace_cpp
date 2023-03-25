@@ -22,7 +22,7 @@ MixerSubModel::MixerSubModel(SubModels &subModels)
       _masterLastTimeGateLeftActive(0), _masterLastTimeGateRightActive(0),
       _tabSelection(MixerSubModel::ETabSelection::Drawbars)
 {
-    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
@@ -52,7 +52,7 @@ std::string MixerSubModel::Serialize() // override
 {
     std::string data;
     data +=
-        SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection], (int)_tabSelection);
+        SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection], static_cast<int>(_tabSelection));
     data +=
         SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::MasterVolume], _masterVolume);
 
@@ -85,15 +85,15 @@ void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
     if (IsForcedMode() || (_tabSelection != tabSelection))
     {
         _tabSelection = tabSelection;
-        Debug::Log("# " + GetName() + ", tab selection = " + std::to_string((int)_tabSelection));
+        Debug::Log("# " + GetName() + ", tab selection = " + std::to_string(static_cast<int>(_tabSelection)));
         Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
     }
 }
 
 void MixerSubModel::SetNextTab()
 {
-    _tabSelection = (ETabSelection)(((int)_tabSelection + 1) % (int)ETabSelection::Last);
-    Debug::Log("# " + GetName() + ", tab selection = " + std::to_string((int)_tabSelection));
+    _tabSelection = (ETabSelection)((static_cast<int>(_tabSelection) + 1) % static_cast<int>(ETabSelection::Last));
+    Debug::Log("# " + GetName() + ", tab selection = " + std::to_string(static_cast<int>(_tabSelection)));
     Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
 }
 
@@ -143,7 +143,7 @@ void MixerSubModel::SetMasterVolume(double newVolume)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newVolume))
     {
         _masterVolume = newVolume;
-        Debug::Log("# " + GetName() + ", master volume = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master volume = " + std::to_string(static_cast<int>(_masterVolume)));
         Notify(ChangedProperties::EChangedProperty::MasterVolume);
     }
 }
@@ -187,7 +187,7 @@ void MixerSubModel::SetMasterLevelLeft(double newLevel)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newLevel))
     {
         _masterLevelLeft = newLevel;
-        Debug::Log("# " + GetName() + ", master level left = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master level left = " + std::to_string(static_cast<int>(_masterVolume)));
         Notify(ChangedProperties::EChangedProperty::MasterLevelLeft);
     }
 }
@@ -197,7 +197,7 @@ void MixerSubModel::SetMasterLevelRight(double newLevel)
     if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newLevel))
     {
         _masterLevelLeft = newLevel;
-        Debug::Log("# " + GetName() + ", master level right = " + std::to_string((int)_masterVolume));
+        Debug::Log("# " + GetName() + ", master level right = " + std::to_string(static_cast<int>(_masterVolume)));
         Notify(ChangedProperties::EChangedProperty::MasterLevelRight);
     }
 }
@@ -251,8 +251,7 @@ void MixerSubModel::SetMasterGateLeft(bool gateActive)
         }
         Debug::Log("# " + GetName() +
                    ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
-        Notify((ChangedProperties::EChangedProperty)(
-            (int)ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive));
+        Notify(ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive);
     }
 }
 
@@ -271,8 +270,7 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
         }
         Debug::Log("# " + GetName() +
                    ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
-        Notify((ChangedProperties::EChangedProperty)(
-            (int)ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive));
+        Notify(ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive);
     }
 }
 

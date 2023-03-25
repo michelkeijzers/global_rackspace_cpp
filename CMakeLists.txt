@@ -112,6 +112,7 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/PluginsSetupSubView.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/PluginsSetupSubView.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/ChangedProperties.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/View/ChangedProperties.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/IObserver.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Observable.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/View/Panes/Pane.h"

@@ -75,5 +75,5 @@ void Plugins::Init()
 
 Plugin &Plugins::GetPlugin(EPluginId id)
 {
-     return *(_plugins.at((int)id));
+     return *(_plugins.at(static_cast<int>(id)));
 }

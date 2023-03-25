@@ -20,7 +20,7 @@ void SubModels::Fill()
     _subModels.push_back(new OrganSubModel(*this));
     _subModels.push_back(new KeyboardSubModel(*this, true));
     _subModels.push_back(new KeyboardSubModel(*this, false));
-	 Debug::Assert(_subModels.size() == (int)ESubModelId::Last, __FUNCTION__, "sub models list incorrect");
+     Debug::Assert(_subModels.size() == static_cast<int>(ESubModelId::Last), __FUNCTION__, "sub models list incorrect");
 }
 
 void SubModels::Init()
@@ -55,7 +55,7 @@ void SubModels::Deserialize(std::vector<std::string> lines)
 
 SubModel &SubModels::GetSubModel(ESubModelId id)
     {
-    return *(_subModels.at((int) id));
+    return *(_subModels.at(static_cast<int>(id)));
 }
 
 bool SubModels::IsForcedMode()

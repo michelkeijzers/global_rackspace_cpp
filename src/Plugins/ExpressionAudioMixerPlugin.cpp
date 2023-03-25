@@ -48,14 +48,14 @@ void ExpressionAudioMixerPlugin::Update(ChangedProperties::EChangedProperty chan
     }
     else
     {
-        int nameStartProperty = (int)(_lowerChannels ? ChangedProperties::EChangedProperty::Channel1Name
-                                                     : ChangedProperties::EChangedProperty::Channel17Name);
+        ChangedProperties::EChangedProperty nameStartProperty =
+            (_lowerChannels ? ChangedProperties::EChangedProperty::Channel1Name
+                            : ChangedProperties::EChangedProperty::Channel17Name);
         int nrOfUsedChannels = GetNrOfUsedChannels();
-        if (((int)changedProperty >= nameStartProperty) &&
-            ((int)changedProperty < nameStartProperty + nrOfUsedChannels))
+        int index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
+        if ((changedProperty >= nameStartProperty) && (index < nrOfUsedChannels))
         {
-            int channelIndex = (int)changedProperty - nameStartProperty;
-            UpdateChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
+            UpdateChannelName(index % NR_OF_STEREO_CHANNELS);
         }
     }
 }

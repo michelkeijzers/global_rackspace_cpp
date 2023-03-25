@@ -16,7 +16,7 @@ FootBoardMidiInBlock::FootBoardMidiInBlock(Controller &controller) : MidiInBlock
 bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
 {
     bool handleMessage = true;
-    switch ((ECCs)ccNumber)
+    switch (static_cast<ECCs>(ccNumber))
     {
     case ECCs::Switch1: {
         // TODO: Modulation wheel upper keyboard

@@ -30,12 +30,12 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
     WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
     Debug::Log("@--- On Widget " + widgetName + ": value = " + std::to_string(newValue));
-    const int drawbar1Value = (int)(WidgetIds::EWidgetId::OrganDrawbar1);
-    if (((int)widgetId >= drawbar1Value) && ((int)widgetId < drawbar1Value + OrganPane::NR_OF_DRAWBAR_SLIDERS))
+    int index = WidgetIds::GetIndexOfOrganDrawbar(widgetId);
+    if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) && (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
     {
         OrganSubController &organSubController =
             static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
-        organSubController.SetDrawbarValue(int(widgetId) - drawbar1Value, newValue);
+        organSubController.SetDrawbarValue(index, newValue);
         processed = true;
     }
     if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
@@ -50,11 +50,10 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     }
     if (!processed)
     {
-        const int primaryKeyboardSlider1 = (int)(WidgetIds::EWidgetId::PrimaryKeyboardSlider1);
-        if (((int)widgetId >= primaryKeyboardSlider1) &&
-            ((int)widgetId < primaryKeyboardSlider1 + SlidersPane::NR_OF_SLIDERS))
+        int index = WidgetIds::GetIndexOfPrimaryKeyboardSlider(widgetId);
+        if ((widgetId >= WidgetIds::EWidgetId::PrimaryKeyboardSlider1) && (index < SlidersPane::NR_OF_SLIDERS))
         {
-            ProcessSlider((int)widgetId - primaryKeyboardSlider1, newValue);
+            ProcessSlider(index, newValue);
             processed = true;
         }
     }
@@ -80,30 +79,30 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     }
     if (!processed)
     {
-        WidgetIds::EWidgetId channel1NextSourceButtonId = WidgetIds::EWidgetId::SetupChannel1NextSourceButton;
-        if ((widgetId >= channel1NextSourceButtonId) &&
-            ((int)widgetId < (int)channel1NextSourceButtonId + MixerSubModel::NR_OF_MIXER_CHANNELS))
+        int index = WidgetIds::GetIndexOfSetupChannelNextSourceButton(widgetId);
+        if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1NextSourceButton) &&
+            (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
         {
             if (ButtonWidget::IsPressed(newValue))
             {
                 MixerSubController &mixerSubController = static_cast<MixerSubController &>(
                     _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
-                mixerSubController.SelectNextSource((int)widgetId - (int)channel1NextSourceButtonId);
+                mixerSubController.SelectNextSource(index);
             }
             processed = true;
         }
     }
     if (!processed)
     {
-        WidgetIds::EWidgetId Channel1VolumeOverrideButtonId = WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton;
-        if ((widgetId >= Channel1VolumeOverrideButtonId) &&
-            ((int)widgetId < (int)Channel1VolumeOverrideButtonId + MixerSubModel::NR_OF_MIXER_CHANNELS))
+        int index = WidgetIds::GetIndexOfSetupChannelVolumeOverrideButton(widgetId);
+        if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton) && 
+			  (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
         {
             if (ButtonWidget::IsPressed(newValue))
             {
                 MixerSubController &mixerSubController = static_cast<MixerSubController &>(
                     _controller.GetSubController(SubControllers::ESubControllerId::Mixer));
-                mixerSubController.SwapVolumeOverride((int)widgetId - (int)Channel1VolumeOverrideButtonId);
+                mixerSubController.SwapVolumeOverride(index);
             }
             processed = true;
         }

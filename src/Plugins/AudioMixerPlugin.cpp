@@ -32,21 +32,24 @@ AudioMixerPlugin::AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, boo
 
 void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    int volumeStartProperty = (int)(_lowerChannels ? ChangedProperties::EChangedProperty::MixerChannel1Volume
-                                                   : ChangedProperties::EChangedProperty::MixerChannel17Volume);
-    int nameStartProperty = (int)(_lowerChannels ? ChangedProperties::EChangedProperty::Channel1Name
-                                                 : ChangedProperties::EChangedProperty::Channel17Name);
-
-    if (((int)changedProperty >= volumeStartProperty) &&
-        ((int)changedProperty < volumeStartProperty + _mixerChannelSubModels.size()))
+    ChangedProperties::EChangedProperty volumeStartProperty =
+        _lowerChannels ? ChangedProperties::EChangedProperty::MixerChannel1Volume
+                       : ChangedProperties::EChangedProperty::MixerChannel17Volume;
+    ChangedProperties::EChangedProperty nameStartProperty = _lowerChannels
+                                                                ? ChangedProperties::EChangedProperty::Channel1Name
+                                                                : ChangedProperties::EChangedProperty::Channel17Name;
+    if ((changedProperty >= volumeStartProperty) &&
+        (changedProperty <
+         ChangedProperties::GetMixerChannelVolumeProperty(static_cast<int>(_mixerChannelSubModels.size()))))
     {
-        int channelIndex = (int)changedProperty - volumeStartProperty;
+        int channelIndex = static_cast<int>(changedProperty) - static_cast<int>(volumeStartProperty);
         UpdateChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
     }
-    else if (((int)changedProperty >= nameStartProperty) &&
-             ((int)changedProperty < nameStartProperty + _mixerChannelSubModels.size()))
+    else if ((changedProperty >= nameStartProperty) &&
+             (changedProperty <
+              ChangedProperties::GetChannelNameProperty(static_cast<int>(_mixerChannelSubModels.size()))))
     {
-        int channelIndex = (int)changedProperty - nameStartProperty;
+        int channelIndex = static_cast<int>(changedProperty) - static_cast<int>(nameStartProperty);
         UpdateChannelName(channelIndex % NR_OF_STEREO_CHANNELS);
     }
 }

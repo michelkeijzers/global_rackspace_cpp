@@ -100,9 +100,9 @@ void AudioToCcPlugin::Init() // override
 
 	 api.setPluginParameter(name, EPluginParameters::RmsGain, 0.0312500, true);  // 0.0 dB
     api.setPluginParameter(name, EPluginParameters::PeakGain, 0.0434777, true); // 2.8 dB
-    api.setPluginParameter(name, EPluginParameters::LeftCc, (double)(ccNumber + 1) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::RightCc, (double)(ccNumber + 2) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::Channel, (double)(5 - 1) / 15.0, true);
+    api.setPluginParameter(name, EPluginParameters::LeftCc, static_cast<double>(ccNumber + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightCc, static_cast<double>(ccNumber + 2) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::Channel, static_cast<double>(5 - 1) / 15.0, true);
     api.setPluginParameter(name, EPluginParameters::MonoStereo, 1.0, true);
     api.setPluginParameter(name, EPluginParameters::Rate, 0.66, true); // 1.8 ms
     api.setPluginParameter(name, EPluginParameters::Inertia, 50 / 100.0, true);
@@ -114,20 +114,18 @@ void AudioToCcPlugin::Init() // override
     api.setPluginParameter(name, EPluginParameters::GateTreshold, 1.0, true); // 0.0 dB
     api.setPluginParameter(name, EPluginParameters::LeftGateCc, (ccNumber + 3) / 128.0, true);
     api.setPluginParameter(name, EPluginParameters::RightGateCc, (ccNumber + 4) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::LeftOnValue, (double)(127 + 1) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::RightOnValue, (double)(127 + 1) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::LeftOffValue, (double)(0 + 1) / 128.0, true);
-    api.setPluginParameter(name, EPluginParameters::RightOffValue, (double)(0 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::LeftOnValue, static_cast<double>(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightOnValue, static_cast<double>(127 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::LeftOffValue, static_cast<double>(0 + 1) / 128.0, true);
+    api.setPluginParameter(name, EPluginParameters::RightOffValue, static_cast<double>(0 + 1) / 128.0, true);
 }
 
 void AudioToCcPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Source) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1Source + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Source) &&
+        (changedProperty < ChangedProperties::GetChannelSourceProperty(MixerSubModel::NR_OF_MIXER_CHANNELS)))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Source;
-
+        int channelIndex = ChangedProperties::GetIndexOfChannelSourceProperty(changedProperty);
         UpdateBypass(channelIndex);
     }
 }

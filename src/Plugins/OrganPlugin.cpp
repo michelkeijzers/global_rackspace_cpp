@@ -32,12 +32,12 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
     {
         UpdateBypass();
     }
-    else if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::OrganDrawbar1) &&
-             ((int)changedProperty <
-              (int)ChangedProperties::EChangedProperty::OrganDrawbar1 + OrganSubModel::NR_OF_DRAWBARS))
+
+	 int index = ChangedProperties::GetIndexOfOrganDrawbarProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::OrganDrawbar1) &&
+        (index < OrganSubModel::NR_OF_DRAWBARS))
     {
-        int drawbarIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::OrganDrawbar1;
-        UpdateDrawbarValue(drawbarIndex);
+        UpdateDrawbarValue(index);
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
     {

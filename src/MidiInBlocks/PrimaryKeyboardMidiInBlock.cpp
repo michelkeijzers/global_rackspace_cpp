@@ -16,7 +16,7 @@ PrimaryKeyboardMidiInBlock::PrimaryKeyboardMidiInBlock(Controller &controller)
 bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
 {
     bool handleMessage = true;
-    switch ((ECCs)ccNumber)
+    switch (static_cast<ECCs>(ccNumber))
     {
     case ECCs::Knob1: {
         OrganSubController &organSubController =

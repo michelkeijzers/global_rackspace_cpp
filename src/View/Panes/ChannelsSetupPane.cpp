@@ -30,66 +30,58 @@ void ChannelsSetupPane::Fill() // override
         new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::VolumeOverrideTextLabel, true));
     for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
     {
-        WidgetIds::EWidgetId widgetId =
-            (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1Name + channelIndex);
+        WidgetIds::EWidgetId widgetId = WidgetIds::GetSetupChannelName(channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1Number + channelIndex);
+        widgetId = WidgetIds::GetSetupChannelNumber(channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1SourceName + channelIndex);
+        widgetId = WidgetIds::GetSetupChannelSourceName(channelIndex);
         GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1NextSourceButton + channelIndex);
+        widgetId = WidgetIds::GetSetupChannelNextSourceButton(channelIndex);
         GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
-        widgetId = (WidgetIds::EWidgetId)((int)WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton + channelIndex);
+        widgetId = WidgetIds::GetSetupChannelVolumeOverrideButton(channelIndex);
         GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
     }
 }
 
 void ChannelsSetupPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Name) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1Name + MixerSubModel::NR_OF_MIXER_CHANNELS))
+    int index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Name) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Name;
-        SetChannelName(channelIndex);
+        SetChannelName(index);
     }
 
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1Source) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1Source + MixerSubModel::NR_OF_MIXER_CHANNELS))
+	 index = ChangedProperties::GetIndexOfChannelSourceProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Source) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1Source;
-        SetChannelSource(channelIndex);
+        SetChannelSource(index);
     }
 
-    if (((int)changedProperty >= (int)ChangedProperties::EChangedProperty::Channel1VolumeOverride) &&
-        ((int)changedProperty <
-         (int)ChangedProperties::EChangedProperty::Channel1VolumeOverride + MixerSubModel::NR_OF_MIXER_CHANNELS))
+	 index = ChangedProperties::GetIndexOfMixerChannelVolumeProperty(changedProperty);
+    if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1VolumeOverride) &&
+        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
     {
-        int channelIndex = (int)changedProperty - (int)ChangedProperties::EChangedProperty::Channel1VolumeOverride;
-        SetChannelVolumeOverride(channelIndex);
+        SetChannelVolumeOverride(index);
     }
 }
 
 void ChannelsSetupPane::SetChannelName(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1Name, channelIndex);
-    TextWidget &valueWidget = static_cast<TextWidget &>(widget);
-    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
-    valueWidget.SetText(channelName);
+    static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1Name, channelIndex))
+        .SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
 }
 
 void ChannelsSetupPane::SetChannelSource(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1SourceName, channelIndex);
-    TextWidget &valueWidget = static_cast<TextWidget &>(widget);
-    const std::string &channelName = _mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName();
-    valueWidget.SetText(channelName);
+    static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1SourceName, channelIndex))
+		 .SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
 }
 
 void ChannelsSetupPane::SetChannelVolumeOverride(int channelIndex)
 {
-    Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton, channelIndex);
-    ButtonWidget &valueWidget = static_cast<ButtonWidget &>(widget);
-    valueWidget.SetPressed(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->IsVolumeOverridden());
+    static_cast<ButtonWidget &>(
+        GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton, channelIndex))
+        .SetPressed(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->IsVolumeOverridden());
 }

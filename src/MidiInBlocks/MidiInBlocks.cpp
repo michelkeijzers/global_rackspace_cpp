@@ -43,7 +43,7 @@ void MidiInBlocks::Init()
 
 MidiInBlock &MidiInBlocks::GetMidiInBlock(EMidiInBlockId id)
 {
-    return *(_midiInBlocks.at((int)id));
+    return *(_midiInBlocks.at(static_cast<int>(id)));
 }
 
 MidiInBlock &MidiInBlocks::GetMidiInBlock(const std::string &midiInBlockName)

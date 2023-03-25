@@ -24,7 +24,7 @@ MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex
       _name(SUB_MODEL_NAME + " " + std::to_string(channelIndex)), _source(ESource::PrimaryKeyboard), _levelLeft(0.0),
       _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0), _isVolumeOverridden(false)
 {
-    Debug::Assert(SerializationParameters.size() == (int)EParameters::Last, __FUNCTION__,
+    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
 }
 
@@ -33,7 +33,8 @@ std::string MixerChannelSubModel::Serialize() // override
     std::string data;
     data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::ChannelIndex], _channelIndex);
     data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Volume], _volume);
-    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::Source], (int)_source);
+    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::Source],
+                                                    static_cast<int>(_source));
     data +=
         SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::Source], _isVolumeOverridden);
     return data;
@@ -55,8 +56,7 @@ void MixerChannelSubModel::SetVolume(double volume)
     {
         _volume = volume;
         Debug::Log("# " + GetName() + ", volume = " + std::to_string(_volume));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1Volume +
-                                                     _channelIndex));
+        Notify(ChangedProperties::GetMixerChannelVolumeProperty(_channelIndex));
     }
 }
 
@@ -71,8 +71,7 @@ void MixerChannelSubModel::SetLevelLeft(double level)
     {
         _levelLeft = level;
         Debug::Log("# " + GetName() + ", Level Left = " + std::to_string(_levelLeft));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1LevelLeft +
-                                                     _channelIndex));
+        Notify(ChangedProperties::GetMixerChannelLevelLeftProperty(_channelIndex));
     }
 }
 
@@ -87,8 +86,7 @@ void MixerChannelSubModel::SetLevelRight(double level)
     {
         _levelRight = level;
         Debug::Log("# " + GetName() + ", level right = " + std::to_string(_levelRight));
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::MixerChannel1LevelRight +
-                                                     _channelIndex));
+        Notify(ChangedProperties::GetMixerChannelLevelRightProperty(_channelIndex));
     }
 }
 
@@ -111,8 +109,7 @@ void MixerChannelSubModel::SetGateLeft(bool gateActive)
             _lastTimeGateLeftActive = juce::Time(0);
         }
         Debug::Log("# " + GetName() + ", gate left = " + std::to_string(_lastTimeGateLeftActive.toMilliseconds()));
-        Notify((ChangedProperties::EChangedProperty)(
-            (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive + _channelIndex));
+        Notify(ChangedProperties::GetMixerChannel1LastTimeGateLeftActiveProperty(_channelIndex));
     }
 }
 
@@ -135,8 +132,7 @@ void MixerChannelSubModel::SetGateRight(bool gateActive)
             _lastTimeGateRightActive = juce::Time(0);
         }
         Debug::Log("# " + GetName() + ", gate left = " + std::to_string(_lastTimeGateRightActive.toMilliseconds()));
-        Notify((ChangedProperties::EChangedProperty)(
-            (int)ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive + _channelIndex));
+        Notify(ChangedProperties::GetMixerChannel1LastTimeGateRightActiveProperty(_channelIndex));
     }
 }
 
@@ -151,8 +147,7 @@ void MixerChannelSubModel::SetName(const std::string &name)
     {
         _name = name;
         Debug::Log("# " + GetName() + ", Name = " + name);
-        Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Name +
-                                                     _channelIndex));
+        Notify(ChangedProperties::GetChannelNameProperty(_channelIndex));
     }
 }
 
@@ -172,7 +167,6 @@ std::string MixerChannelSubModel::GetSourceName()
     case ESource::PrimaryKeyboard:
         name = "U";
         break;
-
     case ESource::PrimaryKeyboardPads:
         name = "P";
         break;
@@ -187,10 +181,9 @@ std::string MixerChannelSubModel::GetSourceName()
 
 void MixerChannelSubModel::SelectNextSource()
 {
-    _source = (ESource)(((int)_source + 1) % (int)ESource::Last);
+    _source = static_cast<ESource>((static_cast<int>(_source) + 1) % static_cast<int>(ESource::Last));
     Debug::Log("# " + GetName() + ", source = " + GetSourceName());
-    Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1Source +
-                                                 _channelIndex));
+    Notify(ChangedProperties::GetChannelSourceProperty(_channelIndex));
 }
 
 bool MixerChannelSubModel::IsVolumeOverridden()
@@ -202,6 +195,5 @@ void MixerChannelSubModel::SwapVolumeOverride()
 {
     _isVolumeOverridden = !_isVolumeOverridden;
     Debug::Log("# " + GetName() + ", volume override = " + (IsVolumeOverridden() ? "YES" : "No"));
-    Notify((ChangedProperties::EChangedProperty)((int)ChangedProperties::EChangedProperty::Channel1VolumeOverride +
-                                                 _channelIndex));
+    Notify(ChangedProperties::GetChannelVolumeOverrideProperty(_channelIndex));
 }

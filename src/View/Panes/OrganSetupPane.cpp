@@ -1,5 +1,3 @@
-#include <juce_core/juce_core.h>
-#include <juce_audio_basics/midi/juce_MidiMessage.h>
 #include "OrganSetupPane.h"
 #include "../../Framework/MvcFramework.h"
 #include "../../Model/OrganSubModel.h"
@@ -13,6 +11,8 @@
 #include "../ChangedProperties.h"
 #include "../IObserver.h"
 #include "../View.h"
+#include <juce_audio_basics/midi/juce_MidiMessage.h>
+#include <juce_core/juce_core.h>
 
 OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
 {
@@ -53,43 +53,34 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
 {
     if (changedProperty == ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton);
-        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
-        bool isActive = _organSubModel.IsPrimaryKeyboardActive();
-        buttonWidget.SetPressed(isActive);
+        static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton))
+            .SetPressed(_organSubModel.IsPrimaryKeyboardActive());
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton);
-        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
-        bool isActive = _organSubModel.IsSecondaryKeyboardActive();
-        buttonWidget.SetPressed(isActive);
+        static_cast<ButtonWidget &>(
+            GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton))
+            .SetPressed(_organSubModel.IsSecondaryKeyboardActive());
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganLowestNote)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         uint8_t noteNumber = _organSubModel.GetLowestNote();
-        valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
-        Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel);
-        TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
-        textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
+        static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider))
+            .SetValue(MidiUtilities::MidiToParam(noteNumber));
+        static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel))
+            .SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganHighestNote)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider);
-        ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
         uint8_t noteNumber = _organSubModel.GetHighestNote();
-        valueWidget.SetValue(MidiUtilities::MidiToParam(noteNumber));
-        Widget &nameWidget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel);
-        TextWidget &textWidget = static_cast<TextWidget &>(nameWidget);
-        textWidget.SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
+        static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider))
+            .SetValue(MidiUtilities::MidiToParam(noteNumber));
+        static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel))
+            .SetText(juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
     }
     else if (changedProperty == ChangedProperties::EChangedProperty::OrganSustainPedalActive)
     {
-        Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton);
-        ButtonWidget &buttonWidget = static_cast<ButtonWidget &>(widget);
-        bool isActive = _organSubModel.IsSustainPedalActive();
-        buttonWidget.SetPressed(isActive);
+        static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton))
+            .SetPressed(_organSubModel.IsSustainPedalActive());
     }
 }

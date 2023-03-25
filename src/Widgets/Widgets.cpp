@@ -20,7 +20,7 @@ void Widgets::AddWidget(WidgetIds::EWidgetId id, Widget * widget)
 
 Widget &Widgets::GetWidget(WidgetIds::EWidgetId id, int offset /* = 0 */)
 {
-    return *(_widgets.at((WidgetIds::EWidgetId)((int) id + offset)));
+    return *(_widgets.at((WidgetIds::EWidgetId)(static_cast<int>(id) + offset)));
 }
 
 std::vector<WidgetIds::EWidgetId> Widgets::GetWidgetIds()
