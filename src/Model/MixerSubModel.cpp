@@ -1,7 +1,8 @@
 #include "MixerSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-#include "../Utilities/SerializerUtilities.h"
+#include "../Utilities/SerializationUtilities.h"
+#include "../Utilities/StringUtilities.h"
 #include "MixerChannelSubModel.h"
 #include "SubModels.h"
 #include <string>
@@ -51,11 +52,10 @@ const std::string MixerSubModel::GetName() /* override */
 std::string MixerSubModel::Serialize() // override
 {
     std::string data;
-    data +=
-        SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection], static_cast<int>(_tabSelection));
-    data +=
-        SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::MasterVolume], _masterVolume);
-
+    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection],
+                                                       static_cast<int>(_tabSelection));
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::MasterVolume],
+                                                          _masterVolume);
     for (auto mixerChannelSubModel : _mixerChannelSubModels)
     {
         data += "> " + mixerChannelSubModel->GetName() + "\n";
@@ -65,9 +65,24 @@ std::string MixerSubModel::Serialize() // override
     return data;
 }
 
-void MixerSubModel::Deserialize(std::string data) // override
+int MixerSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
-    // TODO Serialization
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> Mixer");
+    currentLineIndex++;
+    SetTabSelection(static_cast<ETabSelection>(
+        StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParameters[EParameters::TabSelection], 0,
+                                     static_cast<int>(ETabSelection::Last))));
+    currentLineIndex++;
+    SetMasterVolume(
+        StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParameters[EParameters::MasterVolume]));
+    currentLineIndex++;
+    for (auto mixerChannelSubModel : _mixerChannelSubModels)
+    {
+        currentLineIndex = mixerChannelSubModel->Deserialize(lines, currentLineIndex);
+    }
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< Mixer");
+    currentLineIndex++;
+    return currentLineIndex;
 }
 
 std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()

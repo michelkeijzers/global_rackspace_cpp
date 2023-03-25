@@ -3,7 +3,8 @@
 #include<string>
 #include <vector>
 
-class SerializerUtilities
+/// \brief Serialization and deserialization utilities
+class SerializationUtilities
 {
   public:
     static std::string CreateBooleanParameter(const std::string &parameterName, bool value);
@@ -15,6 +16,6 @@ class SerializerUtilities
   private:
     static std::string CreateParameter(const std::string &parameterName, std::string value);
 
-    SerializerUtilities();
+    SerializationUtilities();
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class SubModels;
 
@@ -13,7 +14,7 @@ class SubModel
     virtual void Init();
 	 
 	 virtual std::string Serialize() = 0;
-    virtual void Deserialize(std::string data) = 0;
+    virtual int Deserialize(std::vector<std::string> lines, int currentLineIndex) = 0;
 
   protected:
     bool IsForcedMode();

@@ -14,7 +14,7 @@ class KeyboardSubModel : public SubModel, public Observable
     const std::string GetName() override;
 
 	 std::string Serialize() override;
-    void Deserialize(std::string data) override;
+    int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;
 
     bool IsSustainEnabled();
     void EnableSustain(bool enable = true);

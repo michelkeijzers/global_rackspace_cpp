@@ -22,7 +22,7 @@ class OrganSubModel : public SubModel, public Observable
     const std::string GetName() override;
 
     std::string Serialize() override;
-    void Deserialize(std::string data) override;
+    int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;
 
     bool IsEnabled();
     void Enable(bool enable);

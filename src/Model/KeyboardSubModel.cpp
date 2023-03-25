@@ -1,7 +1,7 @@
 #include "KeyboardSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-#include "../Utilities/SerializerUtilities.h"
+#include "../Utilities/SerializationUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
 #include "SubModels.h"
@@ -33,18 +33,19 @@ const std::string KeyboardSubModel::GetName() /* override */
 std::string KeyboardSubModel::Serialize() // override
 {
     std::string data;
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsPrimaryKeyboard],
-                                                        _isPrimaryKeyboard);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainEnabled],
-                                                        _sustainEnabled);
-    data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ExpressionVolume],
-                                                       _expressionVolume);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsPrimaryKeyboard],
+                                                           _isPrimaryKeyboard);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainEnabled],
+                                                           _sustainEnabled);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ExpressionVolume],
+                                                          _expressionVolume);
     return data;
 }
 
-void KeyboardSubModel::Deserialize(std::string data) // override
+int KeyboardSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
     // TODO Serialization
+    return 0;
 }
 
 bool KeyboardSubModel::IsSustainEnabled()

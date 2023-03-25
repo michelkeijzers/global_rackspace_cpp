@@ -27,7 +27,7 @@ WidgetIds::WidgetIds()
 {
     Debug::Assert(boxIndex >= 0, __FUNCTION__, "boxIndex too low");
     Debug::Assert(boxIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "boxIndex too low");
-    return static_cast<EWidgetId>(static_cast<int>(EWidgetId::OrganDrawbar1) + boxIndex);
+    return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSliderBox1) + boxIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderBox(WidgetIds::EWidgetId box)

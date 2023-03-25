@@ -8,7 +8,7 @@
 #include "OrganSubModel.h"
 #include <juce_core/juce_core.h>
 
-Model::Model() : _subModels(*this)
+Model::Model() : _subModels(*this), _version("0.1")
 {
     DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
@@ -41,8 +41,17 @@ bool Model::LoadSong()
     }
     std::string fileText = file.loadFileAsString().toStdString();
     std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
-    _subModels.Deserialize(lines);
+    _subModels.SetForcedMode(true);
+    Deserialize(lines);
+    _subModels.SetForcedMode(false);
     return true;
+}
+
+void Model::Deserialize(std::vector<std::string> lines)
+{
+    int currentLineIndex = 0;
+
+    _subModels.Deserialize(lines, currentLineIndex);
 }
 
 bool Model::WriteSong()
@@ -58,6 +67,16 @@ bool Model::WriteSong()
         return false;
     }
     return true;
+}
+
+const std::string& Model::GetVersion()
+{
+    return _version;
+}
+
+void Model::SetVersion(const std::string& version)
+{
+    _version = version;
 }
 
 void Model::OnTimer(ETimer timer)

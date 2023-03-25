@@ -25,7 +25,7 @@ class MixerChannelSubModel : public SubModel, public Observable
     MixerChannelSubModel(SubModels subModels, int channelIndex);
 
     std::string Serialize() override;
-    void Deserialize(std::string data) override;
+    int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;
 
     double GetVolume();
     void SetVolume(double volume);

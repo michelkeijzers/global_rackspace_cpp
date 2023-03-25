@@ -1,7 +1,7 @@
 #include "OrganSubModel.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-#include "../Utilities/SerializerUtilities.h"
+#include "../Utilities/SerializationUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
 #include "MixerSubModel.h"
@@ -49,27 +49,28 @@ std::string OrganSubModel::Serialize() // override
 {
     std::string data;
     data +=
-        SerializerUtilities::CreateVectorDoubleParameters(SerializationParameters[EParameters::Drawbars], _drawbars);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsEnabled], _isEnabled);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsRotatorSpeedFast],
-                                                        _isRotatorSpeedFast);
-    data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Drive], _drive);
-    data +=
-        SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ReverbAmount], _reverbAmount);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::PrimaryKeyboardIsActive],
-                                                        _primaryKeyboardIsActive);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SecondaryKeyboardIsActive],
-                                                        _secondaryKeyboardIsActive);
-    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::LowestNote], _lowestNote);
-    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::HighestNote], _highestNote);
-    data += SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainPedalIsActive],
-                                                        _sustainPedalIsActive);
+        SerializationUtilities::CreateVectorDoubleParameters(SerializationParameters[EParameters::Drawbars], _drawbars);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsEnabled], _isEnabled);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsRotatorSpeedFast],
+                                                           _isRotatorSpeedFast);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Drive], _drive);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ReverbAmount],
+                                                          _reverbAmount);
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParameters[EParameters::PrimaryKeyboardIsActive], _primaryKeyboardIsActive);
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParameters[EParameters::SecondaryKeyboardIsActive], _secondaryKeyboardIsActive);
+    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::LowestNote], _lowestNote);
+    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::HighestNote], _highestNote);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainPedalIsActive],
+                                                           _sustainPedalIsActive);
     return data;
 }
 
-void OrganSubModel::Deserialize(std::string data) // override
+int OrganSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
     // TODO Serialization
+    return 0;
 }
 
 bool OrganSubModel::IsEnabled()

@@ -4,6 +4,7 @@
 #include "../Model/KeyboardSubModel.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/StringUtilities.h"
 
 SubModels::SubModels(Model& model) : _model(model), _forcedMode(false)
 {
@@ -38,7 +39,7 @@ Model &SubModels::GetModel()
 
 std::string SubModels::Serialize()
 {
-    std::string data = "Version 0.1\n";
+    std::string data = "Version:" + _model.GetVersion() + "\n";
 	 for (auto subModel : _subModels)
 	 {
         data += "> " + subModel->GetName() + "\n";
@@ -48,9 +49,15 @@ std::string SubModels::Serialize()
 	 return data;
 }
 
-void SubModels::Deserialize(std::vector<std::string> lines)
+int SubModels::Deserialize(std::vector<std::string> lines, int currentLineIndex)
 {
-	//TODO
+     _model.SetVersion(StringUtilities::ParseStringKey(lines[0], "Version"));
+     currentLineIndex++;
+     for (auto subModel : _subModels)
+     {
+        currentLineIndex = subModel->Deserialize(lines, currentLineIndex);
+     }
+     return currentLineIndex;
 }
 
 SubModel &SubModels::GetSubModel(ESubModelId id)

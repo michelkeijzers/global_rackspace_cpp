@@ -27,7 +27,7 @@ class MixerSubModel : public SubModel, public Observable
     const std::string GetName() override;
 
     std::string Serialize() override;
-    void Deserialize(std::string data) override;
+    int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;
 
     // TODO: Check if this method should be made protected or remove methods below that interact with individual mixer
     // channel models

@@ -33,7 +33,7 @@ class SubModels
     Model &GetModel();
 
 	 std::string Serialize();
-    void Deserialize(std::vector<std::string> lines);
+    int Deserialize(std::vector<std::string> lines, int currentLineIndex);
 
   private:
     std::vector<SubModel *> _subModels;

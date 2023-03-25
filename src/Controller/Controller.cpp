@@ -53,6 +53,7 @@ View &Controller::GetView()
 
 void Controller::OnSongChanged(int oldIndex, int newIndex)
 {
+	
     _model.LoadSong();//TODO
 }
 

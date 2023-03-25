@@ -2,7 +2,7 @@
 #include "../Framework/MvcFramework.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
-#include "../Utilities/SerializerUtilities.h"
+#include "../Utilities/SerializationUtilities.h"
 #include "Model.h"
 #include "SubModels.h"
 #include <string>
@@ -31,18 +31,20 @@ MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex
 std::string MixerChannelSubModel::Serialize() // override
 {
     std::string data;
-    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::ChannelIndex], _channelIndex);
-    data += SerializerUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Volume], _volume);
-    data += SerializerUtilities::CreateIntParameter(SerializationParameters[EParameters::Source],
-                                                    static_cast<int>(_source));
     data +=
-        SerializerUtilities::CreateBooleanParameter(SerializationParameters[EParameters::Source], _isVolumeOverridden);
+        SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::ChannelIndex], _channelIndex);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Volume], _volume);
+    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::Source],
+                                                       static_cast<int>(_source));
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::Source],
+                                                           _isVolumeOverridden);
     return data;
 }
 
-void MixerChannelSubModel::Deserialize(std::string data) // override
+int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
     // TODO Serialization
+    return 0;
 }
 
 double MixerChannelSubModel::GetVolume()
