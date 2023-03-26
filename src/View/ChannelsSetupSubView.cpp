@@ -8,8 +8,6 @@ ChannelsSetupSubView::ChannelsSetupSubView(Model &model, View &view) : SubView(m
 void ChannelsSetupSubView::Fill() // override
 {
    MixerSubModel &mixerSubModel = static_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
-
    AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
-
-   SubView::Fill();
+	SubView::Fill();
 }

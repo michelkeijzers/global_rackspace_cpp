@@ -6,7 +6,6 @@
 
 class WidgetIds;
 class Model;
-class Pane;
 class Plugin;
 
 class View
