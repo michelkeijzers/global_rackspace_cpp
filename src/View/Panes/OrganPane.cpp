@@ -23,9 +23,17 @@ void OrganPane::Fill() // override
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, true));
 }
 
+// 0%             60%          100%
+// +---------------+------------+
+// | ORGAN         |   Rev 4    |    ORGAN: Title of pane,  Rev 4 = Reverb Amount: 4
+// +---------------|            |TH% (Title Box Height %)
+// |               +------------+50%
+// |     FAST      |   Drv 8    |    FAST : Rotator Speed   Drv 8: (over)Drive: 8
+// |               |            |
+// +---------------+------------+
 void OrganPane::Relayout() // override
 {
-   // TODO RELAYOUT
+   
 }
 
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */

@@ -39,7 +39,7 @@ class SlidersPane : public Pane
    void UpdateMasterLevelLeft();
    void UpdateMasterLevelRight();
 
-	void CheckUpdateChannelLastTimeGateRightActive(int &index, ChangedProperties::EChangedProperty changedProperty);
+   void CheckUpdateChannelLastTimeGateRightActive(int &index, ChangedProperties::EChangedProperty changedProperty);
    void CheckUpdateChannelLastTimeGateLeftActive(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdatePropertyMasterLastTimeGate();
    void UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidget);

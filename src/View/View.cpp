@@ -3,7 +3,10 @@
 #include "../Plugins/Plugins.h"
 #include "SubViews.h"
 
-View::View(Model &model) : _model(model), _subViews(model, *this), _plugins(model, *this) {}
+View::View(Model &model, int width, int height)
+    : _model(model), _subViews(model, *this), _plugins(model, *this), _width(width), _height(height)
+{
+}
 
 void View::Fill()
 {
@@ -21,3 +24,6 @@ void View::Init()
 Model &View::GetModel() { return _model; }
 
 WidgetIds &View::GetWidgetIds() { return _widgetIds; }
+
+int View::GetWidth() { return _width; }
+int View::GetHeight() { return _height; }

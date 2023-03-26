@@ -67,14 +67,14 @@ void SlidersPane::Fill() // override
 
 void SlidersPane::Relayout() // override
 {
-	//TODO RELAYOUT
+   // TODO RELAYOUT
    WidgetIds::EWidgetId widgetId;
 
    // Add sliders, and names for channels and master volume.
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
       widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      ShapeWidget& widget = reinterpret_cast<ShapeWidget&>(GetWidgets().GetWidget(widgetId));
+      ShapeWidget &widget = reinterpret_cast<ShapeWidget &>(GetWidgets().GetWidget(widgetId));
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
@@ -157,7 +157,7 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
       UpdateMasterVolume();
    }
 
-	CheckUpdateChannelName(index, changedProperty);
+   CheckUpdateChannelName(index, changedProperty);
    CheckUpdateChannelSource(index, changedProperty);
 }
 

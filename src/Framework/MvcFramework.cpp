@@ -4,6 +4,9 @@
 
 /* static */ gigperformer::sdk::GigPerformerAPI *MvcFramework::_gigPerformerApi = nullptr;
 
+const int GIG_PERFORMER_LIVE_PANEL_WIDTH = 1200;
+const int GIG_PERFORMER_LIVE_PANEL_HEIGHT = 600;
+
 class OrganSubModel;
 
 MvcFramework::MvcFramework(gigperformer::sdk::GigPerformerAPI &gigPerformerApi)
@@ -45,7 +48,7 @@ void MvcFramework::Init()
    _model->Fill();
    _model->Init();
 
-   _view = new View(*_model);
+   _view = new View(*_model, GIG_PERFORMER_LIVE_PANEL_WIDTH, GIG_PERFORMER_LIVE_PANEL_HEIGHT);
    _view->Fill();
    _view->Init();
    _controller = new Controller(*_model, *_view);

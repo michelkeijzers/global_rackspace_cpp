@@ -15,7 +15,7 @@ class Panes
    void Fill();
    void Init();
 
-	void AddPane(Pane *pane);
+   void AddPane(Pane *pane);
 
  private:
    std::vector<Pane *> _panes;

@@ -11,3 +11,5 @@ AlignAfterOpenBracket: false
 AllowAllParametersOfDeclarationOnNextLine: false
 
 AllowShortCaseLabelsOnASingleLine: true
+
+AlignOperands : true
