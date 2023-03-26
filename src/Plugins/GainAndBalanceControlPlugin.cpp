@@ -14,8 +14,8 @@
 
 const int GAIN_PARAMETER = 0;
 
-GainAndBalanceControlPlugin::GainAndBalanceControlPlugin(View &view, MixerSubModel &mixerSubModel,
-                                                         const std::string &name)
+GainAndBalanceControlPlugin::GainAndBalanceControlPlugin(
+ View &view, MixerSubModel &mixerSubModel, const std::string &name)
     : Plugin(name, view), _mixerSubModel(mixerSubModel)
 {
    _mixerSubModel.Subscribe(*this);

@@ -32,12 +32,8 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
       handleMessage = false;
    }
    break;
-   case ECCs::ButtonLeft:
-      GetController().OnPreviousSong();
-      break;
-   case ECCs::ButtonRight:
-      GetController().OnNextSong();
-      break;
+   case ECCs::ButtonLeft: GetController().OnPreviousSong(); break;
+   case ECCs::ButtonRight: GetController().OnNextSong(); break;
    case ECCs::Button1:
       if (value == VALUE_BUTTON_PRESSED)
       {

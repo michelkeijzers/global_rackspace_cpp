@@ -17,8 +17,7 @@ OrganPane::OrganPane(View &view, OrganSubModel &organSubModel) : Pane(view), _or
 
 void OrganPane::Fill() // override
 {
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, true));
 }
 

@@ -12,8 +12,8 @@ class ExpressionAudioMixerPlugin : public Plugin
 {
  public:
    ExpressionAudioMixerPlugin(View &view, KeyboardSubModel &primaryKeyboardSubModel,
-                              KeyboardSubModel &secondaryKeyboardSubModel, MixerSubModel &mixerSubModel,
-                              bool lowerChannels, const std::string &name);
+    KeyboardSubModel &secondaryKeyboardSubModel, MixerSubModel &mixerSubModel, bool lowerChannels,
+    const std::string &name);
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 

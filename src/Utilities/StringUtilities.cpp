@@ -8,17 +8,28 @@
 using namespace std;
 
 static std::pair<std::string, bool> StringToBoolMappingPairs[] = {
- std::make_pair("0", false),     std::make_pair("f", false),     std::make_pair("F", false),
- std::make_pair("false", false), std::make_pair("False", false), std::make_pair("FALSE", false),
- std::make_pair("off", false),   std::make_pair("Off", false),   std::make_pair("OFF", false),
- std::make_pair("1", true),      std::make_pair("t", true),      std::make_pair("T", true),
- std::make_pair("true", true),   std::make_pair("True", true),   std::make_pair("TRUE", true),
- std::make_pair("on", true),     std::make_pair("On", true),     std::make_pair("ON", true),
+ std::make_pair("0", false),
+ std::make_pair("f", false),
+ std::make_pair("F", false),
+ std::make_pair("false", false),
+ std::make_pair("False", false),
+ std::make_pair("FALSE", false),
+ std::make_pair("off", false),
+ std::make_pair("Off", false),
+ std::make_pair("OFF", false),
+ std::make_pair("1", true),
+ std::make_pair("t", true),
+ std::make_pair("T", true),
+ std::make_pair("true", true),
+ std::make_pair("True", true),
+ std::make_pair("TRUE", true),
+ std::make_pair("on", true),
+ std::make_pair("On", true),
+ std::make_pair("ON", true),
 };
 
 static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
-                                                       StringToBoolMappingPairs + sizeof StringToBoolMappingPairs /
-                                                                                   sizeof StringToBoolMappingPairs[0]);
+ StringToBoolMappingPairs + sizeof StringToBoolMappingPairs / sizeof StringToBoolMappingPairs[0]);
 
 /* static */ std::vector<std::string> StringUtilities::ToStringVector(const std::string &text)
 {
@@ -81,8 +92,7 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
 }
 
 /* static */ int StringUtilities::ParseIntKey(const std::string &line, const std::string &key,
-                                              int minimumValue /* = 0 */,
-                                              int maximumValue /* = std::numeric_limits<int>::max() */)
+ int minimumValue /* = 0 */, int maximumValue /* = std::numeric_limits<int>::max() */)
 {
    size_t index = line.find(":");
    Debug::Assert(index != std::string::npos, __FUNCTION__, "Delimiter character not found");
@@ -102,8 +112,8 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
    return value;
 }
 
-/* static */ double StringUtilities::ParseDoubleKey(const std::string &line, const std::string &key,
-                                                    double minimumValue /* = 0.0 */, double maximumValue /* = 1.0 */)
+/* static */ double StringUtilities::ParseDoubleKey(
+ const std::string &line, const std::string &key, double minimumValue /* = 0.0 */, double maximumValue /* = 1.0 */)
 {
    size_t index = line.find(":");
    Debug::Assert(index != std::string::npos, __FUNCTION__, "Delimiter character not found");

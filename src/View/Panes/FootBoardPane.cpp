@@ -7,8 +7,8 @@
 #include "../IObserver.h"
 #include "../View.h"
 
-FootBoardPane::FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubModel,
-                             KeyboardSubModel &secondaryKeyboardSubModel)
+FootBoardPane::FootBoardPane(
+ View &view, KeyboardSubModel &primaryKeyboardSubModel, KeyboardSubModel &secondaryKeyboardSubModel)
     : Pane(view), _primaryKeyboardSubModel(primaryKeyboardSubModel),
       _secondaryKeyboardSubModel(secondaryKeyboardSubModel)
 {
@@ -19,9 +19,9 @@ FootBoardPane::FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubMod
 void FootBoardPane::Fill() // override
 {
    GetWidgets().AddWidget(WidgetIds::EWidgetId::LeftFootPedal,
-                          new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::LeftFootPedal, true));
+    new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::LeftFootPedal, true));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::RightFootPedal,
-                          new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::RightFootPedal, true));
+    new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::RightFootPedal, true));
 }
 
 void FootBoardPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */

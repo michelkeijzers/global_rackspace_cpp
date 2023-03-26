@@ -64,8 +64,8 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 
 /* static */ void Debug::LogHeaders(bool logHeaders) { _logHeaders = logHeaders; }
 
-/* static */ void Debug::LogMethodEntry(const std::string &methodName, const std::string &parameters,
-                                        const std::string &additionalText)
+/* static */ void Debug::LogMethodEntry(
+ const std::string &methodName, const std::string &parameters, const std::string &additionalText)
 {
    if (!_logHeaders)
    {

@@ -84,8 +84,8 @@ void ShapeWidget::SetWidgetOutlineColor(double red, double green, double blue, d
    _blueOutlineColor = blue;
    _alphaOutlineColor = alpha;
    MvcFramework::GetGigPerformerApi().setWidgetOutlineColor(
-    GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(_redOutlineColor, _greenOutlineColor, _blueOutlineColor,
-                                                              _alphaOutlineColor));
+    GetName(), MvcFramework::GetGigPerformerApi().RGBAToColor(
+                _redOutlineColor, _greenOutlineColor, _blueOutlineColor, _alphaOutlineColor));
    Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -107,8 +107,7 @@ void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, doub
    _greenFillColor = green;
    _blueFillColor = blue;
    _alphaFillColor = alpha;
-   MvcFramework::GetGigPerformerApi().setWidgetFillColor(
-    GetName(),
+   MvcFramework::GetGigPerformerApi().setWidgetFillColor(GetName(),
     MvcFramework::GetGigPerformerApi().RGBAToColor(_redFillColor, _greenFillColor, _blueFillColor, _alphaFillColor));
    Debug::LogMethodExit(__FUNCTION__);
 }

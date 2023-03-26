@@ -59,8 +59,8 @@
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too high");
-   return static_cast<EChangedProperty>(static_cast<int>(EChangedProperty::MixerChannel1LastTimeGateLeftActive) +
-                                        channelIndex);
+   return static_cast<EChangedProperty>(
+    static_cast<int>(EChangedProperty::MixerChannel1LastTimeGateLeftActive) + channelIndex);
 }
 
 /* static */ int ChangedProperties::GetIndexOfChannelLastTimeGateLeftActiveProperty(EChangedProperty changedProperty)
@@ -74,8 +74,8 @@
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too high");
-   return static_cast<EChangedProperty>(static_cast<int>(EChangedProperty::MixerChannel1LastTimeGateRightActive) +
-                                        channelIndex);
+   return static_cast<EChangedProperty>(
+    static_cast<int>(EChangedProperty::MixerChannel1LastTimeGateRightActive) + channelIndex);
 }
 
 /* static */ int ChangedProperties::GetIndexOfChannelLastTimeGateRightActiveProperty(EChangedProperty changedProperty)

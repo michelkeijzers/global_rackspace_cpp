@@ -14,8 +14,7 @@ static std::pair<MixerSubModel::EParameters, std::string> SerializationParameter
  std::make_pair(MixerSubModel::EParameters::MasterVolume, "MasterVolume"),
 };
 
-static std::map<MixerSubModel::EParameters, std::string> SerializationParametersMapping(
- SerializationParametersData,
+static std::map<MixerSubModel::EParameters, std::string> SerializationParametersMapping(SerializationParametersData,
  SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
 MixerSubModel::MixerSubModel(Model &model)
@@ -24,7 +23,7 @@ MixerSubModel::MixerSubModel(Model &model)
       _tabSelection(MixerSubModel::ETabSelection::Drawbars)
 {
    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
-                 "Serialization parameter names incorrect");
+    "Serialization parameter names incorrect");
    for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
    {
       _mixerChannelSubModels.push_back(new MixerChannelSubModel(model, channelIndex));
@@ -46,10 +45,10 @@ const std::string MixerSubModel::GetName() /* override */ { return SUB_MODEL_NAM
 std::string MixerSubModel::Serialize() // override
 {
    std::string data;
-   data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::TabSelection],
-                                                      static_cast<int>(_tabSelection));
-   data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::MasterVolume],
-                                                         _masterVolume);
+   data += SerializationUtilities::CreateIntParameter(
+    SerializationParametersMapping[EParameters::TabSelection], static_cast<int>(_tabSelection));
+   data += SerializationUtilities::CreateDoubleParameter(
+    SerializationParametersMapping[EParameters::MasterVolume], _masterVolume);
    for (auto mixerChannelSubModel : _mixerChannelSubModels)
    {
       data += "> " + mixerChannelSubModel->GetName() + "\n";
@@ -63,12 +62,11 @@ int MixerSubModel::Deserialize(std::vector<std::string> lines, int currentLineIn
 {
    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
    currentLineIndex++;
-   SetTabSelection(static_cast<ETabSelection>(
-    StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::TabSelection], 0,
-                                 static_cast<int>(ETabSelection::Last))));
+   SetTabSelection(static_cast<ETabSelection>(StringUtilities::ParseIntKey(lines[currentLineIndex],
+    SerializationParametersMapping[EParameters::TabSelection], 0, static_cast<int>(ETabSelection::Last))));
    currentLineIndex++;
-   SetMasterVolume(StringUtilities::ParseDoubleKey(lines[currentLineIndex],
-                                                   SerializationParametersMapping[EParameters::MasterVolume]));
+   SetMasterVolume(StringUtilities::ParseDoubleKey(
+    lines[currentLineIndex], SerializationParametersMapping[EParameters::MasterVolume]));
    currentLineIndex++;
    for (auto mixerChannelSubModel : _mixerChannelSubModels)
    {
@@ -108,17 +106,10 @@ int MixerSubModel::GetChannelOffset()
    case MixerSubModel::ETabSelection::Drawbars:
       // Do nothing
       break;
-   case MixerSubModel::ETabSelection::Channels1To8:
-      channelOffset = 0;
-      break;
-   case MixerSubModel::ETabSelection::Channels9To16:
-      channelOffset = 8;
-      break;
-   case MixerSubModel::ETabSelection::Channels17To24:
-      channelOffset = 16;
-      break;
-   default:
-      Debug::Error(__FUNCTION__, "Illegal pane selection");
+   case MixerSubModel::ETabSelection::Channels1To8: channelOffset = 0; break;
+   case MixerSubModel::ETabSelection::Channels9To16: channelOffset = 8; break;
+   case MixerSubModel::ETabSelection::Channels17To24: channelOffset = 16; break;
+   default: Debug::Error(__FUNCTION__, "Illegal pane selection");
    }
 
    return channelOffset;
@@ -237,8 +228,8 @@ void MixerSubModel::SetMasterGateLeft(bool gateActive)
       {
          _masterLastTimeGateLeftActive = juce::Time(0);
       }
-      Debug::Log("# " + GetName() +
-                 ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
+      Debug::Log(
+       "# " + GetName() + ", master gate left = " + std::to_string(_masterLastTimeGateLeftActive.toMilliseconds()));
       Notify(ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive);
    }
 }
@@ -256,8 +247,8 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
       {
          _masterLastTimeGateRightActive = juce::Time(0);
       }
-      Debug::Log("# " + GetName() +
-                 ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
+      Debug::Log(
+       "# " + GetName() + ", master gate left = " + std::to_string(_masterLastTimeGateRightActive.toMilliseconds()));
       Notify(ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive);
    }
 }

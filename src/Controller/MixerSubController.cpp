@@ -27,17 +27,14 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
          // Not possible, invisible
          Debug::Error(__FUNCTION__, "Drawbar pane active, slider selected");
          break;
-      case MixerSubModel::ETabSelection::Channels1To8:
-         _mixerSubModel.SetChannelVolume(sliderIndex, newValue);
-         break;
+      case MixerSubModel::ETabSelection::Channels1To8: _mixerSubModel.SetChannelVolume(sliderIndex, newValue); break;
       case MixerSubModel::ETabSelection::Channels9To16:
          _mixerSubModel.SetChannelVolume(1 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
          break;
       case MixerSubModel::ETabSelection::Channels17To24:
          _mixerSubModel.SetChannelVolume(2 * (SlidersPane::NR_OF_SLIDERS - 1) + sliderIndex, newValue);
          break;
-      default:
-         Debug::Error(__FUNCTION__, "Illegal tab selection");
+      default: Debug::Error(__FUNCTION__, "Illegal tab selection");
       }
    }
    else
@@ -100,8 +97,8 @@ void MixerSubController::SetChannelGateRight(bool master, int channelIndex, bool
 
 void MixerSubController::SetChannelNames(std::vector<std::string> channelNames)
 {
-   Debug::Assert(channelNames.size() == MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__,
-                 "Illegal number of channels names");
+   Debug::Assert(
+    channelNames.size() == MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "Illegal number of channels names");
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
       _mixerSubModel.SetChannelName(channelIndex, channelNames[channelIndex]);

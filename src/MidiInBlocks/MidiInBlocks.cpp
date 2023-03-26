@@ -23,8 +23,8 @@ void MidiInBlocks::Fill()
 
    _nameToMidiInBlocks.insert(
     std::pair<std::string, MidiInBlock *>("PrimaryKeyboardMidiInBlock", new PrimaryKeyboardMidiInBlock(_controller)));
-   _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>("SecondaryKeyboardMidiInBlock",
-                                                                    new SecondaryKeyboardMidiInBlock(_controller)));
+   _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>(
+    "SecondaryKeyboardMidiInBlock", new SecondaryKeyboardMidiInBlock(_controller)));
    _nameToMidiInBlocks.insert(
     std::pair<std::string, MidiInBlock *>("FootBoardMidiInBlock", new FootBoardMidiInBlock(_controller)));
    _nameToMidiInBlocks.insert(

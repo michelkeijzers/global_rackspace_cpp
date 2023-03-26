@@ -14,15 +14,14 @@ static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParame
  std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard"),
  std::make_pair(KeyboardSubModel::EParameters::SustainEnabled, "SustainEnabled")};
 
-static std::map<KeyboardSubModel::EParameters, std::string> SerializationParametersMapping(
- SerializationParametersPairs,
+static std::map<KeyboardSubModel::EParameters, std::string> SerializationParametersMapping(SerializationParametersPairs,
  SerializationParametersPairs + sizeof SerializationParametersPairs / sizeof SerializationParametersPairs[0]);
 
 KeyboardSubModel::KeyboardSubModel(Model &model, bool isPrimaryKeyboard)
     : SubModel(model), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
 {
    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
-                 "Serialization parameter names incorrect");
+    "Serialization parameter names incorrect");
 }
 
 const std::string KeyboardSubModel::GetName() /* override */
@@ -35,8 +34,8 @@ std::string KeyboardSubModel::Serialize() // override
    std::string data;
    data += SerializationUtilities::CreateBooleanParameter(
     SerializationParametersMapping[EParameters::IsPrimaryKeyboard], _isPrimaryKeyboard);
-   data += SerializationUtilities::CreateBooleanParameter(SerializationParametersMapping[EParameters::SustainEnabled],
-                                                          _sustainEnabled);
+   data += SerializationUtilities::CreateBooleanParameter(
+    SerializationParametersMapping[EParameters::SustainEnabled], _sustainEnabled);
    // Expression volume is not stored on purpose.
    return data;
 }
@@ -49,8 +48,8 @@ int KeyboardSubModel::Deserialize(std::vector<std::string> lines, int currentLin
     lines[currentLineIndex], SerializationParametersMapping[EParameters::IsPrimaryKeyboard]);
    Debug::Assert(isPrimaryKeyboard == _isPrimaryKeyboard, __FUNCTION__, "Illegal isPrimaryKeyboard value");
    currentLineIndex++;
-   EnableSustain(StringUtilities::ParseBooleanKey(lines[currentLineIndex],
-                                                  SerializationParametersMapping[EParameters::SustainEnabled]));
+   EnableSustain(StringUtilities::ParseBooleanKey(
+    lines[currentLineIndex], SerializationParametersMapping[EParameters::SustainEnabled]));
    currentLineIndex++;
    SetExpressionVolume(1.0); // Always set expression volume on maximum
    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());

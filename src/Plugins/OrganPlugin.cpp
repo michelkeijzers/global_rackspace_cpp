@@ -56,16 +56,16 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
 void OrganPlugin::UpdateBypass()
 {
    bool isEnabled = _organSubModel.IsEnabled();
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::Bypass,
-                                                         BoolUtilities::ToDouble(!isEnabled), true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), EPluginParameters::Bypass, BoolUtilities::ToDouble(!isEnabled), true);
    Debug::Log("$ " + GetName() + ": bypass = " + std::to_string(!isEnabled));
 }
 
 void OrganPlugin::UpdateDrawbarValue(int drawbarIndex)
 {
    double drawbarValue = _organSubModel.GetDrawbars(0);
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::UpperDrawbarsOffset,
-                                                         drawbarValue, true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), EPluginParameters::UpperDrawbarsOffset, drawbarValue, true);
    Debug::Log("$ " + GetName() + ": drawbar index = " + std::to_string(drawbarIndex) +
               ", value = " + std::to_string(drawbarValue));
 }
@@ -73,8 +73,8 @@ void OrganPlugin::UpdateDrawbarValue(int drawbarIndex)
 void OrganPlugin::UpdateRotatorSpeed()
 {
    double rotatorSpeedFast = BoolUtilities::ToDouble(_organSubModel.IsRotatorSpeedFast());
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::RotatorSpeed, rotatorSpeedFast,
-                                                         true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), EPluginParameters::RotatorSpeed, rotatorSpeedFast, true);
    Debug::Log("$ " + GetName() + ": rotator speed fast = " + std::to_string(rotatorSpeedFast));
 }
 
@@ -88,7 +88,7 @@ void OrganPlugin::UpdateDrive()
 void OrganPlugin::UpdateReverbAmount()
 {
    double reverbAmount = _organSubModel.GetReverbAmount();
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::ReverbAmount, reverbAmount,
-                                                         true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), EPluginParameters::ReverbAmount, reverbAmount, true);
    Debug::Log("$ " + GetName() + ": reverbAmount = " + std::to_string(reverbAmount));
 }

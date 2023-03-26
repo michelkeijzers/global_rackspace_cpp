@@ -18,14 +18,14 @@
    return CreateParameter(parameterName, std::to_string(value));
 }
 
-/* static */ std::string SerializationUtilities::CreateStringParameter(const std::string &parameterName,
-                                                                       std::string &text)
+/* static */ std::string SerializationUtilities::CreateStringParameter(
+ const std::string &parameterName, std::string &text)
 {
    return CreateParameter(parameterName, text);
 }
 
-/* static */ std::string SerializationUtilities::CreateVectorDoubleParameters(const std::string &parameterName,
-                                                                              std::vector<double> values)
+/* static */ std::string SerializationUtilities::CreateVectorDoubleParameters(
+ const std::string &parameterName, std::vector<double> values)
 {
    std::string parameters;
    for (size_t index = 0; index < values.size(); index++)

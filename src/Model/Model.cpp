@@ -44,7 +44,7 @@ void Model::Deserialize(std::vector<std::string> lines)
    currentLineIndex = _subModels.Deserialize(lines, currentLineIndex);
    Debug::Assert((lines.size() == currentLineIndex) ||
                   ((lines.size() == currentLineIndex + 1) && (StringUtilities::Trim(lines[lines.size() - 1]) == "")),
-                 __FUNCTION__, "File length unexpected");
+    __FUNCTION__, "File length unexpected");
 }
 
 bool Model::WriteSong()
@@ -72,10 +72,7 @@ void Model::OnTimer(ETimer timer)
 {
    switch (timer)
    {
-   case ETimer::OneSecond:
-      Notify(ChangedProperties::EChangedProperty::SecondElapsed);
-      break;
-   default:
-      Debug::Error(__FUNCTION__, "Illegal ETimer value");
+   case ETimer::OneSecond: Notify(ChangedProperties::EChangedProperty::SecondElapsed); break;
+   default: Debug::Error(__FUNCTION__, "Illegal ETimer value");
    }
 }

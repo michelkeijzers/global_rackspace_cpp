@@ -176,9 +176,9 @@ void WidgetIds::Fill()
    FillSetupChannelsPane();
    FillSetupOrganPane();
    Debug::Assert(_idToNames.size() == static_cast<size_t>(WidgetIds::EWidgetId::Last), __FUNCTION__,
-                 "Widget ID to Names list does not match");
+    "Widget ID to Names list does not match");
    Debug::Assert(_nameToIds.size() == static_cast<size_t>(WidgetIds::EWidgetId::Last), __FUNCTION__,
-                 "Widget Name to IDs list does not match");
+    "Widget Name to IDs list does not match");
 }
 
 void WidgetIds::FillSlidersPane()
@@ -201,8 +201,8 @@ void WidgetIds::FillSlidersPane()
    {
       std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
-      _nameToIds.insert(std::pair<std::string, EWidgetId>("PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1),
-                                                          WidgetIds::GetPrimaryKeyboardSlider(sliderIndex)));
+      _nameToIds.insert(std::pair<std::string, EWidgetId>(
+       "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1), WidgetIds::GetPrimaryKeyboardSlider(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {

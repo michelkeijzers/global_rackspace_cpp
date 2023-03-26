@@ -23,8 +23,8 @@ void SubControllers::Fill()
 #ifdef TESTER
    _subControllers.push_back(new TestController(_controller));
 #endif
-   Debug::Assert(_subControllers.size() == static_cast<int>(ESubControllerId::Last), __FUNCTION__,
-                 "Sub controller list incorrect");
+   Debug::Assert(
+    _subControllers.size() == static_cast<int>(ESubControllerId::Last), __FUNCTION__, "Sub controller list incorrect");
 }
 
 void SubControllers::Init()

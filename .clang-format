@@ -5,3 +5,8 @@ IndentWidth: 3
 ContinuationIndentWidth: 1
 
 AllowShortFunctionsOnASingleLine: All
+
+AlignAfterOpenBracket: DontAlign
+AllowAllParametersOfDeclarationOnNextLine: false
+
+AllowShortCaseLabelsOnASingleLine: true

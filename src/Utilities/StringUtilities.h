@@ -46,7 +46,7 @@ class StringUtilities
    /// \param maximumValue: the maximum value where the value of the key/value pair is checked against
    /// \returns value as an integer
    static int ParseIntKey(const std::string &line, const std::string &key, int minimumValue = 0,
-                          int maximumValue = std::numeric_limits<int>::max());
+    int maximumValue = std::numeric_limits<int>::max());
 
    /// \brief Parses a key/value pair (in form key:value) and returns the value as a double
    /// \param line: line containing the key/value pair
@@ -55,7 +55,7 @@ class StringUtilities
    /// \param maximumValue: the maximum value where the value of the key/value pair is checked against
    /// \returns value as a double
    static double ParseDoubleKey(const std::string &line, const std::string &key, double minimumValue = 0.0,
-                                double maximumValue = std::numeric_limits<int>::max());
+    double maximumValue = std::numeric_limits<int>::max());
 
    /// \brief Parses a key/value pair (in form key:value) and returns the value as a boolean
    /// \param line: line containing the key/value pair

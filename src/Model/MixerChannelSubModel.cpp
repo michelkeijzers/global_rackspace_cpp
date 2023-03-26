@@ -26,17 +26,17 @@ MixerChannelSubModel::MixerChannelSubModel(Model &model, int channelIndex)
       _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0), _isVolumeOverridden(false)
 {
    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
-                 "Serialization parameter names incorrect");
+    "Serialization parameter names incorrect");
 }
 
 std::string MixerChannelSubModel::Serialize() // override
 {
    std::string data;
-   data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::ChannelIndex],
-                                                      _channelIndex);
+   data += SerializationUtilities::CreateIntParameter(
+    SerializationParametersMapping[EParameters::ChannelIndex], _channelIndex);
    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::Volume], _volume);
-   data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::Source],
-                                                      static_cast<int>(_source));
+   data += SerializationUtilities::CreateIntParameter(
+    SerializationParametersMapping[EParameters::Source], static_cast<int>(_source));
    data += SerializationUtilities::CreateBooleanParameter(
     SerializationParametersMapping[EParameters::IsVolumeOverridden], _isVolumeOverridden);
    return data;
@@ -46,9 +46,8 @@ int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int curren
 {
    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
    currentLineIndex++;
-   int channelIndex =
-    StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::ChannelIndex], 0,
-                                 MixerSubModel::NR_OF_MIXER_CHANNELS);
+   int channelIndex = StringUtilities::ParseIntKey(lines[currentLineIndex],
+    SerializationParametersMapping[EParameters::ChannelIndex], 0, MixerSubModel::NR_OF_MIXER_CHANNELS);
    Debug::Assert(channelIndex == _channelIndex, __FUNCTION__, "ChannelIndex unexpected");
    currentLineIndex++;
    SetVolume(
@@ -57,8 +56,8 @@ int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int curren
    SetSource(static_cast<ESource>(StringUtilities::ParseIntKey(
     lines[currentLineIndex], SerializationParametersMapping[EParameters::Source], 0, (int)ESource::Last)));
    currentLineIndex++;
-   SetVolumeOverride(StringUtilities::ParseBooleanKey(lines[currentLineIndex],
-                                                      SerializationParametersMapping[EParameters::IsVolumeOverridden]));
+   SetVolumeOverride(StringUtilities::ParseBooleanKey(
+    lines[currentLineIndex], SerializationParametersMapping[EParameters::IsVolumeOverridden]));
    currentLineIndex++;
    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());
    currentLineIndex++;
@@ -108,14 +107,7 @@ void MixerChannelSubModel::SetGateLeft(bool gateActive)
    long long ms = _lastTimeGateLeftActive.toMilliseconds();
    if (IsForcedMode() || ((ms == 0LL) && gateActive) || ((ms != 0LL) && !gateActive))
    {
-      if (gateActive)
-      {
-         _lastTimeGateLeftActive = juce::Time::getCurrentTime();
-      }
-      else
-      {
-         _lastTimeGateLeftActive = juce::Time(0);
-      }
+      _lastTimeGateLeftActive = gateActive ? juce::Time::getCurrentTime() : juce::Time(0);
       Debug::Log("# " + GetName() + ", gate left = " + std::to_string(_lastTimeGateLeftActive.toMilliseconds()));
       Notify(ChangedProperties::GetMixerChannel1LastTimeGateLeftActiveProperty(_channelIndex));
    }
@@ -128,14 +120,7 @@ void MixerChannelSubModel::SetGateRight(bool gateActive)
    long long ms = _lastTimeGateRightActive.toMilliseconds();
    if (IsForcedMode() || ((ms == 0LL) && gateActive) || ((ms != 0LL) && !gateActive))
    {
-      if (gateActive)
-      {
-         _lastTimeGateRightActive = juce::Time::getCurrentTime();
-      }
-      else
-      {
-         _lastTimeGateRightActive = juce::Time(0);
-      }
+      _lastTimeGateRightActive = gateActive ? juce::Time::getCurrentTime() : juce::Time(0);
       Debug::Log("# " + GetName() + ", gate left = " + std::to_string(_lastTimeGateRightActive.toMilliseconds()));
       Notify(ChangedProperties::GetMixerChannel1LastTimeGateRightActiveProperty(_channelIndex));
    }
@@ -160,20 +145,11 @@ std::string MixerChannelSubModel::GetSourceName()
    std::string name;
    switch (_source)
    {
-   case ESource::Off:
-      name = "";
-      break;
-   case ESource::PrimaryKeyboard:
-      name = "U";
-      break;
-   case ESource::PrimaryKeyboardPads:
-      name = "P";
-      break;
-   case ESource::SecondaryKeyboard:
-      name = "L";
-      break;
-   default:
-      Debug::Error(__FUNCTION__, "Illegal source");
+   case ESource::Off: name = ""; break;
+   case ESource::PrimaryKeyboard: name = "U"; break;
+   case ESource::PrimaryKeyboardPads: name = "P"; break;
+   case ESource::SecondaryKeyboard: name = "L"; break;
+   default: Debug::Error(__FUNCTION__, "Illegal source");
    }
    return name;
 }

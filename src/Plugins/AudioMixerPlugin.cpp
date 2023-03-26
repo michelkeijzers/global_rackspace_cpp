@@ -15,8 +15,8 @@ const int NR_OF_STEREO_CHANNELS = 16;
 const int NR_OF_PARAMETERS_PER_CHANNEL = 7;
 const int VOLUME_PARAMETER = 0;
 
-AudioMixerPlugin::AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels,
-                                   const std::string &name)
+AudioMixerPlugin::AudioMixerPlugin(
+ View &view, MixerSubModel &mixerSubModel, bool lowerChannels, const std::string &name)
     : Plugin(name, view), _mixerSubModel(mixerSubModel), _lowerChannels(lowerChannels),
       _startChannelIndex(lowerChannels ? 0 : NR_OF_STEREO_CHANNELS),
       _endChannelIndex(lowerChannels ? NR_OF_STEREO_CHANNELS : MixerSubModel::NR_OF_MIXER_CHANNELS)
@@ -57,8 +57,8 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
 void AudioMixerPlugin::UpdateChannelVolume(int channelIndex)
 {
    double newVolume = _mixerChannelSubModels[channelIndex]->GetVolume();
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex), newVolume,
-                                                         true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), GetChannelVolumeParameter(channelIndex), newVolume, true);
    Debug::Log("$ " + GetName() + ": channel volume, channel index = " + std::to_string(channelIndex) +
               ", new volume = " + std::to_string(newVolume));
 }
@@ -75,6 +75,6 @@ void AudioMixerPlugin::UpdateChannelName(int channelIndex)
    // MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), GetChannelVolumeParameter(channelIndex),
    // newVolume,
    //                                                      true);
-   Debug::Log("$ " + GetName() + ": channel name, channel index = " + std::to_string(channelIndex) +
-              ", new name = " + newName);
+   Debug::Log(
+    "$ " + GetName() + ": channel name, channel index = " + std::to_string(channelIndex) + ", new name = " + newName);
 }

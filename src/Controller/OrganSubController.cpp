@@ -40,8 +40,8 @@ void OrganSubController::SetDrawbarValue(int drawbarIndex, double newValue, bool
 
 void OrganSubController::SetRotatorSpeed(bool newRotatorSpeedFast, bool forced /* = false */)
 {
-   Debug::LogMethodEntry(__FUNCTION__, "newRotatorSpeedFast = " + std::to_string(newRotatorSpeedFast) +
-                                        ", forced = " + std::to_string(forced));
+   Debug::LogMethodEntry(__FUNCTION__,
+    "newRotatorSpeedFast = " + std::to_string(newRotatorSpeedFast) + ", forced = " + std::to_string(forced));
    bool currentRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
    if (forced || currentRotatorSpeedFast != newRotatorSpeedFast)
    {

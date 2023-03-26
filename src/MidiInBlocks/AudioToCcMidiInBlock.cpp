@@ -46,8 +46,7 @@ bool AudioToCcMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
       mixerSubController.SetChannelGateRight(master, channelIndex, MidiUtilities::MidiToParam(value));
       handleMessage = true;
       break;
-   default:
-      Debug::Error(__FUNCTION__, "Illegal CC type");
+   default: Debug::Error(__FUNCTION__, "Illegal CC type");
    }
    return handleMessage;
 }
@@ -57,20 +56,11 @@ AudioToCcMidiInBlock::ECcType AudioToCcMidiInBlock::GetCcType(uint8_t ccNumber)
    ECcType ccType = ECcType::GateLeft;
    switch (ccNumber % 4)
    {
-   case 0:
-      ccType = ECcType::LevelLeft;
-      break;
-   case 1:
-      ccType = ECcType::LevelRight;
-      break;
-   case 2:
-      ccType = ECcType::GateLeft;
-      break;
-   case 3:
-      ccType = ECcType::GateRight;
-      break;
-   default:
-      Debug::Error(__FUNCTION__, "Illegal CC type");
+   case 0: ccType = ECcType::LevelLeft; break;
+   case 1: ccType = ECcType::LevelRight; break;
+   case 2: ccType = ECcType::GateLeft; break;
+   case 3: ccType = ECcType::GateRight; break;
+   default: Debug::Error(__FUNCTION__, "Illegal CC type");
    }
    return ccType;
 }

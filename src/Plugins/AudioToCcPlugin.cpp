@@ -81,8 +81,8 @@ enum EPluginParameters
    RightGateReset
 };
 
-AudioToCcPlugin::AudioToCcPlugin(View &view, MixerSubModel &mixerSubModel, bool master, int channelIndex,
-                                 const std::string &name)
+AudioToCcPlugin::AudioToCcPlugin(
+ View &view, MixerSubModel &mixerSubModel, bool master, int channelIndex, const std::string &name)
 
     : Plugin(name, view), _master(master), _channelIndex(channelIndex), _mixerSubModel(mixerSubModel)
 {
@@ -133,7 +133,7 @@ void AudioToCcPlugin::Update(ChangedProperties::EChangedProperty changedProperty
 void AudioToCcPlugin::UpdateBypass(int channelIndex)
 {
    bool isEnabled = (_mixerSubModel.GetChannelSource(channelIndex) != MixerChannelSubModel::ESource::Off);
-   MvcFramework::GetGigPerformerApi().setPluginParameter(GetName(), EPluginParameters::Bypass,
-                                                         BoolUtilities::ToDouble(!isEnabled), true);
+   MvcFramework::GetGigPerformerApi().setPluginParameter(
+    GetName(), EPluginParameters::Bypass, BoolUtilities::ToDouble(!isEnabled), true);
    Debug::Log("$ " + GetName() + ": bypass = " + std::to_string(!isEnabled));
 }

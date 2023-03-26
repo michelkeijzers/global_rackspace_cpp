@@ -22,30 +22,22 @@ OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel) : Pane(
 void OrganSetupPane::Fill() // override
 {
    GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganPaneBox,
-                          new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganPaneBox, false));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganTitleTextLabel,
+    new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganPaneBox, false));
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganTitleTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganTitleTextLabel, false));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton,
     new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton, true));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton,
     new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton, true));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganLowestNoteSlider,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteSlider,
     new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganLowestNoteSlider, true));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganHighestNoteSlider,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteSlider,
     new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganHighestNoteSlider, true));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganLowestNoteTextLabel, false));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganHighestNoteTextLabel, false));
-   GetWidgets().AddWidget(
-    WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton,
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton,
     new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton, true));
 }
 
