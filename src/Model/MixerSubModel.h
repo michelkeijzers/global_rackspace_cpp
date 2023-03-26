@@ -21,7 +21,7 @@ class MixerSubModel : public SubModel, public Observable
         Last
     };
 
-    MixerSubModel(SubModels &subModels);
+    MixerSubModel(Model& model);
     ~MixerSubModel();
     void Init() override;
     const std::string GetName() override;

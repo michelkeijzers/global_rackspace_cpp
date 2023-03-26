@@ -27,8 +27,12 @@ class Model : public Observable
     
     const std::string &GetVersion();
     void SetVersion(const std::string &version);
-	 	 
+
+	 bool IsForcedMode();
+    
   private:
     SubModels _subModels;
     std::string _version;
+
+	 bool _forcedMode;
 };

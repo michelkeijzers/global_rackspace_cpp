@@ -8,7 +8,7 @@
 #include "OrganSubModel.h"
 #include <juce_core/juce_core.h>
 
-Model::Model() : _subModels(*this), _version("0.1")
+Model::Model() : _subModels(*this), _version("0.1"), _forcedMode(false)
 {
     DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
@@ -41,17 +41,19 @@ bool Model::LoadSong()
     }
     std::string fileText = file.loadFileAsString().toStdString();
     std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
-    _subModels.SetForcedMode(true);
+    _forcedMode = true;
     Deserialize(lines);
-    _subModels.SetForcedMode(false);
+    _forcedMode = false;
     return true;
 }
 
 void Model::Deserialize(std::vector<std::string> lines)
 {
     int currentLineIndex = 0;
-
-    _subModels.Deserialize(lines, currentLineIndex);
+    currentLineIndex = _subModels.Deserialize(lines, currentLineIndex);
+    Debug::Assert((lines.size() == currentLineIndex) || ((lines.size() == currentLineIndex + 1) &&
+                                                         (StringUtilities::Trim(lines[lines.size() - 1]) == "")),
+                  __FUNCTION__, "File length unexpected");
 }
 
 bool Model::WriteSong()
@@ -77,6 +79,11 @@ const std::string& Model::GetVersion()
 void Model::SetVersion(const std::string& version)
 {
     _version = version;
+}
+
+bool Model::IsForcedMode()
+{
+    return _forcedMode;
 }
 
 void Model::OnTimer(ETimer timer)

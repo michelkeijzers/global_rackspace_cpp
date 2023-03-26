@@ -3,6 +3,7 @@
 #include "../View/Observable.h"
 #include "SubModel.h"
 #include <vector>
+#include <string>
 
 enum class EOrganRotatorSpeed
 {
@@ -11,14 +12,15 @@ enum class EOrganRotatorSpeed
     Off
 };
 
-class SubModels;
+class Model;
+class MixerSubModel;
 
 class OrganSubModel : public SubModel, public Observable
 {
   public:
     static const int NR_OF_DRAWBARS = 9;
 
-    OrganSubModel(SubModels &subModels);
+    OrganSubModel(Model &model);
     const std::string GetName() override;
 
     std::string Serialize() override;
@@ -57,7 +59,7 @@ class OrganSubModel : public SubModel, public Observable
 
     enum class EParameters
     {
-        Drawbars,
+        Drawbar,
         IsEnabled,
         IsRotatorSpeedFast,
         Drive,

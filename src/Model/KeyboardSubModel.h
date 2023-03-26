@@ -5,12 +5,12 @@
 #include "SubModel.h"
 #include <vector>
 
-class SubModels;
+class Model;
 
 class KeyboardSubModel : public SubModel, public Observable
 {
   public:
-    KeyboardSubModel(SubModels &subModels, bool primaryKeyboard);
+    KeyboardSubModel(Model& model, bool primaryKeyboard);
     const std::string GetName() override;
 
 	 std::string Serialize() override;
@@ -26,7 +26,6 @@ class KeyboardSubModel : public SubModel, public Observable
     {
         IsPrimaryKeyboard,
 		  SustainEnabled,
-		  ExpressionVolume,
         Last
     };
 

@@ -3,6 +3,7 @@
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
 #include "../Utilities/SerializationUtilities.h"
+#include "../Utilities/StringUtilities.h"
 #include "Model.h"
 #include "SubModels.h"
 #include <string>
@@ -15,36 +16,53 @@ static std::pair<MixerChannelSubModel::EParameters, std::string> SerializationPa
     std::make_pair(MixerChannelSubModel::EParameters::Source, "Source"),
     std::make_pair(MixerChannelSubModel::EParameters::IsVolumeOverridden, "IsVolumeOverridden")};
 
-static std::map<MixerChannelSubModel::EParameters, std::string> SerializationParameters(
+static std::map<MixerChannelSubModel::EParameters, std::string> SerializationParametersMapping(
     SerializationParametersData,
     SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
-MixerChannelSubModel::MixerChannelSubModel(SubModels subModels, int channelIndex)
-    : SubModel(subModels), _channelIndex(channelIndex), _volume(0.0),
+MixerChannelSubModel::MixerChannelSubModel(Model &model, int channelIndex)
+    : SubModel(model), _channelIndex(channelIndex), _volume(0.0),
       _name(SUB_MODEL_NAME + " " + std::to_string(channelIndex)), _source(ESource::PrimaryKeyboard), _levelLeft(0.0),
       _levelRight(0.0), _lastTimeGateLeftActive(0), _lastTimeGateRightActive(0), _isVolumeOverridden(false)
 {
-    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
+    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
 }
 
 std::string MixerChannelSubModel::Serialize() // override
 {
     std::string data;
-    data +=
-        SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::ChannelIndex], _channelIndex);
-    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Volume], _volume);
-    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::Source],
+    data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::ChannelIndex],
+                                                       _channelIndex);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::Volume], _volume);
+    data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::Source],
                                                        static_cast<int>(_source));
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::Source],
-                                                           _isVolumeOverridden);
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParametersMapping[EParameters::IsVolumeOverridden], _isVolumeOverridden);
     return data;
 }
 
 int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
-    // TODO Serialization
-    return 0;
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
+    currentLineIndex++;
+    int channelIndex =
+        StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::ChannelIndex],
+                                     0, MixerSubModel::NR_OF_MIXER_CHANNELS);
+    Debug::Assert(channelIndex == _channelIndex, __FUNCTION__, "ChannelIndex unexpected");
+    currentLineIndex++;
+    SetVolume(
+        StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::Volume]));
+    currentLineIndex++;
+    SetSource(static_cast<ESource>(StringUtilities::ParseIntKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::Source], 0, (int)ESource::Last)));
+    currentLineIndex++;
+    SetVolumeOverride(StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::IsVolumeOverridden]));
+    currentLineIndex++;
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());
+    currentLineIndex++;
+    return currentLineIndex;
 }
 
 double MixerChannelSubModel::GetVolume()
@@ -181,16 +199,34 @@ std::string MixerChannelSubModel::GetSourceName()
     return name;
 }
 
+void MixerChannelSubModel::SetSource(ESource source)
+{
+    if (!IsForcedMode() || (_source != source))
+    {
+        _source = source;
+        Debug::Log("# " + GetName() + ", source = " + GetSourceName());
+        Notify(ChangedProperties::GetChannelSourceProperty(_channelIndex));
+    }
+}
+
 void MixerChannelSubModel::SelectNextSource()
 {
-    _source = static_cast<ESource>((static_cast<int>(_source) + 1) % static_cast<int>(ESource::Last));
-    Debug::Log("# " + GetName() + ", source = " + GetSourceName());
-    Notify(ChangedProperties::GetChannelSourceProperty(_channelIndex));
+    SetSource(static_cast<ESource>((static_cast<int>(_source) + 1) % static_cast<int>(ESource::Last)));
 }
 
 bool MixerChannelSubModel::IsVolumeOverridden()
 {
     return _isVolumeOverridden;
+}
+
+void MixerChannelSubModel::SetVolumeOverride(bool isVolumeOverridden)
+{
+    if (IsForcedMode() || (_isVolumeOverridden != isVolumeOverridden))
+    {
+        _isVolumeOverridden = isVolumeOverridden;
+        Debug::Log("# " + GetName() + ", volume override = " + (IsVolumeOverridden() ? "YES" : "No"));
+        Notify(ChangedProperties::GetChannelVolumeOverrideProperty(_channelIndex));
+    }
 }
 
 void MixerChannelSubModel::SwapVolumeOverride()

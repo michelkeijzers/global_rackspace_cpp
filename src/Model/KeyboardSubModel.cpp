@@ -2,6 +2,7 @@
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
 #include "../Utilities/SerializationUtilities.h"
+#include "../Utilities/StringUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
 #include "SubModels.h"
@@ -9,19 +10,18 @@
 
 static const std::string SUB_MODEL_NAME = "Keyboard";
 
-static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersData[] = {
+static std::pair<KeyboardSubModel::EParameters, std::string> SerializationParametersPairs[] = {
     std::make_pair(KeyboardSubModel::EParameters::IsPrimaryKeyboard, "IsPrimaryKeyboard"),
-    std::make_pair(KeyboardSubModel::EParameters::SustainEnabled, "SustainEnabled"),
-    std::make_pair(KeyboardSubModel::EParameters::ExpressionVolume, "ExpressionVolume")};
+    std::make_pair(KeyboardSubModel::EParameters::SustainEnabled, "SustainEnabled")};
 
-static std::map<KeyboardSubModel::EParameters, std::string> SerializationParameters(
-    SerializationParametersData,
-    SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
+static std::map<KeyboardSubModel::EParameters, std::string> SerializationParametersMapping(
+    SerializationParametersPairs,
+    SerializationParametersPairs + sizeof SerializationParametersPairs / sizeof SerializationParametersPairs[0]);
 
-KeyboardSubModel::KeyboardSubModel(SubModels &subModels, bool isPrimaryKeyboard)
-    : SubModel(subModels), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
+KeyboardSubModel::KeyboardSubModel(Model& model, bool isPrimaryKeyboard)
+    : SubModel(model), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
 {
-    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
+    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
 }
 
@@ -33,19 +33,29 @@ const std::string KeyboardSubModel::GetName() /* override */
 std::string KeyboardSubModel::Serialize() // override
 {
     std::string data;
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsPrimaryKeyboard],
-                                                           _isPrimaryKeyboard);
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainEnabled],
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParametersMapping[EParameters::IsPrimaryKeyboard], _isPrimaryKeyboard);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParametersMapping[EParameters::SustainEnabled],
                                                            _sustainEnabled);
-    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ExpressionVolume],
-                                                          _expressionVolume);
+    // Expression volume is not stored on purpose.
     return data;
 }
 
 int KeyboardSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
-    // TODO Serialization
-    return 0;
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
+    currentLineIndex++;
+    bool isPrimaryKeyboard = StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::IsPrimaryKeyboard]);
+    Debug::Assert(isPrimaryKeyboard == _isPrimaryKeyboard, __FUNCTION__, "Illegal isPrimaryKeyboard value");
+    currentLineIndex++;
+    EnableSustain(StringUtilities::ParseBooleanKey(lines[currentLineIndex],
+                                                   SerializationParametersMapping[EParameters::SustainEnabled]));
+    currentLineIndex++;
+    SetExpressionVolume(1.0); // Always set expression volume on maximum
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());
+    currentLineIndex++;
+    return currentLineIndex;
 }
 
 bool KeyboardSubModel::IsSustainEnabled()
@@ -55,7 +65,7 @@ bool KeyboardSubModel::IsSustainEnabled()
 
 void KeyboardSubModel::EnableSustain(bool enable /* = true */)
 {
-    if (enable != _sustainEnabled)
+    if (IsForcedMode() || (enable != _sustainEnabled))
     {
         _sustainEnabled = enable;
         Debug::Log("# " + GetName() + ": Sustain, enabled = " + std::to_string(_sustainEnabled));
@@ -71,7 +81,7 @@ double KeyboardSubModel::GetExpressionVolume()
 
 void KeyboardSubModel::SetExpressionVolume(double volume)
 {
-    if (volume != _expressionVolume)
+    if (IsForcedMode() || (volume != _expressionVolume))
     {
         _expressionVolume = volume;
         Debug::Log("# " + GetName() + ": Expression volume = " + std::to_string(_expressionVolume));

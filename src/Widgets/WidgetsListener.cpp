@@ -50,7 +50,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     }
     if (!processed)
     {
-        int index = WidgetIds::GetIndexOfPrimaryKeyboardSlider(widgetId);
+        index = WidgetIds::GetIndexOfPrimaryKeyboardSlider(widgetId);
         if ((widgetId >= WidgetIds::EWidgetId::PrimaryKeyboardSlider1) && (index < SlidersPane::NR_OF_SLIDERS))
         {
             ProcessSlider(index, newValue);
@@ -79,7 +79,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     }
     if (!processed)
     {
-        int index = WidgetIds::GetIndexOfSetupChannelNextSourceButton(widgetId);
+        index = WidgetIds::GetIndexOfSetupChannelNextSourceButton(widgetId);
         if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1NextSourceButton) &&
             (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
         {
@@ -94,7 +94,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
     }
     if (!processed)
     {
-        int index = WidgetIds::GetIndexOfSetupChannelVolumeOverrideButton(widgetId);
+        index = WidgetIds::GetIndexOfSetupChannelVolumeOverrideButton(widgetId);
         if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton) && 
 			  (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
         {

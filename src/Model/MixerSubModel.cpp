@@ -14,20 +14,20 @@ static std::pair<MixerSubModel::EParameters, std::string> SerializationParameter
     std::make_pair(MixerSubModel::EParameters::MasterVolume, "MasterVolume"),
 };
 
-static std::map<MixerSubModel::EParameters, std::string> SerializationParameters(
+static std::map<MixerSubModel::EParameters, std::string> SerializationParametersMapping(
     SerializationParametersData,
     SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
-MixerSubModel::MixerSubModel(SubModels &subModels)
-    : SubModel(subModels), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0),
+MixerSubModel::MixerSubModel(Model& model)
+    : SubModel(model), _masterVolume(0.0), _masterLevelLeft(0.0), _masterLevelRight(0.0),
       _masterLastTimeGateLeftActive(0), _masterLastTimeGateRightActive(0),
       _tabSelection(MixerSubModel::ETabSelection::Drawbars)
 {
-    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
+    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
     for (int channelIndex = 0; channelIndex < NR_OF_MIXER_CHANNELS; channelIndex++)
     {
-        _mixerChannelSubModels.push_back(new MixerChannelSubModel(subModels, channelIndex));
+        _mixerChannelSubModels.push_back(new MixerChannelSubModel(model, channelIndex));
     }
 }
 
@@ -52,9 +52,9 @@ const std::string MixerSubModel::GetName() /* override */
 std::string MixerSubModel::Serialize() // override
 {
     std::string data;
-    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::TabSelection],
+    data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::TabSelection],
                                                        static_cast<int>(_tabSelection));
-    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::MasterVolume],
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::MasterVolume],
                                                           _masterVolume);
     for (auto mixerChannelSubModel : _mixerChannelSubModels)
     {
@@ -67,20 +67,21 @@ std::string MixerSubModel::Serialize() // override
 
 int MixerSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
-    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> Mixer");
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
     currentLineIndex++;
     SetTabSelection(static_cast<ETabSelection>(
-        StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParameters[EParameters::TabSelection], 0,
+        StringUtilities::ParseIntKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::TabSelection],
+                                     0,
                                      static_cast<int>(ETabSelection::Last))));
     currentLineIndex++;
-    SetMasterVolume(
-        StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParameters[EParameters::MasterVolume]));
+    SetMasterVolume(StringUtilities::ParseDoubleKey(lines[currentLineIndex],
+                                                    SerializationParametersMapping[EParameters::MasterVolume]));
     currentLineIndex++;
     for (auto mixerChannelSubModel : _mixerChannelSubModels)
     {
         currentLineIndex = mixerChannelSubModel->Deserialize(lines, currentLineIndex);
     }
-    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< Mixer");
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());
     currentLineIndex++;
     return currentLineIndex;
 }

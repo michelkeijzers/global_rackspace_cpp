@@ -1,20 +1,20 @@
 #include "SubModel.h"
-#include "SubModels.h"
+#include "Model.h"
 
-SubModel::SubModel(SubModels &subModels) : _subModels(subModels)
+SubModel::SubModel(Model &model) : _model(model)
 {
 }
 
-void SubModel::Init()
+void SubModel::Init() // override
 {
+}
+
+Model& SubModel::GetModel()
+{
+    return _model;
 }
 
 bool SubModel::IsForcedMode()
 {
-    return _subModels.IsForcedMode();
-}
-
-SubModels& SubModel::GetSubModels()
-{
-    return _subModels;
+    return _model.IsForcedMode();
 }

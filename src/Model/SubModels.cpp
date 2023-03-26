@@ -1,3 +1,4 @@
+#include <memory>
 #include "../Model/SubModels.h"
 #include "../Model/MixerSubModel.h"
 #include "../Model/OrganSubModel.h"
@@ -6,7 +7,7 @@
 #include "../Utilities/Debug.h"
 #include "../Utilities/StringUtilities.h"
 
-SubModels::SubModels(Model& model) : _model(model), _forcedMode(false)
+SubModels::SubModels(Model& model) : _model(model)
 {
 }
 
@@ -17,10 +18,10 @@ SubModels::~SubModels()
 
 void SubModels::Fill()
 {
-    _subModels.push_back(new MixerSubModel(*this));
-    _subModels.push_back(new OrganSubModel(*this));
-    _subModels.push_back(new KeyboardSubModel(*this, true));
-    _subModels.push_back(new KeyboardSubModel(*this, false));
+    _subModels.push_back(new MixerSubModel(GetModel()));
+    _subModels.push_back(new OrganSubModel(GetModel()));
+    _subModels.push_back(new KeyboardSubModel(GetModel(), true));
+    _subModels.push_back(new KeyboardSubModel(GetModel(), false));
      Debug::Assert(_subModels.size() == static_cast<int>(ESubModelId::Last), __FUNCTION__, "sub models list incorrect");
 }
 
@@ -63,14 +64,4 @@ int SubModels::Deserialize(std::vector<std::string> lines, int currentLineIndex)
 SubModel &SubModels::GetSubModel(ESubModelId id)
     {
     return *(_subModels.at(static_cast<int>(id)));
-}
-
-bool SubModels::IsForcedMode()
-{
-    return _forcedMode;
-}
-
-void SubModels::SetForcedMode(bool forcedMode)
-{
-    _forcedMode = forcedMode;
 }

@@ -7,7 +7,7 @@
 #include <juce_core/time/juce_Time.h>
 #include <string>
 
-class SubModels;
+class Model;
 
 class MixerChannelSubModel : public SubModel, public Observable
 {
@@ -22,7 +22,7 @@ class MixerChannelSubModel : public SubModel, public Observable
         Last
     };
 
-    MixerChannelSubModel(SubModels subModels, int channelIndex);
+    MixerChannelSubModel(Model& model, int channelIndex);
 
     std::string Serialize() override;
     int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;
@@ -47,9 +47,11 @@ class MixerChannelSubModel : public SubModel, public Observable
 
     ESource GetSource();
     std::string GetSourceName();
+    void SetSource(ESource source);
     void SelectNextSource();
 
     bool IsVolumeOverridden();
+    void SetVolumeOverride(bool isVolumeOverridden);
     void SwapVolumeOverride();
 
     enum class EParameters

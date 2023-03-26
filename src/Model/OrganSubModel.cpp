@@ -2,17 +2,19 @@
 #include "../Utilities/Debug.h"
 #include "../Utilities/DoubleUtilities.h"
 #include "../Utilities/SerializationUtilities.h"
+#include "../Utilities/StringUtilities.h"
 #include "../View/ChangedProperties.h"
 #include "../View/View.h"
 #include "MixerSubModel.h"
 #include "SubModels.h"
+#include "Model.h"
 #include <map>
 #include <memory>
 
 static const std::string SUB_MODEL_NAME = "Organ";
 
 static std::pair<OrganSubModel::EParameters, std::string> SerializationParametersData[] = {
-    std::make_pair(OrganSubModel::EParameters::Drawbars, "Drawbars"),
+    std::make_pair(OrganSubModel::EParameters::Drawbar, "Drawbar"),
     std::make_pair(OrganSubModel::EParameters::IsEnabled, "IsEnabled"),
     std::make_pair(OrganSubModel::EParameters::IsRotatorSpeedFast, "IsRotatorSpeed"),
     std::make_pair(OrganSubModel::EParameters::Drive, "Drive"),
@@ -23,16 +25,16 @@ static std::pair<OrganSubModel::EParameters, std::string> SerializationParameter
     std::make_pair(OrganSubModel::EParameters::HighestNote, "HighestNote"),
     std::make_pair(OrganSubModel::EParameters::SustainPedalIsActive, "SustainPedalIsActive")};
 
-static std::map<OrganSubModel::EParameters, std::string> SerializationParameters(
+static std::map<OrganSubModel::EParameters, std::string> SerializationParametersMapping(
     SerializationParametersData,
     SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
-OrganSubModel::OrganSubModel(SubModels &subModels)
-    : SubModel(subModels), _isEnabled(true), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0),
+OrganSubModel::OrganSubModel(Model& model)
+    : SubModel(model), _isEnabled(true), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0),
       _primaryKeyboardIsActive(false), _secondaryKeyboardIsActive(false), _lowestNote(0), _highestNote(0),
       _sustainPedalIsActive(false)
 {
-    Debug::Assert(SerializationParameters.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
+    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
                   "Serialization parameter names incorrect");
     for (int n = 0; n < NR_OF_DRAWBARS; n++)
     {
@@ -48,29 +50,70 @@ const std::string OrganSubModel::GetName() // override
 std::string OrganSubModel::Serialize() // override
 {
     std::string data;
-    data +=
-        SerializationUtilities::CreateVectorDoubleParameters(SerializationParameters[EParameters::Drawbars], _drawbars);
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsEnabled], _isEnabled);
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::IsRotatorSpeedFast],
-                                                           _isRotatorSpeedFast);
-    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::Drive], _drive);
-    data += SerializationUtilities::CreateDoubleParameter(SerializationParameters[EParameters::ReverbAmount],
+    data += SerializationUtilities::CreateVectorDoubleParameters(SerializationParametersMapping[EParameters::Drawbar],
+                                                                 _drawbars);
+    data += SerializationUtilities::CreateBooleanParameter(SerializationParametersMapping[EParameters::IsEnabled],
+                                                           _isEnabled);
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParametersMapping[EParameters::IsRotatorSpeedFast], _isRotatorSpeedFast);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::Drive], _drive);
+    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::ReverbAmount],
                                                           _reverbAmount);
     data += SerializationUtilities::CreateBooleanParameter(
-        SerializationParameters[EParameters::PrimaryKeyboardIsActive], _primaryKeyboardIsActive);
+        SerializationParametersMapping[EParameters::PrimaryKeyboardIsActive], _primaryKeyboardIsActive);
     data += SerializationUtilities::CreateBooleanParameter(
-        SerializationParameters[EParameters::SecondaryKeyboardIsActive], _secondaryKeyboardIsActive);
-    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::LowestNote], _lowestNote);
-    data += SerializationUtilities::CreateIntParameter(SerializationParameters[EParameters::HighestNote], _highestNote);
-    data += SerializationUtilities::CreateBooleanParameter(SerializationParameters[EParameters::SustainPedalIsActive],
-                                                           _sustainPedalIsActive);
+        SerializationParametersMapping[EParameters::SecondaryKeyboardIsActive], _secondaryKeyboardIsActive);
+    data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::LowestNote],
+                                                       _lowestNote);
+    data += SerializationUtilities::CreateIntParameter(SerializationParametersMapping[EParameters::HighestNote],
+                                                       _highestNote);
+    data += SerializationUtilities::CreateBooleanParameter(
+        SerializationParametersMapping[EParameters::SustainPedalIsActive], _sustainPedalIsActive);
     return data;
 }
 
 int OrganSubModel::Deserialize(std::vector<std::string> lines, int currentLineIndex) // override
 {
-    // TODO Serialization
-    return 0;
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "> " + GetName());
+    currentLineIndex++;
+    for (int drawbarIndex = 0; drawbarIndex < NR_OF_DRAWBARS; drawbarIndex++)
+    {
+        double drawbarValue = StringUtilities::ParseDoubleKey(lines[currentLineIndex],
+                                                              SerializationParametersMapping[EParameters::Drawbar] +
+                                                                  std::to_string(drawbarIndex));
+        SetDrawbars(drawbarIndex, drawbarValue);
+        currentLineIndex++;
+    }
+    Enable(StringUtilities::ParseBooleanKey(lines[currentLineIndex],
+                                            SerializationParametersMapping[EParameters::IsEnabled]));
+    currentLineIndex++;
+    SetRotatorSpeedFast(StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::IsRotatorSpeedFast]));
+    currentLineIndex++;
+    SetDrive(
+        StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::Drive]));
+    currentLineIndex++;
+    SetReverbAmount(StringUtilities::ParseDoubleKey(lines[currentLineIndex],
+                                                    SerializationParametersMapping[EParameters::ReverbAmount]));
+    currentLineIndex++;
+    SetPrimaryKeyboardActive(StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::PrimaryKeyboardIsActive]));
+    currentLineIndex++;
+    SetSecondaryKeyboardActive(StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::SecondaryKeyboardIsActive]));
+    currentLineIndex++;
+    SetLowestNote(static_cast<uint8_t>(StringUtilities::ParseIntKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::LowestNote], 0, 127)));
+    currentLineIndex++;
+    SetHighestNote(static_cast<uint8_t>(StringUtilities::ParseIntKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::HighestNote], 0, 127)));
+    currentLineIndex++;
+    SetSustainPedalActive(StringUtilities::ParseBooleanKey(
+        lines[currentLineIndex], SerializationParametersMapping[EParameters::SustainPedalIsActive]));
+    currentLineIndex++;
+    StringUtilities::AssertTrimEqual(lines[currentLineIndex], "< " + GetName());
+    currentLineIndex++;
+    return currentLineIndex;
 }
 
 bool OrganSubModel::IsEnabled()
@@ -80,7 +123,7 @@ bool OrganSubModel::IsEnabled()
 
 void OrganSubModel::Enable(bool enable)
 {
-    if (_isEnabled != enable)
+    if (IsForcedMode() || (_isEnabled != enable))
     {
         _isEnabled = enable;
         Debug::Log("# " + GetName() + ", is enabled = " + std::to_string(_isEnabled));
@@ -101,7 +144,7 @@ void OrganSubModel::SetDrawbars(int drawbarIndex, double newValue)
     Debug::Assert((drawbarIndex >= 0) && (drawbarIndex < NR_OF_DRAWBARS), __FUNCTION__,
                   "Drawbar index out of range: " + std::to_string(drawbarIndex));
 
-    if (!DoubleUtilities::AreEqual(newValue, _drawbars[drawbarIndex]))
+    if (IsForcedMode() || !DoubleUtilities::AreEqual(newValue, _drawbars[drawbarIndex]))
     {
         _drawbars[drawbarIndex] = newValue;
         Debug::Log("# " + GetName() + ", drawbar " + std::to_string(drawbarIndex) +
@@ -117,7 +160,7 @@ bool OrganSubModel::IsRotatorSpeedFast()
 
 void OrganSubModel::SetRotatorSpeedFast(bool rotatorSpeedFast)
 {
-    if (rotatorSpeedFast != _isRotatorSpeedFast)
+    if (IsForcedMode() || (rotatorSpeedFast != _isRotatorSpeedFast))
     {
         _isRotatorSpeedFast = rotatorSpeedFast;
         Debug::Log("# " + GetName() + ", rotator speed fast, fast = " + std::to_string(_isRotatorSpeedFast));
@@ -137,7 +180,7 @@ double OrganSubModel::GetDrive()
 
 void OrganSubModel::SetDrive(double drive)
 {
-    if (drive != _drive)
+    if (IsForcedMode() || (drive != _drive))
     {
         _drive = drive;
         Debug::Log("# " + GetName() + ", drive, value = " + std::to_string(_drive));
@@ -152,7 +195,7 @@ double OrganSubModel::GetReverbAmount()
 
 void OrganSubModel::SetReverbAmount(double reverbAmount)
 {
-    if (reverbAmount != _reverbAmount)
+    if (IsForcedMode() || (reverbAmount != _reverbAmount))
     {
         _reverbAmount = reverbAmount;
         Debug::Log("# " + GetName() + ", reverb amount, value = " + std::to_string(_reverbAmount));
@@ -169,7 +212,7 @@ bool OrganSubModel::IsPrimaryKeyboardActive()
 
 void OrganSubModel::SetPrimaryKeyboardActive(bool primaryKeyboardIsActive)
 {
-    if (primaryKeyboardIsActive != _primaryKeyboardIsActive)
+    if (IsForcedMode() || (primaryKeyboardIsActive != _primaryKeyboardIsActive))
     {
         _primaryKeyboardIsActive = primaryKeyboardIsActive;
         Debug::Log("# " + GetName() +
@@ -186,7 +229,7 @@ bool OrganSubModel::IsSecondaryKeyboardActive()
 
 void OrganSubModel::SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive)
 {
-    if (secondaryKeyboardIsActive != _secondaryKeyboardIsActive)
+    if (IsForcedMode() || (secondaryKeyboardIsActive != _secondaryKeyboardIsActive))
     {
         _secondaryKeyboardIsActive = secondaryKeyboardIsActive;
         Debug::Log("# " + GetName() +
@@ -199,13 +242,12 @@ void OrganSubModel::SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive)
 void OrganSubModel::CheckIfEnabled()
 {
     bool isEnabled = _primaryKeyboardIsActive || _secondaryKeyboardIsActive;
-    if (isEnabled != _isEnabled)
+    if (IsForcedMode() || (isEnabled != _isEnabled))
     {
         _isEnabled = isEnabled;
         Debug::Log("# " + GetName() + ", enabled, enabled = " + std::to_string(_isEnabled));
         Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
-
-        MixerSubModel &mixerSubModel = (MixerSubModel &)(GetSubModels().GetSubModel(SubModels::ESubModelId::Mixer));
+        MixerSubModel &mixerSubModel = reinterpret_cast<MixerSubModel&>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
         if (!_isEnabled && (mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars))
         {
             mixerSubModel.SetNextTab();
@@ -220,7 +262,7 @@ uint8_t OrganSubModel::GetLowestNote()
 
 void OrganSubModel::SetLowestNote(uint8_t lowestNote)
 {
-    if (lowestNote != _lowestNote)
+    if (IsForcedMode() || (lowestNote != _lowestNote))
     {
         _lowestNote = lowestNote;
         Debug::Log("# " + GetName() + ", set lowest note, value = " + std::to_string(_lowestNote));
@@ -235,7 +277,7 @@ uint8_t OrganSubModel::GetHighestNote()
 
 void OrganSubModel::SetHighestNote(uint8_t highestNote)
 {
-    if (highestNote != _highestNote)
+    if (IsForcedMode() || (highestNote != _highestNote))
     {
         _highestNote = highestNote;
         Debug::Log("# " + GetName() + ", set highest note, value = " + std::to_string(_highestNote));
@@ -250,7 +292,7 @@ bool OrganSubModel::IsSustainPedalActive()
 
 void OrganSubModel::SetSustainPedalActive(bool sustainPedalIsActive)
 {
-    if (sustainPedalIsActive != _sustainPedalIsActive)
+    if (IsForcedMode() || (sustainPedalIsActive != _sustainPedalIsActive))
     {
         _sustainPedalIsActive = sustainPedalIsActive;
         Debug::Log("# " + GetName() + ", sustain pedal active, value = " + std::to_string(_sustainPedalIsActive));
