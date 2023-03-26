@@ -85,74 +85,30 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
    {
       UpdateOrganDrive();
    }
-
    else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
    {
       UpdateOrganReverbAmount();
    }
 
-   index = ChangedProperties::GetIndexOfMixerChannelVolumeProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelVolume(index);
-      }
-   }
+   CheckUpdateMixerChannelVolume(index, changedProperty);
+   CheckUpdateMixerChannelLevelLeft(index, changedProperty);
+   CheckUpdateMixerChannelLevelRight(index, changedProperty);
 
-   index = ChangedProperties::GetIndexOfMixerChannelLevelLeftProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelLeft) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelLevelLeft(index);
-      }
-   }
-
-   index = ChangedProperties::GetIndexOfMixerChannelLevelRightProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelRight) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelLevelRight(index);
-      }
-   }
-
-   else if (changedProperty == ChangedProperties::EChangedProperty::MasterLevelLeft)
+   if (changedProperty == ChangedProperties::EChangedProperty::MasterLevelLeft)
    {
       UpdateMasterLevelLeft();
    }
-
    else if (changedProperty == ChangedProperties::EChangedProperty::MasterLevelRight)
    {
       UpdateMasterLevelRight();
    }
 
-   index = ChangedProperties::GetIndexOfChannelLastTimeGateLeftActiveProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelGate(index);
-      }
-   }
+   CheckUpdateChannelLastTimeGateLeftActive(index, changedProperty);
 
-   index = ChangedProperties::GetIndexOfChannelLastTimeGateRightActiveProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelGate(index);
-      }
-   }
+   CheckUpdateChannelLastTimeGateRightActive(index, changedProperty);
 
-   else if ((changedProperty == ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive) ||
-            (changedProperty == ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive))
+   if ((changedProperty == ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive) ||
+       (changedProperty == ChangedProperties::EChangedProperty::MasterLastTimeGateRightActive))
    {
       UpdatePropertyMasterLastTimeGate();
    }
@@ -162,25 +118,8 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
       UpdateMasterVolume();
    }
 
-   index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Name) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelName(index);
-      }
-   }
-
-   index = ChangedProperties::GetIndexOfChannelSourceProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Source) &&
-       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
-   {
-      if (IsChannelIndexActive(index))
-      {
-         UpdateChannelSource(index);
-      }
-   }
+	CheckUpdateChannelName(index, changedProperty);
+   CheckUpdateChannelSource(index, changedProperty);
 }
 
 void SlidersPane::UpdateTab()
@@ -245,11 +184,11 @@ void SlidersPane::UpdateTabUpdateValues(bool drawbarsSelected)
       {
          int channelIndex = channelOffset + sliderIndex;
          UpdateChannelGate(channelIndex);
-         UpdateChannelLevelLeft(channelIndex);
-         UpdateChannelLevelRight(channelIndex);
+         UpdateMixerChannelLevelLeft(channelIndex);
+         UpdateMixerChannelLevelRight(channelIndex);
          UpdateChannelName(channelIndex);
          UpdateChannelSource(channelIndex);
-         UpdateChannelVolume(channelIndex);
+         UpdateMixerChannelVolume(channelIndex);
       }
       UpdatePropertyMasterLastTimeGate();
       UpdateMasterVolume();
@@ -276,6 +215,34 @@ void SlidersPane::UpdateOrganReverbAmount()
     .SetValue(_organSubModel.GetReverbAmount());
 }
 
+void SlidersPane::CheckUpdateChannelLastTimeGateRightActive(
+ int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfChannelLastTimeGateRightActiveProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateRightActive) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateChannelGate(index);
+      }
+   }
+}
+
+void SlidersPane::CheckUpdateChannelLastTimeGateLeftActive(
+ int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfChannelLastTimeGateLeftActiveProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LastTimeGateLeftActive) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateChannelGate(index);
+      }
+   }
+}
+
 void SlidersPane::UpdatePropertyMasterLastTimeGate()
 {
    long long ms = std::max(_mixerSubModel.GetMasterLastTimeGateLeftActive().toMilliseconds(),
@@ -295,7 +262,20 @@ bool SlidersPane::IsChannelIndexActive(int channelIndex)
             ((2 * NR_OF_CHANNEL_SLIDERS) <= channelIndex) && (channelIndex < (3 * NR_OF_CHANNEL_SLIDERS))));
 }
 
-void SlidersPane::UpdateChannelVolume(int channelIndex)
+void SlidersPane::CheckUpdateMixerChannelVolume(int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfMixerChannelVolumeProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1Volume) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateMixerChannelVolume(index);
+      }
+   }
+}
+
+void SlidersPane::UpdateMixerChannelVolume(int channelIndex)
 {
    Widget &widget =
     GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1, channelIndex % NR_OF_CHANNEL_SLIDERS);
@@ -303,7 +283,20 @@ void SlidersPane::UpdateChannelVolume(int channelIndex)
    valueWidget.SetValue(_mixerSubModel.GetChannelVolume(channelIndex));
 }
 
-void SlidersPane::UpdateChannelLevelLeft(int channelIndex)
+void SlidersPane::CheckUpdateMixerChannelLevelLeft(int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfMixerChannelLevelLeftProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelLeft) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateMixerChannelLevelLeft(index);
+      }
+   }
+}
+
+void SlidersPane::UpdateMixerChannelLevelLeft(int channelIndex)
 {
    Widget &widget =
     GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft, channelIndex % NR_OF_CHANNEL_SLIDERS);
@@ -311,7 +304,20 @@ void SlidersPane::UpdateChannelLevelLeft(int channelIndex)
    valueWidget.SetValue(_mixerSubModel.GetChannelLevelLeft(channelIndex));
 }
 
-void SlidersPane::UpdateChannelLevelRight(int channelIndex)
+void SlidersPane::CheckUpdateMixerChannelLevelRight(int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfMixerChannelLevelRightProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::MixerChannel1LevelRight) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateMixerChannelLevelRight(index);
+      }
+   }
+}
+
+void SlidersPane::UpdateMixerChannelLevelRight(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
     WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight, channelIndex % NR_OF_CHANNEL_SLIDERS);
@@ -357,6 +363,32 @@ void SlidersPane::UpdateChannelName(int channelIndex)
     GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelName(channelIndex));
+}
+
+void SlidersPane::CheckUpdateChannelName(int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Name) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateChannelName(index);
+      }
+   }
+}
+
+void SlidersPane::CheckUpdateChannelSource(int &index, ChangedProperties::EChangedProperty changedProperty)
+{
+   index = ChangedProperties::GetIndexOfChannelSourceProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Source) &&
+       (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
+   {
+      if (IsChannelIndexActive(index))
+      {
+         UpdateChannelSource(index);
+      }
+   }
 }
 
 void SlidersPane::UpdateChannelSource(int channelIndex)

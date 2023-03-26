@@ -5,8 +5,9 @@ IndentWidth: 3
 ContinuationIndentWidth: 1
 
 AllowShortFunctionsOnASingleLine: All
+BinPackArguments: true
 
-AlignAfterOpenBracket: DontAlign
+AlignAfterOpenBracket: false
 AllowAllParametersOfDeclarationOnNextLine: false
 
 AllowShortCaseLabelsOnASingleLine: true

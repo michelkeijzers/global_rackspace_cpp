@@ -22,6 +22,14 @@ class SlidersPane : public Pane
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
+   
+
+   void CheckUpdateMixerChannelLevelRight(int &index, ChangedProperties::EChangedProperty changedProperty);
+
+   void CheckUpdateMixerChannelLevelLeft(int &index, ChangedProperties::EChangedProperty changedProperty);
+
+   void CheckUpdateMixerChannelVolume(int &index, ChangedProperties::EChangedProperty changedProperty);
+
  private:
    void UpdateTab();
 
@@ -37,17 +45,21 @@ class SlidersPane : public Pane
    void UpdateMasterLevelLeft();
    void UpdateMasterLevelRight();
 
+	void CheckUpdateChannelLastTimeGateRightActive(int &index, ChangedProperties::EChangedProperty changedProperty);
+   void CheckUpdateChannelLastTimeGateLeftActive(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdatePropertyMasterLastTimeGate();
    void UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidget);
 
    bool IsChannelIndexActive(int channelIndex);
 
-   void UpdateChannelVolume(int channelIndex);
-   void UpdateChannelLevelLeft(int channelIndex);
-   void UpdateChannelLevelRight(int channelIndex);
+   void UpdateMixerChannelVolume(int channelIndex);
+   void UpdateMixerChannelLevelLeft(int channelIndex);
+   void UpdateMixerChannelLevelRight(int channelIndex);
    void UpdateChannelGate(int channelIndex);
 
+   void CheckUpdateChannelName(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateChannelName(int channelIndex);
+   void CheckUpdateChannelSource(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateChannelSource(int channelIndex);
 
    void CheckGatesFading();

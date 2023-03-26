@@ -43,7 +43,7 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
         ChangedProperties::GetMixerChannelVolumeProperty(static_cast<int>(_mixerChannelSubModels.size()))))
    {
       int channelIndex = static_cast<int>(changedProperty) - static_cast<int>(volumeStartProperty);
-      UpdateChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
+      UpdateMixerChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
    }
    else if ((changedProperty >= nameStartProperty) &&
             (changedProperty <
@@ -54,7 +54,7 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
    }
 }
 
-void AudioMixerPlugin::UpdateChannelVolume(int channelIndex)
+void AudioMixerPlugin::UpdateMixerChannelVolume(int channelIndex)
 {
    double newVolume = _mixerChannelSubModels[channelIndex]->GetVolume();
    MvcFramework::GetGigPerformerApi().setPluginParameter(
