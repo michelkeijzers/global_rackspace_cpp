@@ -225,7 +225,7 @@ void OrganSubModel::CheckIfEnabled()
       Debug::Log("# " + GetName() + ", enabled, enabled = " + std::to_string(_isEnabled));
       Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
       MixerSubModel &mixerSubModel =
-       reinterpret_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
+       dynamic_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
       if (!_isEnabled && (mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars))
       {
          mixerSubModel.SetNextTab();

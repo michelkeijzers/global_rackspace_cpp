@@ -22,11 +22,11 @@ void ChannelsSetupPane::Fill() // override
    GetWidgets().AddWidget(WidgetIds::EWidgetId::SyncLabelsToMixerButton,
     new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SyncLabelsToMixerButton, true));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::ChannelIndexTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::ChannelIndexTextLabel, true));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::ChannelIndexTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::NextSourceTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::NextSourceTextLabel, true));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::NextSourceTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::VolumeOverrideTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::VolumeOverrideTextLabel, true));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::VolumeOverrideTextLabel, false));
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
       WidgetIds::EWidgetId widgetId = WidgetIds::GetSetupChannelName(channelIndex);

@@ -81,10 +81,11 @@ class WidgetIds
       PrimaryKeyboardSlider9SourceName,
 
       // Organ pane
-      // TODO: Add box/title widgets
+      OrganPaneBox,
+		OrganPaneTitleTextLabel,
       OrganRotatorSpeedTextLabel,
-      OrganDrive,
-      OrganReverbAmount,
+      OrganDriveTextLabel,
+      OrganReverbAmountTextLabel,
 
       // Primary Keyboard Buttons pane
       PrimaryKeyboardButton1,

@@ -9,7 +9,8 @@ class View;
 class Pane : public IObserver
 {
  public:
-   Pane(View &view, int left, int top, int width, int height);
+   Pane(
+    View &view, int leftPercentage, int topPercentage, int widthPercentage, int heightPercentage);
 
    virtual void Fill() = 0;
    virtual void Relayout() = 0;
@@ -20,12 +21,16 @@ class Pane : public IObserver
    Widgets &GetWidgets();
    View &GetView();
 
+	void SetWidgetBounds(WidgetIds::EWidgetId widgetId, int widgetLeftPercentage, int widgetTopPercentage,
+    int widgetWidthPercentage, int widgetHeightPercentage, int widgetMarginPercentage);
+	int GetPaneTitleHeightPercentage();
+
  private:
    Widgets _widgets;
    View &_view;
 
-   int _left;
-   int _top;
-   int _width;
-   int _height;
+   int _leftPercentage;
+   int _topPercentage;
+   int _widthPercentage;
+   int _heightPercentage;
 };

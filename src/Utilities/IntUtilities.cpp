@@ -12,3 +12,12 @@
 }
 
 /* static */ bool IntUtilities::ToBool(int value) { return value != 0; }
+
+/* static */ int IntUtilities::Map(int valueToMap, int inputMin, int inputMax, int outputMin, int outputMax)
+{
+   Debug::Assert(valueToMap >= inputMin, __FUNCTION__, "Value to map less than input minimum");
+   Debug::Assert(valueToMap >= inputMax, __FUNCTION__, "Value to map higher than input maximum");
+   Debug::Assert(inputMin < inputMax, __FUNCTION__, "Input minimum is higher or equal than input maximum");
+   Debug::Assert(outputMin < outputMax, __FUNCTION__, "Output minimum is higher or equal than output maximum");
+   return (outputMin + ((valueToMap - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin));
+}

@@ -23,3 +23,13 @@ DoubleUtilities::DoubleUtilities() {}
    Debug::Assert(maximumEqualityDifference < 1.0, __FUNCTION__, "MaximumEqualityDifference is lower than 1.0");
    _maximumEqualityDifference = maximumEqualityDifference;
 }
+
+/* static */ double DoubleUtilities::Map(
+ double valueToMap, double inputMin, double inputMax, double outputMin, double outputMax)
+{
+   Debug::Assert(valueToMap >= inputMin, __FUNCTION__, "Value to map less than input minimum");
+   Debug::Assert(valueToMap >= inputMax, __FUNCTION__, "Value to map higher than input maximum");
+   Debug::Assert(inputMin < inputMax, __FUNCTION__, "Input minimum is higher or equal than input maximum");
+   Debug::Assert(outputMin < outputMax, __FUNCTION__, "Output minimum is higher or equal than output maximum");
+   return (outputMin + ((valueToMap - inputMin) / (inputMax - inputMin)) * (outputMax - outputMin));
+}

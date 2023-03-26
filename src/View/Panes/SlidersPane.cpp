@@ -38,17 +38,17 @@ void SlidersPane::Fill() // override
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
       widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -57,35 +57,33 @@ void SlidersPane::Fill() // override
       widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
    }
-
-   // Add organ drive and reverbAmount.
-   widgetId = WidgetIds::EWidgetId::OrganDrive;
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganDrive, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-   widgetId = WidgetIds::EWidgetId::OrganReverbAmount;
-   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
 void SlidersPane::Relayout() // override
 {
    // TODO RELAYOUT
+
+
+
    WidgetIds::EWidgetId widgetId;
 
    // Add sliders, and names for channels and master volume.
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
       widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      ShapeWidget &widget = reinterpret_cast<ShapeWidget &>(GetWidgets().GetWidget(widgetId));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -94,12 +92,6 @@ void SlidersPane::Relayout() // override
       widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
    }
-
-   // Add organ drive and reverbAmount.
-   widgetId = WidgetIds::EWidgetId::OrganDrive;
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganDrive, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-   widgetId = WidgetIds::EWidgetId::OrganReverbAmount;
-   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
 void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
@@ -177,8 +169,8 @@ void SlidersPane::UpdateTabShowOrganWidgets(bool organDrawbarsSelected)
       widgetId = WidgetIds::GetOrganDrawbar(organDrawbarIndex);
       GetWidgets().GetWidget(widgetId).Show(organDrawbarsSelected);
    }
-   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive).Show(organDrawbarsSelected);
-   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount).Show(organDrawbarsSelected);
+   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel).Show(organDrawbarsSelected);
+   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel).Show(organDrawbarsSelected);
 }
 
 void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
@@ -244,13 +236,13 @@ void SlidersPane::UpdateDrawbar(int drawbarIndex)
 
 void SlidersPane::UpdateOrganDrive()
 {
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrive))
+   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel))
     .SetValue(_organSubModel.GetDrive());
 }
 
 void SlidersPane::UpdateOrganReverbAmount()
 {
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmount))
+   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel))
     .SetValue(_organSubModel.GetReverbAmount());
 }
 
