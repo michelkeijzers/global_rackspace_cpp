@@ -12,10 +12,10 @@ class Panes
    Panes(Model &model, View &view);
    ~Panes();
 
-   void AddPane(Pane &pane);
-
    void Fill();
    void Init();
+
+	void AddPane(Pane *pane);
 
  private:
    std::vector<Pane *> _panes;

@@ -11,7 +11,6 @@ class SubView
    SubView(Model &model, View &view);
 	virtual void Fill();
    virtual void Init();
-   void AddPane(Pane &pane);
 
  protected:
    Panes &GetPanes();

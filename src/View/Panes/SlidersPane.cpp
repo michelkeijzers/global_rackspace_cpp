@@ -14,8 +14,10 @@
 constexpr double GATE_FADE_TIME = 30.0; // seconds
 constexpr int GATE_FADE_BOX_OUTLINE_THICKNESS = 5;
 
-SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel)
-    : Pane(view), _model(model), _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
+SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel,
+ int leftPercentage, int topPercentage, int widthPercentage, int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _model(model),
+      _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
 {
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {

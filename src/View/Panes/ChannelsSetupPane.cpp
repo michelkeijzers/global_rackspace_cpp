@@ -10,8 +10,9 @@
 #include "../IObserver.h"
 #include "../View.h"
 
-ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel)
-    : Pane(view), _mixerSubModel(mixerSubModel)
+ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, int leftPercentage, int topPercentage,
+ int widthPercentage, int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _mixerSubModel(mixerSubModel)
 {
    mixerSubModel.Subscribe(*this);
 }
@@ -64,9 +65,9 @@ void ChannelsSetupPane::Update(ChangedProperties::EChangedProperty changedProper
       SetChannelVolumeOverride(index);
    }
 }
-
 void ChannelsSetupPane::Relayout() // override
 {
+
    // TODO RELAYOUT
 }
 

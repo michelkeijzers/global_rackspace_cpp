@@ -10,7 +10,9 @@
 static const std::string ROTATOR_SPEED_FAST_TEXT = "FAST";
 static const std::string ROTATOR_SPEED_SLOW_TEXT = "SLOW";
 
-OrganPane::OrganPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
+OrganPane::OrganPane(View &view, OrganSubModel &organSubModel, int leftPercentage, int topPercentage,
+ int widthPercentage, int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _organSubModel(organSubModel)
 {
    organSubModel.Subscribe(*this);
 }

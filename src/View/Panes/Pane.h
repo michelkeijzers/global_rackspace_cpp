@@ -9,7 +9,7 @@ class View;
 class Pane : public IObserver
 {
  public:
-   Pane(View &view);
+   Pane(View &view, int left, int top, int width, int height);
 
    virtual void Fill() = 0;
    virtual void Relayout() = 0;
@@ -23,4 +23,9 @@ class Pane : public IObserver
  private:
    Widgets _widgets;
    View &_view;
+
+   int _left;
+   int _top;
+   int _width;
+   int _height;
 };

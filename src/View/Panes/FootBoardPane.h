@@ -11,7 +11,8 @@ class View;
 class FootBoardPane : public Pane
 {
  public:
-   FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubModel, KeyboardSubModel &secondaryKeyboardSubModel);
+   FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubModel, KeyboardSubModel &secondaryKeyboardSubModel,
+    int leftPercentage, int topPercentage, int widthPercentage, int heightPercentage);
 
    void Fill() override;
    void Relayout() override;

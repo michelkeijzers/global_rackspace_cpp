@@ -14,7 +14,9 @@
 #include <juce_audio_basics/midi/juce_MidiMessage.h>
 #include <juce_core/juce_core.h>
 
-OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel) : Pane(view), _organSubModel(organSubModel)
+OrganSetupPane::OrganSetupPane(View &view, OrganSubModel &organSubModel, int leftPercentage, int topPercentage,
+ int widthPercentage, int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _organSubModel(organSubModel)
 {
    organSubModel.Subscribe(*this);
 }

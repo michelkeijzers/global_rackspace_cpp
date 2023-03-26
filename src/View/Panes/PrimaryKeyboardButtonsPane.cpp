@@ -9,8 +9,9 @@
 /* static */ const std::string PrimaryKeyboardButtonsPane::WIDGET_BUTTON_NAME = "BUTTON_";
 static const int NR_OF_BUTTONS = 13;
 
-PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel)
-    : Pane(view), _organSubModel(organSubModel)
+PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel, int leftPercentage,
+ int topPercentage, int widthPercentage, int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _organSubModel(organSubModel)
 {
    organSubModel.Subscribe(*this);
 }

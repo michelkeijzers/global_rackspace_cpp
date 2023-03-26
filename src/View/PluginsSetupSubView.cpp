@@ -8,6 +8,6 @@ PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(mod
 void PluginsSetupSubView::Fill() // override
 {
    OrganSubModel &organSubModel = static_cast<OrganSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Organ));
-	AddPane(*new OrganSetupPane(GetView(), organSubModel));
+   GetPanes().AddPane(new OrganSetupPane(GetView(), organSubModel, 0, 0, 100, 100));
    SubView::Fill();
 }

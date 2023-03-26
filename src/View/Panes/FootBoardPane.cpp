@@ -7,10 +7,11 @@
 #include "../IObserver.h"
 #include "../View.h"
 
-FootBoardPane::FootBoardPane(
- View &view, KeyboardSubModel &primaryKeyboardSubModel, KeyboardSubModel &secondaryKeyboardSubModel)
-    : Pane(view), _primaryKeyboardSubModel(primaryKeyboardSubModel),
-      _secondaryKeyboardSubModel(secondaryKeyboardSubModel)
+FootBoardPane::FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubModel,
+ KeyboardSubModel &secondaryKeyboardSubModel, int leftPercentage, int topPercentage, int widthPercentage,
+ int heightPercentage)
+    : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage),
+      _primaryKeyboardSubModel(primaryKeyboardSubModel), _secondaryKeyboardSubModel(secondaryKeyboardSubModel)
 {
    _primaryKeyboardSubModel.Subscribe(*this);
    _secondaryKeyboardSubModel.Subscribe(*this);
