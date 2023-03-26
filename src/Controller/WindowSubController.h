@@ -5,11 +5,11 @@
 
 class WindowSubController : public SubController
 {
-  public:
-    WindowSubController(Controller &controller);
+ public:
+   WindowSubController(Controller &controller);
 
-    void SetNextSlidersPane();
+   void SetNextSlidersPane();
 
-  private:
-    MixerSubModel &_mixerSubModel;
+ private:
+   MixerSubModel &_mixerSubModel;
 };

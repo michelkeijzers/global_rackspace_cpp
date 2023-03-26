@@ -9,30 +9,30 @@ class View;
 
 class SubModels
 {
-  public:
-    enum class ESubModelId
-    {
-		 Mixer,
-       Organ,
-		 PrimaryKeyboard,
-		 SecondaryKeyboard,
+ public:
+   enum class ESubModelId
+   {
+      Mixer,
+      Organ,
+      PrimaryKeyboard,
+      SecondaryKeyboard,
 
-		 Last
-    };
+      Last
+   };
 
-    SubModels(Model& model);
-    ~SubModels();
+   SubModels(Model &model);
+   ~SubModels();
 
-    void Fill();
-    void Init();
+   void Fill();
+   void Init();
 
-    SubModel &GetSubModel(ESubModelId id);
-    Model &GetModel();
+   SubModel &GetSubModel(ESubModelId id);
+   Model &GetModel();
 
-	 std::string Serialize();
-    int Deserialize(std::vector<std::string> lines, int currentLineIndex);
+   std::string Serialize();
+   int Deserialize(std::vector<std::string> lines, int currentLineIndex);
 
-  private:
-    std::vector<SubModel *> _subModels;
-    Model &_model;
+ private:
+   std::vector<SubModel *> _subModels;
+   Model &_model;
 };

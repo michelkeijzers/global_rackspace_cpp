@@ -1,8 +1,8 @@
 #include "SecondaryKeyboardMidiInBlock.h"
 #include "../Controller/Controller.h"
-#include "../Utilities/MidiUtilities.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
+#include "../Utilities/MidiUtilities.h"
 #include <iostream>
 
 SecondaryKeyboardMidiInBlock::SecondaryKeyboardMidiInBlock(Controller &controller)
@@ -12,6 +12,6 @@ SecondaryKeyboardMidiInBlock::SecondaryKeyboardMidiInBlock(Controller &controlle
 
 bool SecondaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
 {
-    bool handleMessage = true;
-	 return handleMessage;
+   bool handleMessage = true;
+   return handleMessage;
 }

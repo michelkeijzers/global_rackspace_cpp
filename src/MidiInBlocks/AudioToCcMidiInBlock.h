@@ -6,18 +6,18 @@ class Controller;
 
 class AudioToCcMidiInBlock : public MidiInBlock
 {
-  public:
-    AudioToCcMidiInBlock(Controller &controller);
+ public:
+   AudioToCcMidiInBlock(Controller &controller);
 
-  private:
-    enum class ECcType
-    {
-        LevelLeft,
-        LevelRight,
-        GateLeft,
-        GateRight
-    };
+ private:
+   enum class ECcType
+   {
+      LevelLeft,
+      LevelRight,
+      GateLeft,
+      GateRight
+   };
 
-	 bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
-	 ECcType GetCcType(uint8_t ccNumber);
+   bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
+   ECcType GetCcType(uint8_t ccNumber);
 };

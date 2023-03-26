@@ -10,90 +10,72 @@
 
 Model::Model() : _subModels(*this), _version("0.1"), _forcedMode(false)
 {
-    DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
+   DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
 
-void Model::Fill()
-{
-    _subModels.Fill();
-}
+void Model::Fill() { _subModels.Fill(); }
 
-void Model::Init()
-{
-    _subModels.Init();
-}
+void Model::Init() { _subModels.Init(); }
 
-SubModel &Model::GetSubModel(SubModels::ESubModelId id)
-{
-    return _subModels.GetSubModel(id);
-}
+SubModel &Model::GetSubModel(SubModels::ESubModelId id) { return _subModels.GetSubModel(id); }
 
 bool Model::LoadSong()
 {
-    const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
-    const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
-    const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
-    juce::File file(fileName);
-    if (!file.existsAsFile())
-    {
-        Debug::Error(__FUNCTION__, "File " + fileName + " does not exist as file");
-        return false;
-    }
-    std::string fileText = file.loadFileAsString().toStdString();
-    std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
-    _forcedMode = true;
-    Deserialize(lines);
-    _forcedMode = false;
-    return true;
+   const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
+   const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
+   const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
+   juce::File file(fileName);
+   if (!file.existsAsFile())
+   {
+      Debug::Error(__FUNCTION__, "File " + fileName + " does not exist as file");
+      return false;
+   }
+   std::string fileText = file.loadFileAsString().toStdString();
+   std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
+   _forcedMode = true;
+   Deserialize(lines);
+   _forcedMode = false;
+   return true;
 }
 
 void Model::Deserialize(std::vector<std::string> lines)
 {
-    int currentLineIndex = 0;
-    currentLineIndex = _subModels.Deserialize(lines, currentLineIndex);
-    Debug::Assert((lines.size() == currentLineIndex) || ((lines.size() == currentLineIndex + 1) &&
-                                                         (StringUtilities::Trim(lines[lines.size() - 1]) == "")),
-                  __FUNCTION__, "File length unexpected");
+   int currentLineIndex = 0;
+   currentLineIndex = _subModels.Deserialize(lines, currentLineIndex);
+   Debug::Assert((lines.size() == currentLineIndex) ||
+                  ((lines.size() == currentLineIndex + 1) && (StringUtilities::Trim(lines[lines.size() - 1]) == "")),
+                 __FUNCTION__, "File length unexpected");
 }
 
 bool Model::WriteSong()
 {
-    std::string songData = _subModels.Serialize();
-    const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
-    const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
-    const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
-    juce::File file(fileName);
-    if (!file.replaceWithText(songData))
-    {
-        Debug::Error(__FUNCTION__, "Cannot write file " + fileName);
-        return false;
-    }
-    return true;
+   std::string songData = _subModels.Serialize();
+   const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
+   const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
+   const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
+   juce::File file(fileName);
+   if (!file.replaceWithText(songData))
+   {
+      Debug::Error(__FUNCTION__, "Cannot write file " + fileName);
+      return false;
+   }
+   return true;
 }
 
-const std::string& Model::GetVersion()
-{
-    return _version;
-}
+const std::string &Model::GetVersion() { return _version; }
 
-void Model::SetVersion(const std::string& version)
-{
-    _version = version;
-}
+void Model::SetVersion(const std::string &version) { _version = version; }
 
-bool Model::IsForcedMode()
-{
-    return _forcedMode;
-}
+bool Model::IsForcedMode() { return _forcedMode; }
 
 void Model::OnTimer(ETimer timer)
 {
-    switch (timer)
-    {
-    case ETimer::OneSecond:
-        Notify(ChangedProperties::EChangedProperty::SecondElapsed);
-        break;
-    default:
-        Debug::Error(__FUNCTION__, "Illegal ETimer value");
-    }
+   switch (timer)
+   {
+   case ETimer::OneSecond:
+      Notify(ChangedProperties::EChangedProperty::SecondElapsed);
+      break;
+   default:
+      Debug::Error(__FUNCTION__, "Illegal ETimer value");
+   }
 }

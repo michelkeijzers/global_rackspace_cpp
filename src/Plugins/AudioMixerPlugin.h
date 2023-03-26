@@ -9,21 +9,21 @@ class View;
 
 class AudioMixerPlugin : public Plugin
 {
-  public:
-    AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels, const std::string &name);
+ public:
+   AudioMixerPlugin(View &view, MixerSubModel &mixerSubModel, bool lowerChannels, const std::string &name);
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-    void UpdateChannelVolume(int channelIndex);
-    void UpdateChannelName(int channelIndex);
+   void UpdateChannelVolume(int channelIndex);
+   void UpdateChannelName(int channelIndex);
 
-  private:
-    int GetChannelVolumeParameter(int channelIndex);
+ private:
+   int GetChannelVolumeParameter(int channelIndex);
 
-    MixerSubModel &_mixerSubModel;
-    std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
+   MixerSubModel &_mixerSubModel;
+   std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 
-    bool _lowerChannels;
-    int _startChannelIndex;
-    int _endChannelIndex;
+   bool _lowerChannels;
+   int _startChannelIndex;
+   int _endChannelIndex;
 };

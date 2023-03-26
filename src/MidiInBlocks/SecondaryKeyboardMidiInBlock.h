@@ -6,16 +6,16 @@ class Controller;
 
 class SecondaryKeyboardMidiInBlock : public MidiInBlock
 {
-  public:
-    SecondaryKeyboardMidiInBlock(Controller &controller);
+ public:
+   SecondaryKeyboardMidiInBlock(Controller &controller);
 
-  private:
-    enum class ECCs
-    {
-        Sustain,
+ private:
+   enum class ECCs
+   {
+      Sustain,
 
-        Last
-    };
+      Last
+   };
 
-    bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
+   bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
 };

@@ -10,11 +10,11 @@ class Controller;
 
 class KeyboardPlugin : public Plugin
 {
-  public:
-    KeyboardPlugin(View &view, KeyboardSubModel &organSubModel, const std::string &name);
+ public:
+   KeyboardPlugin(View &view, KeyboardSubModel &organSubModel, const std::string &name);
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-  private:
-    KeyboardSubModel &_keyboardSubModel;
+ private:
+   KeyboardSubModel &_keyboardSubModel;
 };

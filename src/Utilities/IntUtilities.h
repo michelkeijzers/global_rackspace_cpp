@@ -4,18 +4,18 @@
 
 class IntUtilities
 {
-  public:
-    /// \brief  Converts an integer to a hex (std) string
-    /// \param  value: value to convert, only positive numbers
-    /// \return the hex string
-    static std::string ToHexString(int value);
+ public:
+   /// \brief  Converts an integer to a hex (std) string
+   /// \param  value: value to convert, only positive numbers
+   /// \return the hex string
+   static std::string ToHexString(int value);
 
-    /// \brief  Converts an integer to a bool (0: false, otherwise true)
-    /// \param  value: value to convert
-    /// \return boolean
-    static bool ToBool(int value);
+   /// \brief  Converts an integer to a bool (0: false, otherwise true)
+   /// \param  value: value to convert
+   /// \return boolean
+   static bool ToBool(int value);
 
-  private:
-    /// \brief Utility class, no constructor
-    IntUtilities();
+ private:
+   /// \brief Utility class, no constructor
+   IntUtilities();
 };

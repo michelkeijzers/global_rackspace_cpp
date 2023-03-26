@@ -10,25 +10,25 @@ class View;
 
 class ExpressionAudioMixerPlugin : public Plugin
 {
-  public:
-    ExpressionAudioMixerPlugin(View &view, KeyboardSubModel &primaryKeyboardSubModel,
-                               KeyboardSubModel &secondaryKeyboardSubModel, MixerSubModel &mixerSubModel,
-                               bool lowerChannels, const std::string &name);
+ public:
+   ExpressionAudioMixerPlugin(View &view, KeyboardSubModel &primaryKeyboardSubModel,
+                              KeyboardSubModel &secondaryKeyboardSubModel, MixerSubModel &mixerSubModel,
+                              bool lowerChannels, const std::string &name);
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-  private:
-    int GetChannelVolumeParameter(int channelIndex);
-    void UpdateVolume(bool primaryKeyboard);
-    void UpdateChannelName(int channelIndex);
-    int GetNrOfUsedChannels();
+ private:
+   int GetChannelVolumeParameter(int channelIndex);
+   void UpdateVolume(bool primaryKeyboard);
+   void UpdateChannelName(int channelIndex);
+   int GetNrOfUsedChannels();
 
-    KeyboardSubModel &_primaryKeyboardSubModel;
-    KeyboardSubModel &_secondaryKeyboardSubModel;
-    MixerSubModel &_mixerSubModel;
-    std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
+   KeyboardSubModel &_primaryKeyboardSubModel;
+   KeyboardSubModel &_secondaryKeyboardSubModel;
+   MixerSubModel &_mixerSubModel;
+   std::vector<MixerChannelSubModel *> _mixerChannelSubModels;
 
-    bool _lowerChannels;
-    int _startChannelIndex;
-    int _endChannelIndex;
+   bool _lowerChannels;
+   int _startChannelIndex;
+   int _endChannelIndex;
 };

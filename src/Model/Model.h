@@ -1,38 +1,38 @@
 #pragma once
 
-#include <string>
 #include "../View/Observable.h"
 #include "SubModels.h"
+#include <string>
 
 class Model : public Observable
 {
-  public:
-    enum class ETimer
-    {
-        OneSecond
-    };
+ public:
+   enum class ETimer
+   {
+      OneSecond
+   };
 
-    Model();
+   Model();
 
-    void Fill();
-    void Init();
+   void Fill();
+   void Init();
 
-    void OnTimer(ETimer timer);
+   void OnTimer(ETimer timer);
 
-    SubModel &GetSubModel(SubModels::ESubModelId id);
+   SubModel &GetSubModel(SubModels::ESubModelId id);
 
-    bool LoadSong();
-    void Deserialize(std::vector<std::string> lines);
-    bool WriteSong();
-    
-    const std::string &GetVersion();
-    void SetVersion(const std::string &version);
+   bool LoadSong();
+   void Deserialize(std::vector<std::string> lines);
+   bool WriteSong();
 
-	 bool IsForcedMode();
-    
-  private:
-    SubModels _subModels;
-    std::string _version;
+   const std::string &GetVersion();
+   void SetVersion(const std::string &version);
 
-	 bool _forcedMode;
+   bool IsForcedMode();
+
+ private:
+   SubModels _subModels;
+   std::string _version;
+
+   bool _forcedMode;
 };

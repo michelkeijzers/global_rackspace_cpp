@@ -4,13 +4,13 @@ class Controller;
 
 class SubController
 {
-  public:
-    SubController(Controller& controller);
+ public:
+   SubController(Controller &controller);
 
-    Controller& GetController();
+   Controller &GetController();
 
-	 virtual void Init();
+   virtual void Init();
 
-  private:
-    Controller& _controller;
+ private:
+   Controller &_controller;
 };
