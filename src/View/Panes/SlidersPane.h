@@ -22,14 +22,6 @@ class SlidersPane : public Pane
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-   
-
-   void CheckUpdateMixerChannelLevelRight(int &index, ChangedProperties::EChangedProperty changedProperty);
-
-   void CheckUpdateMixerChannelLevelLeft(int &index, ChangedProperties::EChangedProperty changedProperty);
-
-   void CheckUpdateMixerChannelVolume(int &index, ChangedProperties::EChangedProperty changedProperty);
-
  private:
    void UpdateTab();
 
@@ -52,8 +44,11 @@ class SlidersPane : public Pane
 
    bool IsChannelIndexActive(int channelIndex);
 
+   void CheckUpdateMixerChannelVolume(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateMixerChannelVolume(int channelIndex);
+   void CheckUpdateMixerChannelLevelLeft(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateMixerChannelLevelLeft(int channelIndex);
+   void CheckUpdateMixerChannelLevelRight(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateMixerChannelLevelRight(int channelIndex);
    void UpdateChannelGate(int channelIndex);
 
