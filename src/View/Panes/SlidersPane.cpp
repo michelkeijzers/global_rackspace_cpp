@@ -63,6 +63,43 @@ void SlidersPane::Fill() // override
    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
+void SlidersPane::Relayout() // override
+{
+	//TODO RELAYOUT
+   WidgetIds::EWidgetId widgetId;
+
+   // Add sliders, and names for channels and master volume.
+   for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
+   {
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
+      ShapeWidget& widget = reinterpret_cast<ShapeWidget&>(GetWidgets().GetWidget(widgetId));
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
+   }
+
+   // Add organ drawbars.
+   for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
+   {
+      widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   }
+
+   // Add organ drive and reverbAmount.
+   widgetId = WidgetIds::EWidgetId::OrganDrive;
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganDrive, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   widgetId = WidgetIds::EWidgetId::OrganReverbAmount;
+   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+}
+
 void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
    if (changedProperty == ChangedProperties::EChangedProperty::SlidersTabSelection)

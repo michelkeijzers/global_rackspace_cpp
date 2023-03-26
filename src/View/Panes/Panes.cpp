@@ -18,6 +18,7 @@ void Panes::Fill()
    for (auto pane : _panes)
    {
       pane->Fill();
+      pane->Relayout();
    }
 }
 

@@ -13,6 +13,7 @@ class ChannelsSetupPane : public Pane
    ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel);
 
    void Fill() override;
+   void Relayout() override;
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 

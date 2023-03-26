@@ -24,6 +24,11 @@ void PrimaryKeyboardButtonsPane::Fill()
    }
 }
 
+void PrimaryKeyboardButtonsPane::Relayout() // override
+{
+   // TODO RELAYOUT
+}
+
 void PrimaryKeyboardButtonsPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
    switch (changedProperty)

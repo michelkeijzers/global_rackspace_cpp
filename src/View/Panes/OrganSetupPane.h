@@ -13,6 +13,7 @@ class OrganSetupPane : public Pane
    OrganSetupPane(View &view, OrganSubModel &organSubModel);
 
    void Fill() override;
+   void Relayout() override;
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 

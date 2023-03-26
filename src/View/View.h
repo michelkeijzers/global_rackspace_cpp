@@ -12,18 +12,15 @@ class View
 {
  public:
    View(Model &model);
-
    void Fill();
    void Init();
 
    WidgetIds &GetWidgetIds();
-
    Model &GetModel();
 
  private:
    SubViews _subViews;
    Plugins _plugins;
-
    WidgetIds _widgetIds;
    Model &_model;
 };

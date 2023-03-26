@@ -12,6 +12,7 @@ class Pane : public IObserver
    Pane(View &view);
 
    virtual void Fill() = 0;
+   virtual void Relayout() = 0;
    virtual void Init();
    void ShowAllWidgets(bool show = true);
 

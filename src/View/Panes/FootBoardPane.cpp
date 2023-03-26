@@ -24,6 +24,11 @@ void FootBoardPane::Fill() // override
     new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::RightFootPedal, true));
 }
 
+void FootBoardPane::Relayout() // override
+{
+   // TODO RELAYOUT
+}
+
 void FootBoardPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
    if (changedProperty == ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume)

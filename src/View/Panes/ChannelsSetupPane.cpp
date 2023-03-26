@@ -65,6 +65,11 @@ void ChannelsSetupPane::Update(ChangedProperties::EChangedProperty changedProper
    }
 }
 
+void ChannelsSetupPane::Relayout() // override
+{
+   // TODO RELAYOUT
+}
+
 void ChannelsSetupPane::SetChannelName(int channelIndex)
 {
    static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SetupChannel1Name, channelIndex))

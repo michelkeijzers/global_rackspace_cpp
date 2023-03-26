@@ -41,6 +41,11 @@ void OrganSetupPane::Fill() // override
     new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton, true));
 }
 
+void OrganSetupPane::Relayout() // override
+{
+   // TODO RELAYOUT
+}
+
 void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
    if (changedProperty == ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive)

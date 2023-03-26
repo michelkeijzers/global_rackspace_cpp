@@ -21,6 +21,11 @@ void OrganPane::Fill() // override
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, true));
 }
 
+void OrganPane::Relayout() // override
+{
+   // TODO RELAYOUT
+}
+
 void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
    if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)

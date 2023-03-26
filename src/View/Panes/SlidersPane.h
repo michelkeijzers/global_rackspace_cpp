@@ -19,6 +19,7 @@ class SlidersPane : public Pane
    SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel);
 
    void Fill() override;
+   void Relayout() override;
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
