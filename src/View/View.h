@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SubViews.h"
 #include "../Plugins/Plugins.h"
 #include "../Widgets/WidgetIds.h"
+#include "SubViews.h"
 
 class WidgetIds;
 class Model;
@@ -11,20 +11,20 @@ class Plugin;
 
 class View
 {
-  public:
-    View(Model &model);
+ public:
+   View(Model &model);
 
-    void Fill();
-    void Init(); 
+   void Fill();
+   void Init();
 
-    WidgetIds &GetWidgetIds();
+   WidgetIds &GetWidgetIds();
 
-    Model &GetModel();
+   Model &GetModel();
 
-  private:
-    SubViews _subViews;
-    Plugins _plugins;
+ private:
+   SubViews _subViews;
+   Plugins _plugins;
 
-    WidgetIds _widgetIds;
-    Model &_model;
+   WidgetIds _widgetIds;
+   Model &_model;
 };

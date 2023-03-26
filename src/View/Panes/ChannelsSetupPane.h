@@ -9,17 +9,17 @@ class View;
 
 class ChannelsSetupPane : public Pane
 {
-  public:
-    ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel);
+ public:
+   ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel);
 
-    void Fill() override;
+   void Fill() override;
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-    void SetChannelName(int channelIndex);
-    void SetChannelSource(int channelIndex);
-    void SetChannelVolumeOverride(int channelIndex);
+   void SetChannelName(int channelIndex);
+   void SetChannelSource(int channelIndex);
+   void SetChannelVolumeOverride(int channelIndex);
 
-  private:
-    MixerSubModel &_mixerSubModel;
+ private:
+   MixerSubModel &_mixerSubModel;
 };

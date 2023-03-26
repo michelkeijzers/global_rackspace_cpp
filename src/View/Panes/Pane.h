@@ -8,18 +8,18 @@ class View;
 
 class Pane : public IObserver
 {
-  public:
-    Pane(View &view);
+ public:
+   Pane(View &view);
 
-    virtual void Fill() = 0;
-    virtual void Init();
-	 void ShowAllWidgets(bool show = true);
+   virtual void Fill() = 0;
+   virtual void Init();
+   void ShowAllWidgets(bool show = true);
 
-  protected:
-    Widgets &GetWidgets();
-    View &GetView();
+ protected:
+   Widgets &GetWidgets();
+   View &GetView();
 
-  private:
-    Widgets _widgets;
-    View &_view;
+ private:
+   Widgets _widgets;
+   View &_view;
 };

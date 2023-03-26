@@ -7,21 +7,21 @@ class View;
 
 class SubView
 {
-  public:
-    SubView(Model &model, View &view);
+ public:
+   SubView(Model &model, View &view);
 
-    virtual void Fill();
-    virtual void Init();
+   virtual void Fill();
+   virtual void Init();
 
-    void AddPane(Pane &pane);
+   void AddPane(Pane &pane);
 
-  protected:
-    Panes &GetPanes();
-    View &GetView();
-    Model &GetModel();
+ protected:
+   Panes &GetPanes();
+   View &GetView();
+   Model &GetModel();
 
-  private:
-    Panes _panes;
-    View &_view;
-    Model &_model;
+ private:
+   Panes _panes;
+   View &_view;
+   Model &_model;
 };

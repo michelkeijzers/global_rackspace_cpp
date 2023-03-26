@@ -1,18 +1,15 @@
+#include "PluginsSetupSubView.h"
 #include "../Model/MixerSubModel.h"
 #include "../Model/Model.h"
-#include "../Model/MixerSubModel.h"
 #include "Panes/ChannelsSetupPane.h"
-#include "PluginsSetupSubView.h"
 
-PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(model, view)
-{
-}
+PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(model, view) {}
 
 void PluginsSetupSubView::Fill() // override
 {
-    MixerSubModel &mixerSubModel = static_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
+   MixerSubModel &mixerSubModel = static_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
 
-    AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
+   AddPane(*new ChannelsSetupPane(GetView(), mixerSubModel));
 
-    SubView::Fill();
+   SubView::Fill();
 }

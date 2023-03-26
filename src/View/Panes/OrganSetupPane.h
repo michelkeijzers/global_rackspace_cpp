@@ -9,13 +9,13 @@ class View;
 
 class OrganSetupPane : public Pane
 {
-  public:
-    OrganSetupPane(View &view, OrganSubModel &organSubModel);
+ public:
+   OrganSetupPane(View &view, OrganSubModel &organSubModel);
 
-    void Fill() override;
+   void Fill() override;
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-  private:
-    OrganSubModel &_organSubModel;
+ private:
+   OrganSubModel &_organSubModel;
 };

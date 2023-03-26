@@ -7,9 +7,9 @@ class View;
 
 class ChannelsSetupSubView : public SubView
 {
-  public:
-    ChannelsSetupSubView(Model &model, View &view);
+ public:
+   ChannelsSetupSubView(Model &model, View &view);
 
-  protected:
-    void Fill() override;
+ protected:
+   void Fill() override;
 };

@@ -7,16 +7,16 @@ class SubView;
 
 class SubViews
 {
-  public:
-    SubViews(Model &model, View &view);
-    ~SubViews();
+ public:
+   SubViews(Model &model, View &view);
+   ~SubViews();
 
-	 void Fill();
-    void Init();
+   void Fill();
+   void Init();
 
-  private:
-    std::vector<SubView *> _subViews;
+ private:
+   std::vector<SubView *> _subViews;
 
-	 Model &_model;
-    View &_view;
+   Model &_model;
+   View &_view;
 };

@@ -8,18 +8,18 @@ class Pane;
 
 class Panes
 {
-  public:
-    Panes(Model& model, View &view);
-    ~Panes();
+ public:
+   Panes(Model &model, View &view);
+   ~Panes();
 
-	 void AddPane(Pane &pane);
+   void AddPane(Pane &pane);
 
-	 void Fill();
-	 void Init();
+   void Fill();
+   void Init();
 
-  private:
-    std::vector<Pane*> _panes;
+ private:
+   std::vector<Pane *> _panes;
 
-	 Model &_model;
-    View &_view;
+   Model &_model;
+   View &_view;
 };

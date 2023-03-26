@@ -9,17 +9,17 @@ class View;
 
 class OrganPane : public Pane
 {
-  public:
-    static const int NR_OF_DRAWBAR_SLIDERS = 9;
+ public:
+   static const int NR_OF_DRAWBAR_SLIDERS = 9;
 
-    OrganPane(View &view, OrganSubModel &organSubModel);
+   OrganPane(View &view, OrganSubModel &organSubModel);
 
-	 void Fill() override;
+   void Fill() override;
 
-    void Update(ChangedProperties::EChangedProperty changedProperty) override;
+   void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-	 void ShowAllWidgets(bool show);
+   void ShowAllWidgets(bool show);
 
-  private:
-    OrganSubModel &_organSubModel;
+ private:
+   OrganSubModel &_organSubModel;
 };

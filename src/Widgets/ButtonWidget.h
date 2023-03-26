@@ -6,14 +6,14 @@
 
 class ButtonWidget : public TextWidget
 {
-  public:
-    ButtonWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
+ public:
+   ButtonWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
 
-    void SetPressed(bool isPressed);
-    bool IsPressed();
+   void SetPressed(bool isPressed);
+   bool IsPressed();
 
-	 static bool IsPressed(double value);
+   static bool IsPressed(double value);
 
-  private:
-    double _isPressed;
+ private:
+   double _isPressed;
 };

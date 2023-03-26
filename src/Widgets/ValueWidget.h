@@ -6,12 +6,12 @@
 
 class ValueWidget : public TextWidget
 {
-  public:
-    ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
+ public:
+   ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
 
-    void SetValue(double value);
-    double GetValue();
+   void SetValue(double value);
+   double GetValue();
 
-  private:
-    double _value;
+ private:
+   double _value;
 };

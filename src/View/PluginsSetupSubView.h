@@ -7,9 +7,9 @@ class View;
 
 class PluginsSetupSubView : public SubView
 {
-  public:
-    PluginsSetupSubView(Model &model, View &view);
+ public:
+   PluginsSetupSubView(Model &model, View &view);
 
-  protected:
-    void Fill() override;
+ protected:
+   void Fill() override;
 };

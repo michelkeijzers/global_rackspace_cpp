@@ -1,3 +1,7 @@
 BasedOnStyle: Microsoft
 
-IndentPPDirectives: BeforeHash
+
+IndentWidth: 3
+ContinuationIndentWidth: 1
+
+AllowShortFunctionsOnASingleLine: All
