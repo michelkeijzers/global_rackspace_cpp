@@ -10,8 +10,8 @@ class View;
 class OrganSetupPane : public Pane
 {
  public:
-   OrganSetupPane(View &view, OrganSubModel &organSubModel, int leftPercentage, int topPercentage, int widthPercentage,
-    int heightPercentage);
+   OrganSetupPane(View &view, OrganSubModel &organSubModel, double leftPercentage, double topPercentage,
+    double widthPercentage, double heightPercentage);
 
    void Fill() override;
    void Relayout() override;

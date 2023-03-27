@@ -13,10 +13,6 @@ ShapeWidget::ShapeWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListene
 
 void ShapeWidget::SetBounds(int left, int top, int width, int height)
 {
-   Debug::Log("c0");
-   Debug::LogMethodEntry(__FUNCTION__, "left = " + std::to_string(left) + ", top = " + std::to_string(top) +
-                                        ", width = " + std::to_string(width) + ", height = " + std::to_string(height) +
-                                        ")");
    Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
    Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
    Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
@@ -26,7 +22,6 @@ void ShapeWidget::SetBounds(int left, int top, int width, int height)
    _width = width;
    _height = height;
    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
-   Debug::LogMethodExit(__FUNCTION__);
 }
 
 int ShapeWidget::GetLeft() { return _left; }

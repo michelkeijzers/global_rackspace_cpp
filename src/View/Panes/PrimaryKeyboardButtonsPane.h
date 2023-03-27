@@ -13,8 +13,8 @@ class PrimaryKeyboardButtonsPane : public Pane
    const static int NR_OF_BUTTONS = 9 + 4;
    const static std::string WIDGET_BUTTON_NAME;
 
-   PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel, int leftPercentage, int topPercentage,
-    int widthPercentage, int heightPercentage);
+   PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel, double leftPercentage, double topPercentage,
+    double widthPercentage, double heightPercentage);
 
    void Fill() override;
    void Relayout() override;

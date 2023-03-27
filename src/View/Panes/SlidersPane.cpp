@@ -15,7 +15,7 @@ constexpr double GATE_FADE_TIME = 30.0; // seconds
 constexpr int GATE_FADE_BOX_OUTLINE_THICKNESS = 5;
 
 SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel,
- int leftPercentage, int topPercentage, int widthPercentage, int heightPercentage)
+ double leftPercentage, double topPercentage, double widthPercentage, double heightPercentage)
     : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _model(model),
       _mixerSubModel(mixerSubModel), _organSubModel(organSubModel)
 {
@@ -46,9 +46,9 @@ void SlidersPane::Fill() // override
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -81,9 +81,9 @@ void SlidersPane::Relayout() // override
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -110,15 +110,6 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
        (index < OrganSubModel::NR_OF_DRAWBARS))
    {
       UpdateDrawbar(index);
-   }
-
-   else if (changedProperty == ChangedProperties::EChangedProperty::OrganDrive)
-   {
-      UpdateOrganDrive();
-   }
-   else if (changedProperty == ChangedProperties::EChangedProperty::OrganReverbAmount)
-   {
-      UpdateOrganReverbAmount();
    }
 
    CheckUpdateMixerChannelVolume(index, changedProperty);
@@ -169,8 +160,6 @@ void SlidersPane::UpdateTabShowOrganWidgets(bool organDrawbarsSelected)
       widgetId = WidgetIds::GetOrganDrawbar(organDrawbarIndex);
       GetWidgets().GetWidget(widgetId).Show(organDrawbarsSelected);
    }
-   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel).Show(organDrawbarsSelected);
-   GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel).Show(organDrawbarsSelected);
 }
 
 void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
@@ -205,8 +194,6 @@ void SlidersPane::UpdateTabUpdateValues(bool drawbarsSelected)
       {
          UpdateDrawbar(drawbarIndex);
       }
-      UpdateOrganDrive();
-      UpdateOrganReverbAmount();
    }
    else
    {
@@ -232,18 +219,6 @@ void SlidersPane::UpdateDrawbar(int drawbarIndex)
 {
    static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDrawbar1, drawbarIndex))
     .SetValue(_organSubModel.GetDrawbars(drawbarIndex));
-}
-
-void SlidersPane::UpdateOrganDrive()
-{
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel))
-    .SetValue(_organSubModel.GetDrive());
-}
-
-void SlidersPane::UpdateOrganReverbAmount()
-{
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel))
-    .SetValue(_organSubModel.GetReverbAmount());
 }
 
 void SlidersPane::CheckUpdateChannelLastTimeGateRightActive(
@@ -392,7 +367,7 @@ void SlidersPane::UpdateChannelName(int channelIndex)
 {
    Widget &widget =
     GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
-   TextWidget &textWidget = static_cast<TextWidget &>(widget);
+   UpdateOrganRotatorSpeed &textWidget = static_cast<UpdateOrganRotatorSpeed &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelName(channelIndex));
 }
 
@@ -426,7 +401,7 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
     WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
-   TextWidget &textWidget = static_cast<TextWidget &>(widget);
+   UpdateOrganRotatorSpeed &textWidget = static_cast<UpdateOrganRotatorSpeed &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
 
    int channelOffset = _mixerSubModel.GetChannelOffset();

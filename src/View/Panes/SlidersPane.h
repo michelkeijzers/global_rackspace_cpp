@@ -16,8 +16,8 @@ class SlidersPane : public Pane
    static const int NR_OF_SLIDERS = 9;
    static const int NR_OF_CHANNEL_SLIDERS = NR_OF_SLIDERS - 1;
 
-   SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel, int leftPercentage,
-    int topPercentage, int widthPercentage, int heightPercentage);
+   SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel, OrganSubModel &organSubModel,
+    double leftPercentage, double topPercentage, double widthPercentage, double heightPercentage);
 
    void Fill() override;
    void Relayout() override;

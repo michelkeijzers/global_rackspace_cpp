@@ -4,7 +4,7 @@
 #include "WidgetIds.h"
 #include <string>
 
-class ValueWidget : public TextWidget
+class ValueWidget : public UpdateOrganRotatorSpeed
 {
  public:
    ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);

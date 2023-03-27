@@ -8,8 +8,8 @@
 #include "../View.h"
 
 FootBoardPane::FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubModel,
- KeyboardSubModel &secondaryKeyboardSubModel, int leftPercentage, int topPercentage, int widthPercentage,
- int heightPercentage)
+ KeyboardSubModel &secondaryKeyboardSubModel, double leftPercentage, double topPercentage, double widthPercentage,
+ double heightPercentage)
     : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage),
       _primaryKeyboardSubModel(primaryKeyboardSubModel), _secondaryKeyboardSubModel(secondaryKeyboardSubModel)
 {

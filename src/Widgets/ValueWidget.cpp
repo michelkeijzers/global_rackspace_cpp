@@ -3,7 +3,7 @@
 #include "../Utilities/Debug.h"
 
 ValueWidget::ValueWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
-    : TextWidget(ids, id, isListenedTo), _value(0.0)
+    : UpdateOrganRotatorSpeed(ids, id, isListenedTo), _value(0.0)
 {
 }
 
