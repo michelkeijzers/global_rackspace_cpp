@@ -172,7 +172,7 @@ void WidgetIds::Fill()
 {
    FillSlidersPane();
    FillOrganPane();
-   FillFootPedalPane();
+   FillFootBoardPane();
    FillSetupChannelsPane();
    FillSetupOrganPane();
    Debug::Assert(_idToNames.size() == static_cast<size_t>(WidgetIds::EWidgetId::Last), __FUNCTION__,
@@ -260,8 +260,13 @@ void WidgetIds::FillSlidersPane()
    }
 }
 
-void WidgetIds::FillFootPedalPane()
+void WidgetIds::FillFootBoardPane()
 {
+   _idToNames.push_back("FootBoardPaneBox");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("FootBoardPaneBox", EWidgetId::FootBoardPaneBox));
+   _idToNames.push_back("FootBoardPaneTitleTextLabel");
+   _nameToIds.insert(
+    std::pair<std::string, EWidgetId>("FootBoardPaneTitleTextLabel", EWidgetId::FootBoardPaneTitleTextLabel));
    _idToNames.push_back("LeftFootPedal");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("LeftFootPedal", EWidgetId::LeftFootPedal));
    _idToNames.push_back("RightFootPedal");

@@ -102,6 +102,8 @@ class WidgetIds
       PrimaryKeyboardButton12,
       PrimaryKeyboardButton13,
 
+		FootBoardPaneBox,
+		FootBoardPaneTitleTextLabel,
       LeftFootPedal,
       RightFootPedal,
 
@@ -298,7 +300,7 @@ class WidgetIds
  private:
    void FillSlidersPane();
    void FillOrganPane();
-   void FillFootPedalPane();
+   void FillFootBoardPane();
    void FillSetupChannelsPane();
    void FillSetupChannelWidget(const std::string &setupChannelPrefix, int channelIndex);
    void FillSetupOrganPane();
