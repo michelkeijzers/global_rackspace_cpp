@@ -105,6 +105,18 @@ WidgetIds::WidgetIds() {}
    return static_cast<int>(button) - static_cast<int>(EWidgetId::PrimaryKeyboardButton1);
 }
 
+/* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardKnob(int knobIndex)
+{
+   Debug::Assert(knobIndex >= 0, __FUNCTION__, "knobIndex too low");
+   Debug::Assert(knobIndex < PrimaryKeyboardButtonsPane::NR_OF_KNOBS, __FUNCTION__, "knobIndex too low");
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardKnob1) + knobIndex);
+}
+
+/* static */ int WidgetIds::GetIndexOfPrimaryKeyboardKnob(WidgetIds::EWidgetId knob)
+{
+   return static_cast<int>(knob) - static_cast<int>(EWidgetId::PrimaryKeyboardKnob1);
+}
+
 /* static */ WidgetIds::EWidgetId WidgetIds::GetSetupChannelName(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
@@ -172,6 +184,7 @@ void WidgetIds::Fill()
 {
    FillSlidersPane();
    FillOrganPane();
+   FillPrimaryKeyboardButtonsPane();
    FillFootBoardPane();
    FillSetupChannelsPane();
    FillSetupOrganPane();
@@ -249,14 +262,26 @@ void WidgetIds::FillSlidersPane()
    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganDriveTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
    _idToNames.push_back("OrganReverbAmountTextLabel");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganReverbAmountTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
+}
 
-   // Primary Keyboard Buttons pane
-   for (int buttonIndex = 0; buttonIndex < PrimaryKeyboardButtonsPane::NR_OF_BUTTONS; buttonIndex++)
+void WidgetIds::FillPrimaryKeyboardButtonsPane()
+{
+   _idToNames.push_back("PrimaryKeyboardButtonsPaneBox");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("PrimaryKeyboardButtonsPaneBox", EWidgetId::OrganPaneBox));
+   _idToNames.push_back("PrimaryKeyboardButtonsPaneTitleTextLabel");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("PrimaryKeyboardButtonsPaneTitleTextLabel", EWidgetId::OrganPaneTitleTextLabel));
+   for (int buttonIndex = 0; buttonIndex < PrimaryKeyboardButtonsPane::NR_OF_VISIBLE_BUTTONS; buttonIndex++)
    {
       const std::string widgetName = "PrimaryKeyboardButton" + std::to_string(buttonIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardButton(buttonIndex)));
+   }
+   for (int knobIndex = 0; knobIndex < PrimaryKeyboardButtonsPane::NR_OF_KNOBS; knobIndex++)
+   {
+      const std::string widgetName = "PrimaryKeyboardKnob" + std::to_string(knobIndex + 1);
+      _idToNames.push_back(widgetName);
+      _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardKnob(knobIndex)));
    }
 }
 

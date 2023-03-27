@@ -22,7 +22,7 @@ void FootBoardPane::Fill() // override
    GetWidgets().AddWidget(WidgetIds::EWidgetId::FootBoardPaneBox,
     new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::FootBoardPaneBox, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel,
-    new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel, false));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::LeftFootPedal,
     new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::LeftFootPedal, true));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::LeftFootPedal,

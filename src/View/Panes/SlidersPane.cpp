@@ -46,9 +46,9 @@ void SlidersPane::Fill() // override
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -102,9 +102,9 @@ void SlidersPane::Relayout() // override
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), widgetId, false));
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    }
 
    // Add organ drawbars.
@@ -388,7 +388,7 @@ void SlidersPane::UpdateChannelName(int channelIndex)
 {
    Widget &widget =
     GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
-   UpdateOrganRotatorSpeed &textWidget = static_cast<UpdateOrganRotatorSpeed &>(widget);
+   TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelName(channelIndex));
 }
 
@@ -422,7 +422,7 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
     WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
-   UpdateOrganRotatorSpeed &textWidget = static_cast<UpdateOrganRotatorSpeed &>(widget);
+   TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
 
    int channelOffset = _mixerSubModel.GetChannelOffset();

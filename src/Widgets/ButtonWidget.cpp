@@ -3,7 +3,7 @@
 #include "../Utilities/Debug.h"
 
 ButtonWidget::ButtonWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
-    : UpdateOrganRotatorSpeed(ids, id, isListenedTo), _isPressed(false)
+    : TextWidget(ids, id, isListenedTo), _isPressed(false)
 {
 }
 

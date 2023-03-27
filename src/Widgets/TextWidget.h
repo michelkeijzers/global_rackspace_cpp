@@ -4,10 +4,10 @@
 #include "WidgetIds.h"
 #include <string>
 
-class UpdateOrganRotatorSpeed : public ShapeWidget
+class TextWidget : public ShapeWidget
 {
  public:
-   UpdateOrganRotatorSpeed(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
+   TextWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo);
 
    void SetText(std::string text);
    std::string GetText();

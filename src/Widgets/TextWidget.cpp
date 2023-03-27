@@ -2,12 +2,12 @@
 #include "../Framework/MvcFramework.h"
 #include "../Utilities/Debug.h"
 
-UpdateOrganRotatorSpeed::UpdateOrganRotatorSpeed(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
+TextWidget::TextWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListenedTo)
     : ShapeWidget(ids, id, isListenedTo), _text("")
 {
 }
 
-void UpdateOrganRotatorSpeed::SetText(std::string text)
+void TextWidget::SetText(std::string text)
 {
    Debug::LogMethodEntry(__FUNCTION__, "text = " + text + ")");
    _text = text;
@@ -16,4 +16,4 @@ void UpdateOrganRotatorSpeed::SetText(std::string text)
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-std::string UpdateOrganRotatorSpeed::GetText() { return _text; }
+std::string TextWidget::GetText() { return _text; }

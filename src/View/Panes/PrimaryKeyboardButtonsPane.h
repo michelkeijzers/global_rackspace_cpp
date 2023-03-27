@@ -11,6 +11,8 @@ class PrimaryKeyboardButtonsPane : public Pane
 {
  public:
    const static int NR_OF_BUTTONS = 9 + 4;
+   const static int NR_OF_VISIBLE_BUTTONS = 9;
+   const static int NR_OF_KNOBS = 8;
    const static std::string WIDGET_BUTTON_NAME;
 
    PrimaryKeyboardButtonsPane(View &view, OrganSubModel &organSubModel, double leftPercentage, double topPercentage,

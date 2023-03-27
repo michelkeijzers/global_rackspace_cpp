@@ -82,12 +82,14 @@ class WidgetIds
 
       // Organ pane
       OrganPaneBox,
-		OrganPaneTitleTextLabel,
+      OrganPaneTitleTextLabel,
       OrganRotatorSpeedTextLabel,
       OrganDriveTextLabel,
       OrganReverbAmountTextLabel,
 
       // Primary Keyboard Buttons pane
+      PrimaryKeyboardButtonsPaneBox,
+      PrimaryKeyboardButtonsPaneTitleTextLabel,
       PrimaryKeyboardButton1,
       PrimaryKeyboardButton2,
       PrimaryKeyboardButton3,
@@ -97,11 +99,16 @@ class WidgetIds
       PrimaryKeyboardButton7,
       PrimaryKeyboardButton8,
       PrimaryKeyboardButton9,
-      PrimaryKeyboardButton10,
-      PrimaryKeyboardButton11,
-      PrimaryKeyboardButton12,
-      PrimaryKeyboardButton13,
+      PrimaryKeyboardKnob1,
+      PrimaryKeyboardKnob2,
+      PrimaryKeyboardKnob3,
+      PrimaryKeyboardKnob4,
+      PrimaryKeyboardKnob5,
+      PrimaryKeyboardKnob6,
+      PrimaryKeyboardKnob7,
+      PrimaryKeyboardKnob8,
 
+		// Foot Board Pane
 		FootBoardPaneBox,
 		FootBoardPaneTitleTextLabel,
       LeftFootPedal,
@@ -282,6 +289,9 @@ class WidgetIds
    static EWidgetId GetPrimaryKeyboardButton(int buttonIndex);
    static int GetIndexOfPrimaryKeyboardButton(EWidgetId button);
 
+   static EWidgetId GetPrimaryKeyboardKnob(int knobIndex);
+   static int GetIndexOfPrimaryKeyboardKnob(EWidgetId knob);
+
    static EWidgetId GetSetupChannelName(int channelIndex);
    static int GetIndexOfSetupChannelName(EWidgetId channelName);
 
@@ -300,6 +310,7 @@ class WidgetIds
  private:
    void FillSlidersPane();
    void FillOrganPane();
+   void FillPrimaryKeyboardButtonsPane();
    void FillFootBoardPane();
    void FillSetupChannelsPane();
    void FillSetupChannelWidget(const std::string &setupChannelPrefix, int channelIndex);

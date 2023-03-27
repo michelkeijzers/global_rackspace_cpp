@@ -22,13 +22,13 @@ void OrganPane::Fill() // override
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganPaneBox,
     new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganPaneBox, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganPaneTitleTextLabel,
-    new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganPaneTitleTextLabel, false));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganPaneTitleTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel,
-    new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, false));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel,
-    new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganReverbAmountTextLabel, false));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganReverbAmountTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganDriveTextLabel,
-    new UpdateOrganRotatorSpeed(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganDriveTextLabel, false));
+    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganDriveTextLabel, false));
 }
 
 // 0%       60%     100%
@@ -66,8 +66,8 @@ void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* o
    {
    case ChangedProperties::EChangedProperty::OrganIsEnabled: ShowAllWidgets(_organSubModel.IsEnabled()); break;
    case ChangedProperties::EChangedProperty::OrganRotatorSpeed: {
-      UpdateOrganRotatorSpeed &textWidget =
-       static_cast<UpdateOrganRotatorSpeed &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel));
+      TextWidget &textWidget =
+       static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel));
       bool isRotatorSpeedFast = _organSubModel.IsRotatorSpeedFast();
       textWidget.SetText(isRotatorSpeedFast ? ROTATOR_SPEED_FAST_TEXT : ROTATOR_SPEED_SLOW_TEXT);
       textWidget.SetWidgetFillColor(isRotatorSpeedFast ? 1.0 : 0.0, isRotatorSpeedFast ? 0.0 : 1.0, 0.0, 1.0);
