@@ -2,6 +2,7 @@
 #include "../Controller/Controller.h"
 #include "../Controller/MixerSubController.h"
 #include "../Controller/OrganSubController.h"
+#include "../Controller/KeyboardSubController.h"
 #include "../Framework/MvcFramework.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
@@ -38,7 +39,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       organSubController.SetDrawbarValue(index, newValue);
       processed = true;
    }
-	// TODO primary keyboard knobs 1, 2, 4, 8 (volume & Organ)
    if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
    {
       if (ButtonWidget::IsPressed(newValue))
@@ -47,6 +47,34 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
          organSubController.SwapRotatorSpeed();
       }
+      processed = true;
+   }
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardKnob1))
+   {
+      OrganSubController &organSubController =
+       static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
+      organSubController.SetDrive(newValue);
+      processed = true;
+   }
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardKnob2))
+   {
+      OrganSubController &organSubController =
+       static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
+      organSubController.SetReverbAmount(newValue);
+      processed = true;
+   }
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardKnob4))
+   {
+      KeyboardSubController &keyboardSubController =
+       static_cast<KeyboardSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
+      keyboardSubController.SetExpressionVolume(newValue);
+      processed = true;
+   }
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardKnob8))
+   {
+      KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+       _controller.GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
+      keyboardSubController.SetExpressionVolume(newValue);
       processed = true;
    }
    if (!processed)

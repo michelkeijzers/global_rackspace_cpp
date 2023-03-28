@@ -33,6 +33,18 @@ WidgetIds::WidgetIds() {}
    return static_cast<int>(box) - static_cast<int>(EWidgetId::PrimaryKeyboardSliderBox1);
 }
 
+/* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderNumber(int numberIndex)
+{
+   Debug::Assert(numberIndex >= 0, __FUNCTION__, "numberIndex too low");
+   Debug::Assert(numberIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "numberIndex too low");
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSliderNumber1) + numberIndex);
+}
+
+/* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderNumber(WidgetIds::EWidgetId box)
+{
+   return static_cast<int>(box) - static_cast<int>(EWidgetId::PrimaryKeyboardSliderNumber1);
+}
+
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSlider(int sliderIndex)
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
@@ -196,7 +208,19 @@ void WidgetIds::Fill()
 
 void WidgetIds::FillSlidersPane()
 {
-   // Sliders pane
+   _idToNames.push_back("SlidersPaneBox");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneBox", EWidgetId::SlidersPaneBox));
+   _idToNames.push_back("SlidersPaneTitleTextLabel");
+   _nameToIds.insert(
+    std::pair<std::string, EWidgetId>("SlidersPaneTitleTextLabel", EWidgetId::SlidersPaneTitleTextLabel));
+   _idToNames.push_back("SlidersPaneTabOrgan");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabOrgan", EWidgetId::SlidersPaneBox));
+   _idToNames.push_back("SlidersPaneTabChannels1To8");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels1To8", EWidgetId::SlidersPaneBox));
+   _idToNames.push_back("SlidersPaneTabChannels9To16");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels9To16", EWidgetId::SlidersPaneBox));
+   _idToNames.push_back("SlidersPaneTabChannels16To24");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels16To24", EWidgetId::SlidersPaneBox));
    for (int drawbarIndex = 0; drawbarIndex < OrganPane::NR_OF_DRAWBAR_SLIDERS; drawbarIndex++)
    {
       std::string widgetName = "OrganDrawbar" + std::to_string(drawbarIndex + 1);
@@ -206,6 +230,13 @@ void WidgetIds::FillSlidersPane()
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
       std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Box";
+      _idToNames.push_back(widgetName);
+      _nameToIds.insert(
+       std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex)));
+   }
+   for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
+   {
+      std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Number";
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex)));

@@ -1,6 +1,7 @@
 #include "PrimaryKeyboardButtonsPane.h"
 #include "../../Model/OrganSubModel.h"
 #include "../../Widgets/ButtonWidget.h"
+#include "../../Widgets/ValueWidget.h"
 #include "../../Widgets/WidgetIds.h"
 #include "../ChangedProperties.h"
 #include "../View.h"
@@ -17,18 +18,19 @@ PrimaryKeyboardButtonsPane::PrimaryKeyboardButtonsPane(View &view, OrganSubModel
 
 void PrimaryKeyboardButtonsPane::Fill()
 {
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneBox,
-    new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneBox, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneTitleTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneTitleTextLabel, false));
+   WidgetIds::EWidgetId widgetId;
+   widgetId = WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneBox;
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneTitleTextLabel;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    for (int buttonIndex = 0; buttonIndex < NR_OF_VISIBLE_BUTTONS; buttonIndex++)
    {
-      WidgetIds::EWidgetId widgetId = WidgetIds::GetPrimaryKeyboardButton(buttonIndex);
+      widgetId = WidgetIds::GetPrimaryKeyboardButton(buttonIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
    }
    for (int knobIndex = 0; knobIndex < NR_OF_KNOBS; knobIndex++)
    {
-      WidgetIds::EWidgetId widgetId = WidgetIds::GetPrimaryKeyboardButton(knobIndex);
+      widgetId = WidgetIds::GetPrimaryKeyboardButton(knobIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
    }
 }
@@ -44,39 +46,45 @@ void PrimaryKeyboardButtonsPane::Fill()
 // |  C10   |........................ 8 ................|   C27  |
 // +--------+-------------------------------------------+--------+ 100%
 
-const double BUTTON_WIDTH = 1.0 / PrimaryKeyboardButtonsPane::NR_OF_VISIBLE_BUTTONS;
-const double KNOB_WIDTH = 1.0 / PrimaryKeyboardButtonsPane::NR_OF_KNOBS;
-
 void PrimaryKeyboardButtonsPane::Relayout() // override
 {
-	// ADD BOX/TITLE WIDGET
-   // TODO RELAYOUT
-}
-
-/*
-void FootBoardPane::Relayout() // override
-{
    double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
-   SetWidgetBounds(WidgetIds::EWidgetId::FootBoardPaneBox, 0.0, 0.0, 1.0, 1.0, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
-   double footPedalHeight = (1.0 - paneTitleHeightPercentage) / 2;
-   SetWidgetBounds(WidgetIds::EWidgetId::LeftFootPedal, 0.0, paneTitleHeightPercentage, 1.0, footPedalHeight, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneBox, 0.0, 0.0, 1.0, 1.0, 0.0);
    SetWidgetBounds(
-    WidgetIds::EWidgetId::RightFootPedal, 0.0, paneTitleHeightPercentage + footPedalHeight, 1.0, footPedalHeight, 0.0);
+    WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
+   double buttonHeight = (1.0 - paneTitleHeightPercentage) / 2;
+   double knobHeight = buttonHeight;
+   for (int buttonIndex = 0; buttonIndex < NR_OF_VISIBLE_BUTTONS; buttonIndex++)
+   {
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardButton(buttonIndex), buttonIndex * 1.0 / NR_OF_VISIBLE_BUTTONS,
+       paneTitleHeightPercentage, 1.0 / NR_OF_VISIBLE_BUTTONS, buttonHeight, 0.0);
+   }
+   for (int knobIndex = 0; knobIndex < NR_OF_KNOBS; knobIndex++)
+   {
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardButton(knobIndex), knobIndex * 1.0 / NR_OF_KNOBS,
+       paneTitleHeightPercentage + buttonHeight, 1.0 / NR_OF_KNOBS, knobHeight, 0.0);
+   }
 }
-}
-*/
 
 void PrimaryKeyboardButtonsPane::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
+   Widget *widget = nullptr;
    switch (changedProperty)
    {
-   case ChangedProperties::EChangedProperty::OrganRotatorSpeed: {
-      Widget &widget = GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardButton9);
-      static_cast<ButtonWidget &>(widget).SetPressed(_organSubModel.IsRotatorSpeedFast());
-   }
-
-   // TODO: Add reverb amount + driver i+ knob 4/8 for expression
-   break;
+   case ChangedProperties::EChangedProperty::OrganRotatorSpeed:
+      widget = &GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardButton9);
+      static_cast<ButtonWidget *>(widget)->SetPressed(_organSubModel.IsRotatorSpeedFast());
+      break;
+   case ChangedProperties::EChangedProperty::OrganDrive:
+      widget = &GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardKnob1);
+      static_cast<ValueWidget *>(widget)->SetValue(_organSubModel.GetDrive());
+      break;
+   case ChangedProperties::EChangedProperty::OrganReverbAmount:
+      widget = &GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardKnob2);
+      static_cast<ValueWidget *>(widget)->SetValue(_organSubModel.GetReverbAmount());
+      break;
+   default:
+      // No action required
+      break;
    }
 }

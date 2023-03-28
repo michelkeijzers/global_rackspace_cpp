@@ -19,16 +19,15 @@ FootBoardPane::FootBoardPane(View &view, KeyboardSubModel &primaryKeyboardSubMod
 
 void FootBoardPane::Fill() // override
 {
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::FootBoardPaneBox,
-    new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::FootBoardPaneBox, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::LeftFootPedal,
-    new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::LeftFootPedal, true));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::LeftFootPedal,
-    new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::LeftFootPedal, true));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::RightFootPedal,
-    new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::RightFootPedal, true));
+   WidgetIds::EWidgetId widgetId;
+   widgetId = WidgetIds::EWidgetId::FootBoardPaneBox;
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::LeftFootPedal;
+   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   widgetId = WidgetIds::EWidgetId::RightFootPedal;
+   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
 }
 
 // 0%          100%

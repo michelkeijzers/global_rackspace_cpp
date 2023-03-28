@@ -19,16 +19,17 @@ OrganPane::OrganPane(View &view, OrganSubModel &organSubModel, double leftPercen
 
 void OrganPane::Fill() // override
 {
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganPaneBox,
-    new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganPaneBox, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganPaneTitleTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganPaneTitleTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganReverbAmountTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganDriveTextLabel,
-    new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganDriveTextLabel, false));
+	WidgetIds::EWidgetId widgetId;
+   widgetId = WidgetIds::EWidgetId::OrganPaneBox;
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::OrganPaneTitleTextLabel;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel;
+   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   widgetId = WidgetIds::EWidgetId::OrganReverbAmountTextLabel;
+   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::OrganDriveTextLabel;
 }
 
 // 0%       60%     100%

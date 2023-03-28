@@ -33,12 +33,24 @@ SlidersPane::SlidersPane(View &view, Model &model, MixerSubModel &mixerSubModel,
 void SlidersPane::Fill() // override
 {
    WidgetIds::EWidgetId widgetId;
-
-   // Add sliders, and names for channels and master volume.
+   widgetId = WidgetIds::EWidgetId::SlidersPaneBox;
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTitleTextLabel;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTabOrgan;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels1To8;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels9To16;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels16To24;
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
       widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderNumber(sliderIndex);
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
@@ -50,8 +62,6 @@ void SlidersPane::Fill() // override
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    }
-
-   // Add organ drawbars.
    for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
    {
       widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
@@ -82,36 +92,39 @@ void SlidersPane::Fill() // override
 
 void SlidersPane::Relayout() // override
 {
-   // TODO RELAYOUT
-
-
-
-   WidgetIds::EWidgetId widgetId;
-
-   // Add sliders, and names for channels and master volume.
+   double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneBox, 0.0, 0.0, 0.0, 1.0, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTitleTextLabel, 0.0, 0.0, 0.2, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabOrgan, 0.2, 0.0, 0.3, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels1To8, 0.3, 0.0, 0.2, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels9To16, 0.5, 0.0, 0.25, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels16To24, 0.75, 0.0, 0.25, paneTitleHeightPercentage, 0.0);
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-      widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-   }
-
-   // Add organ drawbars.
-   for (int drawbarIndex = 0; drawbarIndex < OrganSubModel::NR_OF_DRAWBARS; drawbarIndex++)
-   {
-      widgetId = WidgetIds::GetOrganDrawbar(drawbarIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+      const double channelWidth = 1.0 / NR_OF_SLIDERS;
+      const double numberHeightPercentage = (1.0 - paneTitleHeightPercentage) * 0.1;
+      const double sliderHeightPercentage = (1.0 - paneTitleHeightPercentage) * 0.6;
+      const double nameHeightPercentage = (1.0 - paneTitleHeightPercentage) * 0.2;
+      const double sourceHeightPercentage =
+       1.0 - paneTitleHeightPercentage - numberHeightPercentage - sliderHeightPercentage - nameHeightPercentage;
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex), sliderIndex * channelWidth,
+       paneTitleHeightPercentage, channelWidth, 1.0 - paneTitleHeightPercentage, 0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderNumber(sliderIndex), sliderIndex * channelWidth,
+       paneTitleHeightPercentage, channelWidth, numberHeightPercentage, 0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSlider(sliderIndex), sliderIndex * channelWidth,
+       paneTitleHeightPercentage + numberHeightPercentage, channelWidth * 0.5, sliderHeightPercentage, 0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex),
+       sliderIndex * channelWidth + channelWidth * 0.5, paneTitleHeightPercentage + numberHeightPercentage,
+       channelWidth * 0.25, sliderHeightPercentage, 0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex),
+       sliderIndex * channelWidth + channelWidth * 0.75, paneTitleHeightPercentage + numberHeightPercentage,
+       channelWidth * 0.25, sliderHeightPercentage, 0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex), sliderIndex * channelWidth,
+       paneTitleHeightPercentage + numberHeightPercentage + sliderHeightPercentage, channelWidth, nameHeightPercentage,
+       0.0);
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex), sliderIndex * channelWidth,
+       paneTitleHeightPercentage + numberHeightPercentage + sliderHeightPercentage + nameHeightPercentage, channelWidth,
+       sourceHeightPercentage, 0.0);
    }
 }
 

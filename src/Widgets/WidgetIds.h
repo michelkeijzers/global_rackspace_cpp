@@ -10,6 +10,13 @@ class WidgetIds
    enum class EWidgetId
    {
       // Slider pane
+      SlidersPaneBox,
+      SlidersPaneTitleTextLabel,
+		SlidersPaneTabOrgan,
+		SlidersPaneTabChannels1To8,
+		SlidersPaneTabChannels9To16,
+		SlidersPaneTabChannels16To24,
+
       OrganDrawbar1,
       OrganDrawbar2,
       OrganDrawbar3,
@@ -29,6 +36,16 @@ class WidgetIds
       PrimaryKeyboardSliderBox7,
       PrimaryKeyboardSliderBox8,
       PrimaryKeyboardSliderBox9,
+				
+      PrimaryKeyboardSliderNumber1,
+      PrimaryKeyboardSliderNumber2,
+      PrimaryKeyboardSliderNumber3,
+      PrimaryKeyboardSliderNumber4,
+      PrimaryKeyboardSliderNumber5,
+      PrimaryKeyboardSliderNumber6,
+      PrimaryKeyboardSliderNumber7,
+      PrimaryKeyboardSliderNumber8,
+      PrimaryKeyboardSliderNumber9,
 
       PrimaryKeyboardSlider1,
       PrimaryKeyboardSlider2,
@@ -245,6 +262,7 @@ class WidgetIds
       SetupChannel23VolumeOverrideButton,
       SetupChannel24VolumeOverrideButton,
 
+		// Plugin Setup pane
       SetupOrganPaneBox,
       SetupOrganTitleTextLabel,
       SetupOrganPrimaryKeyboardActiveButton,
@@ -270,6 +288,9 @@ class WidgetIds
 
    static EWidgetId GetPrimaryKeyboardSliderBox(int boxIndex);
    static int GetIndexOfPrimaryKeyboardSliderBox(EWidgetId box);
+
+   static EWidgetId GetPrimaryKeyboardSliderNumber(int boxIndex);
+   static int GetIndexOfPrimaryKeyboardSliderNumber(EWidgetId box);
 
    static EWidgetId GetPrimaryKeyboardSlider(int sliderIndex);
    static int GetIndexOfPrimaryKeyboardSlider(EWidgetId slider);
