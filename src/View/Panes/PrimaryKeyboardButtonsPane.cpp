@@ -30,8 +30,8 @@ void PrimaryKeyboardButtonsPane::Fill()
    }
    for (int knobIndex = 0; knobIndex < NR_OF_KNOBS; knobIndex++)
    {
-      widgetId = WidgetIds::GetPrimaryKeyboardButton(knobIndex);
-      GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetPrimaryKeyboardKnob(knobIndex);
+      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
    }
 }
 

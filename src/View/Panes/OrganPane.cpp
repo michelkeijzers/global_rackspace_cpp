@@ -28,8 +28,8 @@ void OrganPane::Fill() // override
    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
    widgetId = WidgetIds::EWidgetId::OrganReverbAmountTextLabel;
    GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
-   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::OrganDriveTextLabel;
+   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
 }
 
 // 0%       60%     100%

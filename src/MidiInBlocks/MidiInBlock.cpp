@@ -1,8 +1,12 @@
 #include "MidiInBlock.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/MidiUtilities.h"
+#include "../Framework/MvcFramework.h"
 
-MidiInBlock::MidiInBlock(Controller &controller, const std::string name) : _controller(controller), _name(name) {}
+MidiInBlock::MidiInBlock(Controller &controller, const std::string name) : _controller(controller), _name(name) 
+{
+   MvcFramework::GetGigPerformerApi().listenForMidi(name, true);
+}
 
 /* virtual */ void MidiInBlock::Init() {}
 

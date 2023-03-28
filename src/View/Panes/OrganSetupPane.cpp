@@ -57,9 +57,9 @@ void OrganSetupPane::Relayout() // override
    const double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
    const double fullHeightPercentage = (1.0 - paneTitleHeightPercentage) / 2;
    const double halfHeightPercentage = fullHeightPercentage / 2.0;
-   SetWidgetBounds(WidgetIds::EWidgetId::ChannelsSetupPaneBox, 0.0, 0.0, 1.0, 1.0, 0);
+   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPaneBox, 0.0, 0.0, 1.0, 1.0, 0);
    SetWidgetBounds(
-    WidgetIds::EWidgetId::ChannelsSetupPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
+    WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton, 0.0, paneTitleHeightPercentage, 0.15,
     fullHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton, 0.15, paneTitleHeightPercentage, 0.15,

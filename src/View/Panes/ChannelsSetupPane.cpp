@@ -98,8 +98,7 @@ void ChannelsSetupPane::Relayout() // override
    SetWidgetBounds(WidgetIds::EWidgetId::ChannelsSetupPaneBox, 0.0, 0.0, 1.0, 1.0, 0);
    SetWidgetBounds(WidgetIds::EWidgetId::ChannelsSetupPaneTitleTextLabel, 0.0, 0.0, leftWidgetsWidthPercentage,
     paneTitleHeightPercentage, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::SyncLabelsToMixerButton, 0.0, 0.0, leftWidgetsWidthPercentage,
-    paneTitleHeightPercentage, 0.1);
+   SetWidgetBounds(WidgetIds::EWidgetId::SyncLabelsToMixerButton, 0.0, 0.0, leftWidgetsWidthPercentage, 0.6, 0.1);
    1.0 - channelIndexHeightPercentage - nextSourceHeightPercentage - volumeOverrideHeightPercentage;
    SetWidgetBounds(WidgetIds::EWidgetId::ChannelIndexTextLabel, 0.0, channelNameHeightPercentage,
     leftWidgetsWidthPercentage, channelIndexHeightPercentage, 0.0);

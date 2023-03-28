@@ -13,8 +13,8 @@ ShapeWidget::ShapeWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListene
 
 void ShapeWidget::SetBounds(int left, int top, int width, int height)
 {
-   Debug::Assert(left > 0, __FUNCTION__, "Illegal left bound");
-   Debug::Assert(top > 0, __FUNCTION__, "Illegal top bound");
+   Debug::Assert(left >= 0, __FUNCTION__, "Illegal left bound");
+   Debug::Assert(top >= 0, __FUNCTION__, "Illegal top bound");
    Debug::Assert(width > 0, __FUNCTION__, "Illegal width bound");
    Debug::Assert(height > 0, __FUNCTION__, "Illegal height bound");
    _left = left;
