@@ -92,7 +92,7 @@ void SlidersPane::Fill() // override
 
 void SlidersPane::Relayout() // override
 {
-   double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
+   const double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneBox, 0.0, 0.0, 0.0, 1.0, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTitleTextLabel, 0.0, 0.0, 0.2, paneTitleHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabOrgan, 0.2, 0.0, 0.3, paneTitleHeightPercentage, 0.0);

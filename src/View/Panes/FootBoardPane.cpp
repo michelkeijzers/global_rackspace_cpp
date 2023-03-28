@@ -41,10 +41,10 @@ void FootBoardPane::Fill() // override
 
 void FootBoardPane::Relayout() // override
 {
-   double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
+   const double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
    SetWidgetBounds(WidgetIds::EWidgetId::FootBoardPaneBox, 0.0, 0.0, 1.0, 1.0, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::FootBoardPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
-   double footPedalHeight = (1.0 - paneTitleHeightPercentage) / 2;
+   const double footPedalHeight = (1.0 - paneTitleHeightPercentage) / 2;
    SetWidgetBounds(WidgetIds::EWidgetId::LeftFootPedal, 0.0, paneTitleHeightPercentage, 1.0, footPedalHeight, 0.0);
    SetWidgetBounds(
     WidgetIds::EWidgetId::RightFootPedal, 0.0, paneTitleHeightPercentage + footPedalHeight, 1.0, footPedalHeight, 0.0);

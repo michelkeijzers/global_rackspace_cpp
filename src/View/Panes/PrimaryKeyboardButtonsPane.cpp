@@ -48,12 +48,12 @@ void PrimaryKeyboardButtonsPane::Fill()
 
 void PrimaryKeyboardButtonsPane::Relayout() // override
 {
-   double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
+   const double paneTitleHeightPercentage = GetPaneTitleHeightPercentage();
    SetWidgetBounds(WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneBox, 0.0, 0.0, 1.0, 1.0, 0.0);
    SetWidgetBounds(
     WidgetIds::EWidgetId::PrimaryKeyboardButtonsPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
-   double buttonHeight = (1.0 - paneTitleHeightPercentage) / 2;
-   double knobHeight = buttonHeight;
+   const double buttonHeight = (1.0 - paneTitleHeightPercentage) / 2;
+   const double knobHeight = buttonHeight;
    for (int buttonIndex = 0; buttonIndex < NR_OF_VISIBLE_BUTTONS; buttonIndex++)
    {
       SetWidgetBounds(WidgetIds::GetPrimaryKeyboardButton(buttonIndex), buttonIndex * 1.0 / NR_OF_VISIBLE_BUTTONS,

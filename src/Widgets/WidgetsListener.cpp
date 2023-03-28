@@ -97,8 +97,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
             std::vector<std::string> channelNames;
             for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
             {
-               const std::string widgetNameSetupChannel = "SetupChannel" + std::to_string(channelIndex + 1) + "Name";
-               channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameSetupChannel));
+               const std::string widgetNameChannelsSetup = "ChannelsSetup" + std::to_string(channelIndex + 1) + "Name";
+               channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
             }
             mixerSubController.SetChannelNames(channelNames);
          }
@@ -106,8 +106,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      index = WidgetIds::GetIndexOfSetupChannelNextSourceButton(widgetId);
-      if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1NextSourceButton) &&
+      index = WidgetIds::GetIndexOfChannelsSetupNextSourceButton(widgetId);
+      if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetup1NextSourceButton) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
          if (ButtonWidget::IsPressed(newValue))
@@ -121,8 +121,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      index = WidgetIds::GetIndexOfSetupChannelVolumeOverrideButton(widgetId);
-      if ((widgetId >= WidgetIds::EWidgetId::SetupChannel1VolumeOverrideButton) &&
+      index = WidgetIds::GetIndexOfChannelsSetupVolumeOverrideButton(widgetId);
+      if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetup1VolumeOverrideButton) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
          if (ButtonWidget::IsPressed(newValue))
@@ -136,7 +136,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      if (widgetId == WidgetIds::EWidgetId::SetupOrganPrimaryKeyboardActiveButton)
+      if (widgetId == WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton)
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -146,7 +146,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      if (widgetId == WidgetIds::EWidgetId::SetupOrganSecondaryKeyboardActiveButton)
+      if (widgetId == WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton)
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -156,7 +156,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      if (widgetId == WidgetIds::EWidgetId::SetupOrganLowestNoteSlider)
+      if (widgetId == WidgetIds::EWidgetId::OrganSetupLowestNoteSlider)
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -166,7 +166,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      if (widgetId == WidgetIds::EWidgetId::SetupOrganHighestNoteSlider)
+      if (widgetId == WidgetIds::EWidgetId::OrganSetupHighestNoteSlider)
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -176,7 +176,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      if (widgetId == WidgetIds::EWidgetId::SetupOrganSustainPedalActiveButton)
+      if (widgetId == WidgetIds::EWidgetId::OrganSetupSustainPedalActiveButton)
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
