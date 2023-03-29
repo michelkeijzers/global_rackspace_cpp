@@ -12,9 +12,14 @@
 #include "OrganPlugin.h"
 #include "Plugin.h"
 
-Plugins::Plugins(Model &model, View &view) : _plugins(), _model(model), _view(view) {}
+Plugins::Plugins(Model &model, View &view) : _plugins(), _model(model), _view(view)
+{
+}
 
-Plugins::~Plugins() { _plugins.clear(); }
+Plugins::~Plugins()
+{
+   _plugins.clear();
+}
 
 void Plugins::Fill()
 {
@@ -66,4 +71,7 @@ void Plugins::Init()
    }
 }
 
-Plugin &Plugins::GetPlugin(EPluginId id) { return *(_plugins.at(static_cast<int>(id))); }
+Plugin &Plugins::GetPlugin(EPluginId id)
+{
+   return *(_plugins.at(static_cast<int>(id)));
+}

@@ -30,7 +30,10 @@ MixerSubModel::MixerSubModel(Model &model)
    }
 }
 
-MixerSubModel::~MixerSubModel() { _mixerChannelSubModels.clear(); }
+MixerSubModel::~MixerSubModel()
+{
+   _mixerChannelSubModels.clear();
+}
 
 void MixerSubModel::Init() /* override */
 {
@@ -40,7 +43,10 @@ void MixerSubModel::Init() /* override */
    }
 }
 
-const std::string MixerSubModel::GetName() /* override */ { return SUB_MODEL_NAME; }
+const std::string MixerSubModel::GetName() /* override */
+{
+   return SUB_MODEL_NAME;
+}
 
 std::string MixerSubModel::Serialize() // override
 {
@@ -77,9 +83,15 @@ int MixerSubModel::Deserialize(std::vector<std::string> lines, int currentLineIn
    return currentLineIndex;
 }
 
-std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels() { return _mixerChannelSubModels; }
+std::vector<MixerChannelSubModel *> MixerSubModel::GetMixerChannelSubModels()
+{
+   return _mixerChannelSubModels;
+}
 
-MixerSubModel::ETabSelection MixerSubModel::GetTabSelection() { return _tabSelection; }
+MixerSubModel::ETabSelection MixerSubModel::GetTabSelection()
+{
+   return _tabSelection;
+}
 
 void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
 {
@@ -127,7 +139,10 @@ void MixerSubModel::SetChannelVolume(int channelIndex, double newVolume)
    _mixerChannelSubModels[channelIndex]->SetVolume(newVolume);
 }
 
-double MixerSubModel::GetMasterVolume() { return _masterVolume; }
+double MixerSubModel::GetMasterVolume()
+{
+   return _masterVolume;
+}
 
 void MixerSubModel::SetMasterVolume(double newVolume)
 {
@@ -163,9 +178,15 @@ void MixerSubModel::SetChannelLevelRight(int channelIndex, double newLevel)
    _mixerChannelSubModels[channelIndex]->SetLevelRight(newLevel);
 }
 
-double MixerSubModel::GetMasterLevelLeft() { return _masterLevelLeft; }
+double MixerSubModel::GetMasterLevelLeft()
+{
+   return _masterLevelLeft;
+}
 
-double MixerSubModel::GetMasterLevelRight() { return _masterLevelRight; }
+double MixerSubModel::GetMasterLevelRight()
+{
+   return _masterLevelRight;
+}
 
 void MixerSubModel::SetMasterLevelLeft(double newLevel)
 {
@@ -211,9 +232,15 @@ void MixerSubModel::SetChannelGateRight(int channelIndex, bool newGate)
    _mixerChannelSubModels[channelIndex]->SetGateRight(newGate);
 }
 
-juce::Time MixerSubModel::GetMasterLastTimeGateLeftActive() { return _masterLastTimeGateLeftActive; }
+juce::Time MixerSubModel::GetMasterLastTimeGateLeftActive()
+{
+   return _masterLastTimeGateLeftActive;
+}
 
-juce::Time MixerSubModel::GetMasterLastTimeGateRightActive() { return _masterLastTimeGateRightActive; }
+juce::Time MixerSubModel::GetMasterLastTimeGateRightActive()
+{
+   return _masterLastTimeGateRightActive;
+}
 
 void MixerSubModel::SetMasterGateLeft(bool gateActive)
 {

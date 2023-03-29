@@ -27,6 +27,6 @@ class View
    WidgetIds _widgetIds;
    Model &_model;
 
-	int _width;
+   int _width;
    int _height;
 };

@@ -3,7 +3,9 @@
 #include "../Model/Model.h"
 #include "Panes/ChannelsSetupPane.h"
 
-ChannelsSetupSubView::ChannelsSetupSubView(Model &model, View &view) : SubView(model, view) {}
+ChannelsSetupSubView::ChannelsSetupSubView(Model &model, View &view) : SubView(model, view)
+{
+}
 
 void ChannelsSetupSubView::Fill() // override
 {

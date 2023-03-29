@@ -4,9 +4,14 @@
 #include <iostream>
 #include <vector>
 
-Widgets::Widgets() {}
+Widgets::Widgets()
+{
+}
 
-Widgets::~Widgets() { _widgets.clear(); }
+Widgets::~Widgets()
+{
+   _widgets.clear();
+}
 
 void Widgets::AddWidget(WidgetIds::EWidgetId id, Widget *widget)
 {

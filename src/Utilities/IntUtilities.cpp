@@ -11,7 +11,10 @@
    return valueAsHex;
 }
 
-/* static */ bool IntUtilities::ToBool(int value) { return value != 0; }
+/* static */ bool IntUtilities::ToBool(int value)
+{
+   return value != 0;
+}
 
 /* static */ int IntUtilities::Map(int valueToMap, int inputMin, int inputMax, int outputMin, int outputMax)
 {

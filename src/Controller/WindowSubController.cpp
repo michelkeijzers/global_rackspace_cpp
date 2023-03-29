@@ -8,4 +8,7 @@ WindowSubController::WindowSubController(Controller &controller)
 {
 }
 
-void WindowSubController::SetNextSlidersPane() { _mixerSubModel.SetNextTab(); }
+void WindowSubController::SetNextSlidersPane()
+{
+   _mixerSubModel.SetNextTab();
+}

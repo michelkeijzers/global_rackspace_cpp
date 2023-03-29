@@ -30,15 +30,15 @@ class DoubleUtilities
    /// <param name="valueEquality"></param>
    static void SetMaximumEqualityDifference(double valueEquality);
 
-	/// \brief  Maps an input value in range [inputMin..inputMax] to range [outputMin..outputMax]
+   /// \brief  Maps an input value in range [inputMin..inputMax] to range [outputMin..outputMax]
    /// \param  valueToMap Value to be mapped
    /// \param  inputMin   Minimum value of the input range
    /// \param  inputMax   Maximum value of the input range
    /// \param  outputMin  Minimum value of the output range
    /// \param  outputMax  Maximum value of the output range
    /// \returns value insidei the output range
-   static double Map(double valueToMap, double inputMin, double inputMax, double outputMin, double outputMax); 
-	
+   static double Map(double valueToMap, double inputMin, double inputMax, double outputMin, double outputMax);
+
  private:
    static double _maximumEqualityDifference;
 

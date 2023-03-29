@@ -7,11 +7,19 @@
 #include "PrimaryKeyboardButtonsPane.h"
 #include "SlidersPane.h"
 
-Panes::Panes(Model &model, View &view) : _panes(), _model(model), _view(view) {}
+Panes::Panes(Model &model, View &view) : _panes(), _model(model), _view(view)
+{
+}
 
-Panes::~Panes() { _panes.clear(); }
+Panes::~Panes()
+{
+   _panes.clear();
+}
 
-void Panes::AddPane(Pane *pane) { _panes.push_back(pane); }
+void Panes::AddPane(Pane *pane)
+{
+   _panes.push_back(pane);
+}
 
 void Panes::Fill()
 {

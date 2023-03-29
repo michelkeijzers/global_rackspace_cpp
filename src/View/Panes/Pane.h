@@ -20,7 +20,7 @@ class Pane : public IObserver
    Widgets &GetWidgets();
    View &GetView();
 
-	void SetWidgetBounds(WidgetIds::EWidgetId widgetId, double widgetLeftPercentage, double widgetTopPercentage,
+   void SetWidgetBounds(WidgetIds::EWidgetId widgetId, double widgetLeftPercentage, double widgetTopPercentage,
     double widgetWidthPercentage, double widgetHeightPercentage, double widgetMarginPercentage);
    double GetPaneTitleHeightPercentage();
 

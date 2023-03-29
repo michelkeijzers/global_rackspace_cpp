@@ -47,7 +47,7 @@ void OrganSetupPane::Fill() // override
 // +---------------------------------------------------------------+ 0%
 // |                        ORGAN SETTINGS                         |    Pane Title
 // +-----+-----+-------------------------------------+-------+-----+ PTH (0%)
-// |Upper|Lower|    Low Note Slider                  |  C-2  | Sus-|  
+// |Upper|Lower|    Low Note Slider                  |  C-2  | Sus-|
 // |key- |key- +-------------------------------------+-------+ tain| 50%
 // |board|board|    High Note Slider                 |  G8   |     |
 // +-----+-----+-------------------------------------+-------+-----+ 100%
@@ -58,8 +58,7 @@ void OrganSetupPane::Relayout() // override
    const double fullHeightPercentage = (1.0 - paneTitleHeightPercentage) / 2;
    const double halfHeightPercentage = fullHeightPercentage / 2.0;
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPaneBox, 0.0, 0.0, 1.0, 1.0, 0);
-   SetWidgetBounds(
-    WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton, 0.0, paneTitleHeightPercentage, 0.15,
     fullHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton, 0.15, paneTitleHeightPercentage, 0.15,

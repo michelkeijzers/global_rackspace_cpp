@@ -29,6 +29,18 @@ static const double PARAM_ACCURACY = 0.001;
    return ((length == 3) && ((data[0] & 0xF0) == 0xB0));
 }
 
+/* static */ bool MidiUtilities::IsNoteOffMessage(const uint8_t *data, int length)
+{
+   Debug::Assert(length > 0, __FUNCTION__, "illegal length");
+   return ((length == 3) && ((data[0] & 0xF0) == 0x80));
+}
+
+/* static */ bool MidiUtilities::IsNoteOnMessage(const uint8_t *data, int length)
+{
+   Debug::Assert(length > 0, __FUNCTION__, "illegal length");
+   return ((length == 3) && ((data[0] & 0xF0) == 0x90));
+}
+
 /* static */ double MidiUtilities::MidiToParam(uint8_t value)
 {
    Debug::Assert(value >= 0, __FUNCTION__, "value too low");
@@ -43,7 +55,10 @@ static const double PARAM_ACCURACY = 0.001;
    return value >= 64;
 }
 
-/* static */ uint8_t MidiUtilities::BoolToMidi(bool value) { return value ? 127 : 0; }
+/* static */ uint8_t MidiUtilities::BoolToMidi(bool value)
+{
+   return value ? 127 : 0;
+}
 /* static */ uint8_t MidiUtilities::ParamToMidi(double value)
 {
    Debug::Assert(DoubleUtilities::AreEqual(value, 0.0) || (value >= 0.0), __FUNCTION__, "value too low");

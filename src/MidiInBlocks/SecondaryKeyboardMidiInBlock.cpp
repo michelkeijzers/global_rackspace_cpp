@@ -10,7 +10,25 @@ SecondaryKeyboardMidiInBlock::SecondaryKeyboardMidiInBlock(Controller &controlle
 {
 }
 
-bool SecondaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
+bool SecondaryKeyboardMidiInBlock::HandleNoteOffMessage(uint8_t noteNumber, uint8_t velocity) // override
+{
+   OrganSubController &organSubController =
+    (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+   organSubController.NoteOn(true, noteNumber, velocity);
+   return true;
+}
+
+bool SecondaryKeyboardMidiInBlock::HandleNoteOnMessage(uint8_t noteNumber, uint8_t velocity) // override
+{
+   OrganSubController &organSubController =
+    (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+   organSubController.NoteOff(true, noteNumber, velocity);
+   return true;
+}
+
+#pragma warning(disable : 4100)
+bool SecondaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // override
+#pragma warning(default : 4100)
 {
    bool handleMessage = true;
    return handleMessage;

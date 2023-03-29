@@ -13,7 +13,23 @@ PrimaryKeyboardMidiInBlock::PrimaryKeyboardMidiInBlock(Controller &controller)
 {
 }
 
-bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
+bool PrimaryKeyboardMidiInBlock::HandleNoteOffMessage(uint8_t noteNumber, uint8_t velocity) // override
+{
+   OrganSubController &organSubController =
+    (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+   organSubController.NoteOn(true, noteNumber, velocity);
+   return true;
+}
+
+bool PrimaryKeyboardMidiInBlock::HandleNoteOnMessage(uint8_t noteNumber, uint8_t velocity) // override
+{
+   OrganSubController &organSubController =
+    (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+   organSubController.NoteOff(true, noteNumber, velocity);
+   return true;
+}
+
+bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // override
 {
    bool handleMessage = true;
    switch (static_cast<ECCs>(ccNumber))

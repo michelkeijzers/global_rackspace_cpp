@@ -13,8 +13,7 @@ class OrganPane : public Pane
    static const int NR_OF_DRAWBAR_SLIDERS = 9;
 
    OrganPane(View &view, OrganSubModel &organSubModel, double leftPercentage, double topPercentage,
-    double widthPercentage,
-    double heightPercentage);
+    double widthPercentage, double heightPercentage);
 
    void Fill() override;
    void Relayout() override;

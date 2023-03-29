@@ -28,7 +28,22 @@ OrganPlugin::OrganPlugin(View &view, OrganSubModel &organSubModel, const std::st
 
 void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
-   if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)
+   if (changedProperty == ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOff)
+   {
+      std::pair<uint8_t, uint8_t> values = _organSubModel.PopNoteOff();
+
+   }
+   else if (changedProperty == ChangedProperties::EChangedProperty::SecondaryKeyboardOrganNotesOff)
+   {
+
+   }
+   else if (changedProperty == ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOn)
+   {
+   }
+   else if (changedProperty == ChangedProperties::EChangedProperty::SecondaryKeyboardOrganNotesOn)
+   {
+   }
+   else if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)
    {
       UpdateBypass();
    }
@@ -38,6 +53,7 @@ void OrganPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /*
        (index < OrganSubModel::NR_OF_DRAWBARS))
    {
       UpdateDrawbarValue(index);
+		send to organ midi in???
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::OrganRotatorSpeed)
    {

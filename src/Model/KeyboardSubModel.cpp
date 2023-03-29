@@ -57,7 +57,10 @@ int KeyboardSubModel::Deserialize(std::vector<std::string> lines, int currentLin
    return currentLineIndex;
 }
 
-bool KeyboardSubModel::IsSustainEnabled() { return _sustainEnabled; }
+bool KeyboardSubModel::IsSustainEnabled()
+{
+   return _sustainEnabled;
+}
 
 void KeyboardSubModel::EnableSustain(bool enable /* = true */)
 {
@@ -70,7 +73,10 @@ void KeyboardSubModel::EnableSustain(bool enable /* = true */)
    }
 }
 
-double KeyboardSubModel::GetExpressionVolume() { return _expressionVolume; }
+double KeyboardSubModel::GetExpressionVolume()
+{
+   return _expressionVolume;
+}
 
 void KeyboardSubModel::SetExpressionVolume(double volume)
 {

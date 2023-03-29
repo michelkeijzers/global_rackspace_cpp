@@ -1,8 +1,8 @@
 #include "WidgetsListener.h"
 #include "../Controller/Controller.h"
+#include "../Controller/KeyboardSubController.h"
 #include "../Controller/MixerSubController.h"
 #include "../Controller/OrganSubController.h"
-#include "../Controller/KeyboardSubController.h"
 #include "../Framework/MvcFramework.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
@@ -65,8 +65,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardKnob4))
    {
-      KeyboardSubController &keyboardSubController =
-       static_cast<KeyboardSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
+      KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+       _controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
       keyboardSubController.SetExpressionVolume(newValue);
       processed = true;
    }

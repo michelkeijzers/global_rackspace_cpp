@@ -2,6 +2,7 @@
 
 #include "../View/Observable.h"
 #include "SubModel.h"
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -72,6 +73,12 @@ class OrganSubModel : public SubModel, public Observable
       Last
    };
 
+   // Live
+   void NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
+   void NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
+   std::pair<uint8_t, uint8_t> PopNoteOn();
+   std::pair<uint8_t, uint8_t> PopNoteOff();
+
  private:
    std::vector<double> _drawbars;
    bool _isEnabled;
@@ -85,4 +92,8 @@ class OrganSubModel : public SubModel, public Observable
    uint8_t _lowestNote;
    uint8_t _highestNote;
    bool _sustainPedalIsActive;
+
+   // Live
+   std::deque<std::pair<uint8_t, uint8_t>> _primaryKeyboardNotes;
+   std::deque<std::pair<uint8_t, uint8_t>> _secondaryKeyboardNotes;
 };

@@ -112,3 +112,13 @@ void OrganSubController::SetSustainPedalActive(bool active, bool forced /* = fal
       _organSubModel.SetSustainPedalActive(active);
    }
 }
+
+void OrganSubController::NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity)
+{
+   _organSubModel.NoteOn(primaryKeyboard, noteNumber, velocity);
+}
+
+void OrganSubController::NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity)
+{
+   _organSubModel.NoteOff(primaryKeyboard, noteNumber, velocity);
+}

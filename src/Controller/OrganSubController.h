@@ -30,6 +30,10 @@ class OrganSubController : public SubController
    void SetHighestNote(uint8_t note, bool forced = false);
    void SetSustainPedalActive(bool active, bool forced = false);
 
+   // Live
+   void NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
+   void NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
+
  private:
    OrganSubModel &_organSubModel;
 };

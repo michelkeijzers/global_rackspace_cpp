@@ -7,9 +7,14 @@
 #include "../Utilities/StringUtilities.h"
 #include <memory>
 
-SubModels::SubModels(Model &model) : _model(model) {}
+SubModels::SubModels(Model &model) : _model(model)
+{
+}
 
-SubModels::~SubModels() { _subModels.clear(); }
+SubModels::~SubModels()
+{
+   _subModels.clear();
+}
 
 void SubModels::Fill()
 {
@@ -28,7 +33,10 @@ void SubModels::Init()
    }
 }
 
-Model &SubModels::GetModel() { return _model; }
+Model &SubModels::GetModel()
+{
+   return _model;
+}
 
 std::string SubModels::Serialize()
 {
@@ -53,4 +61,7 @@ int SubModels::Deserialize(std::vector<std::string> lines, int currentLineIndex)
    return currentLineIndex;
 }
 
-SubModel &SubModels::GetSubModel(ESubModelId id) { return *(_subModels.at(static_cast<int>(id))); }
+SubModel &SubModels::GetSubModel(ESubModelId id)
+{
+   return *(_subModels.at(static_cast<int>(id)));
+}

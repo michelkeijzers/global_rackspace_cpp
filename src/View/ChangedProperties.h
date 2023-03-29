@@ -23,6 +23,10 @@ class ChangedProperties
       OrganRotatorSpeed,
       OrganDrive,
       OrganReverbAmount,
+      PrimaryKeyboardOrganNotesOff,
+      SecondaryKeyboardOrganNotesOff,
+      PrimaryKeyboardOrganNotesOn,
+      SecondaryKeyboardOrganNotesOn,
 
       // Setup
       OrganPrimaryKeyboardActive,

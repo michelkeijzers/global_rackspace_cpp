@@ -4,7 +4,7 @@ BasedOnStyle: Microsoft
 IndentWidth: 3
 ContinuationIndentWidth: 1
 
-AllowShortFunctionsOnASingleLine: All
+
 BinPackArguments: true
 
 AlignAfterOpenBracket: false

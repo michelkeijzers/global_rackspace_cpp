@@ -9,7 +9,7 @@ class SubView
 {
  public:
    SubView(Model &model, View &view);
-	virtual void Fill();
+   virtual void Fill();
    virtual void Init();
 
  protected:

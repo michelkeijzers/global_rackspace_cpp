@@ -3,7 +3,9 @@
 #include "../Model/OrganSubModel.h"
 #include "Panes/OrganSetupPane.h"
 
-PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(model, view) {}
+PluginsSetupSubView::PluginsSetupSubView(Model &model, View &view) : SubView(model, view)
+{
+}
 
 void PluginsSetupSubView::Fill() // override
 {

@@ -20,22 +20,36 @@ Controller::Controller(Model &model, View &view)
    StartTimer();
 }
 
-Controller::~Controller() { juce::HighResolutionTimer::stopTimer(); }
+Controller::~Controller()
+{
+   juce::HighResolutionTimer::stopTimer();
+}
 
-void Controller::StartTimer() { juce::HighResolutionTimer::startTimer(1000); }
+void Controller::StartTimer()
+{
+   juce::HighResolutionTimer::startTimer(1000);
+}
 
 void Controller::Fill()
 {
    _subControllers.Fill();
    _midiInBlocks.Fill();
-
 }
 
-void Controller::Init() { _subControllers.Init(); }
+void Controller::Init()
+{
+   _subControllers.Init();
+}
 
-Model &Controller::GetModel() { return _model; }
+Model &Controller::GetModel()
+{
+   return _model;
+}
 
-View &Controller::GetView() { return _view; }
+View &Controller::GetView()
+{
+   return _view;
+}
 
 void Controller::OnSongChanged(int oldIndex, int newIndex)
 {
@@ -53,7 +67,10 @@ void Controller::OnNextSong()
    _model.LoadSong(); // TODO
 }
 
-void Controller::WriteSong() { _model.WriteSong(); }
+void Controller::WriteSong()
+{
+   _model.WriteSong();
+}
 
 SubController &Controller::GetSubController(SubControllers::ESubControllerId id)
 {

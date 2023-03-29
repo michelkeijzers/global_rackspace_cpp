@@ -9,9 +9,14 @@
 #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/TestFramework/TestController.h"
 #endif
 
-SubControllers::SubControllers(Controller &controller) : _controller(controller) {}
+SubControllers::SubControllers(Controller &controller) : _controller(controller)
+{
+}
 
-SubControllers::~SubControllers() { _subControllers.clear(); }
+SubControllers::~SubControllers()
+{
+   _subControllers.clear();
+}
 
 void SubControllers::Fill()
 {

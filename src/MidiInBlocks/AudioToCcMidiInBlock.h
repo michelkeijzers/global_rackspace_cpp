@@ -18,6 +18,6 @@ class AudioToCcMidiInBlock : public MidiInBlock
       GateRight
    };
 
-   bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
+   bool HandleCcMessage(uint8_t ccNumber, uint8_t value) override;
    ECcType GetCcType(uint8_t ccNumber);
 };

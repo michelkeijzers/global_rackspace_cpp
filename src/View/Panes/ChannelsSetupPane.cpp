@@ -11,8 +11,8 @@
 #include "../View.h"
 #include "SlidersPane.h"
 
-ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, double leftPercentage, double topPercentage,
- double widthPercentage, double heightPercentage)
+ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, double leftPercentage,
+ double topPercentage, double widthPercentage, double heightPercentage)
     : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _mixerSubModel(mixerSubModel)
 {
    mixerSubModel.Subscribe(*this);
@@ -38,7 +38,7 @@ void ChannelsSetupPane::Fill() // override
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetChannelsSetupNumber(channelIndex);
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-		widgetId = WidgetIds::GetChannelsSetupNextSourceButton(channelIndex);
+      widgetId = WidgetIds::GetChannelsSetupNextSourceButton(channelIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetChannelsSetupVolumeOverrideButton(channelIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
@@ -69,7 +69,7 @@ void ChannelsSetupPane::Update(ChangedProperties::EChangedProperty changedProper
    }
 }
 
-//   10% 
+//   10%
 //   v    v 20%
 //         30%                                                100%
 // +--------+----------------------------------------------+----+ 0%

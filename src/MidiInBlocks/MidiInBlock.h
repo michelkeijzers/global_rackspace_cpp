@@ -10,6 +10,8 @@ class MidiInBlock
    virtual void Init();
 
    virtual bool OnMidiIn(const uint8_t *data, int length);
+   virtual bool HandleNoteOffMessage(uint8_t noteNumber, uint8_t velocity);
+   virtual bool HandleNoteOnMessage(uint8_t noteNumber, uint8_t velocity);
    virtual bool HandleCcMessage(uint8_t ccNumber, uint8_t value) = 0;
 
    std::string GetName();

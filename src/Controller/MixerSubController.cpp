@@ -43,9 +43,15 @@ void MixerSubController::SetSliderValue(int sliderIndex, double newValue)
    }
 }
 
-void MixerSubController::SelectNextSource(int channelIndex) { _mixerSubModel.SelectNextChannelSource(channelIndex); }
+void MixerSubController::SelectNextSource(int channelIndex)
+{
+   _mixerSubModel.SelectNextChannelSource(channelIndex);
+}
 
-void MixerSubController::SwapVolumeOverride(int channelIndex) { _mixerSubModel.SwapVolumeOverride(channelIndex); }
+void MixerSubController::SwapVolumeOverride(int channelIndex)
+{
+   _mixerSubModel.SwapVolumeOverride(channelIndex);
+}
 
 void MixerSubController::SetChannelLevelLeft(bool master, int channelIndex, double value)
 {

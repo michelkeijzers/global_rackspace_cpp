@@ -13,6 +13,8 @@
 
    static bool IsChannel1(const uint8_t *data, int length);
    static bool IsCcMessage(const uint8_t *data, int length);
+   static bool IsNoteOffMessage(const uint8_t *data, int length);
+   static bool IsNoteOnMessage(const uint8_t *data, int length);
 
    static double MidiToParam(uint8_t value);
    static bool MidiToBool(uint8_t value);

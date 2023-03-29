@@ -37,11 +37,20 @@ void Pane::ShowAllWidgets(bool show /* = true */)
    }
 }
 
-View &Pane::GetView() { return _view; }
+View &Pane::GetView()
+{
+   return _view;
+}
 
-Widgets &Pane::GetWidgets() { return _widgets; }
+Widgets &Pane::GetWidgets()
+{
+   return _widgets;
+}
 
-int Widgets::Size() { return static_cast<int>(_widgets.size()); }
+int Widgets::Size()
+{
+   return static_cast<int>(_widgets.size());
+}
 
 void Pane::SetWidgetBounds(WidgetIds::EWidgetId widgetId, double widgetLeftPercentage, double widgetTopPercentage,
  double widgetWidthPercentage, double widgetHeightPercentage, double widgetMarginPercentage)
@@ -50,8 +59,8 @@ void Pane::SetWidgetBounds(WidgetIds::EWidgetId widgetId, double widgetLeftPerce
     (_leftPercentage + _widthPercentage * (widgetLeftPercentage + widgetMarginPercentage)) * _view.GetWidth() + 0.5);
    int width = static_cast<int>(
     (_widthPercentage * (widgetWidthPercentage - 2 * widgetMarginPercentage)) * _view.GetWidth() + 0.5);
-   int top = static_cast<int>((
-    _topPercentage + _heightPercentage * (widgetTopPercentage + widgetMarginPercentage)) * _view.GetHeight() + 0.5);
+   int top = static_cast<int>(
+    (_topPercentage + _heightPercentage * (widgetTopPercentage + widgetMarginPercentage)) * _view.GetHeight() + 0.5);
    int height = static_cast<int>(
     (_heightPercentage * (widgetHeightPercentage - 2 * widgetMarginPercentage)) * _view.GetHeight() + 0.5);
    ShapeWidget &widget = static_cast<ShapeWidget &>(GetWidgets().GetWidget(widgetId));

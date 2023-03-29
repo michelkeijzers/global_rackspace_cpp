@@ -58,8 +58,17 @@ void MvcFramework::Init()
    _controller->Init();
 }
 
-/* static */ gigperformer::sdk::GigPerformerAPI &MvcFramework::GetGigPerformerApi() { return *_gigPerformerApi; }
+/* static */ gigperformer::sdk::GigPerformerAPI &MvcFramework::GetGigPerformerApi()
+{
+   return *_gigPerformerApi;
+}
 
-Controller &MvcFramework::GetController() { return *_controller; }
+Controller &MvcFramework::GetController()
+{
+   return *_controller;
+}
 
-WidgetsListener &MvcFramework::GetWidgetsListener() { return *_widgetsListener; }
+WidgetsListener &MvcFramework::GetWidgetsListener()
+{
+   return *_widgetsListener;
+}

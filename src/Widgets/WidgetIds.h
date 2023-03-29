@@ -12,10 +12,10 @@ class WidgetIds
       // Slider pane
       SlidersPaneBox,
       SlidersPaneTitleTextLabel,
-		SlidersPaneTabOrgan,
-		SlidersPaneTabChannels1To8,
-		SlidersPaneTabChannels9To16,
-		SlidersPaneTabChannels16To24,
+      SlidersPaneTabOrgan,
+      SlidersPaneTabChannels1To8,
+      SlidersPaneTabChannels9To16,
+      SlidersPaneTabChannels16To24,
 
       OrganDrawbar1,
       OrganDrawbar2,
@@ -36,7 +36,7 @@ class WidgetIds
       PrimaryKeyboardSliderBox7,
       PrimaryKeyboardSliderBox8,
       PrimaryKeyboardSliderBox9,
-				
+
       PrimaryKeyboardSliderNumber1,
       PrimaryKeyboardSliderNumber2,
       PrimaryKeyboardSliderNumber3,
@@ -125,9 +125,9 @@ class WidgetIds
       PrimaryKeyboardKnob7,
       PrimaryKeyboardKnob8,
 
-		// Foot Board Pane
-		FootBoardPaneBox,
-		FootBoardPaneTitleTextLabel,
+      // Foot Board Pane
+      FootBoardPaneBox,
+      FootBoardPaneTitleTextLabel,
       LeftFootPedal,
       RightFootPedal,
 
@@ -264,7 +264,7 @@ class WidgetIds
       ChannelsSetup23VolumeOverrideButton,
       ChannelsSetup24VolumeOverrideButton,
 
-		// Plugin Setup pane
+      // Plugin Setup pane
       OrganSetupPaneBox,
       OrganSetupPaneTitleTextLabel,
       OrganSetupPrimaryKeyboardActiveButton,

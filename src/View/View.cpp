@@ -21,9 +21,21 @@ void View::Init()
    _plugins.Init();
 }
 
-Model &View::GetModel() { return _model; }
+Model &View::GetModel()
+{
+   return _model;
+}
 
-WidgetIds &View::GetWidgetIds() { return _widgetIds; }
+WidgetIds &View::GetWidgetIds()
+{
+   return _widgetIds;
+}
 
-int View::GetWidth() { return _width; }
-int View::GetHeight() { return _height; }
+int View::GetWidth()
+{
+   return _width;
+}
+int View::GetHeight()
+{
+   return _height;
+}

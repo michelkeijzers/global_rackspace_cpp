@@ -13,4 +13,7 @@ void ValueWidget::SetValue(double value)
    MvcFramework::GetGigPerformerApi().setWidgetValue(GetName(), value);
 }
 
-double ValueWidget::GetValue() { return _value; }
+double ValueWidget::GetValue()
+{
+   return _value;
+}

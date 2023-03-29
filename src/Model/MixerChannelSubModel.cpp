@@ -64,7 +64,10 @@ int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int curren
    return currentLineIndex;
 }
 
-double MixerChannelSubModel::GetVolume() { return _volume; }
+double MixerChannelSubModel::GetVolume()
+{
+   return _volume;
+}
 
 void MixerChannelSubModel::SetVolume(double volume)
 {
@@ -76,7 +79,10 @@ void MixerChannelSubModel::SetVolume(double volume)
    }
 }
 
-double MixerChannelSubModel::GetLevelLeft() { return _levelLeft; }
+double MixerChannelSubModel::GetLevelLeft()
+{
+   return _levelLeft;
+}
 
 void MixerChannelSubModel::SetLevelLeft(double level)
 {
@@ -88,7 +94,10 @@ void MixerChannelSubModel::SetLevelLeft(double level)
    }
 }
 
-double MixerChannelSubModel::GetLevelRight() { return _levelRight; }
+double MixerChannelSubModel::GetLevelRight()
+{
+   return _levelRight;
+}
 
 void MixerChannelSubModel::SetLevelRight(double level)
 {
@@ -100,7 +109,10 @@ void MixerChannelSubModel::SetLevelRight(double level)
    }
 }
 
-juce::Time MixerChannelSubModel::GetLastTimeGateLeftActive() { return _lastTimeGateLeftActive; }
+juce::Time MixerChannelSubModel::GetLastTimeGateLeftActive()
+{
+   return _lastTimeGateLeftActive;
+}
 
 void MixerChannelSubModel::SetGateLeft(bool gateActive)
 {
@@ -113,7 +125,10 @@ void MixerChannelSubModel::SetGateLeft(bool gateActive)
    }
 }
 
-juce::Time MixerChannelSubModel::GetLastTimeGateRightActive() { return _lastTimeGateRightActive; }
+juce::Time MixerChannelSubModel::GetLastTimeGateRightActive()
+{
+   return _lastTimeGateRightActive;
+}
 
 void MixerChannelSubModel::SetGateRight(bool gateActive)
 {
@@ -126,7 +141,10 @@ void MixerChannelSubModel::SetGateRight(bool gateActive)
    }
 }
 
-const std::string MixerChannelSubModel::GetName() { return _name; }
+const std::string MixerChannelSubModel::GetName()
+{
+   return _name;
+}
 
 void MixerChannelSubModel::SetName(const std::string &name)
 {
@@ -138,7 +156,10 @@ void MixerChannelSubModel::SetName(const std::string &name)
    }
 }
 
-MixerChannelSubModel::ESource MixerChannelSubModel::GetSource() { return _source; }
+MixerChannelSubModel::ESource MixerChannelSubModel::GetSource()
+{
+   return _source;
+}
 
 std::string MixerChannelSubModel::GetSourceName()
 {
@@ -169,7 +190,10 @@ void MixerChannelSubModel::SelectNextSource()
    SetSource(static_cast<ESource>((static_cast<int>(_source) + 1) % static_cast<int>(ESource::Last)));
 }
 
-bool MixerChannelSubModel::IsVolumeOverridden() { return _isVolumeOverridden; }
+bool MixerChannelSubModel::IsVolumeOverridden()
+{
+   return _isVolumeOverridden;
+}
 
 void MixerChannelSubModel::SetVolumeOverride(bool isVolumeOverridden)
 {

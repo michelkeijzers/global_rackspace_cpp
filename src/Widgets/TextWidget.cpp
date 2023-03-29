@@ -16,4 +16,7 @@ void TextWidget::SetText(std::string text)
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-std::string TextWidget::GetText() { return _text; }
+std::string TextWidget::GetText()
+{
+   return _text;
+}

@@ -13,11 +13,20 @@ Model::Model() : _subModels(*this), _version("0.1"), _forcedMode(false)
    DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
 
-void Model::Fill() { _subModels.Fill(); }
+void Model::Fill()
+{
+   _subModels.Fill();
+}
 
-void Model::Init() { _subModels.Init(); }
+void Model::Init()
+{
+   _subModels.Init();
+}
 
-SubModel &Model::GetSubModel(SubModels::ESubModelId id) { return _subModels.GetSubModel(id); }
+SubModel &Model::GetSubModel(SubModels::ESubModelId id)
+{
+   return _subModels.GetSubModel(id);
+}
 
 bool Model::LoadSong()
 {
@@ -62,11 +71,20 @@ bool Model::WriteSong()
    return true;
 }
 
-const std::string &Model::GetVersion() { return _version; }
+const std::string &Model::GetVersion()
+{
+   return _version;
+}
 
-void Model::SetVersion(const std::string &version) { _version = version; }
+void Model::SetVersion(const std::string &version)
+{
+   _version = version;
+}
 
-bool Model::IsForcedMode() { return _forcedMode; }
+bool Model::IsForcedMode()
+{
+   return _forcedMode;
+}
 
 void Model::OnTimer(ETimer timer)
 {

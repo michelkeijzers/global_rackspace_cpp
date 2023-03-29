@@ -24,7 +24,10 @@ void ShapeWidget::SetBounds(int left, int top, int width, int height)
    MvcFramework::GetGigPerformerApi().setWidgetBounds(GetName(), _left, _top, _width, _height);
 }
 
-int ShapeWidget::GetLeft() { return _left; }
+int ShapeWidget::GetLeft()
+{
+   return _left;
+}
 
 void ShapeWidget::SetLeft(int left)
 {
@@ -35,7 +38,10 @@ void ShapeWidget::SetLeft(int left)
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-int ShapeWidget::GetTop() { return _top; }
+int ShapeWidget::GetTop()
+{
+   return _top;
+}
 
 void ShapeWidget::SetTop(int top)
 {
@@ -46,7 +52,10 @@ void ShapeWidget::SetTop(int top)
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-int ShapeWidget::GetWidth() { return _width; }
+int ShapeWidget::GetWidth()
+{
+   return _width;
+}
 
 void ShapeWidget::SetWidth(int width)
 {
@@ -57,7 +66,10 @@ void ShapeWidget::SetWidth(int width)
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-int ShapeWidget::GetHeight() { return _height; }
+int ShapeWidget::GetHeight()
+{
+   return _height;
+}
 
 void ShapeWidget::SetHeight(int height)
 {
@@ -84,13 +96,25 @@ void ShapeWidget::SetWidgetOutlineColor(double red, double green, double blue, d
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-double ShapeWidget::GetWidgetOutlineColorRed() { return _redOutlineColor; }
+double ShapeWidget::GetWidgetOutlineColorRed()
+{
+   return _redOutlineColor;
+}
 
-double ShapeWidget::GetWidgetOutlineColorGreen() { return _greenOutlineColor; }
+double ShapeWidget::GetWidgetOutlineColorGreen()
+{
+   return _greenOutlineColor;
+}
 
-double ShapeWidget::GetWidgetOutlineColorBlue() { return _blueOutlineColor; }
+double ShapeWidget::GetWidgetOutlineColorBlue()
+{
+   return _blueOutlineColor;
+}
 
-double ShapeWidget::GetWidgetOutlineColorAlpha() { return _alphaOutlineColor; }
+double ShapeWidget::GetWidgetOutlineColorAlpha()
+{
+   return _alphaOutlineColor;
+}
 
 void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, double alpha)
 {
@@ -107,13 +131,25 @@ void ShapeWidget::SetWidgetFillColor(double red, double green, double blue, doub
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-double ShapeWidget::GetWidgetFillColorRed() { return _redFillColor; }
+double ShapeWidget::GetWidgetFillColorRed()
+{
+   return _redFillColor;
+}
 
-double ShapeWidget::GetWidgetFillColorGreen() { return _greenFillColor; }
+double ShapeWidget::GetWidgetFillColorGreen()
+{
+   return _greenFillColor;
+}
 
-double ShapeWidget::GetWidgetFillColorBlue() { return _blueFillColor; }
+double ShapeWidget::GetWidgetFillColorBlue()
+{
+   return _blueFillColor;
+}
 
-double ShapeWidget::GetWidgetFillColorAlpha() { return _alphaFillColor; }
+double ShapeWidget::GetWidgetFillColorAlpha()
+{
+   return _alphaFillColor;
+}
 
 void ShapeWidget::SetWidgetTextColor(double red, double green, double blue, double alpha)
 {
@@ -134,13 +170,25 @@ void ShapeWidget::SetWidgetTextColor(double red, double green, double blue, doub
    Debug::LogMethodExit(__FUNCTION__);
 }
 
-double ShapeWidget::GetWidgetTextColorRed() { return _redTextColor; }
+double ShapeWidget::GetWidgetTextColorRed()
+{
+   return _redTextColor;
+}
 
-double ShapeWidget::GetWidgetTextColorGreen() { return _greenTextColor; }
+double ShapeWidget::GetWidgetTextColorGreen()
+{
+   return _greenTextColor;
+}
 
-double ShapeWidget::GetWidgetTextColorBlue() { return _blueTextColor; }
+double ShapeWidget::GetWidgetTextColorBlue()
+{
+   return _blueTextColor;
+}
 
-double ShapeWidget::GetWidgetTextColorAlpha() { return _alphaTextColor; }
+double ShapeWidget::GetWidgetTextColorAlpha()
+{
+   return _alphaTextColor;
+}
 
 void ShapeWidget::SetWidgetOutlineThickness(int thickness)
 {
@@ -148,7 +196,10 @@ void ShapeWidget::SetWidgetOutlineThickness(int thickness)
    MvcFramework::GetGigPerformerApi().setWidgetOutlineThickness(GetName(), _outlineThickness);
 }
 
-int ShapeWidget::GetWidgetOutlineThickness() { return _outlineThickness; }
+int ShapeWidget::GetWidgetOutlineThickness()
+{
+   return _outlineThickness;
+}
 
 void ShapeWidget::AssertColors(double red, double green, double blue, double alpha)
 {

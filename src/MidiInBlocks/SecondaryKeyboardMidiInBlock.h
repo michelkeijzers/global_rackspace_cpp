@@ -17,5 +17,7 @@ class SecondaryKeyboardMidiInBlock : public MidiInBlock
       Last
    };
 
-   bool HandleCcMessage(uint8_t ccNumber, uint8_t value);
+   bool HandleNoteOffMessage(uint8_t noteNumber, uint8_t velocity) override;
+   bool HandleNoteOnMessage(uint8_t noteNumber, uint8_t velocity) override;
+   bool HandleCcMessage(uint8_t ccNumber, uint8_t value) override;
 };

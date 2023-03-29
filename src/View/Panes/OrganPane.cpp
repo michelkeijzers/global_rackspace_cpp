@@ -19,7 +19,7 @@ OrganPane::OrganPane(View &view, OrganSubModel &organSubModel, double leftPercen
 
 void OrganPane::Fill() // override
 {
-	WidgetIds::EWidgetId widgetId;
+   WidgetIds::EWidgetId widgetId;
    widgetId = WidgetIds::EWidgetId::OrganPaneBox;
    GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::OrganPaneTitleTextLabel;

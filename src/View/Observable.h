@@ -17,7 +17,10 @@ class Observable
       }
    }
 
-   void Subscribe(IObserver &observer) { mObservers.push_back(&observer); }
+   void Subscribe(IObserver &observer)
+   {
+      mObservers.push_back(&observer);
+   }
 
    void Unsubscribe(IObserver &observer)
    {

@@ -3,7 +3,9 @@
 
 /* static */ double DoubleUtilities::_maximumEqualityDifference;
 
-DoubleUtilities::DoubleUtilities() {}
+DoubleUtilities::DoubleUtilities()
+{
+}
 
 /* static */ double DoubleUtilities::DoubleUtilities::AreEqual(double value1, double value2)
 {
@@ -15,7 +17,10 @@ DoubleUtilities::DoubleUtilities() {}
    return (fabs(value1 - value2) <= equalityDifference);
 }
 
-/* static */ double DoubleUtilities::GetMaximumEqualityDifference() { return _maximumEqualityDifference; }
+/* static */ double DoubleUtilities::GetMaximumEqualityDifference()
+{
+   return _maximumEqualityDifference;
+}
 
 /* static */ void DoubleUtilities::SetMaximumEqualityDifference(double maximumEqualityDifference)
 {

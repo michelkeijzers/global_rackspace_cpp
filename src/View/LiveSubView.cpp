@@ -8,7 +8,9 @@
 #include "Panes/PrimaryKeyboardButtonsPane.h"
 #include "Panes/SlidersPane.h"
 
-LiveSubView::LiveSubView(Model &model, View &view) : SubView(model, view) {}
+LiveSubView::LiveSubView(Model &model, View &view) : SubView(model, view)
+{
+}
 
 // 0%                    40%           60%                 80%
 // +----------------------+-------------+-------------------+------+ 0%

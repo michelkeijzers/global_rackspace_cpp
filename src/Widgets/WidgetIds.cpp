@@ -7,7 +7,9 @@
 #include <map>
 #include <vector>
 
-WidgetIds::WidgetIds() {}
+WidgetIds::WidgetIds()
+{
+}
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetOrganDrawbar(int organDrawbarIndex)
 {
@@ -278,21 +280,20 @@ void WidgetIds::FillSlidersPane()
    }
 }
 
- void WidgetIds::FillOrganPane()
+void WidgetIds::FillOrganPane()
 {
    _idToNames.push_back("OrganPaneBox");
-   _nameToIds.insert(
-    std::pair<std::string, EWidgetId>("OrganPaneBox", EWidgetId::OrganPaneBox));
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganPaneBox", EWidgetId::OrganPaneBox));
    _idToNames.push_back("OrganPaneTitleTextLabel");
-   _nameToIds.insert(
-    std::pair<std::string, EWidgetId>("OrganPaneTitleTextLabel", EWidgetId::OrganPaneTitleTextLabel));
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganPaneTitleTextLabel", EWidgetId::OrganPaneTitleTextLabel));
    _idToNames.push_back("OrganRotatorSpeedTextLabel");
    _nameToIds.insert(
     std::pair<std::string, EWidgetId>("OrganRotatorSpeedTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
    _idToNames.push_back("OrganDriveTextLabel");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganDriveTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
    _idToNames.push_back("OrganReverbAmountTextLabel");
-   _nameToIds.insert(std::pair<std::string, EWidgetId>("OrganReverbAmountTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
+   _nameToIds.insert(
+    std::pair<std::string, EWidgetId>("OrganReverbAmountTextLabel", EWidgetId::OrganRotatorSpeedTextLabel));
 }
 
 void WidgetIds::FillPrimaryKeyboardButtonsPane()
@@ -300,7 +301,8 @@ void WidgetIds::FillPrimaryKeyboardButtonsPane()
    _idToNames.push_back("PrimaryKeyboardButtonsPaneBox");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("PrimaryKeyboardButtonsPaneBox", EWidgetId::OrganPaneBox));
    _idToNames.push_back("PrimaryKeyboardButtonsPaneTitleTextLabel");
-   _nameToIds.insert(std::pair<std::string, EWidgetId>("PrimaryKeyboardButtonsPaneTitleTextLabel", EWidgetId::OrganPaneTitleTextLabel));
+   _nameToIds.insert(
+    std::pair<std::string, EWidgetId>("PrimaryKeyboardButtonsPaneTitleTextLabel", EWidgetId::OrganPaneTitleTextLabel));
    for (int buttonIndex = 0; buttonIndex < PrimaryKeyboardButtonsPane::NR_OF_VISIBLE_BUTTONS; buttonIndex++)
    {
       const std::string widgetName = "PrimaryKeyboardButton" + std::to_string(buttonIndex + 1);
@@ -418,4 +420,7 @@ WidgetIds::EWidgetId WidgetIds::GetId(const std::string &name)
    return iterator->second;
 }
 
-std::string WidgetIds::GetName(EWidgetId id) { return _idToNames[static_cast<int>(id)]; }
+std::string WidgetIds::GetName(EWidgetId id)
+{
+   return _idToNames[static_cast<int>(id)];
+}

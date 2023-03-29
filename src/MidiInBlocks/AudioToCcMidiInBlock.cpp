@@ -7,7 +7,9 @@
 #include "../Utilities/MidiUtilities.h"
 #include <iostream>
 
-AudioToCcMidiInBlock::AudioToCcMidiInBlock(Controller &controller) : MidiInBlock(controller, "AudioToCcMidiInput") {}
+AudioToCcMidiInBlock::AudioToCcMidiInBlock(Controller &controller) : MidiInBlock(controller, "AudioToCcMidiInput")
+{
+}
 
 /// <summary>
 /// Handle CC message. See table in AudioToCcPlugin.cpp
@@ -15,7 +17,7 @@ AudioToCcMidiInBlock::AudioToCcMidiInBlock(Controller &controller) : MidiInBlock
 /// <param name="ccNumber"></param>
 /// <param name="value"></param>
 /// <returns></returns>
-bool AudioToCcMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
+bool AudioToCcMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // override
 {
    bool handleMessage = true;
    bool master = false;

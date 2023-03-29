@@ -9,9 +9,11 @@
 #include "../Utilities/MidiUtilities.h"
 #include <iostream>
 
-FootBoardMidiInBlock::FootBoardMidiInBlock(Controller &controller) : MidiInBlock(controller, "FootBoardMidiIn") {}
+FootBoardMidiInBlock::FootBoardMidiInBlock(Controller &controller) : MidiInBlock(controller, "FootBoardMidiIn")
+{
+}
 
-bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value)
+bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // override
 {
    bool handleMessage = true;
    switch (static_cast<ECCs>(ccNumber))
