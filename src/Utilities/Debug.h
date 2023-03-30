@@ -59,12 +59,17 @@ class Debug
    /// \param testName: name of test
    static void StartTest(const std::string &testName);
 
-   /// \brief Only for testing; checks if the log (since the start of the last test contain the line exactly)
+   /// \brief Only for testing; checks if the log (since the start of the last test) contain the line exactly
    /// \param line: line to check
    /// \return True if found, false otherwise
    static bool AssertTestLogContains(std::string line);
 
-   /// \brief Only for testing; checks test result
+   /// \brief Only for testing; checks if the log (since the start of the last test) does not contain the line exactly
+   /// \param line: line to check
+   /// \return True if found, false otherwise
+   static bool AssertTestLogDoesNotContain(std::string line);
+
+	/// \brief Only for testing; checks test result
    /// \returns True if passed, false if failed
    static bool CheckTestResult();
 
@@ -79,7 +84,7 @@ class Debug
    Debug();
    ~Debug();
 
-   static void LogToAll(std::string message);
+   static void LogToAll(std::string message, bool forceLogging = false);
 
    static gigperformer::sdk::GigPerformerAPI *_gigPerformerApi;
    static bool _logHeaders;

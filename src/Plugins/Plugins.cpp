@@ -60,7 +60,7 @@ void Plugins::Fill()
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
     static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)), false,
-    "ExpressionAudioMixerChannels17o24"));
+    "ExpressionAudioMixerChannels17To24"));
 }
 
 void Plugins::Init()

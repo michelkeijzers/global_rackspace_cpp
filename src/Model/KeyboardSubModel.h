@@ -23,9 +23,6 @@ class KeyboardSubModel : public SubModel, public Observable
    double GetExpressionVolume();
    void SetExpressionVolume(double volume);
 
-	// Only used for testing
-	void SetAsSecondaryKeyboard(); 
-
    enum class EParameters
    {
       IsPrimaryKeyboard,

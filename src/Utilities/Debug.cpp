@@ -24,7 +24,7 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 /* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
    std::string message = "ERROR: " + functionName + ": " + errorText;
-   LogToAll(message);
+   LogToAll(message, true);
 #ifdef TESTER
    exit(1);
 #endif
@@ -44,7 +44,7 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
    if (!condition)
    {
       std::string message = "ASSERT ERROR: " + functionName + ": " + errorText;
-      LogToAll(message);
+      LogToAll(message, true);
 #ifdef TESTER
       exit(1);
 #endif
@@ -127,9 +127,9 @@ Debug::~Debug()
    }
 }
 
-/* static */ void Debug::LogToAll(std::string message)
+/* static */ void Debug::LogToAll(std::string message, bool forceLogging /* = false */)
 {
-   if (_loggingIsEnabled)
+   if ((_loggingIsEnabled) || (forceLogging))
    {
       if (_fileLogger == nullptr)
       {
@@ -157,6 +157,14 @@ Debug::~Debug()
    Assert(found, _testName, "Expected line: '" + line + "'\n");
    _testHasPassed |= found;
    return found;
+}
+
+/* static */ bool Debug::AssertTestLogDoesNotContain(std::string line)
+{
+   bool found = std::find(_testLog.begin(), _testLog.end(), line) != _testLog.end();
+   Assert(!found, _testName, "Unexpected line: '" + line + "'\n");
+   _testHasPassed |= !found;
+   return !found;
 }
 
 /* static */ bool Debug::CheckTestResult()

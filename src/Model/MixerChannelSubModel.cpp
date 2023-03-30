@@ -31,7 +31,6 @@ MixerChannelSubModel::MixerChannelSubModel(Model &model, int channelIndex)
 
 void MixerChannelSubModel::Init() // override
 {
-   _channelIndex = 0;
    SetVolume(0.0);
    SetName(SUB_MODEL_NAME + " " + std::to_string(_channelIndex));
    SetSource(ESource::PrimaryKeyboard);

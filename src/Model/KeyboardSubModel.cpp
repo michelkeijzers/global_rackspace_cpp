@@ -26,7 +26,6 @@ KeyboardSubModel::KeyboardSubModel(Model &model, bool isPrimaryKeyboard)
 
 void KeyboardSubModel::Init() // override
 {
-   _isPrimaryKeyboard = true;
    _sustainEnabled = false;
    _expressionVolume = 0;
 }
@@ -94,9 +93,4 @@ void KeyboardSubModel::SetExpressionVolume(double volume)
       Notify(_isPrimaryKeyboard ? ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume
                                 : ChangedProperties::EChangedProperty::SecondaryKeyboardExpressionVolume);
    }
-}
-
-void KeyboardSubModel::SetAsSecondaryKeyboard()
-{
-   _isPrimaryKeyboard = false;
 }

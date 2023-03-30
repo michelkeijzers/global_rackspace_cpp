@@ -6,6 +6,7 @@
 #include "../ChangedProperties.h"
 #include "../IObserver.h"
 #include "../View.h"
+#include <cmath>
 
 static const std::string ROTATOR_SPEED_FAST_TEXT = "FAST";
 static const std::string ROTATOR_SPEED_SLOW_TEXT = "SLOW";
@@ -25,11 +26,11 @@ void OrganPane::Fill() // override
    widgetId = WidgetIds::EWidgetId::OrganPaneTitleTextLabel;
    GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::OrganRotatorSpeedTextLabel;
-   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::OrganReverbAmountTextLabel;
-   GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, true));
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::OrganDriveTextLabel;
-   GetWidgets().AddWidget(widgetId, new ShapeWidget(GetView().GetWidgetIds(), widgetId, false));
+   GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
 }
 
 // 0%       60%     100%
@@ -75,12 +76,12 @@ void OrganPane::Update(ChangedProperties::EChangedProperty changedProperty) /* o
    }
    break;
    case ChangedProperties::EChangedProperty::OrganDrive:
-      static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel))
-       .SetValue(_organSubModel.GetDrive());
+      static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganDriveTextLabel))
+       .SetText(std::to_string(static_cast<int>(std::round(_organSubModel.GetDrive() * 10.0))));
       break;
    case ChangedProperties::EChangedProperty::OrganReverbAmount:
-      static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel))
-       .SetValue(_organSubModel.GetReverbAmount());
+      static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganReverbAmountTextLabel))
+       .SetText(std::to_string(static_cast<int>(std::round(_organSubModel.GetReverbAmount() * 10.0))));
    }
 }
 
