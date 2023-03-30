@@ -11,6 +11,7 @@ class KeyboardSubModel : public SubModel, public Observable
 {
  public:
    KeyboardSubModel(Model &model, bool primaryKeyboard);
+   void Init() override;
    const std::string GetName() override;
 
    std::string Serialize() override;
@@ -21,6 +22,9 @@ class KeyboardSubModel : public SubModel, public Observable
 
    double GetExpressionVolume();
    void SetExpressionVolume(double volume);
+
+	// Only used for testing
+	void SetAsSecondaryKeyboard(); 
 
    enum class EParameters
    {

@@ -7,8 +7,18 @@
 
 static const double PARAM_ACCURACY = 0.001;
 
-/* static */ void MidiUtilities::FillNoteOnOffMessage(
-	uint8_t* data, bool noteOnMessage, uint8_t noteNumber, uint8_t velocity)
+/* static */ void MidiUtilities::FillNoteOffMessage(uint8_t *data, uint8_t noteNumber, uint8_t velocity)
+{
+   FillNoteOnOffMessage(data, false, noteNumber, velocity);
+}
+
+/* static */ void MidiUtilities::FillNoteOnMessage(uint8_t *data, uint8_t noteNumber, uint8_t velocity)
+{
+   FillNoteOnOffMessage(data, true, noteNumber, velocity);
+}
+
+ /* static */ void MidiUtilities::FillNoteOnOffMessage(
+ uint8_t *data, bool noteOnMessage, uint8_t noteNumber, uint8_t velocity)
 {
    Debug::Assert(data != nullptr, __FUNCTION__, "data not initialized");
    Debug::Assert(noteNumber < 128, __FUNCTION__, "noteNumber too big");

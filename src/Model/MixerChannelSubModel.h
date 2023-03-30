@@ -23,6 +23,7 @@ class MixerChannelSubModel : public SubModel, public Observable
    };
 
    MixerChannelSubModel(Model &model, int channelIndex);
+   void Init() override;
 
    std::string Serialize() override;
    int Deserialize(std::vector<std::string> lines, int currentLineIndex) override;

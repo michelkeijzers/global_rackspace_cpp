@@ -9,7 +9,7 @@ class SubModel
 {
  public:
    SubModel(Model &model);
-   virtual void Init();
+   virtual void Init() = 0;
 
    virtual const std::string GetName() = 0;
 

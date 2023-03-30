@@ -68,6 +68,13 @@ class Debug
    /// \returns True if passed, false if failed
    static bool CheckTestResult();
 
+	/// \brief Only for testing; Enables logging
+   /// \param enable: True to enable, false to disable
+   static void EnableLogging(bool enable = true);
+
+   /// \brief Only for testting; Disables logging
+   static void DisableLogging();
+	
  private:
    Debug();
    ~Debug();
@@ -83,6 +90,7 @@ class Debug
 
    // For testing only
    static std::string _testName;
-   static bool _testPassed;
+   static bool _testHasPassed;
    static std::vector<std::string> _testLog;
+	static bool _loggingIsEnabled;
 };

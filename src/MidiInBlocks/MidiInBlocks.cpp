@@ -6,7 +6,9 @@
 #include "PrimaryKeyboardMidiInBlock.h"
 #include "SecondaryKeyboardMidiInBlock.h"
 
-MidiInBlocks::MidiInBlocks(Controller &controller) : _controller(controller) {}
+MidiInBlocks::MidiInBlocks(Controller &controller) : _controller(controller)
+{
+}
 
 MidiInBlocks::~MidiInBlocks()
 {
@@ -39,7 +41,10 @@ void MidiInBlocks::Init()
    }
 }
 
-MidiInBlock &MidiInBlocks::GetMidiInBlock(EMidiInBlockId id) { return *(_midiInBlocks.at(static_cast<int>(id))); }
+MidiInBlock &MidiInBlocks::GetMidiInBlock(EMidiInBlockId id)
+{
+   return *(_midiInBlocks.at(static_cast<int>(id)));
+}
 
 MidiInBlock &MidiInBlocks::GetMidiInBlock(const std::string &midiInBlockName)
 {

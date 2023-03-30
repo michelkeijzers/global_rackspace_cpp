@@ -24,6 +24,13 @@ KeyboardSubModel::KeyboardSubModel(Model &model, bool isPrimaryKeyboard)
     "Serialization parameter names incorrect");
 }
 
+void KeyboardSubModel::Init() // override
+{
+   _isPrimaryKeyboard = true;
+   _sustainEnabled = false;
+   _expressionVolume = 0;
+}
+
 const std::string KeyboardSubModel::GetName() /* override */
 {
    return SUB_MODEL_NAME + (_isPrimaryKeyboard ? " Primary" : " Secondary");
@@ -87,4 +94,9 @@ void KeyboardSubModel::SetExpressionVolume(double volume)
       Notify(_isPrimaryKeyboard ? ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume
                                 : ChangedProperties::EChangedProperty::SecondaryKeyboardExpressionVolume);
    }
+}
+
+void KeyboardSubModel::SetAsSecondaryKeyboard()
+{
+   _isPrimaryKeyboard = false;
 }

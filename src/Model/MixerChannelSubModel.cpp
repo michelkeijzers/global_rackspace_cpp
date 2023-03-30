@@ -29,6 +29,19 @@ MixerChannelSubModel::MixerChannelSubModel(Model &model, int channelIndex)
     "Serialization parameter names incorrect");
 }
 
+void MixerChannelSubModel::Init() // override
+{
+   _channelIndex = 0;
+   SetVolume(0.0);
+   SetName(SUB_MODEL_NAME + " " + std::to_string(_channelIndex));
+   SetSource(ESource::PrimaryKeyboard);
+   SetLevelLeft(0.0);
+   SetLevelRight(0.0);
+   _lastTimeGateLeftActive.setSystemTimeToThisTime();
+   _lastTimeGateRightActive.setSystemTimeToThisTime();
+   SetVolumeOverride(false);
+}
+
 std::string MixerChannelSubModel::Serialize() // override
 {
    std::string data;

@@ -79,7 +79,7 @@ SubController &Controller::GetSubController(SubControllers::ESubControllerId id)
 
 bool Controller::OnMidiIn(const std::string &deviceName, const uint8_t *data, int length)
 {
-   Debug::Log("@--- On Midi In: Device Name = " + deviceName + ", data = " + ConvertDataToString(data, length));
+   Debug::Log("@-- On Midi In: Device Name = " + deviceName + ", data = " + ConvertDataToString(data, length));
    return _midiInBlocks.OnMidiIn(deviceName, data, length);
 }
 

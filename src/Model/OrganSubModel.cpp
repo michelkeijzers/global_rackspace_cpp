@@ -42,6 +42,21 @@ OrganSubModel::OrganSubModel(Model &model)
    }
 }
 
+void OrganSubModel::Init() // override
+{
+   Enable(true);
+   SetRotatorSpeedFast(false);
+   SetDrive(0.0);
+   SetReverbAmount(0.0);
+   SetPrimaryKeyboardActive(true);
+   SetSecondaryKeyboardActive(false);
+   SetLowestNote(0);
+   SetHighestNote(0);
+   _primaryKeyboardNotes.clear();
+   _secondaryKeyboardNotes.clear();
+   SetSustainPedalActive(false);
+}
+
 const std::string OrganSubModel::GetName() // override
 {
    return SUB_MODEL_NAME;
@@ -325,14 +340,14 @@ void OrganSubModel::NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t vel
 {
    if ((noteNumber >= _lowestNote) && (noteNumber <= _highestNote))
    {
-      if (_primaryKeyboardIsActive)
+      if (primaryKeyboard && _primaryKeyboardIsActive)
       {
          _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", primary keyboard, note on, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
          Notify(ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOn);
       }
-      else
+      else if (!primaryKeyboard && _secondaryKeyboardIsActive)
       {
          _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", secondary keyboard, note on, note = " +

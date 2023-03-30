@@ -1,6 +1,6 @@
 #include "../View/ChangedProperties.h"
-#include <string>
 #include "../View/IObserver.h"
+#include <string>
 
 class View;
 class OrganSubModel;
@@ -12,13 +12,16 @@ class OrganMidiInBlock : public IObserver
    const std::string GetName();
 
    void Update(ChangedProperties::EChangedProperty changedProperty);
-   void HandleNoteOnOff(bool noteOn);
 
  protected:
+   void HandleNoteOff();
+   void HandleNoteOn();
    View &GetView();
 
  private:
-   const std::string _name;
+   void HandleNoteOnOff(bool noteOn);
+
+	const std::string _name;
    View &_view;
    OrganSubModel &_organSubModel;
 };

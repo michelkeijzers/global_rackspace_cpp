@@ -22,6 +22,7 @@ class OrganSubModel : public SubModel, public Observable
    static const int NR_OF_DRAWBARS = 9;
 
    OrganSubModel(Model &model);
+   void Init() override;
    const std::string GetName() override;
 
    std::string Serialize() override;

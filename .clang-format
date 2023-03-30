@@ -1,15 +1,12 @@
 BasedOnStyle: Microsoft
 
-
+ColumnLimit: 120
 IndentWidth: 3
 ContinuationIndentWidth: 1
 
-
 BinPackArguments: true
-
 AlignAfterOpenBracket: false
+AlignOperands : true
 AllowAllParametersOfDeclarationOnNextLine: false
 
 AllowShortCaseLabelsOnASingleLine: true
-
-AlignOperands : true

@@ -18,7 +18,8 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 // For testing only
 /* static */ std::vector<std::string> Debug::_testLog;
 /* static */ std::string Debug::_testName = "";
-/* static */ bool Debug::_testPassed = false;
+/* static */ bool Debug::_testHasPassed = false;
+/* static */ bool Debug::_loggingIsEnabled = true;
 
 /* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
@@ -128,35 +129,48 @@ Debug::~Debug()
 
 /* static */ void Debug::LogToAll(std::string message)
 {
-   if (_fileLogger == nullptr)
+   if (_loggingIsEnabled)
    {
+      if (_fileLogger == nullptr)
       {
-         _logFile = new juce::File(JUCE_LOG_FILE_NAME);
-         _fileLogger = new juce::FileLogger(*_logFile, "LOG");
+         {
+            _logFile = new juce::File(JUCE_LOG_FILE_NAME);
+            _fileLogger = new juce::FileLogger(*_logFile, "LOG");
+         }
       }
+      _gigPerformerApi->scriptLog(message, true);
+      _fileLogger->logMessage(message);
+      _testLog.push_back(message);
    }
-   _gigPerformerApi->scriptLog(message, true);
-   _fileLogger->logMessage(message);
-   _testLog.push_back(message);
 }
 
 /* static */ void Debug::StartTest(const std::string &testName)
 {
    _testName = testName;
    _testLog.clear();
-   _testPassed = true;
+   _testHasPassed = true;
 }
 
 /* static */ bool Debug::AssertTestLogContains(std::string line)
 {
    bool found = std::find(_testLog.begin(), _testLog.end(), line) != _testLog.end();
    Assert(found, _testName, "Expected line: '" + line + "'\n");
-   _testPassed |= found;
+   _testHasPassed |= found;
    return found;
 }
 
 /* static */ bool Debug::CheckTestResult()
 {
-   LogToAll(_testPassed ? "Test passed" : "---->TEST FAILED");
-   return _testPassed;
+   LogToAll(_testHasPassed ? "----->Test passed" : "---->TEST FAILED");
+   return _testHasPassed;
+}
+
+/* static */ void Debug::EnableLogging(bool enable /* = true */)
+{
+   _loggingIsEnabled = enable;
+}
+
+/* static */ void Debug::DisableLogging()
+{
+   _loggingIsEnabled = false;
 }

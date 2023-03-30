@@ -37,6 +37,12 @@ MixerSubModel::~MixerSubModel()
 
 void MixerSubModel::Init() /* override */
 {
+   SetMasterVolume(0.0);
+   SetMasterLevelLeft(0.0);
+   SetMasterGateRight(0.0);
+   _masterLastTimeGateLeftActive.setSystemTimeToThisTime();
+   _masterLastTimeGateRightActive.setSystemTimeToThisTime();
+	SetTabSelection(MixerSubModel::ETabSelection::Drawbars);
    for (auto mixerChannelSubModel : _mixerChannelSubModels)
    {
       mixerChannelSubModel->Init();

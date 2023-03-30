@@ -54,13 +54,30 @@ void OrganMidiInBlock::Update(ChangedProperties::EChangedProperty changedPropert
    }
 }
 
+void OrganMidiInBlock::HandleNoteOff()
+{
+   HandleNoteOnOff(false);
+}
+
+void OrganMidiInBlock::HandleNoteOn()
+{
+   HandleNoteOnOff(true);
+}
+
 void OrganMidiInBlock::HandleNoteOnOff(bool noteOn)
 {
    std::pair<uint8_t, uint8_t> values = _organSubModel.PopNoteOff();
    uint8_t midiMessage[MIDI_MESSAGE_NOTE_ON_OFF_LENGTH];
    uint8_t noteNumber = values.first;
    uint8_t velocity = values.second;
-   MidiUtilities::FillNoteOnOffMessage(midiMessage, noteOn, noteNumber, velocity);
+   if (noteOn)
+   {
+      MidiUtilities::FillNoteOnMessage(midiMessage, noteNumber, velocity);
+   }
+	else
+	{
+      MidiUtilities::FillNoteOffMessage(midiMessage, noteNumber, velocity);
+	}
    MvcFramework::GetGigPerformerApi().injectMidiMessageToMidiInputDevice(
     GetName(), midiMessage, MIDI_MESSAGE_NOTE_ON_OFF_LENGTH);
    Debug::Log("$ " + GetName() + ": note " + (noteOn ? "on" : "off") +

@@ -30,7 +30,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    bool processed = false;
    Debug::LogMethodEntry(__FUNCTION__, "widgetName = " + widgetName + ", newValue = " + std::to_string(newValue));
    WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
-   Debug::Log("@--- On Widget " + widgetName + ": value = " + std::to_string(newValue));
+   Debug::Log("@-- On Widget " + widgetName + ": value = " + std::to_string(newValue));
    int index = WidgetIds::GetIndexOfOrganDrawbar(widgetId);
    if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) && (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
    {
