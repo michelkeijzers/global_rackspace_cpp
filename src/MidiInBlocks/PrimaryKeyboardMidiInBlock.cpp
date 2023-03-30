@@ -17,7 +17,7 @@ bool PrimaryKeyboardMidiInBlock::HandleNoteOffMessage(uint8_t noteNumber, uint8_
 {
    OrganSubController &organSubController =
     (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-   organSubController.NoteOn(true, noteNumber, velocity);
+   organSubController.NoteOff(true, noteNumber, velocity);
    return true;
 }
 
@@ -25,7 +25,7 @@ bool PrimaryKeyboardMidiInBlock::HandleNoteOnMessage(uint8_t noteNumber, uint8_t
 {
    OrganSubController &organSubController =
     (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
-   organSubController.NoteOff(true, noteNumber, velocity);
+   organSubController.NoteOn(true, noteNumber, velocity);
    return true;
 }
 

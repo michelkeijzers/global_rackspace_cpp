@@ -29,6 +29,8 @@ target_sources(
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlock.cpp" 
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlocks.h" 
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/MidiInBlocks.cpp" 
+	"${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocksForOutput/OrganMidiInBlock.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocksForOutput/OrganMidiInBlock.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/AudioToCcMidiInBlock.h"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/AudioToCcMidiInBlock.cpp"
    "${CMAKE_CURRENT_LIST_DIR}/src/MidiInBlocks/PrimaryKeyboardMidiInBlock.h"

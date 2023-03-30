@@ -7,14 +7,31 @@
 
 static const double PARAM_ACCURACY = 0.001;
 
+/* static */ void MidiUtilities::FillNoteOnOffMessage(
+	uint8_t* data, bool noteOnMessage, uint8_t noteNumber, uint8_t velocity)
+{
+   Debug::Assert(data != nullptr, __FUNCTION__, "data not initialized");
+   Debug::Assert(noteNumber < 128, __FUNCTION__, "noteNumber too big");
+   Debug::Assert(velocity < 128, __FUNCTION__, "velocity too big");
+   if (data != nullptr)
+   {
+      data[0] = noteOnMessage ? NOTE_ON_MESSAGE : NOTE_OFF_MESSAGE;
+      data[1] = noteNumber;
+      data[2] = velocity;
+   }
+}
+
 /* static */ void MidiUtilities::FillCcMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue)
 {
    Debug::Assert(data != nullptr, __FUNCTION__, "data not initialized");
    Debug::Assert(ccNumber < 128, __FUNCTION__, "ccNumber too big");
    Debug::Assert(ccValue < 128, __FUNCTION__, "ccValue too big");
-   data[0] = 0xB0;
-   data[1] = ccNumber;
-   data[2] = ccValue;
+   if (data != nullptr)
+   {
+      data[0] = CC_MESSAGE;
+      data[1] = ccNumber;
+      data[2] = ccValue;
+   }
 }
 
 /* static */ bool MidiUtilities::IsChannel1(const uint8_t *data, int length)

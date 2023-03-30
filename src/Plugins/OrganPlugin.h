@@ -6,7 +6,6 @@
 
 class View;
 class OrganSubModel;
-class Controller;
 
 class OrganPlugin : public Plugin
 {

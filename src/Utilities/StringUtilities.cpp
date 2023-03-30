@@ -103,9 +103,9 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
    {
       value = std::stoi(valueAsString);
    }
-   catch (const std::invalid_argument &e)
+	catch (const std::invalid_argument &e)
    {
-      Debug::Error(__FUNCTION__, "Invalid argument");
+      Debug::Error(__FUNCTION__, std::string("Invalid argument ") + e.what());
    }
    Debug::Assert(value >= minimumValue, __FUNCTION__, "Value too small");
    Debug::Assert(value <= maximumValue, __FUNCTION__, "Value too high");
@@ -126,7 +126,7 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
    }
    catch (const std::invalid_argument &e)
    {
-      Debug::Error(__FUNCTION__, "Invalid argument");
+      Debug::Error(__FUNCTION__, std::string("Invalid argument" ) + e.what());
    }
    Debug::Assert(value >= minimumValue, __FUNCTION__, "Value too small");
    Debug::Assert(value <= maximumValue, __FUNCTION__, "Value too high");

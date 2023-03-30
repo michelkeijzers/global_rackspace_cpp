@@ -304,14 +304,14 @@ void OrganSubModel::NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t ve
 {
    if ((noteNumber >= _lowestNote) && (noteNumber <= _highestNote))
    {
-      if (_primaryKeyboardIsActive)
+      if (primaryKeyboard && _primaryKeyboardIsActive)
       {
          _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", primary keyboard, note off, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
          Notify(ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOff);
       }
-      else
+      else if (!primaryKeyboard && _secondaryKeyboardIsActive)
       {
          _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", secondary keyboard, note off, note = " +
