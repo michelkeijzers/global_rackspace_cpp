@@ -136,6 +136,7 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::SecondElapsed)
    {
+      Debug::Log("MK ChProp 1");
       CheckGatesFading();
    }
 
@@ -206,8 +207,6 @@ void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
       widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
-      GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-      widgetId = WidgetIds::GetOrganDrawbar(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
@@ -478,11 +477,14 @@ void SlidersPane::UpdateMasterLevelRight()
 
 void SlidersPane::CheckGatesFading()
 {
+   Debug::Log("MK CGF 1");
    int channelOffset = _mixerSubModel.GetChannelOffset();
    if (channelOffset >= 0)
    {
+      Debug::Log("MK CGF 2");
       for (int channelIndex = channelOffset; channelIndex < channelOffset + NR_OF_CHANNEL_SLIDERS; channelIndex++)
       {
+         Debug::Log("MK CGF 3");
          Widget &widget = GetWidgets().GetWidget(
           WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
          ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);

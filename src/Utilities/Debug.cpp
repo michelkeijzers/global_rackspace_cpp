@@ -20,23 +20,20 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 /* static */ std::string Debug::_testName = "";
 /* static */ bool Debug::_testHasPassed = false;
 /* static */ bool Debug::_loggingIsEnabled = true;
+/* static */ bool Debug::_exitOnErrorIsEnabled = true;
 
 /* static */ void Debug::Error(const std::string &functionName, const std::string &errorText)
 {
    std::string message = "ERROR: " + functionName + ": " + errorText;
    LogToAll(message, true);
-#ifdef TESTER
-   exit(1);
-#endif
+   Exit(1);
 }
 
 /* static */ void Debug::NotImplemented(const std::string &functionName)
 {
    std::string message = "ERROR: " + functionName + " is not implemented";
    LogToAll(message);
-#ifdef TESTER
-   exit(1);
-#endif
+   Exit(2);
 }
 
 /* static */ void Debug::Assert(bool condition, const std::string &functionName, const std::string &errorText)
@@ -45,10 +42,19 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
    {
       std::string message = "ASSERT ERROR: " + functionName + ": " + errorText;
       LogToAll(message, true);
-#ifdef TESTER
-      exit(1);
-#endif
+      Exit(3);
    }
+}
+
+/* static */ void Debug::Exit(int errorNumber)
+{
+#ifdef TESTER
+
+   if (_exitOnErrorIsEnabled)
+   {
+      exit(errorNumber);
+   }
+#endif
 }
 
 /* static */ void Debug::Log(const std::string &text)
@@ -151,12 +157,22 @@ Debug::~Debug()
    _testHasPassed = true;
 }
 
-/* static */ bool Debug::AssertTestLogContains(std::string line)
+/* static */ bool Debug::AssertTestLogContains(std::string line, int exactlyTimes /* = 1 */)
 {
-   bool found = std::find(_testLog.begin(), _testLog.end(), line) != _testLog.end();
-   Assert(found, _testName, "Expected line: '" + line + "'\n");
-   _testHasPassed |= found;
-   return found;
+   int times = 0;
+	for (int index = 0; index < _testLog.size(); index++)
+	{
+		if (_testLog[index] == line)
+		{
+         times++;
+		}
+	}
+    bool ok = (times == exactlyTimes);
+    Assert(ok, _testName,
+     "Expected line: '" + line + " (expected times: " + std::to_string(exactlyTimes) +
+      ", found: " + std::to_string(times) + " times)");
+   _testHasPassed |= ok;
+   return ok;
 }
 
 /* static */ bool Debug::AssertTestLogDoesNotContain(std::string line)
@@ -181,4 +197,14 @@ Debug::~Debug()
 /* static */ void Debug::DisableLogging()
 {
    _loggingIsEnabled = false;
+}
+
+/* static */ void Debug::EnableExitOnError(bool enable /* = true */)
+{
+   _exitOnErrorIsEnabled = enable;
+}
+
+/* static */ void Debug::DisableExitOnError()
+{
+   _exitOnErrorIsEnabled = false;
 }

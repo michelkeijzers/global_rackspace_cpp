@@ -155,7 +155,7 @@ void MixerSubModel::SetMasterVolume(double newVolume)
    if (IsForcedMode() || !DoubleUtilities::AreEqual(_masterVolume, newVolume))
    {
       _masterVolume = newVolume;
-      Debug::Log("# " + GetName() + ", master volume = " + std::to_string(static_cast<int>(_masterVolume)));
+      Debug::Log("# " + GetName() + ", master volume = " + std::to_string(_masterVolume));
       Notify(ChangedProperties::EChangedProperty::MasterVolume);
    }
 }

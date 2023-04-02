@@ -39,6 +39,14 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       organSubController.SetDrawbarValue(index, newValue);
       processed = true;
    }
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton1))
+   {
+      if (ButtonWidget::IsPressed(newValue))
+      {
+         _controller.WriteSong();
+      }
+      processed = true;
+   }
    if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
    {
       if (ButtonWidget::IsPressed(newValue))

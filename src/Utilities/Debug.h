@@ -29,6 +29,10 @@ class Debug
    /// \param text: text to print
    static void Assert(bool condition, const std::string &functionName, const std::string &text);
 
+	/// \brief Exits the application (when enabled)
+	/// \param errorNumber: number of the error to exit with
+	static void Exit(int errorNumber);
+
    /// \brief Sets GP library to print to console, need to be executed before other calls are done
    static void SetGigPerformerApi(gigperformer::sdk::GigPerformerAPI *gig_performer_api);
 
@@ -61,8 +65,9 @@ class Debug
 
    /// \brief Only for testing; checks if the log (since the start of the last test) contain the line exactly
    /// \param line: line to check
-   /// \return True if found, false otherwise
-   static bool AssertTestLogContains(std::string line);
+	/// \param exactlyTimes: exact amount of times to expect the line
+   /// \return True if found the exact number of times, false otherwise
+   static bool AssertTestLogContains(std::string line, int exactlyTimes = 1);
 
    /// \brief Only for testing; checks if the log (since the start of the last test) does not contain the line exactly
    /// \param line: line to check
@@ -79,6 +84,13 @@ class Debug
 
    /// \brief Only for testting; Disables logging
    static void DisableLogging();
+
+	/// \brief Only for testing; Enables exiting in case of an error
+   /// \param enable: True to enable, false to disable
+   static void EnableExitOnError(bool enable = true);
+
+   /// \brief Only for testting; Disables exiting in case of an error
+   static void DisableExitOnError();
 	
  private:
    Debug();
@@ -98,4 +110,5 @@ class Debug
    static bool _testHasPassed;
    static std::vector<std::string> _testLog;
 	static bool _loggingIsEnabled;
+   static bool _exitOnErrorIsEnabled;
 };

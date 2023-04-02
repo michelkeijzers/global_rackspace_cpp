@@ -62,12 +62,14 @@ bool Model::WriteSong()
    const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
    const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
    const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
+   Debug::Log("^ File '" + fileName + "' write");
    juce::File file(fileName);
    if (!file.replaceWithText(songData))
    {
       Debug::Error(__FUNCTION__, "Cannot write file " + fileName);
       return false;
    }
+   MvcFramework::GetGigPerformerApi().saveGigUnconditionally(false);
    return true;
 }
 

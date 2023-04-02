@@ -63,7 +63,7 @@ void OrganPlugin::UpdateBypass()
 
 void OrganPlugin::UpdateDrawbarValue(int drawbarIndex)
 {
-   double drawbarValue = _organSubModel.GetDrawbars(0);
+   double drawbarValue = _organSubModel.GetDrawbars(drawbarIndex);
    MvcFramework::GetGigPerformerApi().setPluginParameter(
     GetName(), EPluginParameters::UpperDrawbarsOffset, drawbarValue, true);
    Debug::Log("$ " + GetName() + ": drawbar index = " + std::to_string(drawbarIndex) +
