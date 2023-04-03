@@ -23,7 +23,7 @@ class MixerSubController : public SubController
    void SetChannelGateLeft(bool master, int channelIndex, bool value);
    void SetChannelGateRight(bool master, int channelIndex, bool value);
 
-   void SetChannelNames(std::vector<std::string>);
+   void SetChannelTitles(std::vector<std::string>);
 
  private:
    static const int CHANNELS_IN_MIXER;

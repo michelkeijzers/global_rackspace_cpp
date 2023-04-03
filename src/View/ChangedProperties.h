@@ -168,7 +168,7 @@ class ChangedProperties
 
       MasterLastTimeGateLeftActive,
       MasterLastTimeGateRightActive,
-
+				
       Channel1Name,
       Channel2Name,
       Channel3Name,
@@ -193,6 +193,31 @@ class ChangedProperties
       Channel22Name,
       Channel23Name,
       Channel24Name,
+
+      Channel1Title,
+      Channel2Title,
+      Channel3Title,
+      Channel4Title,
+      Channel5Title,
+      Channel6Title,
+      Channel7Title,
+      Channel8Title,
+      Channel9Title,
+      Channel10Title,
+      Channel11Title,
+      Channel12Title,
+      Channel13Title,
+      Channel14Title,
+      Channel15Title,
+      Channel16Title,
+      Channel17Title,
+      Channel18Title,
+      Channel19Title,
+      Channel20Title,
+      Channel21Title,
+      Channel22Title,
+      Channel23Title,
+      Channel24Title,
 
       Channel1Source,
       Channel2Source,
@@ -267,8 +292,11 @@ class ChangedProperties
    static EChangedProperty GetMixerChannel1LastTimeGateRightActiveProperty(int channelIndex);
    static int GetIndexOfChannelLastTimeGateRightActiveProperty(EChangedProperty changedProperty);
 
-   static EChangedProperty GetChannelNameProperty(int channelIndex);
+	static EChangedProperty GetChannelNameProperty(int channelIndex);
    static int GetIndexOfChannelNameProperty(EChangedProperty changedProperty);
+
+   static EChangedProperty GetChannelTitleProperty(int channelIndex);
+   static int GetIndexOfChannelTitleProperty(EChangedProperty changedProperty);
 
    static EChangedProperty GetChannelSourceProperty(int channelIndex);
    static int GetIndexOfChannelSourceProperty(EChangedProperty changedProperty);

@@ -286,16 +286,16 @@ void MixerSubModel::SetMasterGateRight(bool gateActive)
    }
 }
 
-const std::string MixerSubModel::GetChannelName(int channelIndex)
+const std::string MixerSubModel::GetChannelTitle(int channelIndex)
 {
    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-   return _mixerChannelSubModels[channelIndex]->GetName();
+   return _mixerChannelSubModels[channelIndex]->GetTitle();
 }
 
-void MixerSubModel::SetChannelName(int channelIndex, const std::string &channelName)
+void MixerSubModel::SetChannelTitle(int channelIndex, const std::string &channelTitle)
 {
    Debug::Assert(channelIndex < NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex out of range");
-   _mixerChannelSubModels[channelIndex]->SetName(channelName);
+   _mixerChannelSubModels[channelIndex]->SetTitle(channelTitle);
 }
 
 MixerChannelSubModel::ESource MixerSubModel::GetChannelSource(int channelIndex)

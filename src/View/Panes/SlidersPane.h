@@ -32,8 +32,6 @@ class SlidersPane : public Pane
    void UpdateTabUpdateValues(bool drawbarsSelected);
 
    void UpdateDrawbar(int drawbarIndex);
-   void UpdateOrganDrive();
-   void UpdateOrganReverbAmount();
 
    void UpdateMasterVolume();
    void UpdateMasterLevelLeft();
@@ -54,8 +52,8 @@ class SlidersPane : public Pane
    void UpdateMixerChannelLevelRight(int channelIndex);
    void UpdateChannelGate(int channelIndex);
 
-   void CheckUpdateChannelName(int &index, ChangedProperties::EChangedProperty changedProperty);
-   void UpdateChannelName(int channelIndex);
+   void CheckUpdateChannelTitle(int &index, ChangedProperties::EChangedProperty changedProperty);
+   void UpdateChannelTitle(int channelIndex);
    void CheckUpdateChannelSource(int &index, ChangedProperties::EChangedProperty changedProperty);
    void UpdateChannelSource(int channelIndex);
 

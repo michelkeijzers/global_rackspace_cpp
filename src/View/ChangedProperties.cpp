@@ -96,6 +96,18 @@
    return static_cast<int>(changedProperty) - static_cast<int>(ChangedProperties::EChangedProperty::Channel1Name);
 }
 
+/* static */ ChangedProperties::EChangedProperty ChangedProperties::GetChannelTitleProperty(int channelIndex)
+{
+   Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
+   Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too high");
+   return static_cast<EChangedProperty>(static_cast<int>(EChangedProperty::Channel1Title) + channelIndex);
+}
+
+/* static */ int ChangedProperties::GetIndexOfChannelTitleProperty(EChangedProperty changedProperty)
+{
+   return static_cast<int>(changedProperty) - static_cast<int>(ChangedProperties::EChangedProperty::Channel1Title);
+}
+
 /* static */ ChangedProperties::EChangedProperty ChangedProperties::GetChannelSourceProperty(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");

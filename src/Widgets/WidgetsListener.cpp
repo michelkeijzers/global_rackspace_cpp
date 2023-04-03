@@ -102,14 +102,15 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          {
             MixerSubController &mixerSubController =
              static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
-            std::vector<std::string> channelNames;
+            std::vector<std::string> channelTitles;
             for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
             {
-               const std::string widgetNameChannelsSetup = "ChannelsSetup" + std::to_string(channelIndex + 1) + "Name";
-               channelNames.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
+               const std::string widgetNameChannelsSetup = "ChannelsSetup" + std::to_string(channelIndex + 1) + "Title";
+               channelTitles.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
             }
-            mixerSubController.SetChannelNames(channelNames);
+            mixerSubController.SetChannelTitles(channelTitles);
          }
+         processed = true;
       }
    }
    if (!processed)

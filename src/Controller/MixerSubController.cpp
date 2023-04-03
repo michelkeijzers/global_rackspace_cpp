@@ -101,12 +101,12 @@ void MixerSubController::SetChannelGateRight(bool master, int channelIndex, bool
    }
 }
 
-void MixerSubController::SetChannelNames(std::vector<std::string> channelNames)
+void MixerSubController::SetChannelTitles(std::vector<std::string> channelTitles)
 {
    Debug::Assert(
-    channelNames.size() == MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "Illegal number of channels names");
+    channelTitles.size() == MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "Illegal number of channels names");
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      _mixerSubModel.SetChannelName(channelIndex, channelNames[channelIndex]);
+      _mixerSubModel.SetChannelTitle(channelIndex, channelTitles[channelIndex]);
    }
 }

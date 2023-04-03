@@ -174,7 +174,7 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
       UpdateMasterVolume();
    }
 
-   CheckUpdateChannelName(index, changedProperty);
+   CheckUpdateChannelTitle(index, changedProperty);
    CheckUpdateChannelSource(index, changedProperty);
 }
 
@@ -236,7 +236,7 @@ void SlidersPane::UpdateTabUpdateValues(bool drawbarsSelected)
          UpdateChannelGate(channelIndex);
          UpdateMixerChannelLevelLeft(channelIndex);
          UpdateMixerChannelLevelRight(channelIndex);
-         UpdateChannelName(channelIndex);
+         UpdateChannelTitle(channelIndex);
          UpdateChannelSource(channelIndex);
          UpdateMixerChannelVolume(channelIndex);
       }
@@ -395,25 +395,25 @@ void SlidersPane::UpdateWidgetForGateFading(long long ms, ValueWidget &valueWidg
    }
 }
 
-void SlidersPane::UpdateChannelName(int channelIndex)
+void SlidersPane::CheckUpdateChannelTitle(int &index, ChangedProperties::EChangedProperty changedProperty)
 {
-   Widget &widget =
-    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
-   TextWidget &textWidget = static_cast<TextWidget &>(widget);
-   textWidget.SetText(_mixerSubModel.GetChannelName(channelIndex));
-}
-
-void SlidersPane::CheckUpdateChannelName(int &index, ChangedProperties::EChangedProperty changedProperty)
-{
-   index = ChangedProperties::GetIndexOfChannelNameProperty(changedProperty);
-   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Name) &&
+   index = ChangedProperties::GetIndexOfChannelTitleProperty(changedProperty);
+   if ((changedProperty >= ChangedProperties::EChangedProperty::Channel1Title) &&
        (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
    {
       if (IsChannelIndexActive(index))
       {
-         UpdateChannelName(index);
+         UpdateChannelTitle(index);
       }
    }
+}
+
+void SlidersPane::UpdateChannelTitle(int channelIndex)
+{
+   Widget &widget =
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
+   TextWidget &textWidget = static_cast<TextWidget &>(widget);
+   textWidget.SetText(_mixerSubModel.GetChannelTitle(channelIndex));
 }
 
 void SlidersPane::CheckUpdateChannelSource(int &index, ChangedProperties::EChangedProperty changedProperty)
