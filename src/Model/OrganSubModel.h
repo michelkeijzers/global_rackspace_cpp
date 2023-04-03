@@ -44,6 +44,9 @@ class OrganSubModel : public SubModel, public Observable
    double GetReverbAmount();
    void SetReverbAmount(double reverbAmount);
 
+	bool IsSustained();
+   void SetSustained(bool primaryKeyboard, bool sustained);
+
    // Setup
    bool IsPrimaryKeyboardActive();
    void SetPrimaryKeyboardActive(bool primaryKeyboardIsActive);
@@ -86,6 +89,7 @@ class OrganSubModel : public SubModel, public Observable
    bool _isRotatorSpeedFast;
    double _drive;
    double _reverbAmount;
+   bool _isSustained;
 
    // Setup
    bool _primaryKeyboardIsActive;

@@ -18,19 +18,20 @@ MidiInBlocks::~MidiInBlocks()
 
 void MidiInBlocks::Fill()
 {
-   _midiInBlocks.push_back(new PrimaryKeyboardMidiInBlock(_controller));
-   _midiInBlocks.push_back(new SecondaryKeyboardMidiInBlock(_controller));
-   _midiInBlocks.push_back(new FootBoardMidiInBlock(_controller));
-   _midiInBlocks.push_back(new AudioToCcMidiInBlock(_controller));
-
+   PrimaryKeyboardMidiInBlock *primaryKeyboardMidiInBlock = new PrimaryKeyboardMidiInBlock(_controller);
+   _midiInBlocks.push_back(primaryKeyboardMidiInBlock);
    _nameToMidiInBlocks.insert(
-    std::pair<std::string, MidiInBlock *>("PrimaryKeyboardMidiInBlock", new PrimaryKeyboardMidiInBlock(_controller)));
-   _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>(
-    "SecondaryKeyboardMidiInBlock", new SecondaryKeyboardMidiInBlock(_controller)));
+    std::pair<std::string, MidiInBlock *>("PrimaryKeyboardMidiInBlock", primaryKeyboardMidiInBlock));
+   SecondaryKeyboardMidiInBlock *secondaryKeyboardMidiInBlock = new SecondaryKeyboardMidiInBlock(_controller);
+   _midiInBlocks.push_back(secondaryKeyboardMidiInBlock);
    _nameToMidiInBlocks.insert(
-    std::pair<std::string, MidiInBlock *>("FootBoardMidiInBlock", new FootBoardMidiInBlock(_controller)));
-   _nameToMidiInBlocks.insert(
-    std::pair<std::string, MidiInBlock *>("AudioToCcMidiInput", new AudioToCcMidiInBlock(_controller)));
+    std::pair<std::string, MidiInBlock *>("SecondaryKeyboardMidiInBlock", secondaryKeyboardMidiInBlock));
+   FootBoardMidiInBlock *footBoardMidiInBlock = new FootBoardMidiInBlock(_controller);
+   _midiInBlocks.push_back(footBoardMidiInBlock);
+   _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>("FootBoardMidiInBlock", footBoardMidiInBlock));
+   AudioToCcMidiInBlock *audioToCcMidiInBlock = new AudioToCcMidiInBlock(_controller);
+   _midiInBlocks.push_back(audioToCcMidiInBlock);
+   _nameToMidiInBlocks.insert(std::pair<std::string, MidiInBlock *>("AudioToCcMidiInput", audioToCcMidiInBlock));
 }
 
 void MidiInBlocks::Init()

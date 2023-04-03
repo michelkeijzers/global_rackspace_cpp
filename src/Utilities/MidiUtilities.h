@@ -12,9 +12,15 @@
 /* static */ class MidiUtilities
 {
  public:
+   enum class ECCs
+   {
+      ModulationWheel = 1,
+      Sustain = 64
+   };
+
    static void FillNoteOffMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue);
    static void FillNoteOnMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue);
-	static void FillCcMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue);
+   static void FillCcMessage(uint8_t *data, uint8_t ccNumber, uint8_t ccValue);
 
    static bool IsChannel1(const uint8_t *data, int length);
    static bool IsCcMessage(const uint8_t *data, int length);
@@ -29,7 +35,7 @@
  private:
    static void FillNoteOnOffMessage(uint8_t *data, bool noteOnMessage, uint8_t ccNumber, uint8_t ccValue);
 
-	const static uint8_t NOTE_ON_MESSAGE = 0x80;
+   const static uint8_t NOTE_ON_MESSAGE = 0x80;
    const static uint8_t NOTE_OFF_MESSAGE = 0x90;
    const static uint8_t CC_MESSAGE = 0xB0;
 

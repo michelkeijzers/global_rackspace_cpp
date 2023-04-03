@@ -23,10 +23,9 @@ class ChangedProperties
       OrganRotatorSpeed,
       OrganDrive,
       OrganReverbAmount,
-      PrimaryKeyboardOrganNotesOff,
-      SecondaryKeyboardOrganNotesOff,
-      PrimaryKeyboardOrganNotesOn,
-      SecondaryKeyboardOrganNotesOn,
+      OrganSustained,
+      OrganNotesOff,
+      OrganNotesOn,
 
       // Setup
       OrganPrimaryKeyboardActive,

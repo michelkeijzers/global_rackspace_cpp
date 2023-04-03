@@ -41,6 +41,9 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // o
       KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
        GetController().GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
       keyboardSubController.EnableSustain(MidiUtilities::MidiToBool(value));
+      OrganSubController &organSubController =
+       static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+      organSubController.SetSustained(true, MidiUtilities::MidiToBool(value));
       handleMessage = false;
    }
    break;
@@ -49,6 +52,9 @@ bool FootBoardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value) // o
        GetController().GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
       keyboardSubController.EnableSustain(MidiUtilities::MidiToBool(value));
       handleMessage = false;
+      OrganSubController &organSubController =
+       static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+      organSubController.SetSustained(false, MidiUtilities::MidiToBool(value));
    }
    break;
    case ECCs::LeftPedal: {

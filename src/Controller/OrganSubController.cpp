@@ -73,6 +73,14 @@ void OrganSubController::SetReverbAmount(double reverbAmount, bool forced /* = f
    }
 }
 
+void OrganSubController::SetSustained(bool primaryKeyboard, bool sustained, bool forced /* = false */)
+{
+   if (forced || (sustained != _organSubModel.IsSustained()))
+   {
+      _organSubModel.SetSustained(primaryKeyboard, sustained);
+   }
+}
+
 void OrganSubController::SetPrimaryKeyboardActive(bool active, bool forced /* = false */)
 {
    if (forced || (_organSubModel.IsPrimaryKeyboardActive() != active))

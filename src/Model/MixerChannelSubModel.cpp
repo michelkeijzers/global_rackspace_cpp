@@ -179,7 +179,7 @@ void MixerChannelSubModel::SetTitle(const std::string &title)
    if (IsForcedMode() || (_title != title))
    {
       _title = title;
-      Debug::Log("# " + GetName() + ", Title = " + title);
+      Debug::Log("# " + GetTitle() + ", Title = " + title);
       Notify(ChangedProperties::GetChannelTitleProperty(_channelIndex));
    }
 }

@@ -8,16 +8,16 @@
   },
   "ExpandedNodes": [
     "",
-    "\\cmake",
     "\\src",
-    "\\src\\Controller",
-    "\\src\\Framework",
-    "\\src\\Model",
+    "\\src\\MidiInBlocks",
+    "\\src\\MidiInForOutputBlocks",
     "\\src\\Utilities",
+    "\\src\\View",
+    "\\src\\View\\Panes",
     "\\src\\Widgets",
     "\\Testing",
     "\\Testing\\Temporary"
   ],
-  "SelectedNode": "\\src\\Controller\\MixerSubController.cpp",
+  "SelectedNode": "\\CMakeLists.txt",
   "PreviewInSolutionExplorer": false
 }

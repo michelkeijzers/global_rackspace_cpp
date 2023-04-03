@@ -1,11 +1,6 @@
 #include "Controller.h"
-#include "../Controller/MixerSubController.h"
-#include "../Controller/OrganSubController.h"
 #include "../Framework/MvcFramework.h"
-#include "../MidiInBlocks/PrimaryKeyboardMidiInBlock.h"
 #include "../Model/Model.h"
-#include "../Plugins/AudioMixerPlugin.h"
-#include "../Plugins/OrganPlugin.h"
 #include "../Utilities/Debug.h"
 #include "../Utilities/IntUtilities.h"
 #ifdef TESTER
@@ -15,7 +10,7 @@
 #endif
 
 Controller::Controller(Model &model, View &view)
-    : _model(model), _view(view), _subControllers(*this), _midiInBlocks(*this)
+    : _model(model), _view(view), _subControllers(*this), _midiInBlocks(*this), _midiInForOutputBlocks(*this)
 {
    StartTimer();
 }
@@ -34,6 +29,7 @@ void Controller::Fill()
 {
    _subControllers.Fill();
    _midiInBlocks.Fill();
+   _midiInForOutputBlocks.Fill();
 }
 
 void Controller::Init()

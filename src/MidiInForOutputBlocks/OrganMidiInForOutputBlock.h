@@ -1,27 +1,26 @@
 #include "../View/ChangedProperties.h"
 #include "../View/IObserver.h"
 #include <string>
+#include "MidiInForOutputBlock.h"
 
 class View;
 class OrganSubModel;
 
-class OrganMidiInBlock : public IObserver
+class OrganMidiInForOutputBlock : public MidiInForOutputBlock, IObserver
 {
-   OrganMidiInBlock(View &view, OrganSubModel &organSubModel, const std::string &name);
+ public:
+   OrganMidiInForOutputBlock(OrganSubModel &organSubModel, const std::string &name);
    virtual void Init();
-   const std::string GetName();
 
    void Update(ChangedProperties::EChangedProperty changedProperty);
 
  protected:
    void HandleNoteOff();
    void HandleNoteOn();
-   View &GetView();
+   void HandleSustained();
 
  private:
    void HandleNoteOnOff(bool noteOn);
 
-	const std::string _name;
-   View &_view;
    OrganSubModel &_organSubModel;
 };

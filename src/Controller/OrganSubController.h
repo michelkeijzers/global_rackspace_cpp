@@ -22,6 +22,7 @@ class OrganSubController : public SubController
 
    void SetDrive(double drive, bool forced = false);
    void SetReverbAmount(double reverbAmount, bool forced = false);
+   void SetSustained(bool primaryKeyboard, bool sustained, bool forced = false);
 
    // Setup
    void SetPrimaryKeyboardActive(bool active, bool forced = false);

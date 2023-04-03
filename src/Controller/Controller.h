@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../MidiInBlocks/MidiInBlocks.h"
+#include "../MidiInForOutputBlocks/MidiInForOutputBlocks.h"
 #include "SubControllers.h"
 #include <juce_core/juce_core.h>
 #include <juce_core/threads/juce_HighResolutionTimer.h>
@@ -46,4 +47,5 @@ class Controller : juce::HighResolutionTimer
 
    SubControllers _subControllers;
    MidiInBlocks _midiInBlocks;
+   MidiInForOutputBlocks _midiInForOutputBlocks;
 };

@@ -30,7 +30,7 @@ static std::map<OrganSubModel::EParameters, std::string> SerializationParameters
  SerializationParametersData + sizeof SerializationParametersData / sizeof SerializationParametersData[0]);
 
 OrganSubModel::OrganSubModel(Model &model)
-    : SubModel(model), _isEnabled(true), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0),
+    : SubModel(model), _isEnabled(true), _isRotatorSpeedFast(false), _drive(0), _reverbAmount(0), _isSustained(false),
       _primaryKeyboardIsActive(false), _secondaryKeyboardIsActive(false), _lowestNote(0), _highestNote(0),
       _sustainPedalIsActive(false)
 {
@@ -48,6 +48,7 @@ void OrganSubModel::Init() // override
    SetRotatorSpeedFast(false);
    SetDrive(0.0);
    SetReverbAmount(0.0);
+   SetSustained(true, false);
    SetPrimaryKeyboardActive(true);
    SetSecondaryKeyboardActive(false);
    SetLowestNote(0);
@@ -217,6 +218,23 @@ void OrganSubModel::SetReverbAmount(double reverbAmount)
    }
 }
 
+bool OrganSubModel::IsSustained()
+{
+   return _isSustained;
+}
+
+void OrganSubModel::SetSustained(bool primaryKeyboard, bool sustained)
+{
+	//TODO: primary is not used
+
+	if (IsForcedMode() || (sustained != _isSustained))
+	{
+      _isSustained = sustained;
+      Debug::Log("# " + GetName() + ", is sustained, value = " + std::to_string(_isSustained));
+      Notify(ChangedProperties::EChangedProperty::OrganSustained);
+	}
+}
+
 // Setup
 
 bool OrganSubModel::IsPrimaryKeyboardActive()
@@ -324,14 +342,14 @@ void OrganSubModel::NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t ve
          _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", primary keyboard, note off, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOff);
+         Notify(ChangedProperties::EChangedProperty::OrganNotesOff);
       }
       else if (!primaryKeyboard && _secondaryKeyboardIsActive)
       {
          _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", secondary keyboard, note off, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::SecondaryKeyboardOrganNotesOff);
+         Notify(ChangedProperties::EChangedProperty::OrganNotesOff);
       }
    }
 }
@@ -345,14 +363,14 @@ void OrganSubModel::NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t vel
          _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", primary keyboard, note on, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::PrimaryKeyboardOrganNotesOn);
+         Notify(ChangedProperties::EChangedProperty::OrganNotesOn);
       }
       else if (!primaryKeyboard && _secondaryKeyboardIsActive)
       {
          _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
          Debug::Log("# " + GetName() + ", secondary keyboard, note on, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::SecondaryKeyboardOrganNotesOn);
+         Notify(ChangedProperties::EChangedProperty::OrganNotesOn);
       }
    }
 }
