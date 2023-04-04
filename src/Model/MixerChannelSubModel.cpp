@@ -4,6 +4,7 @@
 #include "../Utilities/DoubleUtilities.h"
 #include "../Utilities/SerializationUtilities.h"
 #include "../Utilities/StringUtilities.h"
+#include "../Utilities/VersionUtilities.h"
 #include "Model.h"
 #include "SubModels.h"
 #include <string>
@@ -12,6 +13,7 @@ static std::string SUB_MODEL_NAME = "MixerChannel";
 
 static std::pair<MixerChannelSubModel::EParameters, std::string> SerializationParametersData[] = {
  std::make_pair(MixerChannelSubModel::EParameters::ChannelIndex, "ChannelIndex"),
+ std::make_pair(MixerChannelSubModel::EParameters::ChannelTitle, "ChannelTitle"),
  std::make_pair(MixerChannelSubModel::EParameters::Volume, "Volume"),
  std::make_pair(MixerChannelSubModel::EParameters::Source, "Source"),
  std::make_pair(MixerChannelSubModel::EParameters::IsVolumeOverridden, "IsVolumeOverridden")};
@@ -27,13 +29,14 @@ MixerChannelSubModel::MixerChannelSubModel(Model &model, int channelIndex)
       _isVolumeOverridden(false)
 {
    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
-    "Serialization parameter names incorrect");
+    "Serialization parameter names incorrect, see mapping in SerializationParametersData[] above");
 }
 
 void MixerChannelSubModel::Init() // override
 {
    SetVolume(0.0);
    SetName(SUB_MODEL_NAME + " " + std::to_string(_channelIndex));
+   SetTitle("-");
    SetSource(ESource::PrimaryKeyboard);
    SetLevelLeft(0.0);
    SetLevelRight(0.0);
@@ -47,6 +50,8 @@ std::string MixerChannelSubModel::Serialize() // override
    std::string data;
    data += SerializationUtilities::CreateIntParameter(
     SerializationParametersMapping[EParameters::ChannelIndex], _channelIndex);
+   data +=
+    SerializationUtilities::CreateStringParameter(SerializationParametersMapping[EParameters::ChannelTitle], _title);
    data += SerializationUtilities::CreateDoubleParameter(SerializationParametersMapping[EParameters::Volume], _volume);
    data += SerializationUtilities::CreateIntParameter(
     SerializationParametersMapping[EParameters::Source], static_cast<int>(_source));
@@ -62,6 +67,9 @@ int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int curren
    int channelIndex = StringUtilities::ParseIntKey(lines[currentLineIndex],
     SerializationParametersMapping[EParameters::ChannelIndex], 0, MixerSubModel::NR_OF_MIXER_CHANNELS);
    Debug::Assert(channelIndex == _channelIndex, __FUNCTION__, "ChannelIndex unexpected");
+   currentLineIndex++;
+   SetTitle(StringUtilities::ParseStringKey(
+    lines[currentLineIndex], SerializationParametersMapping[EParameters::ChannelTitle]));
    currentLineIndex++;
    SetVolume(
     StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::Volume]));
@@ -179,7 +187,7 @@ void MixerChannelSubModel::SetTitle(const std::string &title)
    if (IsForcedMode() || (_title != title))
    {
       _title = title;
-      Debug::Log("# " + GetTitle() + ", Title = " + title);
+      Debug::Log("# " + GetName() + ", Title = " + title);
       Notify(ChangedProperties::GetChannelTitleProperty(_channelIndex));
    }
 }

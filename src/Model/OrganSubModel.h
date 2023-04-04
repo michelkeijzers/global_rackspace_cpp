@@ -52,7 +52,6 @@ class OrganSubModel : public SubModel, public Observable
    void SetPrimaryKeyboardActive(bool primaryKeyboardIsActive);
    bool IsSecondaryKeyboardActive();
    void SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive);
-   void CheckIfEnabled();
 
    uint8_t GetLowestNote();
    void SetLowestNote(uint8_t lowestNote);
@@ -80,10 +79,11 @@ class OrganSubModel : public SubModel, public Observable
    // Live
    void NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
    void NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t velocity);
-   std::pair<uint8_t, uint8_t> PopNoteOn();
-   std::pair<uint8_t, uint8_t> PopNoteOff();
+   std::pair<uint8_t, uint8_t> PopNote();
 
  private:
+   void CheckIfEnabled();
+
    std::vector<double> _drawbars;
    bool _isEnabled;
    bool _isRotatorSpeedFast;
@@ -99,6 +99,5 @@ class OrganSubModel : public SubModel, public Observable
    bool _sustainPedalIsActive;
 
    // Live
-   std::deque<std::pair<uint8_t, uint8_t>> _primaryKeyboardNotes;
-   std::deque<std::pair<uint8_t, uint8_t>> _secondaryKeyboardNotes;
+   std::deque<std::pair<uint8_t, uint8_t>> _keyboardNotes;
 };

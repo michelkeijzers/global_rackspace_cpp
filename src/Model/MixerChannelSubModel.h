@@ -61,6 +61,7 @@ class MixerChannelSubModel : public SubModel, public Observable
    enum class EParameters
    {
       ChannelIndex,
+		ChannelTitle,
       Volume,
       Source,
       IsVolumeOverridden,

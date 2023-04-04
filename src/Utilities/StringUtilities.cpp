@@ -85,10 +85,19 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
 
 /* static */ std::string StringUtilities::ParseStringKey(const std::string &line, const std::string &key)
 {
+   std::string value = "";
    size_t index = line.find(":");
    Debug::Assert(index != std::string::npos, __FUNCTION__, "Delimiter character not found");
-   Debug::Assert(Trim(line.substr(0, index)) == key, __FUNCTION__, "Key " + key + " not found");
-   return Trim(line.substr(index + 1));
+   bool keyFound = Trim(line.substr(0, index)) == key;
+   if (keyFound)
+   {
+      value = Trim(line.substr(index + 1));
+   }
+   else
+   {
+      Debug::Warning(__FUNCTION__, "Key " + key + " not found");
+	}
+   return value;
 }
 
 /* static */ int StringUtilities::ParseIntKey(const std::string &line, const std::string &key,
@@ -97,18 +106,23 @@ static std::map<std::string, bool> StringToBoolMapping(StringToBoolMappingPairs,
    size_t index = line.find(":");
    Debug::Assert(index != std::string::npos, __FUNCTION__, "Delimiter character not found");
    Debug::Assert(Trim(line.substr(0, index)) == key, __FUNCTION__, "Key " + key + " not found");
+   int value = ParseInt(line.substr(index + 1), "Invalid argument");
+   Debug::Assert(value >= minimumValue, __FUNCTION__, "Value too small");
+   Debug::Assert(value <= maximumValue, __FUNCTION__, "Value too high");
+   return value;
+}
+
+/* static */ int StringUtilities::ParseInt(const std::string &string, const std::string &errorText)
+{
    int value = -1;
-   std::string valueAsString = Trim(line.substr(index + 1));
    try
    {
-      value = std::stoi(valueAsString);
+      value = std::stoi(string);
    }
    catch (const std::invalid_argument &e)
    {
-      Debug::Error(__FUNCTION__, std::string("Invalid argument ") + e.what());
+      Debug::Error(__FUNCTION__, errorText + e.what());
    }
-   Debug::Assert(value >= minimumValue, __FUNCTION__, "Value too small");
-   Debug::Assert(value <= maximumValue, __FUNCTION__, "Value too high");
    return value;
 }
 

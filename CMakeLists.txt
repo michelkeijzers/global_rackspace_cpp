@@ -87,6 +87,8 @@ target_sources(
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/StringUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VectorUtilities.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VectorUtilities.cpp"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VersionUtilities.h"
+	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/VersionUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/MidiUtilities.h"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/MidiUtilities.cpp"
 	"${CMAKE_CURRENT_LIST_DIR}/src/Utilities/SerializationUtilities.h"

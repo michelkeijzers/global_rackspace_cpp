@@ -44,6 +44,10 @@ OrganSubModel::OrganSubModel(Model &model)
 
 void OrganSubModel::Init() // override
 {
+	for (int n = 0; n < NR_OF_DRAWBARS; n++)
+	{
+      _drawbars[n] = 0.0;
+	}
    Enable(true);
    SetRotatorSpeedFast(false);
    SetDrive(0.0);
@@ -53,8 +57,7 @@ void OrganSubModel::Init() // override
    SetSecondaryKeyboardActive(false);
    SetLowestNote(0);
    SetHighestNote(0);
-   _primaryKeyboardNotes.clear();
-   _secondaryKeyboardNotes.clear();
+   _keyboardNotes.clear();
    SetSustainPedalActive(false);
 }
 
@@ -225,14 +228,14 @@ bool OrganSubModel::IsSustained()
 
 void OrganSubModel::SetSustained(bool primaryKeyboard, bool sustained)
 {
-	//TODO: primary is not used
-
-	if (IsForcedMode() || (sustained != _isSustained))
-	{
+   if (IsForcedMode() ||
+       (((primaryKeyboard && _primaryKeyboardIsActive) || (!primaryKeyboard && _secondaryKeyboardIsActive)) &&
+        (sustained != _isSustained)))
+   {
       _isSustained = sustained;
       Debug::Log("# " + GetName() + ", is sustained, value = " + std::to_string(_isSustained));
       Notify(ChangedProperties::EChangedProperty::OrganSustained);
-	}
+   }
 }
 
 // Setup
@@ -268,23 +271,6 @@ void OrganSubModel::SetSecondaryKeyboardActive(bool secondaryKeyboardIsActive)
        "# " + GetName() + ", set secondary keyboard active, value = " + std::to_string(_secondaryKeyboardIsActive));
       Notify(ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive);
       CheckIfEnabled();
-   }
-}
-
-void OrganSubModel::CheckIfEnabled()
-{
-   bool isEnabled = _primaryKeyboardIsActive || _secondaryKeyboardIsActive;
-   if (IsForcedMode() || (isEnabled != _isEnabled))
-   {
-      _isEnabled = isEnabled;
-      Debug::Log("# " + GetName() + ", enabled, enabled = " + std::to_string(_isEnabled));
-      Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
-      MixerSubModel &mixerSubModel =
-       dynamic_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
-      if (!_isEnabled && (mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars))
-      {
-         mixerSubModel.SetNextTab();
-      }
    }
 }
 
@@ -337,17 +323,10 @@ void OrganSubModel::NoteOff(bool primaryKeyboard, uint8_t noteNumber, uint8_t ve
 {
    if ((noteNumber >= _lowestNote) && (noteNumber <= _highestNote))
    {
-      if (primaryKeyboard && _primaryKeyboardIsActive)
+      if ((primaryKeyboard && _primaryKeyboardIsActive) || (!primaryKeyboard && _secondaryKeyboardIsActive))
       {
-         _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
-         Debug::Log("# " + GetName() + ", primary keyboard, note off, note = " +
-                    juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::OrganNotesOff);
-      }
-      else if (!primaryKeyboard && _secondaryKeyboardIsActive)
-      {
-         _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
-         Debug::Log("# " + GetName() + ", secondary keyboard, note off, note = " +
+         _keyboardNotes.push_back(std::make_pair(noteNumber, velocity));
+         Debug::Log("# " + GetName() + ", organ keyboard, note off, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
          Notify(ChangedProperties::EChangedProperty::OrganNotesOff);
       }
@@ -358,33 +337,37 @@ void OrganSubModel::NoteOn(bool primaryKeyboard, uint8_t noteNumber, uint8_t vel
 {
    if ((noteNumber >= _lowestNote) && (noteNumber <= _highestNote))
    {
-      if (primaryKeyboard && _primaryKeyboardIsActive)
+      if ((primaryKeyboard && _primaryKeyboardIsActive) || (!primaryKeyboard && _secondaryKeyboardIsActive))
       {
-         _primaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
-         Debug::Log("# " + GetName() + ", primary keyboard, note on, note = " +
-                    juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
-         Notify(ChangedProperties::EChangedProperty::OrganNotesOn);
-      }
-      else if (!primaryKeyboard && _secondaryKeyboardIsActive)
-      {
-         _secondaryKeyboardNotes.push_back(std::make_pair(noteNumber, velocity));
-         Debug::Log("# " + GetName() + ", secondary keyboard, note on, note = " +
+         _keyboardNotes.push_back(std::make_pair(noteNumber, velocity));
+         Debug::Log("# " + GetName() + ", organ keyboard, note on, note = " +
                     juce::MidiMessage::getMidiNoteName(noteNumber, true, true, 4).toStdString());
          Notify(ChangedProperties::EChangedProperty::OrganNotesOn);
       }
    }
 }
 
-std::pair<uint8_t, uint8_t> OrganSubModel::PopNoteOn()
+std::pair<uint8_t, uint8_t> OrganSubModel::PopNote()
 {
-   std::pair<uint8_t, uint8_t> values = _primaryKeyboardNotes.front();
-   _primaryKeyboardNotes.pop_front();
+   std::pair<uint8_t, uint8_t> values = _keyboardNotes.front();
+   _keyboardNotes.pop_front();
    return values;
 }
 
-std::pair<uint8_t, uint8_t> OrganSubModel::PopNoteOff()
+/// \comment Skip while in forced mode (is not called directly from controller)
+void OrganSubModel::CheckIfEnabled()
 {
-   std::pair<uint8_t, uint8_t> values = _secondaryKeyboardNotes.front();
-   _secondaryKeyboardNotes.pop_front();
-   return values;
+   bool isEnabled = _primaryKeyboardIsActive || _secondaryKeyboardIsActive;
+   if (isEnabled != _isEnabled)
+   {
+      _isEnabled = isEnabled;
+      Debug::Log("# " + GetName() + ", enabled, enabled = " + std::to_string(_isEnabled));
+      Notify(ChangedProperties::EChangedProperty::OrganIsEnabled);
+      MixerSubModel &mixerSubModel =
+       dynamic_cast<MixerSubModel &>(GetModel().GetSubModel(SubModels::ESubModelId::Mixer));
+      if (!_isEnabled && (mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars))
+      {
+         mixerSubModel.SetNextTab();
+      }
+   }
 }

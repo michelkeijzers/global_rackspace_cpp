@@ -48,6 +48,12 @@ class StringUtilities
    static int ParseIntKey(const std::string &line, const std::string &key, int minimumValue = 0,
     int maximumValue = std::numeric_limits<int>::max());
 
+	/// \brief Parses a string and returns the value as an integer
+   /// \param string: line containing the string as an integer
+   /// \param errorText: text to be shown in case of a parsing error
+   /// \returns value as an integer
+   static int ParseInt(const std::string &string, const std::string &errorText);
+
    /// \brief Parses a key/value pair (in form key:value) and returns the value as a double
    /// \param line: line containing the key/value pair
    /// \param key: string containing the key; an assert is done if the key is unequal

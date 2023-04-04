@@ -77,15 +77,15 @@ class WidgetIds
       PrimaryKeyboardSlider8LevelRight,
       PrimaryKeyboardSlider9LevelRight,
 
-      PrimaryKeyboardSlider1Name,
-      PrimaryKeyboardSlider2Name,
-      PrimaryKeyboardSlider3Name,
-      PrimaryKeyboardSlider4Name,
-      PrimaryKeyboardSlider5Name,
-      PrimaryKeyboardSlider6Name,
-      PrimaryKeyboardSlider7Name,
-      PrimaryKeyboardSlider8Name,
-      PrimaryKeyboardSlider9Name,
+      PrimaryKeyboardSlider1Title,
+      PrimaryKeyboardSlider2Title,
+      PrimaryKeyboardSlider3Title,
+      PrimaryKeyboardSlider4Title,
+      PrimaryKeyboardSlider5Title,
+      PrimaryKeyboardSlider6Title,
+      PrimaryKeyboardSlider7Title,
+      PrimaryKeyboardSlider8Title,
+      PrimaryKeyboardSlider9Title,
 
       PrimaryKeyboardSlider1SourceName,
       PrimaryKeyboardSlider2SourceName,
@@ -303,8 +303,8 @@ class WidgetIds
    static EWidgetId GetPrimaryKeyboardSliderLevelRight(int sliderIndex);
    static int GetIndexOfPrimaryKeyboardSliderLevelRight(EWidgetId slider);
 
-   static EWidgetId GetPrimaryKeyboardSliderName(int sliderIndex);
-   static int GetIndexOfPrimaryKeyboardSliderName(EWidgetId slider);
+   static EWidgetId GetPrimaryKeyboardSliderTitle(int sliderIndex);
+   static int GetIndexOfPrimaryKeyboardSliderTitle(EWidgetId slider);
 
    static EWidgetId GetPrimaryKeyboardSliderSourceName(int sliderIndex);
    static int GetIndexOfPrimaryKeyboardSliderSourceName(EWidgetId slider);

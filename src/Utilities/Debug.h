@@ -11,12 +11,17 @@
 class Debug
 {
  public:
-   /// \brief Displays error, but continues run
+   /// \brief Displays error, stops during DEBUG version, in production version continue.
    /// \param functionName: name of the function to print
    /// \param text: text to print
    static void Error(const std::string &functionName, const std::string &text);
 
-   /// <summary>
+   /// \brief Displays warning, but continues run always.
+   /// \param functionName: name of the function to print
+   /// \param text: text to print
+   static void Warning(const std::string &functionName, const std::string &text);
+
+	/// <summary>
    /// \brief Displays error that a function is not implemented.
    /// \param functionName: name of the function to print
    /// </summary>

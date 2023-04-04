@@ -83,16 +83,16 @@ WidgetIds::WidgetIds()
    return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1LevelRight);
 }
 
-/* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderName(int sliderIndex)
+/* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderTitle(int sliderIndex)
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
    Debug::Assert(sliderIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "sliderIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Name) + sliderIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Title) + sliderIndex);
 }
 
-/* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderName(WidgetIds::EWidgetId slider)
+/* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderTitle(WidgetIds::EWidgetId slider)
 {
-   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Name);
+   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Title);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderSourceName(int sliderIndex)
@@ -266,10 +266,10 @@ void WidgetIds::FillSlidersPane()
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Name";
+      const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Title";
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
-       std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex)));
+       std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderTitle(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {

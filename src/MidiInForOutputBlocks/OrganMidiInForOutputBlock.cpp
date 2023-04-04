@@ -48,7 +48,7 @@ void OrganMidiInForOutputBlock::HandleNoteOn()
 
 void OrganMidiInForOutputBlock::HandleNoteOnOff(bool noteOn)
 {
-   std::pair<uint8_t, uint8_t> values = _organSubModel.PopNoteOff();
+   std::pair<uint8_t, uint8_t> values = _organSubModel.PopNote();
    uint8_t midiMessage[MIDI_MESSAGE_NOTE_ON_OFF_LENGTH];
    uint8_t noteNumber = values.first;
    uint8_t velocity = values.second;

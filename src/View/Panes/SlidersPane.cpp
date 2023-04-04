@@ -57,7 +57,7 @@ void SlidersPane::Fill() // override
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderTitle(sliderIndex);
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
@@ -119,7 +119,7 @@ void SlidersPane::Relayout() // override
       SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex),
        sliderIndex * channelWidth + channelWidth * 0.75, paneTitleHeightPercentage + numberHeightPercentage,
        channelWidth * 0.25, sliderHeightPercentage, 0.0);
-      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex), sliderIndex * channelWidth,
+      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderTitle(sliderIndex), sliderIndex * channelWidth,
        paneTitleHeightPercentage + numberHeightPercentage + sliderHeightPercentage, channelWidth, nameHeightPercentage,
        0.0);
       SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex), sliderIndex * channelWidth,
@@ -211,7 +211,7 @@ void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderName(sliderIndex);
+      widgetId = WidgetIds::GetPrimaryKeyboardSliderTitle(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
@@ -411,7 +411,7 @@ void SlidersPane::CheckUpdateChannelTitle(int &index, ChangedProperties::EChange
 void SlidersPane::UpdateChannelTitle(int channelIndex)
 {
    Widget &widget =
-    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Name, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Title, channelIndex % NR_OF_CHANNEL_SLIDERS);
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelTitle(channelIndex));
 }

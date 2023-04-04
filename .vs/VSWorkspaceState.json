@@ -9,8 +9,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\MidiInBlocks",
     "\\src\\MidiInForOutputBlocks",
+    "\\src\\Model",
     "\\src\\Utilities",
     "\\src\\View",
     "\\src\\View\\Panes",

@@ -29,6 +29,12 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
    Exit(1);
 }
 
+/* static */ void Debug::Warning(const std::string &functionName, const std::string &errorText)
+{
+   std::string message = "WARNING: " + functionName + ": " + errorText;
+   LogToAll(message, true);
+}
+
 /* static */ void Debug::NotImplemented(const std::string &functionName)
 {
    std::string message = "ERROR: " + functionName + " is not implemented";
@@ -186,6 +192,7 @@ Debug::~Debug()
 /* static */ bool Debug::CheckTestResult()
 {
    LogToAll(_testHasPassed ? "----->Test passed" : "---->TEST FAILED");
+   Assert(_testHasPassed, __FUNCTION__, "Test failed");
    return _testHasPassed;
 }
 
