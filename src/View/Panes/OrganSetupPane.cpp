@@ -27,10 +27,10 @@ void OrganSetupPane::Fill() // override
     new ShapeWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupPaneBox, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton,
-    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton, true));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton,
-    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton, true));
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupPrimaryKbdActBut,
+    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupPrimaryKbdActBut, true));
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupSecondaryKbdActBut,
+    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupSecondaryKbdActBut, true));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupLowestNoteSlider,
     new ValueWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupLowestNoteSlider, true));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupHighestNoteSlider,
@@ -39,8 +39,8 @@ void OrganSetupPane::Fill() // override
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupLowestNoteTextLabel, false));
    GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupHighestNoteTextLabel,
     new TextWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupHighestNoteTextLabel, false));
-   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupSustainPedalActiveButton,
-    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupSustainPedalActiveButton, true));
+   GetWidgets().AddWidget(WidgetIds::EWidgetId::OrganSetupSustainPedalActBut,
+    new ButtonWidget(GetView().GetWidgetIds(), WidgetIds::EWidgetId::OrganSetupSustainPedalActBut, true));
 }
 
 // 0%   15%   30%                                   70%     85%   100%
@@ -59,9 +59,9 @@ void OrganSetupPane::Relayout() // override
    const double halfHeightPercentage = fullHeightPercentage / 2.0;
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPaneBox, 0.0, 0.0, 1.0, 1.0, 0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPaneTitleTextLabel, 0.0, 0.0, 1.0, paneTitleHeightPercentage, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton, 0.0, paneTitleHeightPercentage, 0.15,
-    fullHeightPercentage, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton, 0.15, paneTitleHeightPercentage, 0.15,
+   SetWidgetBounds(
+    WidgetIds::EWidgetId::OrganSetupPrimaryKbdActBut, 0.0, paneTitleHeightPercentage, 0.15, fullHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSecondaryKbdActBut, 0.15, paneTitleHeightPercentage, 0.15,
     fullHeightPercentage, 0.0);
    SetWidgetBounds(
     WidgetIds::EWidgetId::OrganSetupLowestNoteSlider, 0.3, paneTitleHeightPercentage, 0.4, halfHeightPercentage, 0.0);
@@ -71,7 +71,7 @@ void OrganSetupPane::Relayout() // override
     halfHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupHighestNoteTextLabel, 0.7,
     paneTitleHeightPercentage + halfHeightPercentage, 0.15, halfHeightPercentage, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSustainPedalActiveButton, 0.85, paneTitleHeightPercentage, 0.15,
+   SetWidgetBounds(WidgetIds::EWidgetId::OrganSetupSustainPedalActBut, 0.85, paneTitleHeightPercentage, 0.15,
     fullHeightPercentage, 0.0);
 }
 
@@ -79,12 +79,12 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
 {
    if (changedProperty == ChangedProperties::EChangedProperty::OrganPrimaryKeyboardActive)
    {
-      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupPrimaryKeyboardActiveButton))
+      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupPrimaryKbdActBut))
        .SetPressed(_organSubModel.IsPrimaryKeyboardActive());
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::OrganSecondaryKeyboardActive)
    {
-      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupSecondaryKeyboardActiveButton))
+      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupSecondaryKbdActBut))
        .SetPressed(_organSubModel.IsSecondaryKeyboardActive());
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::OrganLowestNote)
@@ -105,7 +105,7 @@ void OrganSetupPane::Update(ChangedProperties::EChangedProperty changedProperty)
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::OrganSustainPedalActive)
    {
-      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupSustainPedalActiveButton))
+      static_cast<ButtonWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::OrganSetupSustainPedalActBut))
        .SetPressed(_organSubModel.IsSustainPedalActive());
    }
 }

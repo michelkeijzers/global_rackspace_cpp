@@ -63,48 +63,48 @@ WidgetIds::WidgetIds()
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
    Debug::Assert(sliderIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "sliderIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1LevelLeft) + sliderIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlLevelLeft1) + sliderIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderLevelLeft(WidgetIds::EWidgetId slider)
 {
-   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1LevelLeft);
+   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlLevelLeft1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderLevelRight(int sliderIndex)
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
    Debug::Assert(sliderIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "sliderIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1LevelRight) + sliderIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlLevelRight1) + sliderIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderLevelRight(WidgetIds::EWidgetId slider)
 {
-   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1LevelRight);
+   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlLevelRight1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderTitle(int sliderIndex)
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
    Debug::Assert(sliderIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "sliderIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Title) + sliderIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSliderTitle1) + sliderIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderTitle(WidgetIds::EWidgetId slider)
 {
-   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1Title);
+   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSliderTitle1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardSliderSourceName(int sliderIndex)
 {
    Debug::Assert(sliderIndex >= 0, __FUNCTION__, "sliderIndex too low");
    Debug::Assert(sliderIndex < SlidersPane::NR_OF_SLIDERS, __FUNCTION__, "sliderIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlider1SourceName) + sliderIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::PrimaryKeyboardSlSourceName1) + sliderIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfPrimaryKeyboardSliderSourceName(WidgetIds::EWidgetId slider)
 {
-   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlider1SourceName);
+   return static_cast<int>(slider) - static_cast<int>(EWidgetId::PrimaryKeyboardSlSourceName1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetPrimaryKeyboardButton(int buttonIndex)
@@ -135,60 +135,60 @@ WidgetIds::WidgetIds()
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetup1Name) + channelIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetupTitle1) + channelIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfChannelsSetupName(WidgetIds::EWidgetId channelName)
 {
-   return static_cast<int>(channelName) - static_cast<int>(EWidgetId::ChannelsSetup1Name);
+   return static_cast<int>(channelName) - static_cast<int>(EWidgetId::ChannelsSetupTitle1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetChannelsSetupNumber(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetup1Number) + channelIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetupNumber1) + channelIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfChannelsSetupNumber(WidgetIds::EWidgetId channelNumber)
 {
-   return static_cast<int>(channelNumber) - static_cast<int>(EWidgetId::ChannelsSetup1Number);
+   return static_cast<int>(channelNumber) - static_cast<int>(EWidgetId::ChannelsSetupTitle1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetChannelsSetupSourceName(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetup1SourceName) + channelIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetupSourceName1) + channelIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfChannelsSetupSourceName(WidgetIds::EWidgetId channelSourceName)
 {
-   return static_cast<int>(channelSourceName) - static_cast<int>(EWidgetId::ChannelsSetup1SourceName);
+   return static_cast<int>(channelSourceName) - static_cast<int>(EWidgetId::ChannelsSetupSourceName1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetChannelsSetupNextSourceButton(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetup1NextSourceButton) + channelIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetupNextSourceBut1) + channelIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfChannelsSetupNextSourceButton(WidgetIds::EWidgetId channelIndex)
 {
-   return static_cast<int>(channelIndex) - static_cast<int>(EWidgetId::ChannelsSetup1NextSourceButton);
+   return static_cast<int>(channelIndex) - static_cast<int>(EWidgetId::ChannelsSetupNextSourceBut1);
 }
 
 /* static */ WidgetIds::EWidgetId WidgetIds::GetChannelsSetupVolumeOverrideButton(int channelIndex)
 {
    Debug::Assert(channelIndex >= 0, __FUNCTION__, "channelIndex too low");
    Debug::Assert(channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS, __FUNCTION__, "channelIndex too low");
-   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetup1VolumeOverrideButton) + channelIndex);
+   return static_cast<EWidgetId>(static_cast<int>(EWidgetId::ChannelsSetupVolOverrideBut1) + channelIndex);
 }
 
 /* static */ int WidgetIds::GetIndexOfChannelsSetupVolumeOverrideButton(WidgetIds::EWidgetId channelIndex)
 {
-   return static_cast<int>(channelIndex) - static_cast<int>(EWidgetId::ChannelsSetup1VolumeOverrideButton);
+   return static_cast<int>(channelIndex) - static_cast<int>(EWidgetId::ChannelsSetupVolOverrideBut1);
 }
 
 /// <summary>
@@ -231,14 +231,14 @@ void WidgetIds::FillSlidersPane()
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Box";
+      std::string widgetName = "PrimaryKeyboardSliderBox" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Number";
+      std::string widgetName = "PrimaryKeyboardSliderNumber" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex)));
@@ -252,28 +252,28 @@ void WidgetIds::FillSlidersPane()
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "LevelLeft";
+      std::string widgetName = "PrimaryKeyboardSlLevelLeft" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "LevelRight";
+      std::string widgetName = "PrimaryKeyboardSlLevelRight" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderLevelRight(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "Title";
+      const std::string widgetName = "PrimaryKeyboardSliderTitle" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderTitle(sliderIndex)));
    }
    for (int sliderIndex = 0; sliderIndex < SlidersPane::NR_OF_SLIDERS; sliderIndex++)
    {
-      const std::string widgetName = "PrimaryKeyboardSlider" + std::to_string(sliderIndex + 1) + "SourceName";
+      const std::string widgetName = "PrimaryKeyboardSlSourceName" + std::to_string(sliderIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetPrimaryKeyboardSliderSourceName(sliderIndex)));
@@ -340,41 +340,41 @@ void WidgetIds::FillChannelsSetupPane()
     std::pair<std::string, EWidgetId>("ChannelsSetupPaneTitleTextLabel", EWidgetId::FootBoardPaneTitleTextLabel));
    _idToNames.push_back("SyncLabelsToMixerButton");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("SyncLabelsToMixerButton", EWidgetId::SyncLabelsToMixerButton));
-   _idToNames.push_back("ChannelIndexTextLabel");
-   _nameToIds.insert(std::pair<std::string, EWidgetId>("ChannelIndexTextLabel", EWidgetId::ChannelIndexTextLabel));
+   _idToNames.push_back("ChannelNumberTextLabel");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("ChannelNumberTextLabel", EWidgetId::ChannelNumberTextLabel));
    _idToNames.push_back("NextSourceTextLabel");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("NextSourceTextLabel", EWidgetId::NextSourceTextLabel));
    _idToNames.push_back("VolumeOverrideTextLabel");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("VolumeOverrideTextLabel", EWidgetId::VolumeOverrideTextLabel));
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      const std::string widgetName = "ChannelsSetup" + std::to_string(channelIndex + 1) + "Name";
+      const std::string widgetName = "ChannelsSetupTitle" + std::to_string(channelIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetChannelsSetupName(channelIndex)));
    }
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      const std::string widgetName = "ChannelsSetup" + std::to_string(channelIndex + 1) + "Number";
+      const std::string widgetName = "ChannelsSetupNumber" + std::to_string(channelIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetChannelsSetupNumber(channelIndex)));
    }
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      const std::string widgetName = "ChannelsSetup" + std::to_string(channelIndex + 1) + "SourceName";
+      const std::string widgetName = "ChannelsSetupSourceName" + std::to_string(channelIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetChannelsSetupSourceName(channelIndex)));
    }
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      const std::string widgetName = "ChannelsSetup" + std::to_string(channelIndex + 1) + "NextSourceButton";
+      const std::string widgetName = "ChannelsSetupNextSourceBut" + std::to_string(channelIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetChannelsSetupNextSourceButton(channelIndex)));
    }
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {
-      const std::string widgetName = "ChannelsSetup" + std::to_string(channelIndex + 1) + "VolumeOverrideButton";
+      const std::string widgetName = "ChannelsSetupVolOverrideBut" + std::to_string(channelIndex + 1);
       _idToNames.push_back(widgetName);
       _nameToIds.insert(
        std::pair<std::string, EWidgetId>(widgetName, WidgetIds::GetChannelsSetupVolumeOverrideButton(channelIndex)));
@@ -390,12 +390,12 @@ void WidgetIds::FillOrganSetupPane()
    widgetName = "OrganSetupPaneTitleTextLabel";
    _idToNames.push_back(widgetName);
    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupPaneTitleTextLabel));
-   widgetName = "OrganSetupPrimaryKeyboardActiveButton";
+   widgetName = "OrganSetupPrimaryKbdActBut";
    _idToNames.push_back(widgetName);
-   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupPrimaryKeyboardActiveButton));
-   widgetName = "OrganSetupSecondaryKeyboardActiveButton";
+   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupPrimaryKbdActBut));
+   widgetName = "OrganSetupSecondaryKbdActBut";
    _idToNames.push_back(widgetName);
-   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupSecondaryKeyboardActiveButton));
+   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupSecondaryKbdActBut));
    widgetName = "OrganSetupLowestNoteSlider";
    _idToNames.push_back(widgetName);
    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupLowestNoteSlider));
@@ -408,9 +408,9 @@ void WidgetIds::FillOrganSetupPane()
    widgetName = "OrganSetupHighestNoteTextLabel";
    _idToNames.push_back(widgetName);
    _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupHighestNoteTextLabel));
-   widgetName = "OrganSetupSustainPedalActiveButton";
+   widgetName = "OrganSetupSustainPedalActBut";
    _idToNames.push_back(widgetName);
-   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupSustainPedalActiveButton));
+   _nameToIds.insert(std::pair<std::string, EWidgetId>(widgetName, EWidgetId::OrganSetupSustainPedalActBut));
 }
 
 WidgetIds::EWidgetId WidgetIds::GetId(const std::string &name)

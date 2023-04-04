@@ -18,7 +18,7 @@ class ChannelsSetupPane : public Pane
 
    void Update(ChangedProperties::EChangedProperty changedProperty) override;
 
-   void SetChannelName(int channelIndex);
+   void SetChannelTitle(int channelIndex);
    void SetChannelSource(int channelIndex);
    void SetChannelVolumeOverride(int channelIndex);
 

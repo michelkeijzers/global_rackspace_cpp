@@ -43,7 +43,7 @@ void SlidersPane::Fill() // override
    GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels9To16;
    GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
-   widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels16To24;
+   widgetId = WidgetIds::EWidgetId::SlidersPaneTabChannels17To24;
    GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
@@ -98,7 +98,7 @@ void SlidersPane::Relayout() // override
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabOrgan, 0.2, 0.0, 0.3, paneTitleHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels1To8, 0.3, 0.0, 0.2, paneTitleHeightPercentage, 0.0);
    SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels9To16, 0.5, 0.0, 0.25, paneTitleHeightPercentage, 0.0);
-   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels16To24, 0.75, 0.0, 0.25, paneTitleHeightPercentage, 0.0);
+   SetWidgetBounds(WidgetIds::EWidgetId::SlidersPaneTabChannels17To24, 0.75, 0.0, 0.25, paneTitleHeightPercentage, 0.0);
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
       const double channelWidth = 1.0 / NR_OF_SLIDERS;
@@ -286,7 +286,7 @@ void SlidersPane::UpdatePropertyMasterLastTimeGate()
    long long ms = std::max(_mixerSubModel.GetMasterLastTimeGateLeftActive().toMilliseconds(),
     _mixerSubModel.GetMasterLastTimeGateRightActive().toMilliseconds());
    UpdateWidgetForGateFading(
-    ms, static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9SourceName)));
+    ms, static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName9)));
 }
 
 bool SlidersPane::IsChannelIndexActive(int channelIndex)
@@ -337,7 +337,7 @@ void SlidersPane::CheckUpdateMixerChannelLevelLeft(int &index, ChangedProperties
 void SlidersPane::UpdateMixerChannelLevelLeft(int channelIndex)
 {
    Widget &widget =
-    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelLeft, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlLevelLeft1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
    valueWidget.SetValue(_mixerSubModel.GetChannelLevelLeft(channelIndex));
 }
@@ -358,7 +358,7 @@ void SlidersPane::CheckUpdateMixerChannelLevelRight(int &index, ChangedPropertie
 void SlidersPane::UpdateMixerChannelLevelRight(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlider1LevelRight, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    WidgetIds::EWidgetId::PrimaryKeyboardSlLevelRight1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
    valueWidget.SetValue(_mixerSubModel.GetChannelLevelRight(channelIndex));
 }
@@ -370,7 +370,7 @@ void SlidersPane::UpdateMixerChannelLevelRight(int channelIndex)
 void SlidersPane::UpdateChannelGate(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
    long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
     _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
@@ -411,7 +411,7 @@ void SlidersPane::CheckUpdateChannelTitle(int &index, ChangedProperties::EChange
 void SlidersPane::UpdateChannelTitle(int channelIndex)
 {
    Widget &widget =
-    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider1Title, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderTitle1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelTitle(channelIndex));
 }
@@ -432,7 +432,7 @@ void SlidersPane::CheckUpdateChannelSource(int &index, ChangedProperties::EChang
 void SlidersPane::UpdateChannelSource(int channelIndex)
 {
    Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
+    WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
 
@@ -464,13 +464,13 @@ void SlidersPane::UpdateMasterVolume()
 
 void SlidersPane::UpdateMasterLevelLeft()
 {
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelLeft))
+   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlLevelLeft9))
     .SetValue(_mixerSubModel.GetMasterLevelLeft());
 }
 
 void SlidersPane::UpdateMasterLevelRight()
 {
-   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlider9LevelRight))
+   static_cast<ValueWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlLevelRight9))
     .SetValue(_mixerSubModel.GetMasterLevelRight());
 }
 
@@ -482,7 +482,7 @@ void SlidersPane::CheckGatesFading()
       for (int channelIndex = channelOffset; channelIndex < channelOffset + NR_OF_CHANNEL_SLIDERS; channelIndex++)
       {
          Widget &widget = GetWidgets().GetWidget(
-          WidgetIds::EWidgetId::PrimaryKeyboardSlider1SourceName, channelIndex % NR_OF_CHANNEL_SLIDERS);
+          WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
          ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
          long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
           _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
