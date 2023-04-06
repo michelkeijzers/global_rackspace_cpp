@@ -74,7 +74,7 @@ void ExpressionAudioMixerPlugin::UpdateVolume(bool primaryKeyboard)
           (!primaryKeyboard && (source == MixerChannelSubModel::ESource::SecondaryKeyboard)))
       {
          MvcFramework::GetGigPerformerApi().setPluginParameter(
-          GetName(), GetChannelVolumeParameter(channelIndex), newVolume, true);
+          GetName(), GetChannelVolumeParameter(channelIndex % NR_OF_STEREO_CHANNELS), newVolume, true);
          Debug::Log("$ " + GetName() + ": expression channel index = " + std::to_string(channelIndex) +
                     ", expression volume = " + std::to_string(newVolume));
       }

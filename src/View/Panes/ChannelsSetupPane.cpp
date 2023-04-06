@@ -16,6 +16,11 @@ ChannelsSetupPane::ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, d
     : Pane(view, leftPercentage, topPercentage, widthPercentage, heightPercentage), _mixerSubModel(mixerSubModel)
 {
    mixerSubModel.Subscribe(*this);
+   for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
+   {
+      MixerChannelSubModel &mixerChannelSubModel = *_mixerSubModel.GetMixerChannelSubModels()[channelIndex];
+      mixerChannelSubModel.Subscribe(*this);
+   }
 }
 
 void ChannelsSetupPane::Fill() // override
@@ -40,6 +45,8 @@ void ChannelsSetupPane::Fill() // override
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetChannelsSetupNextSourceButton(channelIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
+      widgetId = WidgetIds::GetChannelsSetupSourceName(channelIndex);
+      GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, true));
       widgetId = WidgetIds::GetChannelsSetupVolumeOverrideButton(channelIndex);
       GetWidgets().AddWidget(widgetId, new ButtonWidget(GetView().GetWidgetIds(), widgetId, true));
    }
@@ -136,7 +143,7 @@ void ChannelsSetupPane::SetChannelTitle(int channelIndex)
 void ChannelsSetupPane::SetChannelSource(int channelIndex)
 {
    static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::ChannelsSetupSourceName1, channelIndex))
-    .SetText(_mixerSubModel.GetMixerChannelSubModels()[channelIndex]->GetName());
+    .SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
 }
 
 void ChannelsSetupPane::SetChannelVolumeOverride(int channelIndex)

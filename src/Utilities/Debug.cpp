@@ -55,7 +55,6 @@ const std::string JUCE_LOG_FILE_NAME = "D:\\JuceLogger\\JuceLogger.txt";
 /* static */ void Debug::Exit(int errorNumber)
 {
 #ifdef TESTER
-
    if (_exitOnErrorIsEnabled)
    {
       exit(errorNumber);

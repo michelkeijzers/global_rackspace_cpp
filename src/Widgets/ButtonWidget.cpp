@@ -9,8 +9,11 @@ ButtonWidget::ButtonWidget(WidgetIds &ids, WidgetIds::EWidgetId id, bool isListe
 
 void ButtonWidget::SetPressed(bool isPressed)
 {
-   _isPressed = isPressed;
-   MvcFramework::GetGigPerformerApi().setWidgetValue(GetName(), isPressed ? 1.0 : 0.0);
+   if (isPressed != isPressed)
+   {
+      _isPressed = isPressed;
+      MvcFramework::GetGigPerformerApi().setWidgetValue(GetName(), isPressed ? 1.0 : 0.0);
+   }
 }
 
 bool ButtonWidget::IsPressed()

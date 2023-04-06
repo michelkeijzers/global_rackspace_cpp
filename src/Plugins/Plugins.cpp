@@ -55,12 +55,12 @@ void Plugins::Fill()
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
     static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)), true,
-    "ExpressionAudioMixerChannels1To16"));
+    "AudioMixerExpressionCh1To16"));
    _plugins.push_back(new ExpressionAudioMixerPlugin(_view,
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::PrimaryKeyboard)),
     static_cast<KeyboardSubModel &>(_model.GetSubModel(SubModels::ESubModelId::SecondaryKeyboard)),
     static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)), false,
-    "ExpressionAudioMixerChannels17To24"));
+    "AudioMixerExpressionCh17To24"));
 }
 
 void Plugins::Init()

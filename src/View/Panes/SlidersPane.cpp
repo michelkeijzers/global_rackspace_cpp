@@ -69,6 +69,7 @@ void SlidersPane::Fill() // override
    }
 }
 
+// TODO: Do not show Src when drawbars are active, and give this space to drawbars.
 //   v CHANNEL_WIDTH * 50%
 //     v CHANNEL_WIDTH * 75%
 //       v CHANNEL_WIDTH
@@ -194,8 +195,6 @@ void SlidersPane::UpdateTabs()
     WidgetIds::EWidgetId::SlidersPaneTabChannels17To24};
 
    MixerSubModel::ETabSelection tabSelection = _mixerSubModel.GetTabSelection();
-   Debug::Log("TODO UpdateTab selection = " + std::to_string(static_cast<int>(tabSelection)) +
-              ", organ is enabled = " + std::to_string(_organSubModel.IsEnabled()));
    for (int widgetIndex = 0; widgetIndex < tabs.size(); widgetIndex++)
    {
       int thickness = 1;
@@ -255,6 +254,7 @@ void SlidersPane::UpdateTabUpdateValues(bool drawbarsSelected)
       for (int drawbarIndex = 0; drawbarIndex < NR_OF_SLIDERS; drawbarIndex++)
       {
          UpdateDrawbar(drawbarIndex);
+         UpdateChannelSource(drawbarIndex);
       }
    }
    else
@@ -387,8 +387,8 @@ void SlidersPane::CheckUpdateMixerChannelLevelRight(int &index, ChangedPropertie
 
 void SlidersPane::UpdateMixerChannelLevelRight(int channelIndex)
 {
-   Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlLevelRight1, channelIndex % NR_OF_CHANNEL_SLIDERS);
+   Widget &widget =
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlLevelRight1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
    valueWidget.SetValue(_mixerSubModel.GetChannelLevelRight(channelIndex));
 }
@@ -399,8 +399,8 @@ void SlidersPane::UpdateMixerChannelLevelRight(int channelIndex)
 /// <param name="channelIndex"></param>
 void SlidersPane::UpdateChannelGate(int channelIndex)
 {
-   Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
+   Widget &widget =
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
    long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
     _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
@@ -461,16 +461,15 @@ void SlidersPane::CheckUpdateChannelSource(int &index, ChangedProperties::EChang
 
 void SlidersPane::UpdateChannelSource(int channelIndex)
 {
-   Widget &widget = GetWidgets().GetWidget(
-    WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
+   Widget &widget =
+    GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
-
    int channelOffset = _mixerSubModel.GetChannelOffset();
    if (channelOffset >= 0)
    {
       Widget &boxWidget =
-       GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1, channelIndex % NR_OF_CHANNEL_SLIDERS);
+         GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1, channelIndex % NR_OF_CHANNEL_SLIDERS);
       ShapeWidget &shapeWidget = static_cast<ShapeWidget &>(boxWidget);
 
       switch (_mixerSubModel.GetChannelSource(channelIndex))
@@ -480,7 +479,9 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
       case MixerChannelSubModel::ESource::PrimaryKeyboardPads:
          shapeWidget.SetWidgetFillColor(1.0, 0.0, 1.0, 1.0);
          break;
-      case MixerChannelSubModel::ESource::SecondaryKeyboard: shapeWidget.SetWidgetFillColor(0.0, 1.0, 1.0, 1.0); break;
+      case MixerChannelSubModel::ESource::SecondaryKeyboard:
+         shapeWidget.SetWidgetFillColor(0.0, 1.0, 1.0, 1.0);
+         break;
       default: Debug::Error(__FUNCTION__, "Illelgal source");
       }
    }
@@ -509,15 +510,15 @@ void SlidersPane::CheckGatesFading()
    int channelOffset = _mixerSubModel.GetChannelOffset();
    if (channelOffset >= 0)
    {
-      for (int channelIndex = channelOffset; channelIndex < channelOffset + NR_OF_CHANNEL_SLIDERS; channelIndex++)
-      {
-         Widget &widget = GetWidgets().GetWidget(
-          WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
-         ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-         long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
-          _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
-         UpdateWidgetForGateFading(ms, valueWidget);
-      }
+        for (int channelIndex = channelOffset; channelIndex < channelOffset + NR_OF_CHANNEL_SLIDERS; channelIndex++)
+        {
+           Widget &widget = GetWidgets().GetWidget(
+            WidgetIds::EWidgetId::PrimaryKeyboardSlSourceName1, channelIndex % NR_OF_CHANNEL_SLIDERS);
+           ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
+           long long ms = std::max(_mixerSubModel.GetChannelLastTimeGateLeftActive(channelIndex).toMilliseconds(),
+            _mixerSubModel.GetChannelLastTimeGateRightActive(channelIndex).toMilliseconds());
+           UpdateWidgetForGateFading(ms, valueWidget);
+        }
    }
    UpdatePropertyMasterLastTimeGate();
 }

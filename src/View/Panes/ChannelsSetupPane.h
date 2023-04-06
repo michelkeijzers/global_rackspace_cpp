@@ -10,8 +10,8 @@ class View;
 class ChannelsSetupPane : public Pane
 {
  public:
-   ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, double leftPercentage, double topPercentage,
-    double widthPercentage, double heightPercentage);
+   ChannelsSetupPane(View &view, MixerSubModel &mixerSubModel, double leftPercentage,
+    double topPercentage, double widthPercentage, double heightPercentage);
 
    void Fill() override;
    void Relayout() override;

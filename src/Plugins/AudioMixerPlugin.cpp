@@ -41,9 +41,6 @@ void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedPropert
    ChangedProperties::EChangedProperty nameStartProperty = _lowerChannels
                                                             ? ChangedProperties::EChangedProperty::Channel1Name
                                                             : ChangedProperties::EChangedProperty::Channel17Name;
-   Debug::Log("TODO Update volumeStartProperty = " + std::to_string((int)volumeStartProperty) +
-              ", _lowerChannels = " + std::to_string(_lowerChannels) + ", name = " + GetName() +
-              ", changed property = " + std::to_string((int)changedProperty));
    if ((changedProperty >= volumeStartProperty) &&
        (changedProperty < 
         ChangedProperties::GetMixerChannelVolumeProperty(static_cast<int>(offset + _mixerChannelSubModels.size()))))

@@ -86,7 +86,7 @@ double KeyboardSubModel::GetExpressionVolume()
 
 void KeyboardSubModel::SetExpressionVolume(double volume)
 {
-   if (IsForcedMode() || (volume != _expressionVolume))
+   if (IsForcedMode() || !DoubleUtilities::AreEqual(volume, _expressionVolume))
    {
       _expressionVolume = volume;
       Debug::Log("# " + GetName() + ": Expression volume = " + std::to_string(_expressionVolume));

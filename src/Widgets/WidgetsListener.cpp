@@ -37,7 +37,32 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
    Debug::Log("@-- On Widget " + widgetName + ": value = " + std::to_string(newValue));
    int index = WidgetIds::GetIndexOfOrganDrawbar(widgetId);
-   if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) && (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
+   if (widgetId == WidgetIds::EWidgetId::LeftFootPedal)
+   {
+      if (newValue > 0.0001) // TODO: Find out why  needed (crashes otherwise)
+      {
+         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+          _controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
+         keyboardSubController.SetExpressionVolume(newValue);
+      }
+   }
+   if (widgetId == WidgetIds::EWidgetId::RightFootPedal)
+   {
+      if (newValue > 0.0001) // TODO: Find out why  needed (crashes otherwise)
+      {
+         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+          _controller.GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
+         keyboardSubController.SetExpressionVolume(newValue);
+      }
+   }
+
+	bugs: when opening GP, when changing source name, slider pane source name is not updated, when changing tab selection it works, solution: notify tab selection
+	      when opening GP, organ visible, while not enabled (primary/secondary keyboard off)
+			sync channel names clears all names
+
+	
+   if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) &&
+       (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
    {
       OrganSubController &organSubController =
        static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -130,11 +155,14 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    if (!processed)
    {
       index = WidgetIds::GetIndexOfChannelsSetupNextSourceButton(widgetId);
+      Debug::Log("TODO NS1");
       if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetupNextSourceBut1) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
+         Debug::Log("TODO NS2");
          if (IsPressed(newValue))
          {
+            Debug::Log("TODO NS3");
             MixerSubController &mixerSubController =
              static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
             mixerSubController.SelectNextSource(index);
@@ -207,10 +235,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          processed = true;
       }
    }
-   if (!processed)
-   {
-      Debug::Error(__FUNCTION__, "Illegal widgetId, widget id = " + std::to_string(static_cast<int>(widgetId)));
-   }
    Debug::LogMethodExit(__FUNCTION__);
 }
 
@@ -225,6 +249,7 @@ bool WidgetsListener::IsPressed(double value)
 {
    bool isPressed = false;
    juce::Time currentTime = juce::Time::getCurrentTime();
+
    if (currentTime - _lastButtonPressTime >= juce::RelativeTime::milliseconds(BUTTON_DEBOUNCE_TIME))
    {
       _lastButtonPressTime = currentTime;
