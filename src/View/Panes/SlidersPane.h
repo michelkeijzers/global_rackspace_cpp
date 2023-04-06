@@ -27,6 +27,7 @@ class SlidersPane : public Pane
  private:
    void UpdateTab();
 
+	void UpdateTabs();
    void UpdateTabShowOrganWidgets(bool drawbarsSelected);
    void UpdateTabShowSliders(bool drawbarsSelected);
    void UpdateTabUpdateValues(bool drawbarsSelected);

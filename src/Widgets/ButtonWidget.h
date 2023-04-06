@@ -12,8 +12,6 @@ class ButtonWidget : public TextWidget
    void SetPressed(bool isPressed);
    bool IsPressed();
 
-   static bool IsPressed(double value);
-
  private:
    double _isPressed;
 };

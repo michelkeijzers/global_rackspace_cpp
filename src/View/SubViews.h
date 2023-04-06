@@ -4,6 +4,7 @@
 class Model;
 class View;
 class SubView;
+class LiveSubView;
 
 class SubViews
 {
@@ -15,6 +16,11 @@ class SubViews
    void Init();
 
  private:
+   enum class ESubView
+   {
+      Live
+   };
+
    std::vector<SubView *> _subViews;
 
    Model &_model;

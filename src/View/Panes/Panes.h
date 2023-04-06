@@ -5,7 +5,6 @@
 class Model;
 class View;
 class Pane;
-
 class Panes
 {
  public:

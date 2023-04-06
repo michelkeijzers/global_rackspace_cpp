@@ -5,6 +5,7 @@
 #include "../Utilities/BoolUtilities.h"
 #include "../Utilities/Debug.h"
 #include <iostream>
+#include <string>
 #ifdef TESTER
 #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
@@ -32,22 +33,27 @@ AudioMixerPlugin::AudioMixerPlugin(
 
 void AudioMixerPlugin::Update(ChangedProperties::EChangedProperty changedProperty) /* override */
 {
+	const int offset = _lowerChannels ? 0 : 16; // TODO: use good name, const
+
    ChangedProperties::EChangedProperty volumeStartProperty =
     _lowerChannels ? ChangedProperties::EChangedProperty::MixerChannel1Volume
                    : ChangedProperties::EChangedProperty::MixerChannel17Volume;
    ChangedProperties::EChangedProperty nameStartProperty = _lowerChannels
                                                             ? ChangedProperties::EChangedProperty::Channel1Name
                                                             : ChangedProperties::EChangedProperty::Channel17Name;
+   Debug::Log("TODO Update volumeStartProperty = " + std::to_string((int)volumeStartProperty) +
+              ", _lowerChannels = " + std::to_string(_lowerChannels) + ", name = " + GetName() +
+              ", changed property = " + std::to_string((int)changedProperty));
    if ((changedProperty >= volumeStartProperty) &&
-       (changedProperty <
-        ChangedProperties::GetMixerChannelVolumeProperty(static_cast<int>(_mixerChannelSubModels.size()))))
+       (changedProperty < 
+        ChangedProperties::GetMixerChannelVolumeProperty(static_cast<int>(offset + _mixerChannelSubModels.size()))))
    {
       int channelIndex = static_cast<int>(changedProperty) - static_cast<int>(volumeStartProperty);
       UpdateMixerChannelVolume(channelIndex % NR_OF_STEREO_CHANNELS);
    }
    else if ((changedProperty >= nameStartProperty) &&
             (changedProperty <
-             ChangedProperties::GetChannelNameProperty(static_cast<int>(_mixerChannelSubModels.size()))))
+             ChangedProperties::GetChannelNameProperty(static_cast<int>(offset + _mixerChannelSubModels.size()))))
    {
       int channelIndex = static_cast<int>(changedProperty) - static_cast<int>(nameStartProperty);
       UpdateChannelName(channelIndex % NR_OF_STEREO_CHANNELS);

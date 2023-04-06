@@ -17,6 +17,7 @@ class View
 
    WidgetIds &GetWidgetIds();
    Model &GetModel();
+   SubViews &GetSubViews();
 
    int GetWidth();
    int GetHeight();

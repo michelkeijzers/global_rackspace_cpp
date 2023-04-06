@@ -4,6 +4,8 @@
 #include "../Utilities/SerializationUtilities.h"
 #include "../Utilities/StringUtilities.h"
 #include "MixerChannelSubModel.h"
+#include "Model.h"
+#include "OrganSubModel.h"
 #include "SubModels.h"
 #include <string>
 
@@ -42,7 +44,7 @@ void MixerSubModel::Init() /* override */
    SetMasterGateRight(0.0);
    _masterLastTimeGateLeftActive.setSystemTimeToThisTime();
    _masterLastTimeGateRightActive.setSystemTimeToThisTime();
-	SetTabSelection(MixerSubModel::ETabSelection::Drawbars);
+   SetTabSelection(MixerSubModel::ETabSelection::Drawbars);
    for (auto mixerChannelSubModel : _mixerChannelSubModels)
    {
       mixerChannelSubModel->Init();
@@ -111,7 +113,12 @@ void MixerSubModel::SetTabSelection(ETabSelection tabSelection)
 
 void MixerSubModel::SetNextTab()
 {
-   _tabSelection = (ETabSelection)((static_cast<int>(_tabSelection) + 1) % static_cast<int>(ETabSelection::Last));
+   _tabSelection = static_cast<ETabSelection>((static_cast<int>(_tabSelection) + 1) % static_cast<int>(ETabSelection::Last));
+   OrganSubModel &organSubModel = static_cast<OrganSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Organ));
+   if (!organSubModel.IsEnabled() && (_tabSelection == MixerSubModel::ETabSelection::Drawbars))
+   {
+      _tabSelection = ETabSelection::Channels1To8;
+   }
    Debug::Log("# " + GetName() + ", tab selection = " + std::to_string(static_cast<int>(_tabSelection)));
    Notify(ChangedProperties::EChangedProperty::SlidersTabSelection);
 }

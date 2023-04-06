@@ -56,7 +56,7 @@ void LibMain::OnGlobalPlayStateChanged(double playing)
 void LibMain::OnWidgetValueChanged(const std::string &widgetName, double newValue)
 {
     _mvcFramework.GetWidgetsListener().OnWidgetValueChanged(widgetName, newValue);
-    // int noteNumber = (int)GPUtils::Scale(newValue, 0.0, 1.0, 36, 96);
+    // int noteNumber = static_cast<int>(GPUtils::Scale(newValue, 0.0, 1.0, 36, 96));
     // GPMidiMessage n = GPMidiMessage::makeNoteOnMessage(noteNumber, 64, 0);
     // const std::string device = "MIDI Monitor (Untitled)";
     // sendMidiMessageToMidiOutDevice(device, n);

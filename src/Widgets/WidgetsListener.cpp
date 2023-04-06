@@ -3,6 +3,7 @@
 #include "../Controller/KeyboardSubController.h"
 #include "../Controller/MixerSubController.h"
 #include "../Controller/OrganSubController.h"
+#include "../Controller/WindowSubController.h"
 #include "../Framework/MvcFramework.h"
 #include "../Model/Model.h"
 #include "../Utilities/Debug.h"
@@ -11,17 +12,21 @@
 #include "../View/Panes/SlidersPane.h"
 #include "../View/View.h"
 #include "ButtonWidget.h"
-#include "ValueWidget.h"
 #include "WidgetIds.h"
-#include "Widgets.h"
 #ifdef TESTER
 #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
 #include <gigperformer/sdk/GigPerformerAPI.h>
 #endif
 
+#ifdef TESTER
+const int BUTTON_DEBOUNCE_TIME = 0; // ms
+#else
+const int BUTTON_DEBOUNCE_TIME = 10; // ms
+#endif
+
 WidgetsListener::WidgetsListener(Controller &controller, WidgetIds &widgetIds)
-    : _controller(controller), _widgetIds(widgetIds)
+    : _controller(controller), _widgetIds(widgetIds), _lastButtonPressTime(0)
 {
 }
 
@@ -41,15 +46,27 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton1))
    {
-      if (ButtonWidget::IsPressed(newValue))
+      if (IsPressed(newValue))
       {
          _controller.WriteSong();
       }
       processed = true;
    }
+   // TODO: Next is temporary
+   if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton2))
+   {
+      if (IsPressed(newValue))
+      {
+         WindowSubController &windowSubController =
+          static_cast<WindowSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Window));
+         windowSubController.SetNextSlidersPane();
+      }
+      processed = true;
+   }
+
    if (!processed && (widgetId == WidgetIds::EWidgetId::PrimaryKeyboardButton9))
    {
-      if (ButtonWidget::IsPressed(newValue))
+      if (IsPressed(newValue))
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
@@ -94,24 +111,21 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          processed = true;
       }
    }
-   if (!processed)
+   if (!processed && (widgetId == WidgetIds::EWidgetId::SyncLabelsToMixerButton))
    {
-      if (widgetId == WidgetIds::EWidgetId::SyncLabelsToMixerButton)
+      if (IsPressed(newValue))
       {
-         if (ButtonWidget::IsPressed(newValue))
+         MixerSubController &mixerSubController =
+          static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
+         std::vector<std::string> channelTitles;
+         for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
          {
-            MixerSubController &mixerSubController =
-             static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
-            std::vector<std::string> channelTitles;
-            for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
-            {
-               const std::string widgetNameChannelsSetup = "ChannelsSetupTitle" + std::to_string(channelIndex + 1);
-               channelTitles.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
-            }
-            mixerSubController.SetChannelTitles(channelTitles);
+            const std::string widgetNameChannelsSetup = "ChannelsSetupTitle" + std::to_string(channelIndex + 1);
+            channelTitles.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
          }
-         processed = true;
+         mixerSubController.SetChannelTitles(channelTitles);
       }
+      processed = true;
    }
    if (!processed)
    {
@@ -119,7 +133,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetupNextSourceBut1) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
-         if (ButtonWidget::IsPressed(newValue))
+         if (IsPressed(newValue))
          {
             MixerSubController &mixerSubController =
              static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
@@ -134,7 +148,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetupVolOverrideBut1) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
-         if (ButtonWidget::IsPressed(newValue))
+         if (IsPressed(newValue))
          {
             MixerSubController &mixerSubController =
              static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
@@ -149,7 +163,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
-         organSubController.SetPrimaryKeyboardActive(ButtonWidget::IsPressed(newValue));
+         organSubController.SetPrimaryKeyboardActive(IsPressed(newValue));
          processed = true;
       }
    }
@@ -159,7 +173,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       {
          OrganSubController &organSubController =
           static_cast<OrganSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Organ));
-         organSubController.SetSecondaryKeyboardActive(ButtonWidget::IsPressed(newValue));
+         organSubController.SetSecondaryKeyboardActive(IsPressed(newValue));
          processed = true;
       }
    }
@@ -195,7 +209,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    }
    if (!processed)
    {
-      Debug::Error(__FUNCTION__, "Illegal widgetId");
+      Debug::Error(__FUNCTION__, "Illegal widgetId, widget id = " + std::to_string(static_cast<int>(widgetId)));
    }
    Debug::LogMethodExit(__FUNCTION__);
 }
@@ -205,4 +219,16 @@ void WidgetsListener::ProcessSlider(int sliderIndex, double newValue)
    MixerSubController &mixerSubController =
     (MixerSubController &)_controller.GetSubController(SubControllers::ESubControllerId::Mixer);
    mixerSubController.SetSliderValue(sliderIndex, newValue);
+}
+
+bool WidgetsListener::IsPressed(double value)
+{
+   bool isPressed = false;
+   juce::Time currentTime = juce::Time::getCurrentTime();
+   if (currentTime - _lastButtonPressTime >= juce::RelativeTime::milliseconds(BUTTON_DEBOUNCE_TIME))
+   {
+      _lastButtonPressTime = currentTime;
+      isPressed = value >= 0.5;
+   }
+   return isPressed;
 }

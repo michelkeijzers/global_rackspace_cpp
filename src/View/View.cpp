@@ -26,6 +26,11 @@ Model &View::GetModel()
    return _model;
 }
 
+SubViews& View::GetSubViews()
+{
+   return _subViews;
+}
+
 WidgetIds &View::GetWidgetIds()
 {
    return _widgetIds;

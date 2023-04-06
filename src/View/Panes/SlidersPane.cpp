@@ -180,10 +180,40 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
 
 void SlidersPane::UpdateTab()
 {
+   UpdateTabs();
    bool drawbarsSelected = _mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars;
    UpdateTabShowSliders(drawbarsSelected);
    UpdateTabShowOrganWidgets(drawbarsSelected);
    UpdateTabUpdateValues(drawbarsSelected);
+}
+
+void SlidersPane::UpdateTabs()
+{
+   std::vector<WidgetIds::EWidgetId> tabs = {WidgetIds::EWidgetId::SlidersPaneTabOrgan,
+    WidgetIds::EWidgetId::SlidersPaneTabChannels1To8, WidgetIds::EWidgetId::SlidersPaneTabChannels9To16,
+    WidgetIds::EWidgetId::SlidersPaneTabChannels17To24};
+
+   MixerSubModel::ETabSelection tabSelection = _mixerSubModel.GetTabSelection();
+   Debug::Log("TODO UpdateTab selection = " + std::to_string(static_cast<int>(tabSelection)) +
+              ", organ is enabled = " + std::to_string(_organSubModel.IsEnabled()));
+   for (int widgetIndex = 0; widgetIndex < tabs.size(); widgetIndex++)
+   {
+      int thickness = 1;
+      if (((tabs[widgetIndex] == WidgetIds::EWidgetId::SlidersPaneTabOrgan) &&
+           (tabSelection == MixerSubModel::ETabSelection::Drawbars)) ||
+          ((tabs[widgetIndex] == WidgetIds::EWidgetId::SlidersPaneTabChannels1To8) &&
+           (tabSelection == MixerSubModel::ETabSelection::Channels1To8)) ||
+          ((tabs[widgetIndex] == WidgetIds::EWidgetId::SlidersPaneTabChannels9To16) &&
+           (tabSelection == MixerSubModel::ETabSelection::Channels9To16)) ||
+          ((tabs[widgetIndex] == WidgetIds::EWidgetId::SlidersPaneTabChannels17To24) &&
+           (tabSelection == MixerSubModel::ETabSelection::Channels17To24)))
+      {
+         thickness = 5;
+      }
+      Widget &widget = GetWidgets().GetWidget(tabs[widgetIndex]);
+      TextWidget &textWidget = static_cast<TextWidget &>(widget);
+      textWidget.SetWidgetOutlineThickness(thickness);
+   }
 }
 
 void SlidersPane::UpdateTabShowOrganWidgets(bool organDrawbarsSelected)

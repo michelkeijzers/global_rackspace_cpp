@@ -221,8 +221,8 @@ void WidgetIds::FillSlidersPane()
    _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels1To8", EWidgetId::SlidersPaneBox));
    _idToNames.push_back("SlidersPaneTabChannels9To16");
    _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels9To16", EWidgetId::SlidersPaneBox));
-   _idToNames.push_back("SlidersPaneTabChannels16To24");
-   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels16To24", EWidgetId::SlidersPaneBox));
+   _idToNames.push_back("SlidersPaneTabChannels17To24");
+   _nameToIds.insert(std::pair<std::string, EWidgetId>("SlidersPaneTabChannels17To24", EWidgetId::SlidersPaneBox));
    for (int drawbarIndex = 0; drawbarIndex < OrganPane::NR_OF_DRAWBAR_SLIDERS; drawbarIndex++)
    {
       std::string widgetName = "OrganDrawbar" + std::to_string(drawbarIndex + 1);

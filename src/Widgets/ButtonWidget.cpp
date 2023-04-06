@@ -17,8 +17,3 @@ bool ButtonWidget::IsPressed()
 {
    return _isPressed;
 }
-
-/* static */ bool ButtonWidget::IsPressed(double value)
-{
-   return value >= 0.5;
-}

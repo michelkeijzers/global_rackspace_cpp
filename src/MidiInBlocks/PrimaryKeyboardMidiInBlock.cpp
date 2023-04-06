@@ -36,14 +36,14 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
    {
    case ECCs::Knob1: {
       OrganSubController &organSubController =
-       (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+       static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
       organSubController.SetDrive(MidiUtilities::MidiToParam(value));
       handleMessage = false;
    }
    break;
    case ECCs::Knob2: {
       OrganSubController &organSubController =
-       (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+       static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
       organSubController.SetReverbAmount(MidiUtilities::MidiToParam(value));
       handleMessage = false;
    }
@@ -73,7 +73,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
       if (value == VALUE_BUTTON_PRESSED)
       {
          OrganSubController &organSubController =
-          (OrganSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
+          static_cast<OrganSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Organ));
          organSubController.SwapRotatorSpeed();
          handleMessage = false;
       }
@@ -82,7 +82,7 @@ bool PrimaryKeyboardMidiInBlock::HandleCcMessage(uint8_t ccNumber, uint8_t value
       if (value == VALUE_BUTTON_PRESSED)
       {
          WindowSubController &windowSubController =
-          (WindowSubController &)(GetController().GetSubController(SubControllers::ESubControllerId::Window));
+          static_cast<WindowSubController &>(GetController().GetSubController(SubControllers::ESubControllerId::Window));
          windowSubController.SetNextSlidersPane();
          handleMessage = false;
       }

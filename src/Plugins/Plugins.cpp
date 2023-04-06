@@ -32,7 +32,7 @@ void Plugins::Fill()
      "AudioMixerChannels17To24"));
    _plugins.push_back(new GainAndBalanceControlPlugin(_view,
     static_cast<MixerSubModel &>(_model.GetSubModel(SubModels::ESubModelId::Mixer)),
-    "GainAndBalanceControlMainVolume"));
+    "GainAndBalanceMainVolume"));
 
    for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
    {

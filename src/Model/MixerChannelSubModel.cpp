@@ -7,6 +7,8 @@
 #include "../Utilities/VersionUtilities.h"
 #include "Model.h"
 #include "SubModels.h"
+#include <juce_core/juce_core.h>
+#include <juce_core/time/juce_Time.h>
 #include <string>
 
 static std::string SUB_MODEL_NAME = "MixerChannel";
@@ -75,7 +77,7 @@ int MixerChannelSubModel::Deserialize(std::vector<std::string> lines, int curren
     StringUtilities::ParseDoubleKey(lines[currentLineIndex], SerializationParametersMapping[EParameters::Volume]));
    currentLineIndex++;
    SetSource(static_cast<ESource>(StringUtilities::ParseIntKey(
-    lines[currentLineIndex], SerializationParametersMapping[EParameters::Source], 0, (int)ESource::Last)));
+    lines[currentLineIndex], SerializationParametersMapping[EParameters::Source], 0, static_cast<int>(ESource::Last))));
    currentLineIndex++;
    SetVolumeOverride(StringUtilities::ParseBooleanKey(
     lines[currentLineIndex], SerializationParametersMapping[EParameters::IsVolumeOverridden]));
