@@ -35,4 +35,6 @@ class Model : public Observable
    std::string _version;
 
    bool _forcedMode;
+
+	std::string _currentlyLoadedRackspace;
 };

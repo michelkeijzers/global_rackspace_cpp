@@ -17,6 +17,5 @@ class KeyboardSubController : public SubController
 
  private:
    KeyboardSubModel &_keyboardSubModel;
-   bool _primaryKeyboard;
    bool _sustainEnabled;
 };

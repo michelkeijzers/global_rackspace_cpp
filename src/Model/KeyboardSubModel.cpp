@@ -18,7 +18,7 @@ static std::map<KeyboardSubModel::EParameters, std::string> SerializationParamet
  SerializationParametersPairs + sizeof SerializationParametersPairs / sizeof SerializationParametersPairs[0]);
 
 KeyboardSubModel::KeyboardSubModel(Model &model, bool isPrimaryKeyboard)
-    : SubModel(model), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0)
+    : SubModel(model), _isPrimaryKeyboard(isPrimaryKeyboard), _sustainEnabled(false), _expressionVolume(0.0)
 {
    Debug::Assert(SerializationParametersMapping.size() == static_cast<int>(EParameters::Last), __FUNCTION__,
     "Serialization parameter names incorrect");
@@ -27,7 +27,7 @@ KeyboardSubModel::KeyboardSubModel(Model &model, bool isPrimaryKeyboard)
 void KeyboardSubModel::Init() // override
 {
    _sustainEnabled = false;
-   _expressionVolume = 0;
+   _expressionVolume = 0.0;
 }
 
 const std::string KeyboardSubModel::GetName() /* override */
@@ -86,8 +86,13 @@ double KeyboardSubModel::GetExpressionVolume()
 
 void KeyboardSubModel::SetExpressionVolume(double volume)
 {
+   Debug::Log("VOL 80");
+
    if (IsForcedMode() || !DoubleUtilities::AreEqual(volume, _expressionVolume))
    {
+      Debug::Log(
+       "VOL 81 _expressionVolume = " + std::to_string(_expressionVolume) + ", volume = " + std::to_string(volume));
+
       _expressionVolume = volume;
       Debug::Log("# " + GetName() + ": Expression volume = " + std::to_string(_expressionVolume));
       Notify(_isPrimaryKeyboard ? ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume

@@ -56,11 +56,6 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
       }
    }
 
-	bugs: when opening GP, when changing source name, slider pane source name is not updated, when changing tab selection it works, solution: notify tab selection
-	      when opening GP, organ visible, while not enabled (primary/secondary keyboard off)
-			sync channel names clears all names
-
-	
    if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) &&
        (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
    {

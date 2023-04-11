@@ -10,11 +10,11 @@
 #include "KeyboardSubController.h"
 #include "SubController.h"
 
-KeyboardSubController::KeyboardSubController(Controller &controller, bool primaryKeyboard)
+KeyboardSubController::KeyboardSubController(Controller &controller, bool isPrimaryKeyboard)
     : SubController(controller),
-      _keyboardSubModel((KeyboardSubModel &)controller.GetModel().GetSubModel(
-       primaryKeyboard ? SubModels::ESubModelId::PrimaryKeyboard : SubModels::ESubModelId::SecondaryKeyboard)),
-      _primaryKeyboard(primaryKeyboard), _sustainEnabled(false)
+      _keyboardSubModel((KeyboardSubModel &)(controller.GetModel().GetSubModel(
+       isPrimaryKeyboard ? SubModels::ESubModelId::PrimaryKeyboard : SubModels::ESubModelId::SecondaryKeyboard))),
+      _sustainEnabled(false)
 {
 }
 
@@ -32,8 +32,10 @@ void KeyboardSubController::EnableSustain(bool sustain, bool forced /* = false *
 
 void KeyboardSubController::SetExpressionVolume(double volume, bool forced /* = false */)
 {
-   if (forced || (volume != _keyboardSubModel.GetExpressionVolume()))
+   Debug::Log("VOL 050");
+   if (forced || (DoubleUtilities::AreEqual(volume, _keyboardSubModel.GetExpressionVolume())))
    {
+      Debug::Log("VOL 51 forced = " + std::to_string(forced) + ", volume = " + std::to_string(volume));
       _keyboardSubModel.SetExpressionVolume(volume);
    }
 }

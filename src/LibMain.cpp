@@ -85,6 +85,7 @@ void LibMain::OnWidgetCaptionChanged(const std::string &widgetName, const std::s
 
 void LibMain::OnSongChanged(int oldIndex, int newIndex)
 {
+    Debug::Log("LS 400");
     _mvcFramework.GetController().OnSongChanged(oldIndex, newIndex);
 }
 

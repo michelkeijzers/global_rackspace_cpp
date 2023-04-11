@@ -49,22 +49,25 @@ View &Controller::GetView()
 
 void Controller::OnSongChanged(int oldIndex, int newIndex)
 {
-
+   Debug::Log("LS 400");
    _model.LoadSong(); // TODO
 }
 
 void Controller::OnPreviousSong()
 {
+   Debug::Log("LS 401");
    _model.LoadSong(); // TODO
 }
 
 void Controller::OnNextSong()
 {
+   Debug::Log("LS 402");
    _model.LoadSong(); // TODO
 }
 
 void Controller::WriteSong()
 {
+   Debug::Log("LS 403");
    _model.WriteSong();
 }
 

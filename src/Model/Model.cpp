@@ -8,7 +8,7 @@
 #include "OrganSubModel.h"
 #include <juce_core/juce_core.h>
 
-Model::Model() : _subModels(*this), _version("0.1"), _forcedMode(false)
+Model::Model() : _subModels(*this), _version("0.1"), _forcedMode(false), _currentlyLoadedRackspace("")
 {
    DoubleUtilities::SetMaximumEqualityDifference(MidiUtilities::MidiToParam(1));
 }
@@ -30,20 +30,36 @@ SubModel &Model::GetSubModel(SubModels::ESubModelId id)
 
 bool Model::LoadSong()
 {
-   const int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
-   const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
-   const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
-   juce::File file(fileName);
-   if (!file.existsAsFile())
+   Debug::Log("LS 450");
+   int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
+   if (rackspaceIndex == -1)
    {
-      Debug::Error(__FUNCTION__, "File " + fileName + " does not exist as file");
-      return false;
+      Debug::Log("LS 451");
+      rackspaceIndex = 0;
    }
-   std::string fileText = file.loadFileAsString().toStdString();
-   std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
-   _forcedMode = true;
-   Deserialize(lines);
-   _forcedMode = false;
+   const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
+   Debug::Log("LS 451 rack in = " + std::to_string(rackspaceIndex) + ", rackspaceName = " + rackspaceName +
+              ", loaded = " + _currentlyLoadedRackspace);
+   if (rackspaceName != _currentlyLoadedRackspace)
+   {
+      Debug::Log("LoadSong:: rackspaceIndex = " + std::to_string(rackspaceIndex));
+      Debug::Log("LoadSong:: rackspaceName = " + rackspaceName);
+      const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
+      juce::File file(fileName);
+      if (!file.existsAsFile())
+      {
+         Debug::Error(__FUNCTION__, "File " + fileName + " does not exist as file");
+         return false;
+      }
+      std::string fileText = file.loadFileAsString().toStdString();
+      std::vector<std::string> lines = StringUtilities::ToStringVector(fileText);
+      _forcedMode = true;
+      Deserialize(lines);
+      _forcedMode = false;
+      _currentlyLoadedRackspace = rackspaceName;
+      Debug::Log("LS 452");
+   }
+   Debug::Log("LS 460");
    return true;
 }
 

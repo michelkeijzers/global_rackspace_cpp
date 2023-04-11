@@ -56,6 +56,8 @@ void MvcFramework::Init()
 
    _controller->Fill();
    _controller->Init();
+	
+	_model->LoadSong();
 }
 
 /* static */ gigperformer::sdk::GigPerformerAPI &MvcFramework::GetGigPerformerApi()
