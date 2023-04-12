@@ -336,7 +336,7 @@ class WidgetIds
    void FillPrimaryKeyboardButtonsPane();
    void FillFootBoardPane();
    void FillChannelsSetupPane();
-   void FillOrganSetupPane();
+   void FillPluginSetupPane();
 
    std::vector<std::string> _idToNames;
    std::map<std::string, EWidgetId> _nameToIds;

@@ -55,12 +55,10 @@ void FootBoardPane::Update(ChangedProperties::EChangedProperty changedProperty) 
 {
    if (changedProperty == ChangedProperties::EChangedProperty::PrimaryKeyboardExpressionVolume)
    {
-      Debug::Log("VOL 100");
       UpdateFootPedal(WidgetIds::EWidgetId::LeftFootPedal, _primaryKeyboardSubModel.GetExpressionVolume());
    }
    else if (changedProperty == ChangedProperties::EChangedProperty::SecondaryKeyboardExpressionVolume)
    {
-      Debug::Log("VOL 200");
       UpdateFootPedal(WidgetIds::EWidgetId::RightFootPedal, _secondaryKeyboardSubModel.GetExpressionVolume());
    }
 }
@@ -69,6 +67,5 @@ void FootBoardPane::UpdateFootPedal(WidgetIds::EWidgetId widgetId, double volume
 {
    Widget &widget = GetWidgets().GetWidget(widgetId);
    ValueWidget &valueWidget = static_cast<ValueWidget &>(widget);
-   Debug::Log("VOL 300 volume = " + std::to_string(volume));
    valueWidget.SetValue(volume);
 }

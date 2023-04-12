@@ -181,16 +181,11 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
 
 void SlidersPane::UpdateTab()
 {
-   Debug::Log("UT1");
    UpdateTabs();
-   Debug::Log("UT100");
    bool drawbarsSelected = _mixerSubModel.GetTabSelection() == MixerSubModel::ETabSelection::Drawbars;
    UpdateTabShowSliders(drawbarsSelected);
-   Debug::Log("UT200");
    UpdateTabShowOrganWidgets(drawbarsSelected);
-   Debug::Log("UT300");
    UpdateTabUpdateValues(drawbarsSelected);
-   Debug::Log("UT400");
 }
 
 void SlidersPane::UpdateTabs()
@@ -202,7 +197,6 @@ void SlidersPane::UpdateTabs()
    MixerSubModel::ETabSelection tabSelection = _mixerSubModel.GetTabSelection();
    for (int widgetIndex = 0; widgetIndex < tabs.size(); widgetIndex++)
    {
-      Debug::Log("UT Tab = " + std::to_string((int)(_mixerSubModel.GetTabSelection())));
       int thickness = 1;
       if (((tabs[widgetIndex] == WidgetIds::EWidgetId::SlidersPaneTabOrgan) &&
            (tabSelection == MixerSubModel::ETabSelection::Drawbars)) ||
@@ -460,9 +454,6 @@ void SlidersPane::CheckUpdateChannelSource(int &index, ChangedProperties::EChang
    {
       if (IsChannelIndexActive(index))
       {
-         Debug::Log(
-          "UT 111 changedProperty = " + std::to_string((int)changedProperty) + ", index = " + std::to_string(index));
-         Debug::Log("UT 113");
          UpdateChannelSource(index);
       }
    }
@@ -475,15 +466,12 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
    TextWidget &textWidget = static_cast<TextWidget &>(widget);
    textWidget.SetText(_mixerSubModel.GetChannelSourceName(channelIndex));
    int channelOffset = _mixerSubModel.GetChannelOffset();
-   Debug::Log("UT 115 channelOffset = " + std::to_string(channelOffset));
-
    if (channelOffset >= 0)
    {
       Widget &boxWidget =
          GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1, channelIndex % NR_OF_CHANNEL_SLIDERS);
       ShapeWidget &shapeWidget = static_cast<ShapeWidget &>(boxWidget);
 
-		Debug::Log("UT 116");
       switch (_mixerSubModel.GetChannelSource(channelIndex))
       {
       case MixerChannelSubModel::ESource::Off: shapeWidget.SetWidgetFillColor(0.1, 0.1, 0.1, 1.0); break;

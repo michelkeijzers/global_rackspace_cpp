@@ -32,10 +32,8 @@ void KeyboardSubController::EnableSustain(bool sustain, bool forced /* = false *
 
 void KeyboardSubController::SetExpressionVolume(double volume, bool forced /* = false */)
 {
-   Debug::Log("VOL 050");
-   if (forced || (DoubleUtilities::AreEqual(volume, _keyboardSubModel.GetExpressionVolume())))
+   if (forced || !DoubleUtilities::AreEqual(volume, _keyboardSubModel.GetExpressionVolume()))
    {
-      Debug::Log("VOL 51 forced = " + std::to_string(forced) + ", volume = " + std::to_string(volume));
       _keyboardSubModel.SetExpressionVolume(volume);
    }
 }

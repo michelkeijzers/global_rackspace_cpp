@@ -39,21 +39,15 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    int index = WidgetIds::GetIndexOfOrganDrawbar(widgetId);
    if (widgetId == WidgetIds::EWidgetId::LeftFootPedal)
    {
-      if (newValue > 0.0001) // TODO: Find out why  needed (crashes otherwise)
-      {
-         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
-          _controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
-         keyboardSubController.SetExpressionVolume(newValue);
-      }
+      KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+         _controller.GetSubController(SubControllers::ESubControllerId::PrimaryKeyboard));
+      keyboardSubController.SetExpressionVolume(newValue);
    }
    if (widgetId == WidgetIds::EWidgetId::RightFootPedal)
    {
-      if (newValue > 0.0001) // TODO: Find out why  needed (crashes otherwise)
-      {
-         KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
-          _controller.GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
-         keyboardSubController.SetExpressionVolume(newValue);
-      }
+      KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
+         _controller.GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
+      keyboardSubController.SetExpressionVolume(newValue);
    }
 
    if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) &&
@@ -150,14 +144,11 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    if (!processed)
    {
       index = WidgetIds::GetIndexOfChannelsSetupNextSourceButton(widgetId);
-      Debug::Log("TODO NS1");
       if ((widgetId >= WidgetIds::EWidgetId::ChannelsSetupNextSourceBut1) &&
           (index < MixerSubModel::NR_OF_MIXER_CHANNELS))
       {
-         Debug::Log("TODO NS2");
          if (IsPressed(newValue))
          {
-            Debug::Log("TODO NS3");
             MixerSubController &mixerSubController =
              static_cast<MixerSubController &>(_controller.GetSubController(SubControllers::ESubControllerId::Mixer));
             mixerSubController.SelectNextSource(index);

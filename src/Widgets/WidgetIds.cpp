@@ -201,7 +201,7 @@ void WidgetIds::Fill()
    FillPrimaryKeyboardButtonsPane();
    FillFootBoardPane();
    FillChannelsSetupPane();
-   FillOrganSetupPane();
+   FillPluginSetupPane();
    Debug::Assert(_idToNames.size() == static_cast<size_t>(WidgetIds::EWidgetId::Last), __FUNCTION__,
     "Widget ID to Names list does not match");
    Debug::Assert(_nameToIds.size() == static_cast<size_t>(WidgetIds::EWidgetId::Last), __FUNCTION__,
@@ -381,7 +381,7 @@ void WidgetIds::FillChannelsSetupPane()
    }
 }
 
-void WidgetIds::FillOrganSetupPane()
+void WidgetIds::FillPluginSetupPane()
 {
    std::string widgetName;
    widgetName = "OrganSetupPaneBox";

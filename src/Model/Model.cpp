@@ -30,20 +30,14 @@ SubModel &Model::GetSubModel(SubModels::ESubModelId id)
 
 bool Model::LoadSong()
 {
-   Debug::Log("LS 450");
    int rackspaceIndex = MvcFramework::GetGigPerformerApi().getCurrentRackspaceIndex();
    if (rackspaceIndex == -1)
    {
-      Debug::Log("LS 451");
       rackspaceIndex = 0;
    }
    const std::string rackspaceName = MvcFramework::GetGigPerformerApi().getRackspaceName(rackspaceIndex);
-   Debug::Log("LS 451 rack in = " + std::to_string(rackspaceIndex) + ", rackspaceName = " + rackspaceName +
-              ", loaded = " + _currentlyLoadedRackspace);
    if (rackspaceName != _currentlyLoadedRackspace)
    {
-      Debug::Log("LoadSong:: rackspaceIndex = " + std::to_string(rackspaceIndex));
-      Debug::Log("LoadSong:: rackspaceName = " + rackspaceName);
       const std::string fileName = "D:\\JuceOutput\\Rackspaces\\" + rackspaceName;
       juce::File file(fileName);
       if (!file.existsAsFile())
@@ -57,9 +51,7 @@ bool Model::LoadSong()
       Deserialize(lines);
       _forcedMode = false;
       _currentlyLoadedRackspace = rackspaceName;
-      Debug::Log("LS 452");
    }
-   Debug::Log("LS 460");
    return true;
 }
 
