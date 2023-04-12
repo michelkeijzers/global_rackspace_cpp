@@ -13,6 +13,7 @@
 #include "../View/View.h"
 #include "ButtonWidget.h"
 #include "WidgetIds.h"
+
 #ifdef TESTER
 #include "../../../JuceTester2/NewProject/Builds/VisualStudio2022/Source/GP_API/GigPerformerAPI.h"
 #else
@@ -37,6 +38,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
    WidgetIds::EWidgetId widgetId = _widgetIds.GetId(widgetName);
    Debug::Log("@-- On Widget " + widgetName + ": value = " + std::to_string(newValue));
    int index = WidgetIds::GetIndexOfOrganDrawbar(widgetId);
+   /* TODO
    if (widgetId == WidgetIds::EWidgetId::LeftFootPedal)
    {
       KeyboardSubController &keyboardSubController = static_cast<KeyboardSubController &>(
@@ -49,7 +51,7 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          _controller.GetSubController(SubControllers::ESubControllerId::SecondaryKeyboard));
       keyboardSubController.SetExpressionVolume(newValue);
    }
-
+	*/
    if ((widgetId >= WidgetIds::EWidgetId::OrganDrawbar1) &&
        (index < OrganPane::NR_OF_DRAWBAR_SLIDERS))
    {
@@ -135,7 +137,8 @@ void WidgetsListener::OnWidgetValueChanged(const std::string &widgetName, double
          for (int channelIndex = 0; channelIndex < MixerSubModel::NR_OF_MIXER_CHANNELS; channelIndex++)
          {
             const std::string widgetNameChannelsSetup = "ChannelsSetupTitle" + std::to_string(channelIndex + 1);
-            channelTitles.push_back(MvcFramework::GetGigPerformerApi().getWidgetTextValue(widgetNameChannelsSetup));
+            const std::string title = MvcFramework::GetGigPerformerApi().getWidgetCaption(widgetNameChannelsSetup);
+            channelTitles.push_back(title);
          }
          mixerSubController.SetChannelTitles(channelTitles);
       }
@@ -235,7 +238,6 @@ bool WidgetsListener::IsPressed(double value)
 {
    bool isPressed = false;
    juce::Time currentTime = juce::Time::getCurrentTime();
-
    if (currentTime - _lastButtonPressTime >= juce::RelativeTime::milliseconds(BUTTON_DEBOUNCE_TIME))
    {
       _lastButtonPressTime = currentTime;

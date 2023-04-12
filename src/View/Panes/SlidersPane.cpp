@@ -47,8 +47,6 @@ void SlidersPane::Fill() // override
    GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      GetWidgets().AddWidget(widgetId, new ValueWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSliderNumber(sliderIndex);
       GetWidgets().AddWidget(widgetId, new TextWidget(GetView().GetWidgetIds(), widgetId, false));
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
@@ -108,8 +106,6 @@ void SlidersPane::Relayout() // override
       const double nameHeightPercentage = (1.0 - paneTitleHeightPercentage) * 0.2;
       const double sourceHeightPercentage =
        1.0 - paneTitleHeightPercentage - numberHeightPercentage - sliderHeightPercentage - nameHeightPercentage;
-      SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex), sliderIndex * channelWidth,
-       paneTitleHeightPercentage, channelWidth, 1.0 - paneTitleHeightPercentage, 0.0);
       SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSliderNumber(sliderIndex), sliderIndex * channelWidth,
        paneTitleHeightPercentage, channelWidth, numberHeightPercentage, 0.0);
       SetWidgetBounds(WidgetIds::GetPrimaryKeyboardSlider(sliderIndex), sliderIndex * channelWidth,
@@ -147,6 +143,14 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
       UpdateDrawbar(index);
    }
 
+	if (changedProperty == ChangedProperties::EChangedProperty::OrganIsEnabled)
+	{
+      const std::string organTabText = _organSubModel.IsEnabled() ? "ORGAN" : "";
+      TextWidget organTabWidget =
+       static_cast<TextWidget &>(GetWidgets().GetWidget(WidgetIds::EWidgetId::SlidersPaneTabOrgan));
+      organTabWidget.SetText(organTabText);
+	}
+
    CheckUpdateMixerChannelVolume(index, changedProperty);
    CheckUpdateMixerChannelLevelLeft(index, changedProperty);
    CheckUpdateMixerChannelLevelRight(index, changedProperty);
@@ -161,7 +165,6 @@ void SlidersPane::Update(ChangedProperties::EChangedProperty changedProperty) /*
    }
 
    CheckUpdateChannelLastTimeGateLeftActive(index, changedProperty);
-
    CheckUpdateChannelLastTimeGateRightActive(index, changedProperty);
 
    if ((changedProperty == ChangedProperties::EChangedProperty::MasterLastTimeGateLeftActive) ||
@@ -232,8 +235,6 @@ void SlidersPane::UpdateTabShowSliders(bool drawbarsSelected)
    // TODO: CONSIDER FIRST/LAST_SLIDER_PANE_WIDGET ENUM VALUES EQUAL TO START/END WIDGETS TO USE A SIMPLE FOR LOOP
    for (int sliderIndex = 0; sliderIndex < NR_OF_SLIDERS; sliderIndex++)
    {
-      widgetId = WidgetIds::GetPrimaryKeyboardSliderBox(sliderIndex);
-      GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSlider(sliderIndex);
       GetWidgets().GetWidget(widgetId).Show(!drawbarsSelected);
       widgetId = WidgetIds::GetPrimaryKeyboardSliderLevelLeft(sliderIndex);
@@ -468,19 +469,15 @@ void SlidersPane::UpdateChannelSource(int channelIndex)
    int channelOffset = _mixerSubModel.GetChannelOffset();
    if (channelOffset >= 0)
    {
-      Widget &boxWidget =
-         GetWidgets().GetWidget(WidgetIds::EWidgetId::PrimaryKeyboardSliderBox1, channelIndex % NR_OF_CHANNEL_SLIDERS);
-      ShapeWidget &shapeWidget = static_cast<ShapeWidget &>(boxWidget);
-
       switch (_mixerSubModel.GetChannelSource(channelIndex))
       {
-      case MixerChannelSubModel::ESource::Off: shapeWidget.SetWidgetFillColor(0.1, 0.1, 0.1, 1.0); break;
-      case MixerChannelSubModel::ESource::PrimaryKeyboard: shapeWidget.SetWidgetFillColor(1.0, 1.0, 0.0, 1.0); break;
+      case MixerChannelSubModel::ESource::Off: textWidget.SetWidgetFillColor(0.1, 0.1, 0.1, 0.5); break;
+      case MixerChannelSubModel::ESource::PrimaryKeyboard: textWidget.SetWidgetFillColor(1.0, 0.0, 0.0, 0.5); break;
       case MixerChannelSubModel::ESource::PrimaryKeyboardPads:
-         shapeWidget.SetWidgetFillColor(1.0, 0.0, 1.0, 1.0);
+         textWidget.SetWidgetFillColor(0.0, 0.5, 0.0, 0.5);
          break;
       case MixerChannelSubModel::ESource::SecondaryKeyboard:
-         shapeWidget.SetWidgetFillColor(0.0, 1.0, 1.0, 1.0);
+         textWidget.SetWidgetFillColor(0.0, 0.0, 1.0, 0.5);
          break;
       default: Debug::Error(__FUNCTION__, "Illelgal source");
       }

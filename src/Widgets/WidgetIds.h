@@ -27,16 +27,6 @@ class WidgetIds
       OrganDrawbar8,
       OrganDrawbar9,
 
-      PrimaryKeyboardSliderBox1,
-      PrimaryKeyboardSliderBox2,
-      PrimaryKeyboardSliderBox3,
-      PrimaryKeyboardSliderBox4,
-      PrimaryKeyboardSliderBox5,
-      PrimaryKeyboardSliderBox6,
-      PrimaryKeyboardSliderBox7,
-      PrimaryKeyboardSliderBox8,
-      PrimaryKeyboardSliderBox9,
-
       PrimaryKeyboardSliderNumber1,
       PrimaryKeyboardSliderNumber2,
       PrimaryKeyboardSliderNumber3,
